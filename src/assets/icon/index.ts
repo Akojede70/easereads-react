@@ -1,0 +1,12 @@
+export { default as Google } from './google';
+export { default as Email } from './email';
+export { default as  Padlock} from './padlock';
+export { default as ClosePassword } from './closepassword';
+export { default as Person } from './person';
+export { default as Subject } from './subject';
+export { default as Cap } from './cap';
+export { default as Call } from './call';
+export { default as Program } from './program';
+export { default as Verified } from './verified';
+export { default as  Back } from './back';
+export { default as  Lock } from './lock';
