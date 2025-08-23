@@ -12,8 +12,8 @@ export type RegisterFormData = {
 
 export const registerUser = async (payload: RegisterFormData) => {
     const response = await axiosInstance.post('/api/v2/student/register', payload);
-        const { accessToken } = response.data.data;
-        localStorage.setItem('token', accessToken); 
+        // const { accessToken } = response.data.data;
+        // localStorage.setItem('token', accessToken); 
     return response.data;
 };
 

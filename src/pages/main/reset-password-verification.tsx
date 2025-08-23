@@ -104,8 +104,8 @@ const PasswordVerification = () => {
         <Lock/>
         
       </div>
-      <div className="w-full sm:w-[60%] bg-primaryWhite flex items-center justify-center">
-        <div className="w-[94%] sm:w-[90%] lg:w-[70%] bg-primaryWhite flex flex-col items-center justify-center h-[85%] sm:h-[551px]  sm:rounded-[20px] px-[18px] sm:px-[50px] lg:px-[100px]  sm:py-[30px] sm:shadow-2xl">
+      <div className="w-full  sm:w-[60%] bg-primaryWhite flex items-center justify-center">
+        <div className="w-[94%] border border-primaryBlue sm:border-none sm:w-[90%] lg:w-[70%] bg-primaryWhite flex flex-col items-center justify-center h-[85%] sm:h-[551px]  sm:rounded-[20px] px-[18px] sm:px-[50px] lg:px-[100px]  sm:py-[30px] sm:shadow-2xl">
             <div className=' mt-[50px] lg:mt-[20px] text-center'>
                 <h2 className="text-primaryBlue text-2xl font-bold mb-[50px]"> Email Verification </h2>
                 <p className="text-primaryGrey text-sm sm:text-[18px]">Enter 6 digit verification code sent to </p>

@@ -128,14 +128,14 @@ const Verifications = () => {
   return (
     <div>
         <div className="w-full relative">
-            <div onClick={() => navigate(-1)}  className='absolute top-[5%] left-[8%] flex gap-[10px] cursor-pointer z-50'>
+            <div onClick={() => navigate(-1)}  className='absolute top-[2%] sm:top-[5%] left-[8%] flex gap-[10px] cursor-pointer z-50'>
                    <Back /> <p className='text-primaryWhite'> Back </p>
                 </div>
                 <img src={Verification} alt="image" className="w-full h-screen" />
                 
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-black/32  via-black/45 to-transparent  flex justify-center items-center">
                 
-                 <div className="w-[94%] sm:w-[90%] lg:w-[36%] bg-[#f5f5f5] h-[85%] sm:h-[551px]  sm:rounded-[20px] px-[18px] sm:px-[50px] lg:px-[100px]  sm:py-[30px] sm:shadow-lg">
+                 <div className="flex flex-col items-center justify-center w-[94%] sm:w-[90%] lg:w-[36%] bg-[#f5f5f5] h-[76%] sm:h-[551px]  sm:rounded-[20px] px-[18px] sm:px-[50px] lg:px-[100px]  sm:py-[30px] sm:shadow-lg">
             <div className=' mt-[50px] lg:mt-[20px] text-center'>
                 <h2 className="text-primaryBlue text-2xl font-bold mb-[30px]"> Email Verification </h2>
                 <p className="text-primaryGrey text-sm sm:text-[18px]">Enter 6 digit verification code sent to </p>
