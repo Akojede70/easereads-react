@@ -10,7 +10,7 @@ const Verify = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate('/login')
+      navigate('/student')
     }, 5000)
 
     return () => clearTimeout(timer)

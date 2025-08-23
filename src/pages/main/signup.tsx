@@ -54,14 +54,16 @@ const Signup = () => {
                   try {
                 setLoading(true)
                 const payload = {
-  
               firstName: formData.firstName,
               lastName: formData.lastName,
               email: formData.email,
               password: formData.password,
             }
              const response = await registerUser(payload);
-             dispatch(setCredentials({ email: formData.email}))
+             dispatch(setCredentials({ 
+              email: response.data.email,
+              accessToken: response.data.accessToken
+            }))
                     setShowAlert(true)
                     setAlertMessage(response?.message)
                     setAlertStatus('success')

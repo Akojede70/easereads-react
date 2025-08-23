@@ -47,14 +47,23 @@ const Login = () => {
             }
              const response = await loginUser(payload);
                 dispatch(setCredentials({ 
-                  email: formData.email,
-                  firstName: response.firstName,
-                  lastName: response.lastName
+                  email: response.data.email,
+                  firstName: response.data.firstName,
+                  lastName: response.data.lastName,
+                  accessToken: response.data.accessToken
                 }))
                 setShowAlert(true)
                 setAlertMessage(response?.message)
                 setAlertStatus('success')
-                setTimeout(() => { setShowAlert(false); navigate("/dashboard"); }, 5000)
+                setTimeout(() => { setShowAlert(false); 
+                  const step = response?.data?.step;
+                  if (step === 1) {
+                    navigate('/verification')
+                  } else if (step === 2 ) {
+                    navigate('/student')
+                  } else {
+                       navigate("/dashboard")
+                  } }, 5000)
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
                if (error.response) {

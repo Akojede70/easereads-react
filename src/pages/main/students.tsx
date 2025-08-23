@@ -137,7 +137,7 @@ const Student = () => {
                 <input
                   name='email'
                   type="email"
-                  placeholder='Enter email'
+                  placeholder='Enter your email'
                   className="w-full outline-none pl-3 text-center h-[45px]"
                   value={formData.email}
                   onChange={(e) => r.onChange(e)}

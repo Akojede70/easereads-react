@@ -18,6 +18,7 @@ const CreatePassword = () => {
       const [alertMessage, setAlertMessage] = useState('')
       const [alertStatus, setAlertStatus] = useState('')
       const resetToken = sessionStorage.getItem("resetToken");
+
        const [formData, setFormData] = useState({
               password: '',
               confirmPassword: '',
@@ -54,7 +55,9 @@ const CreatePassword = () => {
                           setShowAlert(true)
                           setAlertMessage(response?.message)
                           setAlertStatus('success')
-                          setTimeout(() => { setShowAlert(false); navigate('/password-reset-successful'); }, 5000)
+                          setTimeout(() => { setShowAlert(false);
+                          sessionStorage.removeItem('resetToken')
+                          navigate('/password-reset-successful'); }, 5000)
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   } catch (error: any) {
                      if (error.response) {
