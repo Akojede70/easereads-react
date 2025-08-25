@@ -2,7 +2,7 @@ import React from 'react';
 
 function Header() {
     return (
-        <div className="flex items-center md:py-2 px-5 md:px-6 w-[125%] right-[25%] h-[9%] bg-[#121212] relative">
+        <div className="flex items-center md:py-2 px-5 md:px-6 w-[125%] right-[25%] h-[9%] bg-primaryWhite relative">
             <div className="flex-shrink-0 md:ml-[2%] lg:ml-[5.6%] w-[60px] md:w-auto ">
                 {/* <img src={Logo} alt="logo" onClick={handleClick} className='cursor-pointer hover:scale-110 transition-transform duration-300'/> */}
             </div>
