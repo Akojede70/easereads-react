@@ -1,10 +1,11 @@
 import React from 'react'
+
 import Layout from '../../components/layout/layout'
 const overview = () => {
   return (
     <Layout name='overview'>
-      <div>
-        <p> hello world</p>
+      <div className='bg-creamWhite'>
+        <p> Emmanuel Kelvin</p>
       </div>
     </Layout>
   )

@@ -13,6 +13,7 @@
   --color-primaryGrey: #333333;
   --color-deepWhite: #106EBE;
   --color-lightWhite: #49454f;
+  --color-creamWhite: #f5f5f5;
   --color-borderColor: #e8e8e8;
 
    @keyframes slideInRight {

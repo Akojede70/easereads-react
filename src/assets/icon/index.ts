@@ -20,3 +20,6 @@ export { default as  Others } from './others';
 export { default as  Subscription } from './subscription';
 export { default as  Textbook } from './textbook';
 export { default as  Video } from './video';
+export { default as  Notification } from './notification';
+export { default as  Leaderboard } from './leaderboard';
+export { default as  Dp } from './dp';

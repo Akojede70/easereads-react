@@ -6,7 +6,7 @@ function SideBar()  {
   const navigate = useNavigate();
 
   return (
-    <div className="w-[17.5%] h-screen flex-shrink-0 bg-primaryWhite">
+    <div className="w-[12%] h-screen flex-shrink-0 bg-primaryWhite">
       <div className="pt-20 md:pt-32 lg:pt-20 lg:pl-5 flex flex-col gap-4 md:gap-2.5">
         {paths.map((x) => (
           <div key={x.id}>
