@@ -1,13 +1,19 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 import paths from './data';
+import { SidebarIcon } from '../../assets/icon';
 
 function SideBar()  {
   const navigate = useNavigate();
 
   return (
-    <div className="w-[12%] h-screen flex-shrink-0 bg-primaryWhite">
-      <div className="pt-20 md:pt-32 lg:pt-20 lg:pl-5 flex flex-col gap-4 md:gap-2.5">
+    <div className="w-[13.5%] h-screen flex-shrink-0 bg-primaryWhite border border-creamWhite">
+      <div className='flex justify-center items-center gap-[20px] mt-[25px]'>
+         <h2 className='text-2xl font-bold text-primaryBlue'> Easereads   </h2>
+         <SidebarIcon />
+      </div>
+     
+      <div className="pt-20 md:pt-32 lg:pt-10 lg:pl-5 flex flex-col gap-4 md:gap-[30px]">
         {paths.map((x) => (
           <div key={x.id}>
             <div

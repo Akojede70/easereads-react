@@ -2,7 +2,11 @@ import React from 'react';
 import { Notification, Leaderboard, Dp } from '../../assets/icon'
 import Button from '../shared/button';
 
-function navbar() {
+function Navbar() {
+
+const currentLevel = 3;
+  const progress = ((currentLevel - 1) / 4) * 100;
+
     return (
         <div className="">
             <div className='flex justify-end gap-[20px] pt-[30px] mr-[90px]'>
@@ -11,22 +15,33 @@ function navbar() {
               <p className='font-bold'> Emmanuel Kelvin</p>
             </div>
 
+            <div className='w-[95%] pl-[40px] mb-[30px] flex gap-[19.3%]'>
             <div>
-                <p className='text-4xl font-bold pt-[30px]'> Overview</p>
-                <p> Hi Emmanuel Kelvin, here's your progress today!</p>
+                <p className='text-4xl flex flex-col font-bold pt-[30px]'> Overview</p>
+                <p className='pt-[10px] w-[90%] pl-[5px]'> Hi Emmanuel Kelvin, here's your progress today!</p>
             </div>
-
-            <Leaderboard/>
-            <div className='w-[20%]'>
-              <Button >
+            <div className='w-[20%] flex h-[60px] pt-[40px]'>
+                <div>
+                   <Leaderboard/>
+                </div>
+            <div className=" w-full p-4">
+             <div className="w-full h-5 bg-blue-200 rounded-full overflow-hidden">
+               <div
+                 className="h-full bg-primaryBlue rounded-full"
+                 style={{ width: `${progress}%`, transition: 'width 0.5s ease-in-out' }}
+               />
+             </div>
+           </div>
+             <p className="w-[80%] pt-[15px]"> Level: {currentLevel}</p>
+            </div>
+            <div className='w-[15%] pt-[40px]'>
+              <Button  className='rounded-[20px]'>
                 View Leaderboard
             </Button>
             </div>
-            
-             
-           
+            </div>
         </div>
     );
 }
 
-export default navbar;
+export default Navbar;

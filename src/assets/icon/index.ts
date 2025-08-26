@@ -23,3 +23,4 @@ export { default as  Video } from './video';
 export { default as  Notification } from './notification';
 export { default as  Leaderboard } from './leaderboard';
 export { default as  Dp } from './dp';
+export { default as  SidebarIcon } from './sidebarIcon';

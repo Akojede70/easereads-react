@@ -7,14 +7,13 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-function Layout({ name = "Home", children }: LayoutProps) {
+function Layout({ children }: LayoutProps) {
   return (
     <div className="flex fixed w-full h-screen">
       <SideBar />
       <div className="w-full">
         <Navbar />
-        <div className="w-full h-screen pl-[4.8%] pt-[2%] bg-creamWhite overflow-y-scroll scrollbar-tiny">
-        <h1 className="text-white text-xl mb-4">{name}</h1>
+        <div className="w-full h-screen pl-[2.9%] pt-[2%] bg-creamWhite overflow-y-scroll scrollbar-tiny">
           {children} 
         </div>
       </div>
