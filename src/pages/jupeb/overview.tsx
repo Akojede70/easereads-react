@@ -1,7 +1,24 @@
 import React from 'react'
 import Layout from '../../components/layout/layout'
+// @ts-expect-error -> typescript not included in the library for progress-bar
+import SemiCircleProgressBar from "react-progressbar-semicircle";
+import { Dot, ExamIcon, ExpiredIcon, ReferralIcon, StreakIcon, TextbookIcon, VideoIcon } from '../../assets/icon';
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import { Harmonic } from '../../assets/images';
+import Button from '../../components/shared/button';
 
 const overview = () => {
+
+  const textValue = 20; 
+  const textPercentage = (textValue / 10) * 10;
+  
+  const videoValue = 50; 
+  const videoPercentage = (videoValue / 10) * 10;
+
+  const examValue = 90; 
+  const examPercentage = (examValue / 10) * 10;
+  
   return (
     <Layout name='overview ' >
       <div className="relative w-[90%] h-[200px] bg-blue-900 text-white p-4 rounded-lg overflow-hidden flex items-center ">
@@ -21,108 +38,206 @@ const overview = () => {
       </button>
       </div>
     </div>
-
+      {/* over all performance */}
     <div className=" mt-[20px] bg-gray-100 min-h-screen">
-      {/* Header Row */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        {/* Overall Performance */}
-        <div className="bg-primaryWhite p-4 rounded-lg shadow">
+      <div className="w-[90%] flex gap-[60px] mb-6">
+        <div className="w-[90%] bg-primaryWhite p-4 rounded-lg shadow">
           <h3 className="text-2xl font-bold">Overall performance</h3>
           <p className="text-[16px]">Subject, Video and exam rate</p>
           
-
-           <div className="flex flex-col items-center justify-center p-6">
-      <div className="relative w-48 h-24 mb-4">
-        {/* Background circle */}
-        <div className="absolute top-0 left-0 w-full h-full">
-          <svg viewBox="0 0 120 60" className="w-full h-[120%]">
-            {/* Gray background arc */}
-            <path
-              d="M 10 60 A 50 50 0 0 1 110 60"
-              fill="none"
-              stroke="#e5e7eb"
-              strokeWidth="10"
-            />
-            {/* Blue progress arc - 80% of half circle */}
-            <path
-              d="M 10 60 A 50 50 0 0 1 110 60"
-              fill="none"
-              stroke="#3b82f6"
-              strokeWidth="10"
-              strokeDasharray="157"
-              strokeDashoffset="31.4" /* 157 * 0.2 = 31.4 (for 80% progress) */
-              strokeLinecap="round"
-              values='80%'
-            />
-          </svg>
-        </div>
-        
-        {/* Percentage text */}
-        <div className="absolute bottom-0 left-0 right-0 text-center">
-          <span className="text-3xl font-bold text-gray-800">80%</span>
-        </div>
+          <div className='w-[200px] my-[40px] text-[25px] font-bold mx-auto'>
+        <SemiCircleProgressBar
+          percentage={50}
+          showPercentValue
+          stroke="#106ebe" 
+          strokeWidth={30} 
+        />
       </div>
-    </div>
         </div>
 
-        {/* Resource Cards */}
-        <div className="bg-white p-4 rounded-lg shadow grid grid-cols-2 gap-2">
-          <div className="flex items-center space-x-2">
-            <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Textbook</span>
-            <span className="text-gray-600 text-sm">2</span>
+        {/* 2nd Performance Cards */}
+        <div className="w-[85%] bg-primaryWhite p-4 rounded-lg shadow  gap-2">
+          <div className='flex flex-col gap-[25px] mt-[5px]'>
+            <div className='flex gap-[30px]'>
+              <div className="flex h-[50px] w-[160px] gap-[8px] justify-center items-center bg-[#ebf7f3] rounded-[50px]">
+            <TextbookIcon />
+           <p className='text-[16px]'> Textbook </p> 
           </div>
-          <div className="flex items-center space-x-2">
-            <span className="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">Video Tutorials</span>
-            <span className="text-gray-600 text-sm">5</span>
+          {/* textbook */}
+          <div style={{ width: 50, fontWeight: "400"  }}>
+               <CircularProgressbar
+                 value={textPercentage}
+                 text={`${textPercentage}`}
+                 strokeWidth={18}
+                 styles={buildStyles({
+                   textColor:'#000',
+                   textSize: "35px",
+                   pathColor: "#25af7c",
+                   trailColor: "#d9d9d9",
+                   rotation: textValue / 10,
+                 })}
+               />
+             </div>
+             </div>
+
+              <div className='flex gap-[25px] mt-[5px]'>
+             <div className="flex h-[50px] w-[190px] gap-[8px] justify-center items-center bg-[#fff6e9] rounded-[50px]">
+            <VideoIcon />
+           <p className='text-[16px]'> Video Tutorials </p> 
           </div>
-          <div className="flex items-center space-x-2">
-            <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Exam Practice</span>
-            <span className="text-gray-600 text-sm">10</span>
+          {/* video */}
+           <div style={{ width: 50, fontWeight: "400"  }}>
+               <CircularProgressbar
+                 value={videoPercentage}
+                 text={`${videoPercentage}`}
+                 strokeWidth={18}
+                 styles={buildStyles({
+                   textColor:'#000',
+                   textSize: "35px",
+                   pathColor: "#ff9f23",
+                   trailColor: "#d9d9d9",
+                   rotation: videoValue / 10,
+                 })}
+               />
+             </div>
+             </div>
+           
+          <div className='flex gap-[25px] mt-[5px]'>
+
+           <div className="flex h-[50px] w-[190px] gap-[8px] justify-center items-center bg-[#e8f1f9] rounded-[50px]">
+            <ExamIcon />
+           <p className='text-[16px]'> Exam Practice </p> 
           </div>
-          <div className="flex items-center space-x-2">
-            <span className="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">Expired</span>
-            <span className="text-gray-600 text-sm">2</span>
+              {/* Exams */}
+          <div style={{ width: 50, fontWeight: "400"  }}>
+               <CircularProgressbar
+                 value={examPercentage}
+                 text={`${examPercentage}`}
+                 strokeWidth={18}
+                 styles={buildStyles({
+                   textColor:'#000',
+                   textSize: "35px",
+                   pathColor: "#106ebe",
+                   trailColor: "#d9d9d9",
+                   rotation: examValue / 10,
+                 })}
+               />
+             </div>
+             </div>
+          
           </div>
-          <div className="flex items-center space-x-2 col-span-2">
-            <span className="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded">Streaks day</span>
-            <span className="text-gray-600 text-sm">5</span>
+          
+        </div>
+
+        {/* 3rd Performance card */}
+                {/* Resource Cards */}
+        <div className="w-[100%] bg-primaryWhite p-4 rounded-lg shadow  gap-2">
+          <div className='flex flex-col gap-[25px] mt-[5px]'>
+            <div className='flex gap-[30px]'>
+              <div className="flex h-[50px] w-[190px] gap-[8px] justify-center items-center bg-[#fff6e9] rounded-[50px]">
+            <ReferralIcon />
+           <p className='text-[16px]'> Referral Points </p> 
           </div>
-          <div className="flex items-center space-x-2 col-span-2">
-            <span className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">Referral Points</span>
-            <span className="text-gray-600 text-sm">4</span>
+          {/* referrals */}
+          <div style={{ width: 50, fontWeight: "400"  }}>
+               <CircularProgressbar
+                 value={textPercentage}
+                 text={`${textPercentage}`}
+                 strokeWidth={18}
+                 styles={buildStyles({
+                   textColor:'#000',
+                   textSize: "35px",
+                   pathColor: "#25af7c",
+                   trailColor: "#d9d9d9",
+                   rotation: textValue / 10,
+                 })}
+               />
+             </div>
+             </div>
+
+              <div className='flex gap-[25px] mt-[5px]'>
+             <div className="flex h-[50px] w-[160px] gap-[8px] justify-center items-center bg-[#ffe6e6] rounded-[50px]">
+            <ExpiredIcon />
+           <p className='text-[16px]'> Expired </p> 
+          </div>
+          {/* expired */}
+           <div style={{ width: 50, fontWeight: "400"  }}>
+               <CircularProgressbar
+                 value={videoPercentage}
+                 text={`${videoPercentage}`}
+                 strokeWidth={18}
+                 styles={buildStyles({
+                   textColor:'#000',
+                   textSize: "35px",
+                   pathColor: "#ff9f23",
+                   trailColor: "#d9d9d9",
+                   rotation: videoValue / 10,
+                 })}
+               />
+             </div>
+             </div>
+           
+          <div className='flex gap-[25px] mt-[5px]'>
+
+           <div className="flex h-[50px] w-[190px] gap-[8px] justify-center items-center bg-[#fff5e6] rounded-[50px]">
+            <StreakIcon />
+           <p className='text-[16px]'> Streaks day </p> 
+          </div>
+            {/* expired */}
+          <div style={{ width: 50, fontWeight: "400"  }}>
+               <CircularProgressbar
+                 value={examPercentage}
+                 text={`${examPercentage}`}
+                 strokeWidth={18}
+                 styles={buildStyles({
+                   textColor:'#000',
+                   textSize: "35px",
+                   pathColor: "#106ebe",
+                   trailColor: "#d9d9d9",
+                   rotation: examValue / 10,
+                 })}
+               />
+             </div>
+             </div>
           </div>
         </div>
       </div>
 
       {/* Main Content Row */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="w-[80%] flex">
         {/* Upcoming Quiz */}
-        <div className="bg-white p-4 rounded-lg shadow">
-          <h3 className="text-sm text-gray-600">Upcoming Quiz</h3>
-          <div className="mt-4">
-            <div className="flex items-center space-x-2 mb-4">
-              <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Physic</span>
-              <span className="text-blue-600 text-sm">20 Mins</span>
-              <span className="text-blue-600 text-sm">20 Questions</span>
-            </div>
-            <p className="text-gray-600 text-sm">Simple Harmonic Motion Quiz</p>
-            <p className="text-gray-500 text-xs">15th Oct, 2025 12:00 pm</p>
-            <button className="mt-4 w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
-              Join Quiz
-            </button>
-            <div className="mt-4">
-              <div className="flex items-center space-x-2">
-                <span className="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded">Physic</span>
-                <span className="text-blue-600 text-sm">20 Mins</span>
-                <span className="text-blue-600 text-sm">20 Questions</span>
-              </div>
-              <p className="text-gray-600 text-sm">Quadratic Equation Motion Quiz</p>
-              <p className="text-gray-500 text-xs">15th Oct, 2025 12:00 pm</p>
-              <button className="mt-4 w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
-                Join Quiz
-              </button>
-            </div>
+        <div className="w-[70%] bg-primaryWhite p-[20px] rounded-lg shadow">
+          <div className='flex gap-[30px]'>
+              <p> Upcoming Quiz</p>
+          <p> See All</p>
           </div>
+          <div className='flex gap-[10px]'>
+
+             <div>
+            <img src={Harmonic} />
+          </div>
+          <div className='flex flex-col gap-[10px]'>
+            <div>
+          <h2 className='text-[18px]'> Simple Harmonic Motion Quiz </h2>
+            </div>
+              <div className='flex gap-[15px]'>
+                <button className='w-[120px] bg-[#ff9f23] p-2 rounded-[10px] text-primaryWhite'>Physics</button>
+            <Dot /> <p> 20 Mins</p>
+          <p> 20 Questions</p>
+          </div>
+
+          <div>
+            <p> 15th Oct, 2025 <span className='pl-[10px]'> 12:00pm</span></p>
+          </div>
+          </div>
+          <div className='w-[25%]'>
+              <Button>
+            Join Quiz
+           </Button>
+          </div>
+
+          </div>
+         
         </div>
 
         {/* Leaderboard */}
@@ -161,7 +276,11 @@ const overview = () => {
           </div>
         </div>
 
-        {/* Progress Bars and Upcoming Classes */}
+        
+      </div>
+
+      {/*  */}
+      {/* Progress Bars and Upcoming Classes */}
         <div className="bg-white p-4 rounded-lg shadow">
           <div className="flex justify-between mb-4">
             <h3 className="text-sm text-gray-600">Textbook</h3>
@@ -235,7 +354,6 @@ const overview = () => {
             </div>
           </div>
         </div>
-      </div>
     </div>
     </Layout>
   )
