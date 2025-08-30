@@ -10,7 +10,6 @@ const Root = () => {
       <Routes>
       <Route path='/auth/*' element={<PagesRoutes.AuthRoutes  />} />
       <Route path='/jupeb/*' element={<PagesRoutes.JupebRoutes  />} />
-      
       </Routes>
     </Router>
   );

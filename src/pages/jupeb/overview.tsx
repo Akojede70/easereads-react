@@ -2,10 +2,11 @@ import React from 'react'
 import Layout from '../../components/layout/layout'
 // @ts-expect-error -> typescript not included in the library for progress-bar
 import SemiCircleProgressBar from "react-progressbar-semicircle";
-import { Dot, ExamIcon, ExpiredIcon, ReferralIcon, StreakIcon, TextbookIcon, VideoIcon } from '../../assets/icon';
+import { Dot, ExamIcon, ExpiredIcon, ReferralIcon, StreakIcon, TextbookIcon, VideoIcon, Gift, SmallVideo, ExamTaken, DayStreak, StudyTime } from '../../assets/icon';
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { Harmonic } from '../../assets/images';
+import MiniCard from '../../components/card/card';
 import Button from '../../components/shared/button';
 
 const overview = () => {
@@ -21,25 +22,50 @@ const overview = () => {
   
   return (
     <Layout name='overview ' >
-      <div className="relative w-[90%] h-[200px] bg-blue-900 text-white p-4 rounded-lg overflow-hidden flex items-center ">
+      <div className="relative w-[98%] h-[225px] bg-[#087cdf] text-white p-4 rounded-lg overflow-hidden flex gap-[290px] ">
       {/* Banner content */}
-      <div className="pl-[30px]">
-        <h2 className="text-3xl font-bold">JUPEB PROMO OFFER</h2>
-        <p className="w-[60%] mt-[20px] text-[16px]">
-          Get undefined percent Discount offer to Purchase Jupeb Textbooks for <span className='font-bold'> Mathematics, Chemistry, Government </span>
+      <div className="pl-[50px]">
+        <h2 className="text-3xl font-bold pt-[20px]">Upgrade to Premium & Save 40%</h2>
+        <p className="w-[80%] mt-[20px] text-[16px]">
+          Get unlimited access to all textbooks, live classes, and AI tutoring Limited  time offer ending soon!
         </p>
-        <p className="text-[16px] mt-[20px]">Promo end on the <span className='text-[#ff9f23]'> 14th of April, 2026</span></p> {/* Updated to future date */}
-      </div>
 
-      {/* Button */}
-      <div className='ml-[300px]'>
-          <button className="bg-blue-800 text-white px-4 py-2 rounded-[8px] hover:bg-blue-700 transition duration-200 cursor-pointer">
-        Get Offer Now
+          <div className='my-[15px]'>
+          <button className="w-[30%] bg-primaryYellow text-white px-4 py-2 rounded-[8px] hover:bg-blue-700 transition duration-200 cursor-pointer">
+        Claim Offer
       </button>
       </div>
+
+      </div>
+      <Gift />
     </div>
       {/* over all performance */}
     <div className=" mt-[20px] bg-gray-100 min-h-screen">
+     
+     <div className='flex gap-[20px]'>
+          <MiniCard 
+      icon={SmallVideo} 
+      title="Textbooks Read" 
+      value={5}
+      />
+        <MiniCard 
+      icon={ExamTaken} 
+      title="Exam Taken" 
+      value={2}
+      />
+        <MiniCard 
+      icon={StudyTime} 
+      title="Study Time" 
+      value={'12h 34m'}
+      />
+        <MiniCard 
+      icon={DayStreak} 
+      title="Day Streak" 
+      value={'5 days'}
+      />
+     </div>
+    
+
       <div className="w-[90%] flex gap-[60px] mb-6">
         <div className="w-[90%] bg-primaryWhite p-4 rounded-lg shadow">
           <h3 className="text-2xl font-bold">Overall performance</h3>

@@ -31,3 +31,9 @@ export { default as  StreakIcon } from './streak';
 export { default as  ReferralIcon } from './referralPoint';
 export { default as  ExpiredIcon } from './expired';
 export { default as  Dot } from './dot';
+export { default as  Gift } from './gift';
+export { default as  SmallVideo } from './smallvideo';
+export { default as  ExamTaken } from './examTaken';
+export { default as  StudyTime } from './studytime';
+export { default as  DayStreak } from './daystreak';
+

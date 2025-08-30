@@ -1,6 +1,6 @@
 import React from 'react';
 import { Notification, Leaderboard, Dp } from '../../assets/icon'
-import Button from '../shared/button';
+// import Button from '../shared/button';
 
 function Navbar() {
 
@@ -15,10 +15,10 @@ const currentLevel = 3;
               <p className='font-bold'> Emmanuel Kelvin</p>
             </div>
 
-            <div className='w-[95%] pl-[40px] mb-[30px] flex gap-[19.3%]'>
+            <div className='w-full pl-[40px] mt-[30px] border flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
             <div>
                 <p className='text-4xl flex flex-col font-bold pt-[30px]'> Overview</p>
-                <p className='pt-[10px] w-[90%] pl-[5px]'> Hi Emmanuel Kelvin, here's your progress today!</p>
+                <p className='pt-[10px] pb-[15px] pl-[5px]'> Hi Emmanuel Kelvin, here's your progress today!</p>
             </div>
             <div className='w-[20%] flex h-[60px] pt-[40px]'>
                 <div>
@@ -34,11 +34,11 @@ const currentLevel = 3;
            </div>
              <p className="w-[80%] pt-[15px]"> Level: {currentLevel}</p>
             </div>
-            <div className='w-[15%] pt-[40px]'>
+            {/* <div className='w-[15%] pt-[40px]'>
               <Button  className='rounded-[20px]'>
                 View Leaderboard
             </Button>
-            </div>
+            </div> */}
             </div>
         </div>
     );
