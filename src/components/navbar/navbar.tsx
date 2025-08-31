@@ -34,11 +34,6 @@ const currentLevel = 3;
            </div>
              <p className="w-[80%] pt-[15px]"> Level: {currentLevel}</p>
             </div>
-            {/* <div className='w-[15%] pt-[40px]'>
-              <Button  className='rounded-[20px]'>
-                View Leaderboard
-            </Button>
-            </div> */}
             </div>
         </div>
     );

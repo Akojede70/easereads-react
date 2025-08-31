@@ -26,6 +26,9 @@ const overview = () => {
 
   // const examValue = 90; 
   // const examPercentage = (examValue / 10) * 10;
+
+  const currentLevel = 3;
+  const progress = ((currentLevel - 1) / 4) * 100;
   
   return (
     <Layout name='overview ' >
@@ -75,8 +78,8 @@ const overview = () => {
      <div className='flex gap-[30px]'>
       
       <div className="w-[60%] flex gap-[60px] mb-6">
-        <div className="w-[100%] h-[250px] bg-primaryWhite p-4 rounded-[15px] shadow">
-          <div className='flex justify-between'>
+        <div className="w-[100%] h-[320px] bg-primaryWhite p-4 rounded-[15px] shadow">
+          <div className='flex px-4 justify-between'>
             <div>
                <h3 className="text-[16px] font-bold pt-[6px]">Overall performance</h3>
             </div>
@@ -85,7 +88,7 @@ const overview = () => {
             </div>
           </div>
           
-          <div className='flex gap-[20px]'>
+          <div className='flex px-4 my-[22px] gap-[20px]'>
              
               <div className='w-[60%] h-[40%] rounded-[10px] bg-[#e8f1f9]'>
 
@@ -104,29 +107,42 @@ const overview = () => {
 
           </div>
           </div>
-
-           <div className="flex items-center space-x-2">
-              <span className="text-gray-600 text-sm">Physics</span>
+            <div className='px-4 flex flex-col gap-[15px]'>
+              <div className="flex items-center space-x-2">
+              <span className="text-gray-600 text-[17px]">Physics</span>
               <div className="flex-1 h-2 bg-gray-200 rounded-full">
                 <div className="h-full bg-primaryBlue rounded-full" style={{ width: '20%' }}></div>
               </div>
               <span className="text-gray-600 text-sm">20%</span>
             </div>
 
-             <div className="flex items-center space-x-2">
-              <span className="text-gray-600 text-sm">Chemistry</span>
+             {/* <div className="flex items-center space-x-2">
+              <span className="text-gray-600 text-[17px]">Chemistry</span>
               <div className="flex-1 h-2 bg-gray-200 rounded-full">
                 <div className="h-full bg-orange-400 rounded-full" style={{ width: '20%' }}></div>
               </div>
               <span className="text-gray-600 text-sm">20%</span>
+            </div> */}
+            <div className='w-[70%] flex h-[60px] pt-[40px]'>
+                
+            <div className=" w-full p-4">
+             <div className="w-full h-2 bg-blue-200 rounded-full overflow-hidden">
+               <div
+                 className="h-full bg-primaryBlue rounded-full"
+                 style={{ width: `${progress}%`, transition: 'width 0.5s ease-in-out' }}
+               />
+             </div>
+           </div>
+             <p className="w-[80%] pt-[15px]"> Level: {currentLevel}</p>
             </div>
 
-             <div className="flex items-center space-x-2">
-              <span className="text-gray-600 text-sm">English</span>
+             {/* <div className="flex items-center space-x-2">
+              <span className="text-gray-600 text-[17px]">English</span>
               <div className="flex-1 h-2 bg-gray-200 rounded-full">
                 <div className="h-full bg-primaryBlue rounded-full" style={{ width: '20%' }}></div>
               </div>
               <span className="text-gray-600 text-sm">20%</span>
+            </div> */}
             </div>
         </div>   
       </div>
