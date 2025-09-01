@@ -131,7 +131,7 @@ const overview = () => {
         <div className="w-[70%] bg-primaryWhite p-[20px] rounded-lg shadow">
           <div className='flex gap-[30px]'>
               <p> Upcoming Quiz</p>
-          <p> See All</p>
+          <p> See All</p> 
           </div>
           <div className='flex gap-[10px]'>
 
