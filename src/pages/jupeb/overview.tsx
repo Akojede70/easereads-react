@@ -15,21 +15,9 @@ import "react-circular-progressbar/dist/styles.css";
 import { Harmonic } from '../../assets/images';
 import MiniCard from '../../components/card/card';
 import Button from '../../components/shared/button';
+import ProgressBarCard from '../../components/progressbar/progressbar';
 
-const overview = () => {
-
-  // const textValue = 20; 
-  // // const textPercentage = (textValue / 10) * 10;
-  
-  // const videoValue = 50; 
-  // const videoPercentage = (videoValue / 10) * 10;
-
-  // const examValue = 90; 
-  // const examPercentage = (examValue / 10) * 10;
-
-  const currentLevel = 3;
-  const progress = ((currentLevel - 1) / 4) * 100;
-  
+const overview = () => { 
   return (
     <Layout name='overview ' >
       <div className="relative w-[98%] h-[225px] bg-[#087cdf] text-white p-4 rounded-lg overflow-hidden flex gap-[290px] ">
@@ -49,7 +37,6 @@ const overview = () => {
       </div>
       <Gift />
     </div>
-      {/* over all performance */}
     <div className=" mt-[20px] bg-gray-100 min-h-screen">
      
      <div className='flex gap-[20px]'>
@@ -107,60 +94,31 @@ const overview = () => {
 
           </div>
           </div>
-            <div className='px-4 flex flex-col gap-[15px]'>
-              <div className="flex items-center space-x-2">
-              <span className="text-gray-600 text-[17px]">Physics</span>
-              <div className="flex-1 h-2 bg-gray-200 rounded-full">
-                <div className="h-full bg-primaryBlue rounded-full" style={{ width: '20%' }}></div>
-              </div>
-              <span className="text-gray-600 text-sm">20%</span>
-            </div>
-
-             {/* <div className="flex items-center space-x-2">
-              <span className="text-gray-600 text-[17px]">Chemistry</span>
-              <div className="flex-1 h-2 bg-gray-200 rounded-full">
-                <div className="h-full bg-orange-400 rounded-full" style={{ width: '20%' }}></div>
-              </div>
-              <span className="text-gray-600 text-sm">20%</span>
-            </div> */}
-            <div className='w-[70%] flex h-[60px] pt-[40px]'>
-                
-            <div className=" w-full p-4">
-             <div className="w-full h-2 bg-blue-200 rounded-full overflow-hidden">
-               <div
-                 className="h-full bg-primaryBlue rounded-full"
-                 style={{ width: `${progress}%`, transition: 'width 0.5s ease-in-out' }}
-               />
-             </div>
-           </div>
-             <p className="w-[80%] pt-[15px]"> Level: {currentLevel}</p>
-            </div>
-
-             {/* <div className="flex items-center space-x-2">
-              <span className="text-gray-600 text-[17px]">English</span>
-              <div className="flex-1 h-2 bg-gray-200 rounded-full">
-                <div className="h-full bg-primaryBlue rounded-full" style={{ width: '20%' }}></div>
-              </div>
-              <span className="text-gray-600 text-sm">20%</span>
-            </div> */}
+            <div className='px-4 flex flex-col gap-[20px]'>
+            <ProgressBarCard label="Physics" progress={80} currentLevel={80} />
+            <ProgressBarCard label="Chemistry" progress={40} currentLevel={40}  color="bg-[#ffa024]" />
+            <ProgressBarCard label="English" progress={60} currentLevel={60} />
             </div>
         </div>   
       </div>
 
-      <div className='w-[20%] text-[20px] border bg-primaryWhite font-bold mb-[20px] rounded-[15px]'>
-        <p> Referral Points </p>
-        <p> 2,400 <span> Total points</span></p>
+      <div className='w-[35%]  bg-primaryWhite  mb-[20px] rounded-[15px]'>
+        <p className='pl-[20px] pt-[20px] text-[20px] font-bold'> Referral Points </p>
+        <div className='text-center'>
+            <p className='text-[20px] pt-[60px] font-bold'> 2,400 <span className='text-[13px]'> Total points</span></p>
         <div className='flex flex-col'>
-          <div className='flex gap-[30px]'>
+          <div className='flex gap-[30px] justify-evenly pt-[70px] text-[17px]'>
             <p> This Month</p>
             <p> +180 pts</p>
           </div>
            
-          <div className='flex gap-[40px]'>
+          <div className='flex gap-[40px] justify-evenly pt-[30px] text-[17px]'>
              <p> Referral </p>
             <p> 3 Active </p>
           </div>
         </div>
+        </div>
+       
 
       </div>
 
