@@ -1,7 +1,7 @@
 import React from 'react'
 import Layout from '../../components/layout/layout'
 // import SemiCircleProgressBar from "react-progressbar-semicircle";
-import { Dot, 
+import { 
   // ExamIcon, 
   // ExpiredIcon, ReferralIcon, StreakIcon, 
   // TextbookIcon, 
@@ -12,10 +12,11 @@ import {
   // buildStyles 
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { Harmonic } from '../../assets/images';
+import { Harmonic, Equation } from '../../assets/images';
 import MiniCard from '../../components/card/card';
-import Button from '../../components/shared/button';
+// import Button from '../../components/shared/button';
 import ProgressBarCard from '../../components/progressbar/progressbar';
+import { QuizContent } from '../../components/overview';
 
 const overview = () => { 
   return (
@@ -126,47 +127,48 @@ const overview = () => {
      </div>
 
       {/* Main Content Row */}
-      <div className="w-[80%] flex">
-        Upcoming Quiz
-        <div className="w-[70%] bg-primaryWhite p-[20px] rounded-lg shadow">
-          <div className='flex gap-[30px]'>
+      <div className="w-full flex gap-[30px]">
+        <div className="w-[60%] bg-primaryWhite p-[20px] rounded-[20px] shadow">
+          <div className='flex justify-between px-4 font-bold'>
               <p> Upcoming Quiz</p>
-          <p> See All</p> 
-          </div>
-          <div className='flex gap-[10px]'>
-
-             <div>
-            <img src={Harmonic} />
-          </div>
-          <div className='flex flex-col gap-[10px]'>
-            <div>
-          <h2 className='text-[18px]'> Simple Harmonic Motion Quiz </h2>
-            </div>
-              <div className='flex gap-[15px]'>
-                <button className='w-[120px] bg-[#ff9f23] p-2 rounded-[10px] text-primaryWhite'>Physics</button>
-            <Dot /> <p> 20 Mins</p>
-          <p> 20 Questions</p>
+          <p className='text-primaryBlue underline cursor-pointer'> See All</p> 
           </div>
 
-          <div>
-            <p> 15th Oct, 2025 <span className='pl-[10px]'> 12:00pm</span></p>
-          </div>
-          </div>
-          <div className='w-[25%]'>
-              <Button>
-            Join Quiz
-           </Button>
-          </div>
-
-          </div>
-         
+          <QuizContent
+        image={Harmonic}
+        title="Simple Harmonic Motion Quiz"
+        subject="Physics"
+        duration="20 Mins"
+        questions={20}
+        date="15th Oct, 2025"
+        time="12:00pm"
+        onJoin={() => alert("Joining Harmonic Quiz")}
+        // className="bg-blue-50 hover:shadow-lg" // 👈 custom styling
+      />
+      <QuizContent
+        image={Equation}
+        title="Quadratic Equation Motion Quiz"
+        subject="Physics"
+        duration="20 Mins"
+        questions={20}
+        date="15th Oct, 2025"
+        time="12:00pm"
+        onJoin={() => alert("Joining Harmonic Quiz")}
+        // className="bg-blue-50 hover:shadow-lg" // 👈 custom styling
+      />
         </div>
 
         {/* Leaderboard */}
-        <div className="bg-white p-4 rounded-lg shadow">
-          <h3 className="text-sm text-gray-600">Leaderboard</h3>
-          <button className="mt-2 text-blue-600 text-sm">See All</button>
-          <div className="mt-4 space-y-4">
+        <div className="w-[35%] bg-primaryWhite p-4 rounded-[15px] shadow">
+          <div className='flex justify-between px-4'>
+             <h3 className="text-[16px] font-bold">Leaderboard</h3>
+          <button className="mt-2 text-primaryBlue font-bold underline text-[16px]">See All</button>
+          </div>
+          <div className='my-[20px] w-[80%] ml-[18px]'>
+            <p > Top Performance this week based on quiz scores and study time</p>
+          </div>
+         
+          <div className="mt-4 px-4 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <img src="https://via.placeholder.com/30" alt="Avatar" className="w-8 h-8 rounded-full" />
