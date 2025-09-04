@@ -1,12 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Layout from '../../components/layout/layout'
 // import SemiCircleProgressBar from "react-progressbar-semicircle";
-import { 
-  // ExamIcon, 
-  // ExpiredIcon, ReferralIcon, StreakIcon, 
-  // TextbookIcon, 
-  // VideoIcon,
-   Gift, SmallVideo, ExamTaken, DayStreak, StudyTime } from '../../assets/icon';
+import {  Gift, SmallVideo, ExamTaken, DayStreak, StudyTime, Rank1, Rank2, Rank3, Rank4, UpperTriangle, DownTriangle,} from '../../assets/icon';
 import { 
   // CircularProgressbar, 
   // buildStyles 
@@ -15,10 +10,16 @@ import "react-circular-progressbar/dist/styles.css";
 import { Harmonic, Equation } from '../../assets/images';
 import MiniCard from '../../components/card/card';
 // import Button from '../../components/shared/button';
-import ProgressBarCard from '../../components/progressbar/progressbar';
-import { QuizContent } from '../../components/overview';
+// import{ ProgressBarCard } from '../../components/progressbar';
+import { ProgressBar, ProgressBarWithAction } from '../../components/progressbar';
+import { ClassContent, QuizContent } from '../../components/overview';
+// import Button from '../../components/shared/button';
+// import Button from '../../components/shared/button';
 
-const overview = () => { 
+
+const Overview = () => { 
+  const [activeTab, setActiveTab] = useState<"textbook" | "video" | "exam">('textbook');
+
   return (
     <Layout name='overview ' >
       <div className="relative w-[98%] h-[225px] bg-[#087cdf] text-white p-4 rounded-lg overflow-hidden flex gap-[290px] ">
@@ -37,10 +38,9 @@ const overview = () => {
 
       </div>
       <Gift />
-    </div>
-    <div className=" mt-[20px] bg-gray-100 min-h-screen">
-     
-     <div className='flex gap-[20px]'>
+     </div>
+
+     <div className='flex gap-[20px] mt-[20px]'>
           <MiniCard 
       icon={SmallVideo} 
       title="Textbooks Read" 
@@ -96,9 +96,9 @@ const overview = () => {
           </div>
           </div>
             <div className='px-4 flex flex-col gap-[20px]'>
-            <ProgressBarCard label="Physics" progress={80} currentLevel={80} />
-            <ProgressBarCard label="Chemistry" progress={40} currentLevel={40}  color="bg-[#ffa024]" />
-            <ProgressBarCard label="English" progress={60} currentLevel={60} />
+            <ProgressBar label="Physics" progress={80} currentLevel={80} />
+            <ProgressBar label="Chemistry" progress={40} currentLevel={40}  color="bg-[#ffa024]" />
+            <ProgressBar label="English" progress={60} currentLevel={60} />
             </div>
         </div>   
       </div>
@@ -170,117 +170,227 @@ const overview = () => {
          
           <div className="mt-4 px-4 space-y-4">
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <img src="https://via.placeholder.com/30" alt="Avatar" className="w-8 h-8 rounded-full" />
-                <span className="text-gray-600">Emmanuel Kelvin</span>
+              <div className="flex items-center space-x-5">
+                <Rank1 />
+                <span className="font-bold">Emmanuel Kelvin</span>
               </div>
-              <span className="text-green-600">Lvl 12 <span className="text-green-600">▲</span></span>
+              <div className='flex gap-[10px]'>
+                <p> Lvl 12</p>
+                <UpperTriangle />
+              </div>
             </div>
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <img src="https://via.placeholder.com/30" alt="Avatar" className="w-8 h-8 rounded-full" />
-                <span className="text-gray-600">John Yemi</span>
+              <div className="flex items-center space-x-5">
+                <Rank2 />
+                <span className="font-bold">John Yemi</span>
               </div>
-              <span className="text-green-600">Lvl 10 <span className="text-green-600">▲</span></span>
+               <div className='flex gap-[10px]'>
+                <p> Lvl 10</p>
+                <UpperTriangle />
+              </div>
             </div>
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <img src="https://via.placeholder.com/30" alt="Avatar" className="w-8 h-8 rounded-full" />
-                <span className="text-gray-600">King Ammy</span>
+              <div className="flex items-center space-x-5">
+                <Rank3 />
+                <span className="font-bold">King Ammy</span>
               </div>
-              <span className="text-red-600">Lvl 9 <span className="text-red-600">▼</span></span>
+               <div className='flex gap-[10px]'>
+                <p> Lvl 09</p>
+                <DownTriangle />
+              </div>
             </div>
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <img src="https://via.placeholder.com/30" alt="Avatar" className="w-8 h-8 rounded-full" />
-                <span className="text-gray-600">Martins Bush</span>
+              <div className="flex items-center space-x-5">
+                <Rank4/>
+                <span className="font-bold">Martins Bush</span>
               </div>
-              <span className="text-green-600">Lvl 5 <span className="text-green-600">▲</span></span>
+               <div className='flex gap-[10px]'>
+                <p> Lvl 05</p>
+                <UpperTriangle />
+              </div>
             </div>
           </div>
         </div>
-
-        
       </div>
 
-      {/*  */}
-      {/* Progress Bars and Upcoming Classes */}
-        <div className="bg-white p-4 rounded-lg shadow">
-          <div className="flex justify-between mb-4">
-            <h3 className="text-sm text-gray-600">Textbook</h3>
-            <h3 className="text-sm text-gray-600">Video Tutorials</h3>
-            <h3 className="text-sm text-gray-600">Exam Practice</h3>
+      <div className='flex gap-[30px]'>
+
+         <div className="bg-primaryWhite p-4 rounded-[15px] shadow w-[55%] mt-[30px] mb-[260px]">
+          <div className='mb-[20px]'>
+            <p className='text-[17px] font-bold'> Continue Learning</p>
+            <p className='text-[14px] py-[8px]'> Pick up where you left off </p>
           </div>
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <span className="text-gray-600 text-sm">Biology</span>
-              <div className="flex-1 h-2 bg-gray-200 rounded-full">
-                <div className="h-full bg-orange-400 rounded-full" style={{ width: '20%' }}></div>
-              </div>
-              <span className="text-gray-600 text-sm">20%</span>
-              <button className="bg-blue-600 text-white px-2 py-1 rounded-lg text-sm hover:bg-blue-700 transition duration-200">
-                Continue Reading
-              </button>
+      {/* Tabs Header */}
+      <div className="flex border-b border-gray-200">
+        <button
+          className={`px-4 py-2 text-[17px] font-bold cursor-pointer ${
+            activeTab === "textbook"
+              ? "border-b-2 border-primaryBlue text-primaryBlue"
+              : " hover:text-primaryBlue"
+          }`}
+          onClick={() => setActiveTab("textbook")}
+        >
+          Textbook
+        </button>
+        <button
+          className={`px-4 py-2 text-[17px] font-bold cursor-pointer ${
+            activeTab === "video"
+              ? "border-b-2 border-primaryBlue text-primaryBlue"
+              : "hover:text-primaryBlue "
+          }`}
+          onClick={() => setActiveTab("video")}
+        >
+          Video Tutorials
+        </button>
+         <button
+          className={`px-4 py-2 text-[17px] font-bold cursor-pointer ${
+            activeTab === "exam"
+              ? "border-b-2 border-primaryBlue text-primaryBlue cursor-pointer"
+              : "hover:text-primaryBlue"
+          }`}
+          onClick={() => setActiveTab("exam")}
+        >
+          Exam Practice
+        </button>
+      </div>
+
+      {/* Tab Content */}
+      <div className="mt-4">
+        {activeTab === "textbook" && (
+          <div className='px-4 flex flex-col'>
+               <ProgressBarWithAction
+                  label="Biology"
+                  progress={20}
+                  color='bg-[#ffa024]'
+                  currentLevel={20}
+                  buttonText="Continue Reading"
+                  onButtonClick={() => alert("Continue Physics")}
+                 />
+                 <ProgressBarWithAction
+                  label="Chemistry"
+                  progress={40}
+                  currentLevel={40}
+                  buttonText="Continue Reading"
+                  onButtonClick={() => alert("Continue Physics")}
+                 />
+                 <ProgressBarWithAction
+                  label="Physics"
+                  progress={60}
+                  currentLevel={60}
+                  buttonText="Continue Reading"
+                  onButtonClick={() => alert("Continue Physics")}
+                 />
+                 <ProgressBarWithAction
+                  label="Mathematics"
+                  progress={80}
+                  currentLevel={80}
+                  buttonText="Continue Reading"
+                  onButtonClick={() => alert("Continue Physics")}
+                 />
             </div>
-            <div className="flex items-center space-x-2">
-              <span className="text-gray-600 text-sm">Chemistry</span>
-              <div className="flex-1 h-2 bg-gray-200 rounded-full">
-                <div className="h-full bg-blue-600 rounded-full" style={{ width: '40%' }}></div>
-              </div>
-              <span className="text-gray-600 text-sm">40%</span>
-              <button className="bg-blue-600 text-white px-2 py-1 rounded-lg text-sm hover:bg-blue-700 transition duration-200">
-                Continue Reading
-              </button>
+        )}
+
+        {activeTab === "video" && (
+        <div className='px-4 flex flex-col'>
+               <ProgressBarWithAction
+                  label="Biology"
+                  progress={20}
+                  color='bg-[#ffa024]'
+                  currentLevel={20}
+                  buttonText="Continue Reading"
+                  onButtonClick={() => alert("Continue Physics")}
+                 />
+                 <ProgressBarWithAction
+                  label="Chemistry"
+                  progress={40}
+                  currentLevel={40}
+                  buttonText="Continue Reading"
+                  onButtonClick={() => alert("Continue Physics")}
+                 />
+                 <ProgressBarWithAction
+                  label="Physics"
+                  progress={60}
+                  currentLevel={60}
+                  buttonText="Continue Reading"
+                  onButtonClick={() => alert("Continue Physics")}
+                 />
             </div>
-            <div className="flex items-center space-x-2">
-              <span className="text-gray-600 text-sm">Chemistry</span>
-              <div className="flex-1 h-2 bg-gray-200 rounded-full">
-                <div className="h-full bg-orange-400 rounded-full" style={{ width: '40%' }}></div>
-              </div>
-              <span className="text-gray-600 text-sm">40%</span>
-              <button className="bg-blue-600 text-white px-2 py-1 rounded-lg text-sm hover:bg-blue-700 transition duration-200">
-                Continue Reading
-              </button>
+        )}
+
+         {activeTab === "exam" && (
+         <div className='px-4 flex flex-col'>
+               <ProgressBarWithAction
+                  label="Biology"
+                  progress={20}
+                  color='bg-[#ffa024]'
+                  currentLevel={20}
+                  buttonText="Continue Reading"
+                  onButtonClick={() => alert("Continue Physics")}
+                 />
+                 <ProgressBarWithAction
+                  label="Chemistry"
+                  progress={40}
+                  currentLevel={40}
+                  buttonText="Continue Reading"
+                  onButtonClick={() => alert("Continue Physics")}
+                 />
+                 <ProgressBarWithAction
+                  label="Physics"
+                  progress={60}
+                  currentLevel={60}
+                  buttonText="Continue Reading"
+                  onButtonClick={() => alert("Continue Physics")}
+                 />
+                 <ProgressBarWithAction
+                  label="Mathematics"
+                  progress={80}
+                  currentLevel={80}
+                  buttonText="Continue Reading"
+                  onButtonClick={() => alert("Continue Physics")}
+                 />
             </div>
-            <div className="flex items-center space-x-2">
-              <span className="text-gray-600 text-sm">Biology</span>
-              <div className="flex-1 h-2 bg-gray-200 rounded-full">
-                <div className="h-full bg-blue-600 rounded-full" style={{ width: '80%' }}></div>
-              </div>
-              <span className="text-gray-600 text-sm">80%</span>
-              <button className="bg-blue-600 text-white px-2 py-1 rounded-lg text-sm hover:bg-blue-700 transition duration-200">
-                Continue Reading
-              </button>
-            </div>
+        )}
+      </div>
+    </div>
+
+    <div className='w-[40%] h-[463px] mt-[30px] bg-primaryWhite rounded-[15px]'>
+       <div className='flex justify-between px-6 font-bold pt-[20px]'>
+              <p> Upcoming Quiz</p>
+          <p className='text-primaryBlue underline cursor-pointer pr-2'> See All</p> 
           </div>
-          <h3 className="mt-6 text-sm text-gray-600">Upcoming classes</h3>
-          <button className="mt-2 text-blue-600 text-sm">See All</button>
-          <div className="mt-4 space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Physic</span>
-                <span className="text-blue-600 text-sm">20 Mins</span>
-              </div>
-              <p className="text-gray-500 text-xs">15th Oct, 2025 12:00 pm</p>
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
-                Join Class
-              </button>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <span className="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded">Physic</span>
-                <span className="text-blue-600 text-sm">20 Mins</span>
-              </div>
-              <p className="text-gray-500 text-xs">15th Oct, 2025 12:00 pm</p>
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
-                Join Class
-              </button>
-            </div>
-          </div>
-        </div>
+
+         <ClassContent 
+        title="Quadratic Equation Motion Quiz"
+        subject="Physics"
+        duration="20 Mins"
+        questions={20}
+        date="15th Oct, 2025"
+        time="12:00pm"
+        onJoin={() => alert("Joining Harmonic Quiz")}
+      />
+       <ClassContent 
+        title="Quadratic Equation Motion Quiz"
+        subject="Physics"
+        duration="20 Mins"
+        questions={20}
+        date="15th Oct, 2025"
+        time="12:00pm"
+        onJoin={() => alert("Joining Harmonic Quiz")}
+      /> <ClassContent 
+        title="Quadratic Equation Motion Quiz"
+        subject="Physics"
+        duration="20 Mins"
+        questions={20}
+        date="15th Oct, 2025"
+        time="12:00pm"
+        onJoin={() => alert("Joining Harmonic Quiz")}
+      />
+      
+    </div>
+     
     </div>
     </Layout>
   )
 }
 
-export default overview
+export default Overview

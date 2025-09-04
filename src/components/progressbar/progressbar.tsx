@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../shared/button";
 
 type ProgressBarProps = {
   label: string;        
@@ -8,7 +9,7 @@ type ProgressBarProps = {
   className?: string;   // extra classes for outer container
 };
 
-const ProgressBar: React.FC<ProgressBarProps> = ({
+export const ProgressBar: React.FC<ProgressBarProps> = ({
   label,
   progress,
   currentLevel,
@@ -23,7 +24,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full  pt-[8px] pl-[20px]">
+      <div className="w-full pt-[8px] pl-[20px]">
         <div className="w-[65%] h-[11px] ml-[33%] bg-[#e8f1f9] rounded-full overflow-hidden">
           <div
             className={`h-full rounded-full ${color}`}
@@ -43,4 +44,62 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   );
 };
 
-export default ProgressBar;
+type ProgressBarWithActionProps = {
+  label: string;
+  progress: number; // percentage (20, 40, etc.)
+  currentLevel: number; // number to display
+  color?: string; // Tailwind color for bar
+  className?: string; // extra classes
+  buttonText: string; // text inside the button
+  onButtonClick: () => void; // callback when button clicked
+};
+
+export const ProgressBarWithAction: React.FC<ProgressBarWithActionProps> = ({
+  label,
+  progress,
+  currentLevel,
+  color = "bg-primaryBlue",
+  className = "",
+  buttonText,
+  onButtonClick,
+}) => {
+  return (
+    <div
+      className={`w-[99%] flex justify-between items-center gap-4 ${className}`}
+    >
+      {/* Label */}
+      <div className="w-[15%]">
+        <p>{label}</p>
+      </div>
+
+      {/* Progress Bar */}
+      <div className="w-full pt-[8px] pl-[20px]">
+        <div className="w-[85%] h-[11px] ml-[10%] bg-[#e8f1f9] rounded-full overflow-hidden">
+          <div
+            className={`h-full rounded-full ${color}`}
+            style={{
+              width: `${progress}%`,
+              transition: "width 0.5s ease-in-out",
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Percentage */}
+      <div className="w-[5%] text-right font-bold">
+        <p>{currentLevel}%</p>
+      </div>
+
+      {/* Action Button */}
+      <div className="w-[260px]">
+         <Button
+        onClick={onButtonClick}
+        className="rounded-[25px] w-[260px] mt-[15px]"
+      >
+        {buttonText}
+      </Button>
+      </div>
+     
+    </div>
+  );
+};

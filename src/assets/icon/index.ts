@@ -33,7 +33,14 @@ export { default as  ExpiredIcon } from './expired';
 export { default as  Dot } from './dot';
 export { default as  Gift } from './gift';
 export { default as  SmallVideo } from './smallvideo';
-export { default as  ExamTaken } from './examTaken';
+export { default as  ExamTaken } from './examtaken';
 export { default as  StudyTime } from './studytime';
 export { default as  DayStreak } from './daystreak';
+export { default as  Rank1 } from './rank1';
+export { default as  Rank2 } from './rank2';
+export { default as  Rank3 } from './rank3';
+export { default as  Rank4 } from './rank4';
+export { default as  UpperTriangle } from './uppertriangle';
+export { default as  DownTriangle } from './downtriangle';
+
 

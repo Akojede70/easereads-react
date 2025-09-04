@@ -3,7 +3,7 @@ import Button from "../shared/button";
 import { Dot } from "../../assets/icon";
 
 type QuizCardProps = {
-  image: string;
+  image?: string;
   title: string;
   subject: string;
   duration: string;
@@ -14,7 +14,7 @@ type QuizCardProps = {
   className?: string; // 👈 added className for extra styling
 };
 
-const QuizCard: React.FC<QuizCardProps> = ({
+export const QuizContent: React.FC<QuizCardProps> = ({
   image,
   title,
   subject,
@@ -66,4 +66,61 @@ const QuizCard: React.FC<QuizCardProps> = ({
   );
 };
 
-export default QuizCard;
+
+
+type ClassContentProps = {
+  image?: string;
+  title: string;
+  subject: string;
+  duration: string;
+  questions: number;
+  date: string;
+  time: string;
+  onJoin: () => void;
+  className?: string; // 👈 added className for extra styling
+};
+
+export const ClassContent: React.FC<ClassContentProps> = ({
+  title,
+  subject,
+  duration,
+  // questions,
+  date,
+  time,
+  // onJoin,
+  // className = "",
+}) => {
+  return (
+     <div
+         className={`flex gap-[10%] items-center`}
+       >
+         <div className="flex flex-col gap-[10px] pl-[30px]">
+           <h2 className="text-[18px] font-bold pt-[40px]"> {title} </h2>
+   
+           <div className="flex gap-[15px] items-center flex-wrap">
+             <p className="w-[120px] text-primaryBlue"> {subject} </p>
+             <Dot />
+             <p> {duration} </p>
+             <div className="ml-[18px]">
+             </div>
+           </div>
+           <p>
+             { date } <span className="pl-[25px]"> {time} </span>
+           </p>
+         </div>
+   
+         <div className="ml-auto pr-5">
+           <Button
+             className="rounded-[13px] h-[40px] w-[120px] text-sm"
+           >
+             Join Class
+           </Button>
+         </div>
+       </div>
+  );
+};
+
+
+
+
+

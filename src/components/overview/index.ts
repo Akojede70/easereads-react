@@ -1,1 +1,2 @@
-export { default as QuizContent } from "./quiz-content";
+
+export { QuizContent, ClassContent } from "./quiz-content";
