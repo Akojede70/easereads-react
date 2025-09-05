@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../shared/button";
+import { Button } from "../shared";
 import { Dot } from "../../assets/icon";
 
 type QuizCardProps = {

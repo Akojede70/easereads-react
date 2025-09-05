@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Lady } from '../../assets/images';
 import { useNavigate } from 'react-router-dom';
 import { Google, ClosePassword, Email, Padlock, Person } from '../../assets/icon';
-import Button from '../../components/shared/button';
+import { Button } from '../../components/shared';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../../redux/auth-slice';
 import { registerUser, type RegisterFormData } from '../../service/auth';

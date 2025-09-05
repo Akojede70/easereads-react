@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {  Lock, Padlock, ClosePassword} from '../../assets/icon';
-import Button from '../../components/shared/button';
+import { Button } from '../../components/shared';
 import Alert from '../../components/helpers/alert';
 import { passwordReset } from '../../service/auth';
 import { useSelector } from 'react-redux';

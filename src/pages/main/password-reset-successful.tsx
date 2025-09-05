@@ -1,6 +1,6 @@
 import React from 'react';
 import {  Lock, Verified} from '../../assets/icon';
-import Button from '../../components/shared/button';
+import { Button } from '../../components/shared';
 import { useNavigate } from 'react-router-dom';
 
 const PasswordSuccessful = () => {

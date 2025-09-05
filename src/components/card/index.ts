@@ -1,8 +1,2 @@
-import MiniCard from './card';
 
-
-const Cards = {
-    MiniCard,
-}
-
-export default Cards;
+export { LeaderboardCard, MiniCard} from "./card";

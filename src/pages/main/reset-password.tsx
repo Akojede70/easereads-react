@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 import { Email, Lock} from '../../assets/icon';
-import Button from '../../components/shared/button';
+import { Button } from '../../components/shared';
 import { ForgetPassword } from '../../service/auth';
 import { useNavigate } from 'react-router-dom';
 import Alert from '../../components/helpers/alert';

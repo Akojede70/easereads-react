@@ -1,27 +1,45 @@
 import React, { useState } from 'react'
-import Layout from '../../components/layout/layout'
-// import SemiCircleProgressBar from "react-progressbar-semicircle";
-import {  Gift, SmallVideo, ExamTaken, DayStreak, StudyTime, Rank1, Rank2, Rank3, Rank4, UpperTriangle, DownTriangle,} from '../../assets/icon';
+import Layout from '../../../components/layout/layout'
+import {  Gift, SmallVideo, ExamTaken, Leaderboard, DayStreak, StudyTime, Rank1, Rank2, Rank3, Rank4, UpperTriangle, DownTriangle,} from '../../../assets/icon';
 import { 
   // CircularProgressbar, 
   // buildStyles 
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { Harmonic, Equation } from '../../assets/images';
-import MiniCard from '../../components/card/card';
-// import Button from '../../components/shared/button';
-// import{ ProgressBarCard } from '../../components/progressbar';
-import { ProgressBar, ProgressBarWithAction } from '../../components/progressbar';
-import { ClassContent, QuizContent } from '../../components/overview';
-// import Button from '../../components/shared/button';
-// import Button from '../../components/shared/button';
+import { Harmonic, Equation } from '../../../assets/images';
+import { MiniCard } from '../../../components/card';
+import { ProgressBar, ProgressBarWithAction } from '../../../components/progressbar';
+import { ClassContent, QuizContent } from '../../../components/overview';
+
 
 
 const Overview = () => { 
   const [activeTab, setActiveTab] = useState<"textbook" | "video" | "exam">('textbook');
-
+  const currentLevel = 3;
+  const progress = ((currentLevel - 1) / 4) * 100;
   return (
     <Layout name='overview ' >
+       <div className='w-full pl-[40px] border flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
+                  <div>
+                      <p className='text-4xl flex flex-col font-bold pt-[30px]'> Overview</p>
+                      <p className='pt-[10px] pb-[15px] pl-[5px]'> Hi Emmanuel Kelvin, here's your progress today!</p>
+                  </div>
+                  <div className='w-[20%] flex h-[60px] pt-[40px]'>
+                      <div>
+                         <Leaderboard/>
+                      </div>
+                  <div className=" w-full p-4">
+                   <div className="w-full h-5 bg-blue-200 rounded-full overflow-hidden">
+                     <div
+                       className="h-full bg-primaryBlue rounded-full"
+                       style={{ width: `${progress}%`, transition: 'width 0.5s ease-in-out' }}
+                     />
+                   </div>
+                 </div>
+                   <p className="w-[80%] pt-[15px]"> Level: {currentLevel}</p>
+                  </div>
+                  </div>
+                  <div className='pl-[2.9%] mt-[2%]'>
       <div className="relative w-[98%] h-[225px] bg-[#087cdf] text-white p-4 rounded-lg overflow-hidden flex gap-[290px] ">
       {/* Banner content */}
       <div className="pl-[50px]">
@@ -215,7 +233,7 @@ const Overview = () => {
 
       <div className='flex gap-[30px]'>
 
-         <div className="bg-primaryWhite p-4 rounded-[15px] shadow w-[55%] mt-[30px] mb-[260px]">
+         <div className="bg-primaryWhite p-4 rounded-[15px] shadow w-[55%] mt-[30px] mb-[120px]">
           <div className='mb-[20px]'>
             <p className='text-[17px] font-bold'> Continue Learning</p>
             <p className='text-[14px] py-[8px]'> Pick up where you left off </p>
@@ -276,6 +294,7 @@ const Overview = () => {
                  <ProgressBarWithAction
                   label="Physics"
                   progress={60}
+                  color='bg-[#ffa024]'
                   currentLevel={60}
                   buttonText="Continue Reading"
                   onButtonClick={() => alert("Continue Physics")}
@@ -338,6 +357,7 @@ const Overview = () => {
                   label="Physics"
                   progress={60}
                   currentLevel={60}
+                  color='bg-[#ffa024]'
                   buttonText="Continue Reading"
                   onButtonClick={() => alert("Continue Physics")}
                  />
@@ -386,6 +406,7 @@ const Overview = () => {
         onJoin={() => alert("Joining Harmonic Quiz")}
       />
       
+    </div>
     </div>
      
     </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lady } from '../../assets/images';
 import { Google, ClosePassword, Email, Padlock } from '../../assets/icon';
-import Button from '../../components/shared/button';
+import { Button } from '../../components/shared';
 import Alert from '../../components/helpers/alert';
 import { setCredentials } from '../../redux/auth-slice';
 import { useDispatch } from 'react-redux';

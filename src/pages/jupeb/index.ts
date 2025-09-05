@@ -1,8 +1,7 @@
-import Overview from './overview'
+import Overview from "./overview"
 
-
-const jupeb = {
-   Overview
+const JupebPages = {
+    Overview
 }
 
-export default jupeb;
+export default JupebPages

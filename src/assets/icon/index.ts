@@ -42,5 +42,10 @@ export { default as  Rank3 } from './rank3';
 export { default as  Rank4 } from './rank4';
 export { default as  UpperTriangle } from './uppertriangle';
 export { default as  DownTriangle } from './downtriangle';
+export { default as  LeftArrow } from './leftarrow';
+export { default as  LeaderboardPics } from './leaderboardpics';
+export { default as  FirstTag } from './firsttag';
+export { default as  SecondTag } from './secondtag';
+export { default as  ThirdTag } from './thirdtag';
 
 

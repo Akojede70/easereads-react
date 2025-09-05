@@ -1,5 +1,6 @@
 // components/Button.tsx
 import React from "react";
+import { LeftArrow } from "../../assets/icon";
 
 interface ButtonProps {
   children: React.ReactNode;  
@@ -9,7 +10,7 @@ interface ButtonProps {
   disabled?: boolean;  
 }
 
-const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
   children,
   onClick,
   type = "button",
@@ -31,4 +32,22 @@ const Button: React.FC<ButtonProps> = ({
   );
 };
 
-export default Button;
+type BackButtonProps = {
+  onClick?: () => void;
+  className?: string;
+};
+
+export const BackButton: React.FC<BackButtonProps> = ({ onClick, className }) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`cursor-pointer bg-primaryWhite border border-primaryBlack shadow-[0_4px_10px_#e0e0e0] 
+        rounded-[15px] w-[100px] h-[44px] flex items-center justify-center gap-[10px] 
+        hover:shadow-[0_6px_12px_#d0d0d0] transition-all duration-200 ${className}`}
+    >
+       <span> <LeftArrow/> </span>
+      Back
+    </button>
+  );
+};
+

@@ -8,7 +8,8 @@ const AuthRoutes = () => {
   return (
     <>
       <Routes>
-        <Route path='/overview' element={<JupebPages.Overview  />} />
+        <Route path='/overview' element={<JupebPages.Overview.Overview  />} />
+        <Route path='/leaderboard' element={<JupebPages.Overview.Leaderboard  />} />
       
       </Routes>
     </>

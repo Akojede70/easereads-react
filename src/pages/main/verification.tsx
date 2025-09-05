@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Verification } from '../../assets/images';
 import { Back } from '../../assets/icon';
-import Button from '../../components/shared/button';
+import { Button } from '../../components/shared';
 import { resendEmail, verification} from '../../service/auth';
 import { useSelector } from 'react-redux';
 import Alert from '../../components/helpers/alert';
