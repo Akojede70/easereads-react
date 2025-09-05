@@ -1,2 +1,7 @@
 
-export { LeaderboardCard, MiniCard} from "./card";
+export { 
+    LeaderboardCard, 
+    MiniCard, 
+    LongCard
+ } 
+    from "./card";

@@ -47,5 +47,6 @@ export { default as  LeaderboardPics } from './leaderboardpics';
 export { default as  FirstTag } from './firsttag';
 export { default as  SecondTag } from './secondtag';
 export { default as  ThirdTag } from './thirdtag';
+export { default as  UpperBoldTriangle } from './upperboldtriangle';
 
 
