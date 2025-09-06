@@ -1,1 +1,6 @@
-export { Button, BackButton } from "./button";
+export { 
+    Button, 
+    BackButton 
+} from "./button";
+
+export { default as Modal } from "./modal";

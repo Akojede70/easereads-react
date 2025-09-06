@@ -1,10 +1,6 @@
 import React, { useState } from 'react'
 import Layout from '../../../components/layout/layout'
 import {  Gift, SmallVideo, ExamTaken, Leaderboard, DayStreak, StudyTime, Rank1, Rank2, Rank3, Rank4, UpperTriangle, DownTriangle,} from '../../../assets/icon';
-import { 
-  // CircularProgressbar, 
-  // buildStyles 
-} from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { Harmonic, Equation } from '../../../assets/images';
 import { MiniCard } from '../../../components/card';
@@ -14,9 +10,12 @@ import { ClassContent, QuizContent } from '../../../components/overview';
 
 
 const Overview = () => { 
+
   const [activeTab, setActiveTab] = useState<"textbook" | "video" | "exam">('textbook');
   const currentLevel = 3;
   const progress = ((currentLevel - 1) / 4) * 100;
+
+
   return (
     <Layout name='overview ' >
        <div className='w-full pl-[40px] border flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
@@ -378,7 +377,6 @@ const Overview = () => {
               <p> Upcoming Quiz</p>
           <p className='text-primaryBlue underline cursor-pointer pr-2'> See All</p> 
           </div>
-
          <ClassContent 
         title="Quadratic Equation Motion Quiz"
         subject="Physics"
@@ -405,7 +403,6 @@ const Overview = () => {
         time="12:00pm"
         onJoin={() => alert("Joining Harmonic Quiz")}
       />
-      
     </div>
     </div>
      

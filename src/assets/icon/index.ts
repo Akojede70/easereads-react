@@ -48,5 +48,11 @@ export { default as  FirstTag } from './firsttag';
 export { default as  SecondTag } from './secondtag';
 export { default as  ThirdTag } from './thirdtag';
 export { default as  UpperBoldTriangle } from './upperboldtriangle';
+export { default as  Congratulations } from './congratulations';
+export { default as  Performance } from './performance';
+export { default as  Ring } from './ring';
+export { default as  Star } from './star';
+export { default as  Triangle } from './triangle';
+export { default as  DownBoldTriangle } from './downboldtriangle';
 
 

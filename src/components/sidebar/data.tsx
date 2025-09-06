@@ -14,7 +14,7 @@ const paths: Path[] = [
            <Overview/>
         ),
         name: "Overview",
-        path: '/',
+        path: '/jupeb/overview',
     },
     {
         id: 2,
@@ -22,7 +22,7 @@ const paths: Path[] = [
           <Textbook/>
         ),
         name: "Textbook",
-        path: 'textbook',
+        path: '/jupeb/textbook',
     },
     {
         id: 3,
