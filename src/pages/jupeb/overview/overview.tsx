@@ -18,24 +18,24 @@ const Overview = () => {
 
   return (
     <Layout name='overview ' >
-       <div className='w-full pl-[40px] border flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
+       <div className='w-[80%] md:w-full pl-[10px] md:pl-[40px] border md:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
                   <div>
-                      <p className='text-4xl flex flex-col font-bold pt-[30px]'> Overview</p>
-                      <p className='pt-[10px] pb-[15px] pl-[5px]'> Hi Emmanuel Kelvin, here's your progress today!</p>
+                      <p className='text-[20px] md:text-4xl flex flex-col font-bold pt-[30px]'> Overview</p>
+                      <p className='w-[70%] md:w-full text-[12px] md:text-[16px] pt-[10px] pb-[15px] pl-[5px]'> Hi Emmanuel Kelvin, here's your progress today!</p>
                   </div>
-                  <div className='w-[20%] flex h-[60px] pt-[40px]'>
+                  <div className='w-[90%] md:w-[20%] flex h-[60px] md:pt-[40px]'>
                       <div>
                          <Leaderboard/>
                       </div>
-                  <div className=" w-full p-4">
-                   <div className="w-full h-5 bg-blue-200 rounded-full overflow-hidden">
+                  <div className="w-full p-4">
+                   <div className="w-[100px] md:w-full h-5 bg-blue-200 rounded-full overflow-hidden">
                      <div
                        className="h-full bg-primaryBlue rounded-full"
                        style={{ width: `${progress}%`, transition: 'width 0.5s ease-in-out' }}
                      />
                    </div>
                  </div>
-                   <p className="w-[80%] pt-[15px]"> Level: {currentLevel}</p>
+                   <p className="w-full md:w-[80%] pt-[15px]"> Level: {currentLevel}</p>
                   </div>
                   </div>
                   <div className='pl-[2.9%] mt-[2%]'>
