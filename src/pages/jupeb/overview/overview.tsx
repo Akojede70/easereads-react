@@ -18,7 +18,7 @@ const Overview = () => {
 
   return (
     <Layout name='overview ' >
-       <div className='w-[80%] md:w-full pl-[10px] md:pl-[40px] border md:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
+       <div className='w-[75%] md:w-full pl-[10px] md:pl-[40px] border md:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
                   <div>
                       <p className='text-[20px] md:text-4xl flex flex-col font-bold pt-[30px]'> Overview</p>
                       <p className='w-[70%] md:w-full text-[12px] md:text-[16px] pt-[10px] pb-[15px] pl-[5px]'> Hi Emmanuel Kelvin, here's your progress today!</p>
@@ -38,26 +38,30 @@ const Overview = () => {
                    <p className="w-full md:w-[80%] pt-[15px]"> Level: {currentLevel}</p>
                   </div>
                   </div>
-                  <div className='pl-[2.9%] mt-[2%]'>
-      <div className="relative w-[98%] h-[225px] bg-[#087cdf] text-white p-4 rounded-lg overflow-hidden flex gap-[290px] ">
+                  <div className='md:pl-[2.9%] mt-[2%]'>
+      <div className="relative md:w-[98%] h-[225px] bg-[#087cdf] text-white p-4 rounded-lg overflow-hidden flex gap-[290px] ">
       {/* Banner content */}
-      <div className="pl-[50px]">
-        <h2 className="text-3xl font-bold pt-[20px]">Upgrade to Premium & Save 40%</h2>
-        <p className="w-[80%] mt-[20px] text-[16px]">
+      <div className="pl-[2px] md:pl-[50px]">
+        <div className='w-[280px] md:w-[80%]'>
+        <h2 className="text-[16px] md:text-3xl font-bold pt-[20px]">Upgrade to Premium & Save 40%</h2>
+        <p className="mt-[20px] text-[13px] md:text-[16px]">
           Get unlimited access to all textbooks, live classes, and AI tutoring Limited  time offer ending soon!
         </p>
+         </div>
 
           <div className='my-[15px]'>
-          <button className="w-[30%] bg-primaryYellow text-white px-4 py-2 rounded-[8px] hover:bg-blue-700 transition duration-200 cursor-pointer">
+          <button className="w-[50%] md:w-[30%] bg-primaryYellow text-white px-4 py-2 rounded-[8px] hover:bg-blue-700 transition duration-200 cursor-pointer">
         Claim Offer
       </button>
       </div>
 
       </div>
+      <div className='none md:block'>
       <Gift />
+      </div>
      </div>
 
-     <div className='flex gap-[20px] mt-[20px]'>
+     <div className='md:flex gap-[20px] mt-[20px]'>
           <MiniCard 
       icon={SmallVideo} 
       title="Textbooks Read" 
@@ -80,26 +84,26 @@ const Overview = () => {
       />
      </div>
     
-     <div className='flex gap-[30px]'>
+     <div className='md:flex gap-[30px]'>
       
-      <div className="w-[60%] flex gap-[60px] mb-6">
-        <div className="w-[100%] h-[320px] bg-primaryWhite p-4 rounded-[15px] shadow">
-          <div className='flex px-4 justify-between'>
+      <div className="w-[70%] md:w-[60%] flex gap-[60px] mb-6">
+        <div className="w-[100%] h-[320px] bg-primaryWhite p-2 md:p-4 rounded-[15px] shadow">
+          <div className='flex px-1 md:px-4 justify-between'>
             <div>
-               <h3 className="text-[16px] font-bold pt-[6px]">Overall performance</h3>
+               <h3 className="text-[12px] md:text-[16px] font-bold pt-[6px]">Overall performance</h3>
             </div>
             <div className='bg-primaryBlue p-[3px] rounded-[12px] text-primaryWhite'>
               <p> weekly</p>
             </div>
           </div>
           
-          <div className='flex px-4 my-[22px] gap-[20px]'>
+          <div className='flex px-1 md:px-4 my-[22px] gap-[20px]'>
              
-              <div className='w-[60%] h-[40%] rounded-[10px] bg-[#e8f1f9]'>
+              <div className='w-[60%] h-[60%] md:h-[40%] rounded-[10px] bg-[#e8f1f9]'>
 
             <div className='flex flex-col justify-center items-center gap-[10px]  mt-[20px] mb-[10px]'>
               <p className='text-[20px] font-bold pt-[10px] text-[#106ebe]'> 70% </p>
-              <p className='font-semibold'> Average Score </p>
+              <p className='text-[12px] md:text-[16px] font-semibold'> Average Score </p>
             </div>
           </div>
 
@@ -107,12 +111,12 @@ const Overview = () => {
 
             <div className='flex flex-col justify-center items-center gap-[10px]  mt-[20px] mb-[10px]'>
               <p className='text-[20px] font-bold pt-[10px] text-[#ff9f23]'> 12/15 </p>
-              <p className='font-semibold'> Quizzes Passed </p>
+              <p className='text-[12px] md:text-[16px]font-semibold'> Quizzes Passed </p>
             </div>
 
           </div>
           </div>
-            <div className='px-4 flex flex-col gap-[20px]'>
+            <div className='pr-4 md:px-4 flex flex-col gap-[20px]'>
             <ProgressBar label="Physics" progress={80} currentLevel={80} />
             <ProgressBar label="Chemistry" progress={40} currentLevel={40}  color="bg-[#ffa024]" />
             <ProgressBar label="English" progress={60} currentLevel={60} />
@@ -120,12 +124,12 @@ const Overview = () => {
         </div>   
       </div>
 
-      <div className='w-[35%]  bg-primaryWhite  mb-[20px] rounded-[15px]'>
+      <div className='w-[65%] h-[230px] md:h-[325px] md:w-[35%]  bg-primaryWhite  mb-[20px] rounded-[15px]'>
         <p className='pl-[20px] pt-[20px] text-[20px] font-bold'> Referral Points </p>
         <div className='text-center'>
-            <p className='text-[20px] pt-[60px] font-bold'> 2,400 <span className='text-[13px]'> Total points</span></p>
+            <p className='text-[20px] pt-[20px] md:pt-[60px] font-bold'> 2,400 <span className='text-[13px]'> Total points</span></p>
         <div className='flex flex-col'>
-          <div className='flex gap-[30px] justify-evenly pt-[70px] text-[17px]'>
+          <div className='flex gap-[30px] justify-evenly pt-[20px] md:pt-[70px] text-[17px]'>
             <p> This Month</p>
             <p> +180 pts</p>
           </div>
@@ -136,17 +140,15 @@ const Overview = () => {
           </div>
         </div>
         </div>
-       
-
       </div>
 
       
      </div>
 
       {/* Main Content Row */}
-      <div className="w-full flex gap-[30px]">
-        <div className="w-[60%] bg-primaryWhite p-[20px] rounded-[20px] shadow">
-          <div className='flex justify-between px-4 font-bold'>
+      <div className="w-full md:flex gap-[30px]">
+        <div className="w-[70%] md:w-[60%] bg-primaryWhite p-[20px] rounded-[20px] shadow">
+          <div className='flex justify-between px-2 md:px-4 font-bold'>
               <p> Upcoming Quiz</p>
           <p className='text-primaryBlue underline cursor-pointer'> See All</p> 
           </div>
@@ -176,16 +178,16 @@ const Overview = () => {
         </div>
 
         {/* Leaderboard */}
-        <div className="w-[35%] bg-primaryWhite p-4 rounded-[15px] shadow">
-          <div className='flex justify-between px-4'>
+        <div className="w-[72%] md:w-[35%] bg-primaryWhite p-4 rounded-[15px] shadow">
+          <div className='flex justify-between px-1 md:px-4'>
              <h3 className="text-[16px] font-bold">Leaderboard</h3>
           <button className="mt-2 text-primaryBlue font-bold underline text-[16px]">See All</button>
           </div>
-          <div className='my-[20px] w-[80%] ml-[18px]'>
+          <div className='my-[20px] md:w-[80%] md:ml-[18px]'>
             <p > Top Performance this week based on quiz scores and study time</p>
           </div>
          
-          <div className="mt-4 px-4 space-y-4">
+          <div className="mt-4 px-1 md:px-4 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-5">
                 <Rank1 />
@@ -230,9 +232,9 @@ const Overview = () => {
         </div>
       </div>
 
-      <div className='flex gap-[30px]'>
+      <div className='md:flex gap-[30px]'>
 
-         <div className="bg-primaryWhite p-4 rounded-[15px] shadow w-[55%] mt-[30px] mb-[120px]">
+         <div className="bg-primaryWhite p-4 rounded-[15px] shadow w-[71%] md:w-[55%] mt-[30px] mb-[120px]">
           <div className='mb-[20px]'>
             <p className='text-[17px] font-bold'> Continue Learning</p>
             <p className='text-[14px] py-[8px]'> Pick up where you left off </p>
@@ -240,7 +242,7 @@ const Overview = () => {
       {/* Tabs Header */}
       <div className="flex border-b border-gray-200">
         <button
-          className={`px-4 py-2 text-[17px] font-bold cursor-pointer ${
+          className={`px-4 py-2 text-[13px] md:text-[17px] font-bold cursor-pointer ${
             activeTab === "textbook"
               ? "border-b-2 border-primaryBlue text-primaryBlue"
               : " hover:text-primaryBlue"
@@ -250,7 +252,7 @@ const Overview = () => {
           Textbook
         </button>
         <button
-          className={`px-4 py-2 text-[17px] font-bold cursor-pointer ${
+          className={`px-4 py-2 text-[13px] md:text-[17px] font-bold cursor-pointer ${
             activeTab === "video"
               ? "border-b-2 border-primaryBlue text-primaryBlue"
               : "hover:text-primaryBlue "
@@ -260,7 +262,7 @@ const Overview = () => {
           Video Tutorials
         </button>
          <button
-          className={`px-4 py-2 text-[17px] font-bold cursor-pointer ${
+          className={`px-4 py-2 text-[13px] md:text-[17px] font-bold cursor-pointer ${
             activeTab === "exam"
               ? "border-b-2 border-primaryBlue text-primaryBlue cursor-pointer"
               : "hover:text-primaryBlue"
@@ -274,7 +276,7 @@ const Overview = () => {
       {/* Tab Content */}
       <div className="mt-4">
         {activeTab === "textbook" && (
-          <div className='px-4 flex flex-col'>
+          <div className='md:px-4 flex flex-col'>
                <ProgressBarWithAction
                   label="Biology"
                   progress={20}
@@ -372,7 +374,7 @@ const Overview = () => {
       </div>
     </div>
 
-    <div className='w-[40%] h-[463px] mt-[30px] bg-primaryWhite rounded-[15px]'>
+    <div className='w-[70%] md:w-[40%] h-[700px] md:h-[463px] mt-[30px] bg-primaryWhite rounded-[15px] mb-[300px] md:mb-0'>
        <div className='flex justify-between px-6 font-bold pt-[20px]'>
               <p> Upcoming Quiz</p>
           <p className='text-primaryBlue underline cursor-pointer pr-2'> See All</p> 
