@@ -10,15 +10,17 @@ const Leaderboard = () => {
         const [quizOpen, setQuizOpen] = useState(false);
         const [liveClassOpen, setLiveClassOpen] = useState(false);
         const [rateOpen, setRateOpen] = useState(false);
-        const [leaveOpen, setLeaveOpen] = useState(false);
+        // const [leaveOpen, setLeaveOpen] = useState(false);
 
   return (
-   <Layout>
-    <div>
-        <div className='w-full bg-primaryWhite h-[80px] pt-[15px] pl-[13%] border-t border-b flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
+  //  <Layout>
+    <div className='w-full '>
+        <div className='w-[900px] md:w-full bg-primaryWhite h-[140px] md:h-[80px] pt-[40px] md:pt-[15px] pl-[30%] md:pl-[13%] border-t border-b flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
           <BackButton />
       </div>
-      <div className='text-[24px] font-bold ml-[13%] mt-[2%]'>
+      <div className='w-[900px] md:w-full h-[1800px] md:h-full bg-[#f5f5f5]'>
+
+      <div className='text-[30px] md:text-[24px] font-bold ml-[13.5%] pt-[2%]'>
         <p > Leaderboard</p>
 
         <div className='flex'>
@@ -146,7 +148,7 @@ const Leaderboard = () => {
       </Modal>
     </div>
 
-       <div className="p-6">
+       {/* <div className="p-6">
       <button
         onClick={() => setLeaveOpen(true)}
         className="px-2 py-2 bg-primaryBlue text-white rounded-lg cursor-pointer"
@@ -167,13 +169,13 @@ const Leaderboard = () => {
         </div>
         </div>
       </Modal>
-    </div>
+    </div> */}
 
         </div>
 
       </div>
         
-        <div className='flex items-center justify-center gap-[20px]'>
+        <div className='w-[900px] mx-auto md:w-full flex flex-col lg:flex-row items-center justify-center gap-[20px]'>
           <LeaderboardCard
         avatar={<LeaderboardPics />}
         name="Emmanuel 28"
@@ -200,7 +202,7 @@ const Leaderboard = () => {
       />
         </div>
 
-        <div className='flex  mb-[90px] flex-col items-center justify-center'>
+        <div className='flex  md:pb-[90px] mt-[30px] flex-col gap-[20px] items-center justify-center'>
               <LongCard
                name="Emmanuel"
                age={28}
@@ -253,8 +255,9 @@ const Leaderboard = () => {
         />
             </div>
        </div>
+       </div>
      
-   </Layout>
+  //  </Layout>
   )
 }
 

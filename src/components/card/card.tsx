@@ -43,16 +43,16 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({
 }) => {
   return (
     <div
-      className={`w-[23.4%] pl-[35px] mt-[20px] ml-[20px] mb-[20px] h-[17%] flex flex-col gap-[10px] bg-primaryWhite p-4 rounded-[20px] shadow ${className}`}
+      className={`w-[55%] md:w-[44%]  lg:w-[23.4%] pl-[35px] mt-[20px] lg:ml-[20px] mb-[20px] h-[17%] flex flex-col gap-[10px] bg-primaryWhite p-4 rounded-[20px] shadow ${className}`}
     >
       {/* Header Section */}
       <div className="flex gap-[20px] items-center">
         {avatar}
         <div className="flex flex-col">
-          <p className="font-bold text-[17px]">{name}</p>
-          <p className="text-[15px]">level {level}</p>
+          <p className="font-bold text-[23px] md:text-[17px]">{name}</p>
+          <p className="text-[23px] md:text-[15px]">level {level}</p>
         </div>
-        {tag && <div className="pl-[50px]">{tag}</div>}
+        {tag && <div className="pl-[120px] md:pl-[50px]">{tag}</div>}
       </div>
 
       {/* Progress Section */}
@@ -63,14 +63,14 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({
             style={{ width: `${progress}%` }}
           />
         </div>
-        <div>
+        <div className="text-[23px] md:text-[17px]">
           <p>
             {progress}
             <span>%</span>
           </p>
         </div>
         {rankLabel && (
-          <div className="font-bold text-[17px] text-primaryBlue ml-[8%]">
+          <div className="font-bold text-[25px] md:text-[17px] text-primaryBlue ml-[15%] lg:ml-[8%]">
             <p>{rankLabel}</p>
           </div>
         )}
@@ -80,28 +80,28 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({
 };
 
 
-type LongCardProps = {
-  name: string;
-  age: number | string;
-  progress: number; 
-  currentLevel: number;
-  level: number | string;
-  rank: string | number;
-  PicComponent: React.ReactNode; 
-  IconComponent?: React.ReactNode; 
-};
+     type LongCardProps = {
+       name: string;
+       age: number | string;
+       progress: number; 
+       currentLevel: number;
+       level: number | string;
+       rank: string | number;
+       PicComponent: React.ReactNode; 
+       IconComponent?: React.ReactNode; 
+     };
 
- export const LongCard: React.FC<LongCardProps> = ({
-  name,
-  age,
-  progress,
-  currentLevel,
-  level,
-  rank,
-  PicComponent,
-  IconComponent,
-}) => {
-  return (
+      export const LongCard: React.FC<LongCardProps> = ({
+       name,
+       age,
+       progress,
+       currentLevel,
+       level,
+       rank,
+       PicComponent,
+       IconComponent,
+     }) => {
+       return (
     <div className="w-[75%] px-[45px] ml-[20px] mb-[20px] h-[90px] flex flex-col gap-[10px] bg-primaryWhite p-4 rounded-[25px] shadow">
       <div className="flex justify-between items-center gap-[20px] pt-[10px]">
         {/* Profile Picture */}
@@ -109,8 +109,8 @@ type LongCardProps = {
 
         {/* Name & Age */}
         <div className="flex gap-[10px] pt-[10px]">
-          <p className="font-bold text-[17px]">{name}</p>
-          <p className="font-bold">{age}</p>
+          <p className="font-bold text-[22px] md:text-[17px]">{name}</p>
+          <p className="font-bold text-[22px] md:text-[17px]">{age}</p>
         </div>
 
         {/* Progress Bar */}
@@ -125,7 +125,7 @@ type LongCardProps = {
         </div>
 
         {/* Current Level Progress */}
-        <div className="pt-[10px]">
+        <div className="pt-[10px] text-[22px] md:text-[17px]">
           <p>
             {currentLevel}
             <span>%</span>
@@ -133,12 +133,12 @@ type LongCardProps = {
         </div>
 
         {/* Level */}
-        <div className="pt-[10px]">
+        <div className="text-[22px] md:text-[17px] pt-[10px]  w-[290px] lg:w-[55px]">
           <p>level {level}</p>
         </div>
 
         {/* Rank */}
-        <div className="text-primaryBlue text-[18px] pt-[10px] font-bold">
+        <div className="text-primaryBlue text-[22px] md:text-[18px]  pt-[10px] font-bold">
           <p>{rank}</p>
         </div>
 
