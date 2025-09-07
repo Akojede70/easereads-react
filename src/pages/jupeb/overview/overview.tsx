@@ -18,50 +18,50 @@ const Overview = () => {
 
   return (
     <Layout name='overview ' >
-       <div className='w-[75%] md:w-full pl-[10px] md:pl-[40px] border md:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
+       <div className='w-[70%] lg:w-full mt-[20px] lg:mt-0 ml-[2%] md:ml-[3%]  lg:ml-0 pl-[13px] md:pl-[40px] border lg:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
                   <div>
                       <p className='text-[20px] md:text-4xl flex flex-col font-bold pt-[30px]'> Overview</p>
-                      <p className='w-[70%] md:w-full text-[12px] md:text-[16px] pt-[10px] pb-[15px] pl-[5px]'> Hi Emmanuel Kelvin, here's your progress today!</p>
+                      <p className='w-[70%] md:w-[78%] lg:w-full text-[12px] md:text-[18px] lg:text-[16px] pt-[10px] pb-[15px] pl-[5px]'> Hi Emmanuel Kelvin, here's your progress today!</p>
                   </div>
-                  <div className='w-[90%] md:w-[20%] flex h-[60px] md:pt-[40px]'>
+                  <div className='w-[95%] lg:w-[20%] flex h-[60px] lg:pt-[40px]'>
                       <div>
                          <Leaderboard/>
                       </div>
                   <div className="w-full p-4">
-                   <div className="w-[100px] md:w-full h-5 bg-blue-200 rounded-full overflow-hidden">
+                   <div className="w-[100px] md:w-[180px] lg:w-full h-5 bg-blue-200 rounded-full overflow-hidden">
                      <div
                        className="h-full bg-primaryBlue rounded-full"
                        style={{ width: `${progress}%`, transition: 'width 0.5s ease-in-out' }}
                      />
                    </div>
                  </div>
-                   <p className="w-full md:w-[80%] pt-[15px]"> Level: {currentLevel}</p>
+                   <p className="w-full lg:w-[80%] pt-[15px] text-[16px] md:text-[18px]"> Level: {currentLevel}</p>
                   </div>
                   </div>
-                  <div className='md:pl-[2.9%] mt-[2%]'>
-      <div className="relative md:w-[98%] h-[225px] bg-[#087cdf] text-white p-4 rounded-lg overflow-hidden flex gap-[290px] ">
+                  <div className='md:pl-[2.9%] mt-[4%] md:mt-[2%]'>
+      <div className="relative w-[70%] md:w-[73%] lg:w-[98%] ml-[8px] md:ml-0 h-[250px] md:h-[225px] bg-[#087cdf] text-white p-4 rounded-lg overflow-hidden flex gap-[290px] ">
       {/* Banner content */}
-      <div className="pl-[2px] md:pl-[50px]">
-        <div className='w-[280px] md:w-[80%]'>
-        <h2 className="text-[16px] md:text-3xl font-bold pt-[20px]">Upgrade to Premium & Save 40%</h2>
-        <p className="mt-[20px] text-[13px] md:text-[16px]">
+      <div className="pl-[1%] md:pl-[7%] lg:pl-[50px]">
+        <div className='w-[280px] md:w-[320px] lg:w-[80%]'>
+        <h2 className="text-[15px] md:text-[18px] lg:text-3xl font-bold pt-[20px]">Upgrade to Premium & Save 40%</h2>
+        <p className="w-[80%] md:w-[97%] mt-[20px] text-[15px] md:text-[16.5px] lg:text-[16px]">
           Get unlimited access to all textbooks, live classes, and AI tutoring Limited  time offer ending soon!
         </p>
          </div>
 
-          <div className='my-[15px]'>
-          <button className="w-[50%] md:w-[30%] bg-primaryYellow text-white px-4 py-2 rounded-[8px] hover:bg-blue-700 transition duration-200 cursor-pointer">
+          <div className='my-[15px] text-[14px] md:text-[16px]'>
+          <button className="w-[50%] lg:w-[30%] bg-primaryYellow text-white px-4 py-2 rounded-[8px] hover:bg-blue-700 transition duration-200 cursor-pointer">
         Claim Offer
       </button>
       </div>
 
       </div>
-      <div className='none md:block'>
+      <div className='none lg:block'>
       <Gift />
       </div>
      </div>
 
-     <div className='md:flex gap-[20px] mt-[20px]'>
+     <div className='ml-[3%] md:ml-0 md:flex flex-wrap gap-[20px] mt-[20px]'>
           <MiniCard 
       icon={SmallVideo} 
       title="Textbooks Read" 
@@ -84,13 +84,13 @@ const Overview = () => {
       />
      </div>
     
-     <div className='md:flex gap-[30px]'>
+     <div className='lg:flex gap-[30px]'>
       
-      <div className="w-[70%] md:w-[60%] flex gap-[60px] mb-6">
+      <div className="ml-[3%] md:ml-0 w-[67%] md:w-[73%] lg:w-[60%] flex gap-[60px] mb-6">
         <div className="w-[100%] h-[320px] bg-primaryWhite p-2 md:p-4 rounded-[15px] shadow">
           <div className='flex px-1 md:px-4 justify-between'>
             <div>
-               <h3 className="text-[12px] md:text-[16px] font-bold pt-[6px]">Overall performance</h3>
+               <h3 className="text-[14px] md:text-[16px] font-bold pt-[6px]">Overall performance</h3>
             </div>
             <div className='bg-primaryBlue p-[3px] rounded-[12px] text-primaryWhite'>
               <p> weekly</p>
@@ -124,31 +124,29 @@ const Overview = () => {
         </div>   
       </div>
 
-      <div className='w-[65%] h-[230px] md:h-[325px] md:w-[35%]  bg-primaryWhite  mb-[20px] rounded-[15px]'>
-        <p className='pl-[20px] pt-[20px] text-[20px] font-bold'> Referral Points </p>
+      <div className='ml-[3%] md:ml-0  h-[230px] md:h-[325px] w-[66%] md:w-[73%] lg:w-[35%]  bg-primaryWhite  mb-[20px] rounded-[15px]'>
+        <p className='pl-[20px] pt-[20px] text-[16px] md:text-[20px] font-bold'> Referral Points </p>
         <div className='text-center'>
-            <p className='text-[20px] pt-[20px] md:pt-[60px] font-bold'> 2,400 <span className='text-[13px]'> Total points</span></p>
+            <p className='text-[16px] md:text-[20px] pt-[20px] md:pt-[60px] font-bold'> 2,400 <span className='text-[13px]'> Total points</span></p>
         <div className='flex flex-col'>
-          <div className='flex gap-[30px] justify-evenly pt-[20px] md:pt-[70px] text-[17px]'>
+          <div className='flex gap-[30px] justify-evenly pt-[20px] md:pt-[70px] text-[14px] md:text-[17px]'>
             <p> This Month</p>
             <p> +180 pts</p>
           </div>
            
-          <div className='flex gap-[40px] justify-evenly pt-[30px] text-[17px]'>
+          <div className='flex gap-[40px] justify-evenly pt-[30px] text-[14px] md:text-[17px]'>
              <p> Referral </p>
             <p> 3 Active </p>
           </div>
         </div>
         </div>
       </div>
-
-      
      </div>
 
       {/* Main Content Row */}
-      <div className="w-full md:flex gap-[30px]">
-        <div className="w-[70%] md:w-[60%] bg-primaryWhite p-[20px] rounded-[20px] shadow">
-          <div className='flex justify-between px-2 md:px-4 font-bold'>
+      <div className="w-full lg:flex gap-[30px]">
+        <div className="ml-[3%] md:ml-0 mb-[7%] lg:mb-0 w-[67%] md:w-[73%] lg:w-[60%] bg-primaryWhite p-[20px] rounded-[20px] shadow">
+          <div className='flex justify-between px-1 lg:px-4 font-bold text-[14px] md:text-[17px]'>
               <p> Upcoming Quiz</p>
           <p className='text-primaryBlue underline cursor-pointer'> See All</p> 
           </div>
@@ -178,12 +176,12 @@ const Overview = () => {
         </div>
 
         {/* Leaderboard */}
-        <div className="w-[72%] md:w-[35%] bg-primaryWhite p-4 rounded-[15px] shadow">
-          <div className='flex justify-between px-1 md:px-4'>
-             <h3 className="text-[16px] font-bold">Leaderboard</h3>
+        <div className="ml-[3%] md:ml-0 w-[67%] md:w-[73%] lg:w-[35%] bg-primaryWhite p-4 rounded-[15px] shadow">
+          <div className='flex justify-between px-1 md:px-4 mt-[2%] md:mt-0'>
+             <h3 className="pt-[15px] md:pt-0 text-[13px] md:text-[17px] font-bold">Leaderboard</h3>
           <button className="mt-2 text-primaryBlue font-bold underline text-[16px]">See All</button>
           </div>
-          <div className='my-[20px] md:w-[80%] md:ml-[18px]'>
+          <div className='text-[14px] md:text-[16px] my-[20px] md:w-[80%] md:ml-[18px]'>
             <p > Top Performance this week based on quiz scores and study time</p>
           </div>
          
@@ -191,9 +189,9 @@ const Overview = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-5">
                 <Rank1 />
-                <span className="font-bold">Emmanuel Kelvin</span>
+                <span className="font-bold text-[12px] md:text-[16px]">Emmanuel Kelvin</span>
               </div>
-              <div className='flex gap-[10px]'>
+              <div className='flex gap-[9px]'>
                 <p> Lvl 12</p>
                 <UpperTriangle />
               </div>
@@ -201,7 +199,7 @@ const Overview = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-5">
                 <Rank2 />
-                <span className="font-bold">John Yemi</span>
+                <span className="font-bold text-[12px] md:text-[16px]">John Yemi</span>
               </div>
                <div className='flex gap-[10px]'>
                 <p> Lvl 10</p>
@@ -211,7 +209,7 @@ const Overview = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-5">
                 <Rank3 />
-                <span className="font-bold">King Ammy</span>
+                <span className="font-bold text-[12px] md:text-[16px]">King Ammy</span>
               </div>
                <div className='flex gap-[10px]'>
                 <p> Lvl 09</p>
@@ -221,7 +219,7 @@ const Overview = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-5">
                 <Rank4/>
-                <span className="font-bold">Martins Bush</span>
+                <span className="font-bold text-[12px] md:text-[16px]">Martins Bush</span>
               </div>
                <div className='flex gap-[10px]'>
                 <p> Lvl 05</p>
@@ -232,17 +230,16 @@ const Overview = () => {
         </div>
       </div>
 
-      <div className='md:flex gap-[30px]'>
-
-         <div className="bg-primaryWhite p-4 rounded-[15px] shadow w-[71%] md:w-[55%] mt-[30px] mb-[120px]">
+      <div className='lg:flex gap-[30px]'>
+         <div className="bg-primaryWhite p-4 rounded-[15px] shadow ml-[3%] md:ml-0 w-[67%] md:w-[73%] lg:w-[55%] mt-[30px] mb-[40px] lg:mb-[120px]">
           <div className='mb-[20px]'>
             <p className='text-[17px] font-bold'> Continue Learning</p>
             <p className='text-[14px] py-[8px]'> Pick up where you left off </p>
           </div>
       {/* Tabs Header */}
-      <div className="flex border-b border-gray-200">
+      <div className="flex justify-between border-b border-gray-200">
         <button
-          className={`px-4 py-2 text-[13px] md:text-[17px] font-bold cursor-pointer ${
+          className={`px-4 py-2 text-[11px] md:text-[17px] font-bold cursor-pointer ${
             activeTab === "textbook"
               ? "border-b-2 border-primaryBlue text-primaryBlue"
               : " hover:text-primaryBlue"
@@ -252,7 +249,7 @@ const Overview = () => {
           Textbook
         </button>
         <button
-          className={`px-4 py-2 text-[13px] md:text-[17px] font-bold cursor-pointer ${
+          className={`px-4 py-2 text-[11px] md:text-[17px] font-bold cursor-pointer ${
             activeTab === "video"
               ? "border-b-2 border-primaryBlue text-primaryBlue"
               : "hover:text-primaryBlue "
@@ -262,7 +259,7 @@ const Overview = () => {
           Video Tutorials
         </button>
          <button
-          className={`px-4 py-2 text-[13px] md:text-[17px] font-bold cursor-pointer ${
+          className={`px-4 py-2 text-[11px] md:text-[17px] font-bold cursor-pointer ${
             activeTab === "exam"
               ? "border-b-2 border-primaryBlue text-primaryBlue cursor-pointer"
               : "hover:text-primaryBlue"
@@ -301,7 +298,7 @@ const Overview = () => {
                   onButtonClick={() => alert("Continue Physics")}
                  />
                  <ProgressBarWithAction
-                  label="Mathematics"
+                  label="Crs"
                   progress={80}
                   currentLevel={80}
                   buttonText="Continue Reading"
@@ -311,7 +308,7 @@ const Overview = () => {
         )}
 
         {activeTab === "video" && (
-        <div className='px-4 flex flex-col'>
+        <div className='md:px-4 flex flex-col'>
                <ProgressBarWithAction
                   label="Biology"
                   progress={20}
@@ -338,7 +335,7 @@ const Overview = () => {
         )}
 
          {activeTab === "exam" && (
-         <div className='px-4 flex flex-col'>
+         <div className='md:px-4 flex flex-col'>
                <ProgressBarWithAction
                   label="Biology"
                   progress={20}
@@ -363,7 +360,7 @@ const Overview = () => {
                   onButtonClick={() => alert("Continue Physics")}
                  />
                  <ProgressBarWithAction
-                  label="Mathematics"
+                  label="Crs"
                   progress={80}
                   currentLevel={80}
                   buttonText="Continue Reading"
@@ -374,8 +371,8 @@ const Overview = () => {
       </div>
     </div>
 
-    <div className='w-[70%] md:w-[40%] h-[700px] md:h-[463px] mt-[30px] bg-primaryWhite rounded-[15px] mb-[300px] md:mb-0'>
-       <div className='flex justify-between px-6 font-bold pt-[20px]'>
+    <div className='ml-[3%] md:ml-0 w-[68%] md:w-[73%] lg:w-[40%] h-[750px] md:h-[463px] mt-[10px] lg:mt-[30px] bg-primaryWhite rounded-[15px] mb-[120px] lg:mb-0'>
+       <div className='flex justify-between px-6 font-bold pt-[20px] text-[14px] md:text-[18px]'>
               <p> Upcoming Quiz</p>
           <p className='text-primaryBlue underline cursor-pointer pr-2'> See All</p> 
           </div>

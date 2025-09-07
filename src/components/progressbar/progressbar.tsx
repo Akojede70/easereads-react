@@ -19,13 +19,13 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   return (
     <div className={`w-[99%] flex justify-between items-center ${className}`}>
       {/* Label */}
-      <div className="w-[15%]">
+      <div className="w-[15%] pl-[5px] text-[13px] md:text-[16px]">
         <p>{label}</p>
       </div>
 
       {/* Progress Bar */}
       <div className="w-full pt-[8px] pl-[20px]">
-        <div className="w-[65%] h-[11px] ml-[33%] bg-[#e8f1f9] rounded-full overflow-hidden">
+        <div className="w-[65%] h-[11px] ml-[17%] md:ml-[33%] bg-[#e8f1f9] rounded-full overflow-hidden">
           <div
             className={`h-full rounded-full ${color}`}
             style={{
@@ -37,7 +37,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
       </div>
 
       {/* Percentage */}
-      <div className="w-[5%] text-right">
+      <div >
         <p>{currentLevel}%</p>
       </div>
     </div>
@@ -65,7 +65,7 @@ export const ProgressBarWithAction: React.FC<ProgressBarWithActionProps> = ({
 }) => {
   return (
     <div
-      className={`w-[99%] flex justify-between items-center gap-4 ${className}`}
+      className={`w-full flex justify-between items-center gap-4 ${className}`}
     >
       {/* Label */}
       <div className="w-[15%] text-[13px] md:text-[16px]">
@@ -91,10 +91,10 @@ export const ProgressBarWithAction: React.FC<ProgressBarWithActionProps> = ({
       </div>
 
       {/* Action Button */}
-      <div className="w-[260px] text-[11px] md:text-[16px] ml-[15px] md:ml-0">
+      <div className="w-[260px] text-[11px] md:text-[16px] ml-[15px] md:ml-[27px] lg:ml-0">
          <Button
         onClick={onButtonClick}
-        className="rounded-[10px] md:rounded-[25px] w-[200px] md:w-[260px] mt-[15px]"
+        className="rounded-[10px] md:rounded-[25px] w-[200px] md:w-[210px] lg:w-[260px] mt-[15px]"
       >
         {buttonText}
       </Button>

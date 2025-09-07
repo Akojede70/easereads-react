@@ -10,13 +10,13 @@ interface MiniCardProps {
 export const MiniCard: React.FC<MiniCardProps> = ({ icon: Icon, title, value, className = "" }) => {
   return (
     <div
-      className={`w-[70%] md:w-[23.4%] mb-[20px] h-[17%] flex flex-col gap-[10px] items-center justify-center bg-primaryWhite p-4 rounded-[20px] shadow ${className}`}
+      className={`w-[70%] sm:w-[35%] lg:w-[23.4%] mb-[20px] h-[17%] flex flex-col gap-[10px] items-center justify-center bg-primaryWhite p-4 rounded-[20px] shadow ${className}`}
     >
       <div className="flex gap-[15px] items-center">
         {Icon && <Icon />}
         <p className="text-[16px]">{title}</p>
       </div>
-      <p className="text-2xl font-bold">{value}</p>
+      <p className="text-[16px] md:text-2xl font-bold">{value}</p>
     </div>
   );
 };

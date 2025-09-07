@@ -109,7 +109,7 @@ export const ClassContent: React.FC<ClassContentProps> = ({
          className={`md:flex gap-[10%] items-center `}
        >
          <div className="flex flex-col gap-[10px] pl-[22px] md:pl-[30px]">
-           <h2 className="text-[15px] md:text-[18px] font-bold pt-[40px]"> {title} </h2>
+           <h2 className="text-[14px] md:text-[18px] font-bold pt-[40px]"> {title} </h2>
    
            <div className="flex gap-[15px] items-center flex-wrap">
              <p className="w-[120px] text-primaryBlue"> {subject} </p>
@@ -118,12 +118,12 @@ export const ClassContent: React.FC<ClassContentProps> = ({
              <div className="ml-[18px]">
              </div>
            </div>
-           <p>
+           <p className=" text-[14px] md:text-[16px]">
              { date } <span className="pl-[25px]"> {time} </span>
            </p>
          </div>
    
-         <div className="w-[250px] mt-[20px] mx-auto  md:w-[120px] md:ml-auto pr-5">
+         <div className="w-[230px] mt-[20px] mx-auto md:mx-0  md:w-[120px] md:ml-auto pr-5">
            <Button
              className="rounded-[13px] h-[25px] md:h-[40px] w-[120px] text-sm"
            >
