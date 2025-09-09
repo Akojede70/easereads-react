@@ -17,8 +17,8 @@ function SideBar()  {
         {paths.map((x) => (
           <div key={x.id}>
             <div
-              className={`flex gap-[15px] items-center h-8 pl-[7%] md:pl-[8%]  lg:pl-[10%] cursor-pointer text-capitalize w-full lg:w-[75%] hover:bg-[#5A5A5A] hover:text-[#ffffff]
-                ${window.location.pathname === x.path ? 'bg-primaryBlue  h-10 w-[2%] md:w-[75%] rounded-[10px] border-r-[5px] border-[#ff9f23]' : 'text-[#7E7F7F]'}`}
+              className={`flex gap-[15px] items-center h-8 pl-[7%] md:pl-[8%]  lg:pl-[10%] cursor-pointer text-capitalize w-full lg:w-[75%] hover:bg-[#f7f7f7] hover:text-[#f7f7f7]
+                ${window.location.pathname === x.path ? 'bg-primaryBlue  h-10 w-[2%] lg:w-[75%] rounded-[10px] border-r-[5px] border-[#ff9f23]' : 'text-[#7E7F7F]'}`}
               onClick={() => x.path && navigate(x.path)}
             >
               <div className="hidden md:block lg:mr-2">

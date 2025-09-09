@@ -10,7 +10,7 @@ const AuthRoutes = () => {
       <Routes>
         <Route path='/overview' element={<JupebPages.Overview.Overview  />} />
         <Route path='/leaderboard' element={<JupebPages.Overview.Leaderboard  />} />
-      
+        <Route path='/exam-practice' element={<JupebPages.Overview.ExamPractice  />} />
       </Routes>
     </>
   )

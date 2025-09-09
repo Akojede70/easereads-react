@@ -54,5 +54,6 @@ export { default as  Ring } from './ring';
 export { default as  Star } from './star';
 export { default as  Triangle } from './triangle';
 export { default as  DownBoldTriangle } from './downboldtriangle';
+export { default as  Emoji } from './emoji';
 
 

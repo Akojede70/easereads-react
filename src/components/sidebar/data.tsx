@@ -38,7 +38,7 @@ const paths: Path[] = [
             <Exam/>
         ),
         name: "Exam Practice",
-        path: 'exam',
+        path: '/jupeb/exam-practice',
     },
     {
         id: 5,

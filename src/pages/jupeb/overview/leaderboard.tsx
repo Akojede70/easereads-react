@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import Layout from '../../../components/layout/layout'
 import { BackButton, Button, Modal } from '../../../components/shared'
-import {  Congratulations, DownBoldTriangle, FirstTag, LeaderboardPics, Performance, Ring, SecondTag, Star, ThirdTag, Triangle, UpperBoldTriangle } from '../../../assets/icon';
+import {  Congratulations, DownBoldTriangle, FirstTag, LeaderboardPics, Performance, Ring, SecondTag, Star, ThirdTag, UpperBoldTriangle } from '../../../assets/icon';
 import { LeaderboardCard, LongCard } from '../../../components/card';
 
 const Leaderboard = () => {
@@ -13,7 +12,6 @@ const Leaderboard = () => {
         // const [leaveOpen, setLeaveOpen] = useState(false);
 
   return (
-  //  <Layout>
     <div className='w-full '>
         <div className='w-[900px] md:w-full bg-primaryWhite h-[140px] md:h-[80px] pt-[40px] md:pt-[15px] pl-[30%] md:pl-[13%] border-t border-b flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
           <BackButton />
@@ -255,9 +253,7 @@ const Leaderboard = () => {
         />
             </div>
        </div>
-       </div>
-     
-  //  </Layout>
+       </div>     
   )
 }
 
