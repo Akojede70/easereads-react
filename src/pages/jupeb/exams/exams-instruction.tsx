@@ -3,11 +3,12 @@ import Layout from '../../../components/layout/layout'
 
 import "react-circular-progressbar/dist/styles.css";
 import { Button } from '../../../components/shared';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const ExamInstruction = () => { 
-
+    const navigate = useNavigate()
   return (
     <Layout name='Exams History ' >
        <div className='w-[95%] lg:w-full  h-[120px] mt-[30px] lg:mt-0 ml-[2%] md:ml-[3%]  lg:ml-0 pl-[13px] md:pl-[40px] lg:flex justify-between bg-[#f5f5f5] shadow-[0_4px_10px_#e0e0e0]'>
@@ -76,7 +77,7 @@ const ExamInstruction = () => {
           </div>
         </div>
        <div className='w-[45%] mt-[3%]'>
-       <Button > Proceed </Button>
+       <Button onClick={() => navigate('/jupeb/exam-form')}> Proceed </Button>
        </div>
       </div>
     </div>

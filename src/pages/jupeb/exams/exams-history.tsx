@@ -1,6 +1,5 @@
 import React from 'react'
 import Layout from '../../../components/layout/layout'
-
 import "react-circular-progressbar/dist/styles.css";
 import { Button } from '../../../components/shared';
 import StatCard from '../../../components/card/card';

@@ -55,5 +55,9 @@ export { default as  Star } from './star';
 export { default as  Triangle } from './triangle';
 export { default as  DownBoldTriangle } from './downboldtriangle';
 export { default as  Emoji } from './emoji';
+export { default as  Stop } from './stop';
+export { default as  HoldOn } from './holdon';
+export { default as  Mark } from './mark';
+
 
 

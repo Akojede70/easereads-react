@@ -38,7 +38,7 @@ const Overview = () => {
                    <p className="w-full lg:w-[80%] pt-[15px] text-[16px] md:text-[18px]"> Level: {currentLevel}</p>
                   </div>
                   </div>
-                  <div className='md:pl-[2.9%] mt-[4%] md:mt-[2%]'>
+                  <div className='md:pl-[2.9%] mt-[4%] md:mt-[2%] '>
       <div className="relative w-[70%] md:w-[73%] lg:w-[98%] ml-[8px] md:ml-0 h-[250px] md:h-[225px] bg-[#087cdf] text-white p-4 rounded-[5px] lg:rounded-lg overflow-hidden flex gap-[290px] ">
       {/* Banner content */}
       <div className="pl-[1%] md:pl-[7%] lg:pl-[50px]">
