@@ -1,7 +1,9 @@
 import Overview from "./overview"
+import Exam from "./exams"
 
 const JupebPages = {
-    Overview
+    Overview,
+    Exam
 }
 
 export default JupebPages

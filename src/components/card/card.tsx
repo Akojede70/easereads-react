@@ -79,7 +79,6 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({
   );
 };
 
-
      type LongCardProps = {
        name: string;
        age: number | string;
@@ -149,6 +148,38 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({
   );
 };
 
+
+interface StatCardProps {
+  title: string;
+  value: number | string;
+  width?: string;
+  height?: string;
+}
+
+const StatCard: React.FC<StatCardProps> = ({
+  title,
+  value,
+  width = "w-[29%]",
+  height = "h-[150px]",
+}) => {
+  return (
+    <div
+      className={`${width} ${height} ml-[3%] mt-[2%] rounded-[20px] bg-primaryWhite flex flex-col gap-[15px] items-center justify-center`}
+    >
+      <div className="w-[220px] mx-auto">
+        <div className="w-full h-[40px] rounded-[20px] bg-primaryBlue text-center flex items-center justify-center">
+          <p className="text-primaryWhite text-[16px]">{title}</p>
+        </div>
+      </div>
+
+      <div>
+        <p className="text-[28px] font-bold">{value}</p>
+      </div>
+    </div>
+  );
+};
+
+export default StatCard;
 
 
 

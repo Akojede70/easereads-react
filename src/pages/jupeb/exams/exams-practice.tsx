@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Layout from '../../../components/layout/layout'
 import {  Emoji } from '../../../assets/icon';
 import "react-circular-progressbar/dist/styles.css";
 import { Button } from '../../../components/shared';
+import { useNavigate } from 'react-router-dom';
 
 
 
-const ExamPractice = () => { 
-
+const ExamPractice = () => {
+  const navigate = useNavigate()
 
   return (
     <Layout name='overview ' >
@@ -21,7 +22,7 @@ const ExamPractice = () => {
                   <button className='text-[#fff] px-1 md:px-5 text-[13px] md:text-[15px] lg:text-[18px] rounded-[15px] h-[50px] bg-[#4cb851]'> WhatsApp Community</button>
                   </div>
                   <div className='w-[60%] md:w-[70%] lg:w-[68%]'>
-                  <Button className='rounded-[15px] text-[13px] md:text-[15px] lg:text-[18px]'> Practice Exam </Button>
+                  <Button className='rounded-[15px] text-[13px] md:text-[15px] lg:text-[18px]' onClick={() => navigate('/jupeb/exam-history')}> Practice Exam </Button>
                   </div>
                </div>
            </div>
