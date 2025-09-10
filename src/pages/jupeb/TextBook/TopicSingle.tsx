@@ -61,6 +61,7 @@ const TopicSingle: React.FC = () => {
           <Button
             width="108px"
             color="#fff"
+            onClick={() => window.history.back()}
             borderRadius="20px"
             textColor="#333333"
             border="1px solid #333333"

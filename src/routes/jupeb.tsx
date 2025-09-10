@@ -13,6 +13,10 @@ const AuthRoutes = () => {
           path="/topic/reader/:id"
           element={<JupebPages.DocumentReader />}
         />
+        <Route
+          path="/analytics/:id"
+          element={<JupebPages.ViewAnalytics />}
+        />
       </Routes>
     </>
   );

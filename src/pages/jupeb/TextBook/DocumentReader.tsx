@@ -1,405 +1,393 @@
-import React, { useState, useEffect, useRef, type ChangeEvent } from 'react';
-import * as pdfjs from 'pdfjs-dist';
+import React, { useState, useEffect, useRef } from "react";
+import * as pdfjs from "pdfjs-dist";
+import Button from "../../../components/shared/button"; // Your Button component
+import DummyPdf from "../../../assets/marvellous relocation_Letter.pdf";
+import {
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  SearchIcon,
+} from "../../../assets/icon";
 
 // Set up PDF.js worker
-pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
+pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 
 const DocumentReader: React.FC = () => {
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // PDF state
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [numPages, setNumPages] = useState<number>(0);
-  const [pageInput, setPageInput] = useState<string>('1');
-  const [outline, setOutline] = useState<any[]>([]);
-  const [scale, setScale] = useState<number>(1.5);
+  const [scale] = useState<number>(1.0); // Fixed scale, no zoom functionality
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pdfRef = useRef<any>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [docUrl, setDocUrl] = useState<string | null>(null);
-  const [fileType, setFileType] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  // Search and chapter state
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [selectedChapter, setSelectedChapter] = useState<string>("Select Chapter");
+  const [chapters] = useState<string[]>([
+    "Chapter 1: Introduction",
+    "Chapter 2: Fundamentals",
+    "Chapter 3: Advanced Topics",
+    "Chapter 4: Applications",
+    "Chapter 5: Conclusion"
+  ]);
 
-  // Load document and metadata
+  // Load PDF document
   useEffect(() => {
-    const loadDocument = async () => {
-      if (!docUrl) return;
-      
+    const loadPdf = async () => {
       setIsLoading(true);
       setError(null);
-      
+
       try {
-        console.log('Loading document from:', docUrl, 'Type:', fileType);
-        
-        if (fileType === 'pdf') {
-          const loadingTask = pdfjs.getDocument(docUrl);
-          const pdf = await loadingTask.promise;
-          console.log('PDF loaded, numPages:', pdf.numPages);
-          setNumPages(pdf.numPages);
-          const outline = await pdf.getOutline();
-          console.log('Outline loaded:', outline);
-          setOutline(outline || []);
-          pdfRef.current = pdf;
-        } 
-        else if (fileType === 'image') {
-          setNumPages(1);
-          setOutline([]);
-        }
-        else if (fileType === 'doc') {
-          // For DOC/DOCX files, we can't render them directly
-          setNumPages(1);
-          setOutline([]);
-        }
-        
+        const loadingTask = pdfjs.getDocument(DummyPdf);
+        const pdf = await loadingTask.promise;
+
+        setNumPages(pdf.numPages);
+        pdfRef.current = pdf;
         setIsLoading(false);
       } catch (err) {
-        console.error('Error loading document:', err);
-        setError(err.message || 'Failed to load the document.');
+        console.error("Error loading PDF:", err);
+        setError("Failed to load the document. Please check if the PDF file exists.");
         setIsLoading(false);
       }
     };
-    
-    loadDocument();
-  }, [docUrl, fileType]);
 
-  // Render the current page or image when ready
-  useEffect(() => {
-    if ((!isLoading && !error) && (pdfRef.current || fileType === 'image')) {
-      renderContent();
-    }
-  }, [currentPage, isLoading, error, scale, fileType]);
+    loadPdf();
+  }, []);
 
-  // Render the current page or image
-  const renderContent = async () => {
-    const canvas = canvasRef.current;
-    if (!canvas) {
-      console.error('Canvas not available');
-      return;
-    }
+  // Render the current page
+  const renderPage = async () => {
+    if (!pdfRef.current || !canvasRef.current) return;
 
     try {
-      if (fileType === 'pdf' && pdfRef.current) {
-        const page = await pdfRef.current.getPage(currentPage);
-        const viewport = page.getViewport({ scale });
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
-        const context = canvas.getContext('2d');
-        if (!context) {
-          console.error('2D context not available');
-          return;
-        }
-        const renderContext = { canvasContext: context, viewport };
-        await page.render(renderContext);
-        console.log('Page rendered:', currentPage);
-      } else if (fileType === 'image') {
-        const img = new Image();
-        img.onload = () => {
-          canvas.height = img.height * scale;
-          canvas.width = img.width * scale;
-          const context = canvas.getContext('2d');
-          if (context) {
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            context.drawImage(img, 0, 0, canvas.width, canvas.height);
-          }
-          console.log('Image rendered');
-        };
-        img.onerror = () => {
-          throw new Error('Failed to load image');
-        };
-        img.src = docUrl;
-      }
+      const page = await pdfRef.current.getPage(currentPage);
+      const viewport = page.getViewport({ scale });
+
+      const canvas = canvasRef.current;
+      const context = canvas.getContext("2d");
+
+      // Set canvas dimensions
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      // Clear canvas
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      const renderContext = {
+        canvasContext: context,
+        viewport: viewport,
+      };
+
+      await page.render(renderContext).promise;
     } catch (err) {
-      console.error('Error rendering content:', err);
-      setError('Failed to render the content.');
+      console.error("Error rendering page:", err);
+      setError("Failed to render the page.");
     }
   };
 
-  // Handle file input change
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      // Reset state
-      setError(null);
-      setIsLoading(true);
-      
-      // Check file type
-      const fileName = file.name.toLowerCase();
-      let type = '';
-      
-      if (fileName.endsWith('.pdf')) {
-        // Validate it's actually a PDF
-        if (file.type !== 'application/pdf') {
-          setError('Selected file is not a valid PDF');
-          setIsLoading(false);
-          return;
-        }
-        type = 'pdf';
-      } 
-      else if (fileName.match(/\.(jpg|jpeg|png)$/)) {
-        type = 'image';
-      }
-      else if (fileName.match(/\.(docx|doc)$/)) {
-        type = 'doc';
-      }
-      else {
-        setError('Unsupported file type. Please upload a PDF, image, or Word document.');
-        setIsLoading(false);
-        return;
-      }
-      
-      setFileType(type);
-      setDocUrl(URL.createObjectURL(file));
+  // Re-render when page changes
+  useEffect(() => {
+    if (pdfRef.current && !isLoading) {
+      renderPage();
     }
-  };
+  }, [currentPage, isLoading]);
 
-  // Handle page input change
-  const handlePageInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPageInput(e.target.value);
-  };
-
-  // Jump to page
-  const jumpToPage = () => {
-    const pageNum = parseInt(pageInput, 10);
-    if (pageNum > 0 && pageNum <= numPages) {
-      setCurrentPage(pageNum);
-    } else {
-      alert('Invalid page number');
-    }
-  };
-
-  // Handle chapter selection
-  const handleChapterChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const dest = e.target.value;
-    const pageNum = parseInt(dest, 10);
-    if (pageNum && pageNum <= numPages) {
-      setCurrentPage(pageNum);
-    }
-  };
-
-  // Previous page
+  // Navigation functions
   const goToPreviousPage = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
-  };
-
-  // Next page
-  const goToNextPage = () => {
-    if (currentPage < numPages) setCurrentPage(currentPage + 1);
-  };
-
-  // Zoom in
-  const zoomIn = () => {
-    setScale((prevScale) => Math.min(prevScale + 0.5, 3));
-  };
-
-  // Zoom out
-  const zoomOut = () => {
-    setScale((prevScale) => Math.max(prevScale - 0.5, 0.5));
-  };
-
-  // Back button handler
-  const handleBack = () => {
-    window.history.back();
-  };
-
-  // Reset zoom to fit width
-  const zoomToFit = () => {
-    if (containerRef.current && canvasRef.current) {
-      const containerWidth = containerRef.current.clientWidth;
-      const canvasWidth = canvasRef.current.width;
-      const newScale = (containerWidth / canvasWidth) * scale;
-      setScale(Math.max(0.5, Math.min(newScale, 3)));
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
     }
   };
+
+  const goToNextPage = () => {
+    if (currentPage < numPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const goToPage = (pageNumber: number) => {
+    if (pageNumber >= 1 && pageNumber <= numPages) {
+      setCurrentPage(pageNumber);
+    }
+  };
+
+  // Search functionality
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const pageNum = parseInt(searchTerm);
+    
+    if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= numPages) {
+      setCurrentPage(pageNum);
+      setSearchTerm("");
+    } else if (searchTerm.trim()) {
+      // Here you could implement text search within PDF
+      alert(`Searching for: ${searchTerm}\n(Text search not implemented in this demo)`);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearch(e as any);
+    }
+  };
+
+  // Chapter selection
+  const handleChapterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const chapter = e.target.value;
+    setSelectedChapter(chapter);
+    
+    // Map chapters to pages (this would come from your document structure)
+    const chapterPageMap: { [key: string]: number } = {
+      "Chapter 1: Introduction": 1,
+      "Chapter 2: Fundamentals": Math.ceil(numPages * 0.2),
+      "Chapter 3: Advanced Topics": Math.ceil(numPages * 0.4),
+      "Chapter 4: Applications": Math.ceil(numPages * 0.6),
+      "Chapter 5: Conclusion": Math.ceil(numPages * 0.8)
+    };
+
+    if (chapterPageMap[chapter]) {
+      setCurrentPage(chapterPageMap[chapter]);
+    }
+  };
+
+  // Keyboard navigation (no zoom controls)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case 'ArrowLeft':
+          e.preventDefault();
+          goToPreviousPage();
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          goToNextPage();
+          break;
+        case 'Home':
+          e.preventDefault();
+          setCurrentPage(1);
+          break;
+        case 'End':
+          e.preventDefault();
+          setCurrentPage(numPages);
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentPage, numPages]);
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       {/* Header */}
-      <header className="bg-white shadow-md p-4 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-        <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 w-full md:w-auto">
-          <button
-            onClick={handleBack}
-            className="flex items-center text-gray-700 hover:text-blue-600 self-start md:self-auto"
-            aria-label="Go back"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <span className="ml-2">Back</span>
-          </button>
-          
-          <div className="flex items-center space-x-2">
-            <label htmlFor="file-upload" className="text-sm font-medium text-gray-700">
-              Upload Document
-            </label>
+      <header className=" px-40 bg-white shadow-md p-4 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <div className="  flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 w-full md:w-auto">
+          {/* Search Input */}
+          <form onSubmit={handleSearch} className="relative">
+            <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4">
+              <SearchIcon />
+            </div>
             <input
-              id="file-upload"
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-              accept=".pdf,.jpg,.jpeg,.png,.docx,.doc"
-              className="p-2 border border-gray-300 rounded-md"
+              type="text"
+              placeholder="Search Page Number"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyPress={handleKeyPress}
+              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full md:w-64"
             />
+          </form>
+
+          {/* Select Chapter Dropdown */}
+          <div className="relative">
+            <select 
+              value={selectedChapter}
+              onChange={handleChapterChange}
+              className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2 pr-10 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full md:w-auto"
+            >
+              <option disabled>Select Chapter</option>
+              {chapters.map((chapter) => (
+                <option key={chapter} value={chapter}>
+                  {chapter}
+                </option>
+              ))}
+            </select>
+            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none">
+              <ArrowDown />
+            </div>
           </div>
-          
-          {fileType !== 'doc' && (
-            <>
-              <div className="flex items-center space-x-2">
-                <label htmlFor="page-search" className="text-sm font-medium text-gray-700">
-                  Search Page Number
-                </label>
-                <input
-                  id="page-search"
-                  type="number"
-                  value={pageInput}
-                  onChange={handlePageInputChange}
-                  className="w-20 p-2 border border-gray-300 rounded-md"
-                  min="1"
-                  max={numPages}
-                />
-                <button
-                  onClick={jumpToPage}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-                >
-                  Go
-                </button>
-              </div>
-              
-              {outline.length > 0 && (
-                <div className="flex items-center space-x-2">
-                  <label htmlFor="chapter-select" className="text-sm font-medium text-gray-700">
-                    Select Chapter
-                  </label>
-                  <select
-                    id="chapter-select"
-                    value={currentPage.toString()}
-                    onChange={handleChapterChange}
-                    className="p-2 border border-gray-300 rounded-md"
-                  >
-                    <option value="">-- Select --</option>
-                    {outline.map((item, index) => (
-                      <option key={index} value={(item.dest && item.dest[0].num) || index + 1}>
-                        {item.title || `Chapter ${index + 1}`}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              )}
-              
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={zoomOut}
-                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
-                >
-                  Zoom Out
-                </button>
-                <button
-                  onClick={zoomToFit}
-                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
-                >
-                  Fit Width
-                </button>
-                <span className="text-sm font-medium text-gray-700">{(scale * 100).toFixed(0)}%</span>
-                <button
-                  onClick={zoomIn}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-                >
-                  Zoom In
-                </button>
-              </div>
-            </>
-          )}
         </div>
-        
+
         <div className="flex space-x-2 w-full md:w-auto justify-end">
-          <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 whitespace-nowrap">
+          <Button
+            color="#f3f4f6"
+            textColor="#374151"
+            width="auto"
+            height="40px"
+            borderRadius="16px"
+            border="1px solid #333333"
+            className="px-4 hover:bg-gray-200 transition-colors items-center justify-center"
+            onClick={() => window.location.href = '/dashboard'}
+          >
             Dashboard
-          </button>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 whitespace-nowrap">
+          </Button>
+          <Button
+            color="#2563eb"
+            textColor="#fff"
+            width="auto"
+            height="40px"
+            borderRadius="16px"
+            className="px-4 hover:bg-blue-700 transition-colors items-center justify-center"
+            onClick={() => window.location.href = '/practice-exams'}
+          >
             Practice Exams
-          </button>
+          </Button>
         </div>
       </header>
 
       {/* Error message */}
       {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mx-4 mt-4" role="alert">
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mx-4 mt-4">
           <span className="block sm:inline">{error}</span>
-          <button
-            className="absolute top-0 right-0 p-3"
+          <button 
             onClick={() => setError(null)}
-            aria-label="Close error message"
+            className="absolute top-0 bottom-0 right-0 px-4 py-3"
           >
-            <svg className="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
+            ✕
           </button>
         </div>
       )}
 
+      {/* Sub Header with Navigation */}
+      <div className="flex flex-col md:flex-row items-center justify-between px-4 py-2 bg-white mx-4 md:mx-40 rounded-lg shadow-sm mt-4">
+        <button
+          onClick={() => window.history.back()}
+          className="flex items-center text-gray-700 hover:text-blue-600 border border-gray-300 py-1 px-4 rounded-2xl transition-colors"
+        >
+          <ArrowLeft />
+          <span className="ml-2">Back</span>
+        </button>
+
+        <div className="flex items-center space-x-4 my-2 md:my-0">
+          <span className="text-sm font-medium text-gray-700">
+            Page {currentPage} of {numPages}
+          </span>
+        </div>
+
+        <div className="flex space-x-2">
+          <Button
+            onClick={goToPreviousPage}
+            disabled={currentPage <= 1}
+            color="#f3f4f6"
+            textColor="#374151"
+            width="150px"
+            height="40px"
+            borderRadius="16px"
+            border="1px solid #333333"
+            className="flex items-center justify-center font-semibold gap-2 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <ArrowLeft />
+            Previous
+          </Button>
+          <Button
+            onClick={goToNextPage}
+            disabled={currentPage >= numPages}
+            color="#2563eb"
+            textColor="#fff"
+            width="150px"
+            height="40px"
+            borderRadius="16px"
+            className="flex items-center justify-center font-semibold gap-2 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Next
+            <ArrowRight />
+          </Button>
+        </div>
+      </div>
+
       {/* Loading indicator */}
-      {isLoading && !error && (
+      {isLoading && (
         <div className="flex justify-center items-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-          <span className="ml-3">Loading document...</span>
+          <span className="ml-3 text-gray-600">Loading document...</span>
         </div>
       )}
 
       {/* Main Content */}
-      <main className="flex-1 p-4 overflow-hidden">
+      <main className="flex-1 p-4 overflow-hidden mx-4 md:mx-40">
         <div className="bg-white shadow-lg rounded-lg overflow-hidden h-full flex flex-col">
-          {fileType === 'doc' && docUrl && (
-            <div className="flex flex-col items-center justify-center h-full p-8">
-              <div className="text-xl font-medium text-gray-700 mb-4">
-                Word documents cannot be previewed directly
+          <div className="flex-1 overflow-auto flex items-center justify-center p-4 bg-gray-50">
+            {!isLoading && !error && (
+              <div className="border shadow-lg bg-white p-4 rounded">
+                <canvas 
+                  ref={canvasRef} 
+                  className="max-w-full h-auto block"
+                  style={{ 
+                    maxHeight: '150vh'
+                  }} 
+                />
               </div>
-              <a 
-                href={docUrl} 
-                download 
-                className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-              >
-                Download Document
-              </a>
-            </div>
-          )}
-          
-          {(fileType === 'pdf' || fileType === 'image') && !isLoading && !error && (
-            <>
-              <div 
-                ref={containerRef} 
-                className="flex-1 overflow-auto"
-                style={{ maxHeight: 'calc(100vh - 200px)' }}
-              >
-                <div className="flex items-center justify-center p-4">
-                  <canvas ref={canvasRef} />
-                </div>
+            )}
+          </div>
+
+          {/* Bottom Navigation */}
+          {!isLoading && !error && (
+            <div className="p-4 bg-gray-50 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+              {/* Page input */}
+              <div className="flex items-center space-x-2">
+                <span className="text-sm text-gray-600">Go to page:</span>
+                <input
+                  type="number"
+                  min="1"
+                  max={numPages}
+                  value=""
+                  placeholder={currentPage.toString()}
+                  onChange={(e) => {
+                    const page = parseInt(e.target.value);
+                    if (!isNaN(page)) goToPage(page);
+                  }}
+                  className="w-16 px-2 py-1 text-sm border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <span className="text-sm text-gray-600">of {numPages}</span>
               </div>
-              
-              <div className="p-4 flex justify-between items-center border-t">
-                <button
+
+              {/* Navigation buttons */}
+              <div className="flex space-x-2">
+                <Button
                   onClick={goToPreviousPage}
                   disabled={currentPage <= 1}
-                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 disabled:opacity-50"
+                  color="#f3f4f6"
+                  textColor="#374151"
+                  width="150px"
+                  height="40px"
+                  borderRadius="16px"
+                  border="1px solid #333333"
+                  className="flex items-center justify-center font-semibold gap-2 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
+                  <ArrowLeft />
                   Previous
-                </button>
-                <span className="text-sm font-medium text-gray-700">
-                  Page {currentPage} of {numPages}
-                </span>
-                <button
+                </Button>
+
+                <Button
                   onClick={goToNextPage}
                   disabled={currentPage >= numPages}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+                  color="#2563eb"
+                  textColor="#fff"
+                  width="150px"
+                  height="40px"
+                  borderRadius="16px"
+                  className="flex items-center justify-center font-semibold gap-2 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   Next
-                </button>
+                  <ArrowRight />
+                </Button>
               </div>
-            </>
+            </div>
           )}
         </div>
       </main>
+
+    
     </div>
   );
 };

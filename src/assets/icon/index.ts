@@ -37,7 +37,14 @@ export { default as  ExamTaken } from './examTaken';
 export { default as  StudyTime } from './studytime';
 export { default as  DayStreak } from './daystreak';
 export { default as  Star } from './star';
+export { default as  ArrowRight } from './arrowRight';
 export { default as  ArrowLeft } from './arrowleft';
+export { default as  ArrowUp } from './arrowUp';
+export { default as  ArrowDown } from './arrowDown';
+export { default as  SearchIcon } from './searchicon';
 export { default as  PageIcon } from './PageIcon';
+export { default as  ExamIcon2 } from './examIcon2';
+export { default as  BookIcon } from './bookIcon';
+export { default as  BadgeIcon } from './badgeIcon';
 
 

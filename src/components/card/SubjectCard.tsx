@@ -105,9 +105,14 @@ const SubjectCard: React.FC<{ subject: Subject }> = ({ subject }) => {
             <Button
               color="#fff"
               textColor="#333333"
-              className="flex-1"
+              className="flex-1 items-center justify-center"
               border="1px solid #106EBE"
               borderRadius="50px"
+              
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                e.stopPropagation();
+                navigate(`/jupeb/analytics/${subject.id}`);
+              }}
             >
               View Analytics
             </Button>
@@ -115,7 +120,7 @@ const SubjectCard: React.FC<{ subject: Subject }> = ({ subject }) => {
               <Button
                 color="#106EBE"
                 textColor="#fff"
-                className="flex-1 px-2"
+                className="flex-1 px-2 items-center justify-center"
                 borderRadius="50px"
               >
                 Continue Reading
@@ -125,7 +130,7 @@ const SubjectCard: React.FC<{ subject: Subject }> = ({ subject }) => {
               <Button
                 color="#9e9e9e"
                 textColor="#fff"
-                className="flex-1"
+                className="flex-1 items-center justify-center"
                 borderRadius="50px"
                 disabled
               >

@@ -102,7 +102,7 @@ const Textbook: React.FC = () => {
     },
   ];
   return (
-    <Layout>
+    <Layout name="textBook">
       <div className="w-full pl-[40px] flex justify-between items-center px-[20px] bg-[#fff]">
         <div>
           <p className="text-4xl flex flex-col font-bold font-montserrat pt-[30px]">
@@ -113,7 +113,7 @@ const Textbook: React.FC = () => {
           </p>
         </div>
         <div>
-          <Button width="227px" color="#4CB851" borderRadius="24px">
+          <Button width="227px" color="#4CB851" borderRadius="24px" className="items-center justify-center">
             Whatsapp Community
           </Button>
         </div>

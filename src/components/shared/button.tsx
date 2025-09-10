@@ -2,7 +2,7 @@ import React from "react";
 
 interface ButtonProps {
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   type?: "button" | "submit" | "reset";
   className?: string;
   disabled?: boolean;
@@ -13,7 +13,7 @@ interface ButtonProps {
   border?: string;
   borderRadius?: string | number;
   style?: React.CSSProperties;
-  name?: string; // Added name prop
+  name?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -29,14 +29,13 @@ const Button: React.FC<ButtonProps> = ({
   border = "none",
   borderRadius = "10px",
   style,
-
 }) => {
   return (
     <button
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`mb-2 transition hover:opacity-90 disabled:opacity-50 cursor-pointer ${className}`}
+      className={`mb-2 transition flex text-center hover:opacity-90 disabled:opacity-50 cursor-pointer ${className}`}
       style={{
         backgroundColor: color,
         color: textColor,
@@ -46,7 +45,6 @@ const Button: React.FC<ButtonProps> = ({
         borderRadius,
         ...style,
       }}
-      
     >
       {children}
     </button>
