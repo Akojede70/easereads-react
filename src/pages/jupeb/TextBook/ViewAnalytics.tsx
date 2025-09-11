@@ -43,7 +43,9 @@ type TabType = "weakness" | "strengths";
 const ViewAnalytics: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>("weakness");
   const [openAccordion, setOpenAccordion] = useState<number | null>(null);
-  const [openRecommendations, setOpenRecommendations] = useState<{ [key: number]: boolean }>({});
+  const [openRecommendations, setOpenRecommendations] = useState<{
+    [key: number]: boolean;
+  }>({});
 
   const subjectData: SubjectData[] = [
     {
@@ -198,9 +200,9 @@ const ViewAnalytics: React.FC = () => {
   };
 
   const toggleRecommendations = (id: number): void => {
-    setOpenRecommendations(prev => ({
+    setOpenRecommendations((prev) => ({
       ...prev,
-      [id]: !prev[id]
+      [id]: !prev[id],
     }));
   };
 
@@ -209,24 +211,21 @@ const ViewAnalytics: React.FC = () => {
   };
 
   // Determine colors based on active tab
-  const progressColor = activeTab === "weakness" ? "bg-[#EF4444]" : "bg-[#4CB851]";
-  const progressColorClass =
+  const progressColor =
     activeTab === "weakness" ? "bg-red-500" : "bg-green-500";
 
   return (
     <Layout name="analytics">
-      <div className="w-full min-h-screen bg-[#F5F5F5] rounded-2xl flex flex-col">
+      <div className="w-full min-h-screen bg-gray-100 rounded-2xl flex flex-col">
         {/* Header */}
-        <div className="w-full flex justify-between items-center px-4 sm:px-8 lg:px-[40px] bg-[#fff] py-4">
+        <div className="w-full flex justify-between items-center px-4 sm:px-6 lg:px-8 bg-[#ffffff] py-4">
           <div>
             <Button
-              width="108px"
+              color="bg-[#ffffff]"
+              textColor="text-gray-800"
+              rounded="lg"
+              className="flex items-center justify-center font-semibold gap-2 px-4 py-2 border border-gray-800"
               onClick={() => window.history.back()}
-              color="#fff"
-              borderRadius="20px"
-              textColor="#333333"
-              border="1px solid #333333"
-              className="flex items-center justify-center font-semibold gap-1"
             >
               <ArrowLeft />
               Back
@@ -235,63 +234,63 @@ const ViewAnalytics: React.FC = () => {
         </div>
 
         {/* Content */}
-        <div className="flex-1 px-4 sm:px-6 lg:px-[20px] py-6">
+        <div className="flex-1 px-4 sm:px-6 lg:px-8 py-6">
           <div className="bg-white rounded-2xl p-4 sm:p-6 h-full">
             {/* Title */}
-            <h1 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-6">
               Subject Analytics
             </h1>
 
             {/* Tabs */}
-            <div className="flex flex-col sm:flex-row mb-8 py-4 gap-4 sm:justify-between sm:px-8 lg:px-20 bg-[#fff] rounded-lg shadow-md">
+            <div className="flex flex-col sm:flex-row mb-6 lg:mb-8 py-4 gap-3 sm:gap-4 justify-center sm:justify-between bg-[#ffffff] px-4 lg:px-40 rounded-lg shadow-sm">
               <button
                 onClick={() => handleTabChange("weakness")}
-                className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-full font-medium transition-colors w-full sm:w-[300px] ${
+                className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-full font-medium transition-colors w-full sm:w-auto lg:min-w-[340px] ${
                   activeTab === "weakness"
                     ? "bg-red-500 text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
                 <BadgeIcon />
-                Weakness
+                <span className="text-sm sm:text-base">Weakness</span>
               </button>
               <button
                 onClick={() => handleTabChange("strengths")}
-                className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-full font-medium transition-colors w-full sm:w-[300px] ${
+                className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-3 rounded-full font-medium transition-colors w-full sm:w-auto lg:min-w-[340px] ${
                   activeTab === "strengths"
                     ? "bg-green-500 text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
                 <BadgeIcon />
-                Top Strengths
+                <span className="text-sm sm:text-base">Top Strengths</span>
               </button>
             </div>
 
             {/* Subject List */}
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {subjectData.map((subject: SubjectData) => (
                 <div
                   key={subject.id}
-                  className="border border-gray-200 rounded-2xl overflow-hidden"
+                  className="border border-gray-200 rounded-xl sm:rounded-2xl overflow-hidden"
                 >
                   {/* Accordion Header */}
                   <div
-                    className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 cursor-pointer bg-[#fff] hover:bg-gray-50 transition-colors gap-4 sm:gap-0"
+                    className="flex items-center justify-between p-3 sm:p-4 cursor-pointer bg-[#ffffff] hover:bg-gray-50 transition-colors"
                     onClick={() => toggleAccordion(subject.id)}
                   >
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center flex-1 w-full gap-4">
-                      <div className="flex items-center justify-center space-x-2">
-                        <h3 className="font-semibold text-gray-800 text-sm sm:text-base">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center flex-1 gap-2 sm:gap-4">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-2">
+                        <h3 className="font-semibold text-gray-800 text-sm sm:text-base line-clamp-1">
                           {subject.title}
                         </h3>
-                        <span className="text-gray-500 text-xs sm:text-sm italic">
+                        <span className="text-gray-500 text-xs italic">
                           ({subject.chapter})
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-4 w-full sm:w-auto sm:mx-8">
-                        <div className="w-full sm:w-48">
+                      <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto">
+                        <div className="w-full sm:w-32 lg:w-48">
                           <ProgressBar
                             currentLevel={subject.percentage}
                             progress={subject.percentage}
@@ -301,7 +300,7 @@ const ViewAnalytics: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="ml-auto sm:ml-4">
+                    <div className="ml-2 sm:ml-4 flex-shrink-0">
                       {openAccordion === subject.id ? (
                         <ArrowUp />
                       ) : (
@@ -312,58 +311,58 @@ const ViewAnalytics: React.FC = () => {
 
                   {/* Accordion Content */}
                   {openAccordion === subject.id && (
-                    <div className="border-t border-gray-200 bg-gray-50 p-4 sm:p-6">
+                    <div className="border-t border-gray-200 bg-gray-50 p-3 sm:p-4 lg:p-6">
                       {/* Reading Section */}
-                      <div className="mb-6">
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+                      <div className="mb-4 sm:mb-6">
+                        <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center">
                             <BookIcon />
                           </div>
                           <h4 className="font-semibold text-gray-800 text-sm sm:text-base">
                             Reading Textbook / Video Tutorial
                           </h4>
                         </div>
-                        <p className="text-gray-600 text-xs sm:text-sm mb-3">
+                        <p className="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-3">
                           {subject.details.reading.description}
                         </p>
                         <ProgressBar
                           progress={subject.details.reading.percentage}
                           currentLevel={subject.details.reading.percentage}
-                          color={progressColorClass}
+                          color={progressColor}
                         />
                       </div>
 
                       {/* Exam Practice Section */}
-                      <div className="mb-6">
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+                      <div className="mb-4 sm:mb-6">
+                        <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center">
                             <ExamIcon2 />
                           </div>
                           <h4 className="font-semibold text-gray-800 text-sm sm:text-base">
                             Exam Practice
                           </h4>
                         </div>
-                        <p className="text-gray-600 text-xs sm:text-sm mb-3">
+                        <p className="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-3">
                           {subject.details.exam.description}
                         </p>
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
                           <div className="flex-1 w-full">
                             <ProgressBar
                               progress={subject.details.exam.percentage}
                               currentLevel={subject.details.exam.percentage}
-                              color={progressColorClass}
+                              color={progressColor}
                             />
                           </div>
-                          <span className="font-semibold text-gray-700 text-sm sm:min-w-[4rem]">
+                          <span className="font-semibold text-gray-700 text-sm sm:min-w-[4rem] text-center sm:text-left">
                             {subject.details.exam.score}
                           </span>
                         </div>
                       </div>
 
                       {/* Recommendations Section */}
-                      <div className="bg-blue-50 p-4 sm:p-5 rounded-xl">
-                        <div 
-                          className="flex items-center justify-between mb-4 cursor-pointer"
+                      <div className="bg-blue-50 p-3 sm:p-4 rounded-xl">
+                        <div
+                          className="flex items-center justify-between mb-3 cursor-pointer"
                           onClick={() => toggleRecommendations(subject.id)}
                         >
                           <h4 className="font-semibold text-gray-800 text-sm sm:text-base">
@@ -375,25 +374,23 @@ const ViewAnalytics: React.FC = () => {
                             <ArrowDown />
                           )}
                         </div>
-                        
+
                         {openRecommendations[subject.id] && (
-                          <div className="space-y-3">
+                          <div className="space-y-2 sm:space-y-3">
                             {subject.details.recommendations.map(
                               (rec: RecommendationItem, index: number) => (
                                 <div
                                   key={index}
-                                  className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 bg-white rounded-lg gap-3"
+                                  className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-2 sm:p-3 bg-white rounded-lg gap-2 sm:gap-3"
                                 >
                                   <span className="text-gray-700 text-xs sm:text-sm flex-1">
                                     {rec.text}
                                   </span>
                                   <Button
-                                    color="#106EBE"
-                                    textColor="#fff"
-                                    width="100px"
-                                    height="32px"
-                                    borderRadius="16px"
-                                    className="text-xs sm:text-sm font-medium justify-center items-center w-full sm:w-auto"
+                                    color="bg-blue-600"
+                                    textColor="text-white"
+                                    rounded="lg"
+                                    className="text-xs sm:text-sm font-medium justify-center items-center w-full sm:w-auto px-3 sm:px-4 py-1 sm:py-2"
                                   >
                                     {rec.action}
                                   </Button>

@@ -54,7 +54,7 @@ const paths: Path[] = [
             <Past />
         ),
         name: "Past Questions",
-        path: 'past-questions',
+        path: '/jupeb/past-Question',
     },
     {
         id: 7,

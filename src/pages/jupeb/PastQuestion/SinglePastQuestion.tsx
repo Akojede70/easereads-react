@@ -1,59 +1,57 @@
-import React from "react";
-import Button from "../../../components/shared/button";
-import { ArrowLeft, TextbookIcon } from "../../../assets/icon";
+
 import CardImg from "../../../assets/images/subjectcardimg.svg";
 import Avatar1 from "../../../assets/images/avatar1.png";
 import Avatar2 from "../../../assets/images/avatar2.png";
 import TopicCard from "../../../components/card/TopicCard";
+import { ArrowLeft, TextbookIcon } from '../../../assets/icon';
+import Button from '../../../components/shared/button';
 
-interface Topic {
+interface PastQuestionSingles {
   id: number;
   img: string;
   title: string;
-  pages: string;
+  question: string;
   topics: string;
   rating: number;
   avatars: string[];
-  viewNumber: number;
+  practiceNumber: number;
 }
 
-const TopicSingle: React.FC = () => {
-  // Renamed `topic` → `topics` (plural, since it’s an array)
-  const topics: Topic[] = [
+const SinglePastQuestion = () => {
+     const pastQuestionSingle: PastQuestionSingles[] = [
     {
       id: 1,
       img: CardImg,
       title: "Biology 101",
-      pages: "120 Pages",
+      question: "50 questions",
       topics: "Topics: Physical quality, measurement techniques, galvanometer etc.",
       rating: 10,
       avatars: [Avatar1, Avatar2, Avatar1],
-      viewNumber: 1200,
+      practiceNumber: 1200,
     },
     {
       id: 2,
       img: CardImg,
       title: "Biology 101",
-      pages: "120 Pages",
+       question: "50 questions",
       topics: "Topics: Physical quality, measurement techniques, galvanometer etc.",
       rating: 10,
       avatars: [Avatar1, Avatar2, Avatar1],
-      viewNumber: 1200,
+      practiceNumber: 1200,
     },
     {
       id: 3,
       img: CardImg,
       title: "Biology 101",
-      pages: "120 Pages",
+       question: "50 questions",
       topics: "Topics: Physical quality, measurement techniques, galvanometer etc.",
       rating: 10,
       avatars: [Avatar1, Avatar2, Avatar1],
-      viewNumber: 1200,
+      practiceNumber: 1200,
     },
   ];
-
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
+   <div className="min-h-screen bg-gray-100 flex flex-col">
       {/* 1. Header: Back Button (Responsive) */}
       <header className="w-full bg-white px-4 sm:px-6 lg:px-10 py-3 sm:py-4">
         <Button
@@ -92,13 +90,13 @@ const TopicSingle: React.FC = () => {
       {/* 4. Topics Grid (Responsive Columns) */}
       <main className="flex-grow px-4 sm:px-6 lg:px-10 py-6 sm:py-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {topics.map((topic) => (
-            <TopicCard key={topic.id} topic={topic} />
+          {pastQuestionSingle.map((question) => (
+            <TopicCard key={question.id} topic={question} />
           ))}
         </div>
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default TopicSingle;
+export default SinglePastQuestion

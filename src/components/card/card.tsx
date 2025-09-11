@@ -7,16 +7,24 @@ interface StatCardProps {
   className?: string;
 }
 
-const StatCard: React.FC<StatCardProps> = ({ icon: Icon, title, value, className = "" }) => {
+const StatCard: React.FC<StatCardProps> = ({
+  icon: Icon,
+  title,
+  value,
+  className = "",
+}) => {
   return (
     <div
-      className={`w-[23.4%] mb-[20px] h-[17%] flex flex-col gap-[10px] items-center justify-center bg-primaryWhite p-4 rounded-[20px] shadow ${className}`}
+      className={`w-full flex flex-col gap-2 sm:gap-3 items-center justify-center bg-primaryWhite 
+        p-4 sm:p-6 rounded-2xl shadow-md ${className}`}
     >
-      <div className="flex gap-[15px] items-center">
-        {Icon && <Icon />}
-        <p className="text-[16px]">{title}</p>
+      <div className="flex gap-3 sm:gap-4 items-center">
+        {Icon && <Icon className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8" />}
+        <p className="text-sm sm:text-base lg:text-lg font-medium text-center sm:text-left">
+          {title}
+        </p>
       </div>
-      <p className="text-2xl font-bold">{value}</p>
+      <p className="text-xl sm:text-2xl lg:text-3xl font-bold">{value}</p>
     </div>
   );
 };

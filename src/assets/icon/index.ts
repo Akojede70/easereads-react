@@ -46,5 +46,8 @@ export { default as  PageIcon } from './PageIcon';
 export { default as  ExamIcon2 } from './examIcon2';
 export { default as  BookIcon } from './bookIcon';
 export { default as  BadgeIcon } from './badgeIcon';
+export { default as  MenuIcon } from './menu';
+export { default as  CloseIcon } from './close';
+
 
 

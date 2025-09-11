@@ -14,8 +14,20 @@ const AuthRoutes = () => {
           element={<JupebPages.DocumentReader />}
         />
         <Route
+          path="/past-question/reader/:id"
+          element={<JupebPages.DocumentReader />}
+        />
+        <Route
           path="/analytics/:id"
           element={<JupebPages.ViewAnalytics />}
+        />
+        <Route
+          path="/past-Question"
+          element={<JupebPages.PastQuestion />}
+        />
+        <Route
+          path="/past-Question/single/:id"
+          element={<JupebPages.SinglePastQuestion />}
         />
       </Routes>
     </>
