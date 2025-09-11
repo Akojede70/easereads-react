@@ -159,21 +159,21 @@ interface StatCardProps {
 const StatCard: React.FC<StatCardProps> = ({
   title,
   value,
-  width = "w-[29%]",
+  width = "w-[32%] md:w-[29%]",
   height = "h-[150px]",
 }) => {
   return (
     <div
-      className={`${width} ${height} ml-[3%] mt-[2%] rounded-[20px] bg-primaryWhite flex flex-col gap-[15px] items-center justify-center`}
+      className={`${width} ${height} ml-[2.8%] mt-[2%] rounded-[20px] bg-primaryWhite flex flex-col gap-[15px] items-center justify-center`}
     >
-      <div className="w-[220px] mx-auto">
+      <div className="w-[83%] md:w-[70%] mx-auto">
         <div className="w-full h-[40px] rounded-[20px] bg-primaryBlue text-center flex items-center justify-center">
-          <p className="text-primaryWhite text-[16px]">{title}</p>
+          <p className="text-primaryWhite text-[12px] md:text-[16px]">{title}</p>
         </div>
       </div>
 
       <div>
-        <p className="text-[28px] font-bold">{value}</p>
+        <p className="text-[18px] md:text-[28px] font-bold">{value}</p>
       </div>
     </div>
   );

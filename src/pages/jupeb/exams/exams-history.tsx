@@ -17,7 +17,7 @@ const ExamPractice = () => {
 
   return (
     <Layout name='Exams History ' >
-       <div className='w-[95%] lg:w-full  h-[120px] mt-[30px] lg:mt-0 ml-[2%] md:ml-[3%]  lg:ml-0 pl-[13px] md:pl-[40px] border lg:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
+       <div className='w-[70%] md:w-[95%] lg:w-full  h-[120px] mt-[30px] lg:mt-0 ml-[2%] md:ml-[3%]  lg:ml-0 pl-[13px] md:pl-[40px] border lg:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
            <div className='w-[98%] lg:flex items-center justify-between'>
              <div className='pt-[12px] lg:pt-0'>
                 <p className='font-bold text-[18px] lg:text-[30px]'> Exam Practice </p>
@@ -33,7 +33,7 @@ const ExamPractice = () => {
            </div>
          </div>
 
-       <div className='flex gap-[10px]'>
+       <div className='flex flex-wrap gap-[10px] md:gap-[3px] lg:gap-[10px]'>
          <StatCard title="Average Score" value={6} />
            <StatCard title="Total Students" value={120} />
            <StatCard title="Pass Rate" value="46/100%" />
