@@ -3,11 +3,12 @@ import React from "react";
 import { LeftArrow } from "../../assets/icon";
 
 interface ButtonProps {
-  children: React.ReactNode;  
-  onClick?: () => void;  
-  type?: "button" | "submit" | "reset";  
-  className?: string;  
-  disabled?: boolean;  
+  children: React.ReactNode;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
+  className?: string;
+  disabled?: boolean;
+  variant?: "solid" | "outline"; // <-- added
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -16,16 +17,22 @@ export const Button: React.FC<ButtonProps> = ({
   type = "button",
   className = "",
   disabled = false,
+  variant = "solid", // <-- default style
 }) => {
+  const baseStyles =
+    "w-full p-2 rounded-[10px] mb-2 h-[48px] disabled:opacity-50 cursor-pointer transition";
+
+  const variantStyles =
+    variant === "outline"
+      ? "border border-primaryBlue text-primaryBlue bg-transparent hover:bg-primaryBlue hover:text-white"
+      : "bg-primaryBlue text-white hover:opacity-90";
+
   return (
     <button
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`w-full bg-primaryBlue text-white p-2 rounded-[10px] mb-2 h-[48px] 
-                  disabled:opacity-50 cursor-pointer
-                  hover:opacity-90 transition 
-                  ${className}`}
+      className={`${baseStyles} ${variantStyles} ${className}`}
     >
       {children}
     </button>
