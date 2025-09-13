@@ -27,7 +27,7 @@ const Answer = () => {
   const currentQuestion = questions[currentQuestionIndex] || questions[0];
   return (
     <div className='bg-creamWhite w-full h-screen pt-[10%]'>
-     <div className="w-[45%] h-[450px] mx-auto px-[3%] bg-primaryWhite rounded-[10px] shadow-md font-bold">
+     <div className="w-[90%] md:w-[45%] h-[450px] mx-auto px-[3%] bg-primaryWhite rounded-[10px] shadow-md font-bold">
       <div className="flex justify-between  items-center mb-[3%] pt-[5%]">
         <h2 className="text-xl font-semibold">Exam Report</h2>
         <div >Total Percentage: {totalPercentage}%</div>
