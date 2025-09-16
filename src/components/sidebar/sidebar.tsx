@@ -1,9 +1,9 @@
-import React from 'react';
-import { useNavigate } from 'react-router';
-import paths from './data';
-import { SidebarIcon } from '../../assets/icon';
+import React from "react";
+import { useNavigate } from "react-router";
+import paths from "./data";
+import { SidebarIcon } from "../../assets/icon";
 
-function SideBar()  {
+function SideBar() {
   const navigate = useNavigate();
 
   return (
@@ -21,23 +21,22 @@ function SideBar()  {
                 ${window.location.pathname === x.path ? 'bg-primaryBlue  h-10 w-[2%] lg:w-[75%] rounded-[10px] border-r-[5px] border-[#ff9f23]' : 'text-[#7E7F7F]'}`}
               onClick={() => x.path && navigate(x.path)}
             >
-              <div className="hidden md:block lg:mr-2">
-                {x.icon}
-              </div>
+              <div className="hidden md:block lg:mr-2">{x.icon}</div>
               <p
-    className={`text-xs md:text-base font-normal leading-5 hover:text-[#fffff]  ${
-      window.location.pathname === x.path ? 'text-[#ffffff]' : 'text-[#7E7F7F]'
-    }`}
-  >
-    {x.name}
-  </p>
+                className={`text-xs md:text-base font-normal leading-5 hover:text-[#fffff]  ${
+                  window.location.pathname === x.path
+                    ? "text-[#ffffff]"
+                    : "text-[#7E7F7F]"
+                }`}
+              >
+                {x.name}
+              </p>
             </div>
-            
           </div>
         ))}
-        <div className='mt-[80%] pl-1 md:pl-3 w-[90%] md:w-[77%] cursor-pointer hover:scale-110 transition-transform duration-300'>
-    {/* <img src={Logout} alt='logout'/> */}
-  </div>
+        <div className="mt-[80%] pl-1 md:pl-3 w-[90%] md:w-[77%] cursor-pointer hover:scale-110 transition-transform duration-300">
+          {/* <img src={Logout} alt='logout'/> */}
+        </div>
       </div>
     </div>
   );

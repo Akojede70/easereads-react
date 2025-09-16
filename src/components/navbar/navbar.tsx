@@ -2,6 +2,7 @@ import React from 'react';
 import { Notification, Dp } from '../../assets/icon'
 
 function Navbar() {
+  
 
     return (
         <div className="w-full h-[75px]">

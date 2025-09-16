@@ -1,10 +1,8 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 
-import { JupebPages } from '../pages';
-
+import { JupebPages } from "../pages";
 
 const AuthRoutes = () => {
-  
   return (
     <>
       <Routes>
@@ -17,9 +15,31 @@ const AuthRoutes = () => {
         <Route path='/exam-question' element={<JupebPages.Exam.Question  />} />
         <Route path='/exam-answer' element={<JupebPages.Exam.Answer  />} />
         <Route path='/exam-solution-answer' element={<JupebPages.Exam.ExamsSolutionsAnswer  />} />
+        <Route path="/textbook" element={<JupebPages.Textbook.Textbook />} />
+        <Route path="/topic/:id" element={<JupebPages.Textbook.TopicSingle />} />
+        <Route
+          path="/topic/reader/:id"
+          element={<JupebPages.Textbook.DocumentReader />}
+        />
+        <Route
+          path="/past-question/reader/:id"
+          element={<JupebPages.Textbook.DocumentReader />}
+        />
+        <Route
+          path="/analytics/:id"
+          element={<JupebPages.Textbook.ViewAnalytics />}
+        />
+        <Route
+          path="/past-Question"
+          element={<JupebPages.PastQuestion.PastQuestion />}
+        />
+        <Route
+          path="/past-Question/single/:id"
+          element={<JupebPages.PastQuestion.SinglePastQuestion />}
+        />
       </Routes>
     </>
-  )
+  );
 };
 
 export default AuthRoutes;

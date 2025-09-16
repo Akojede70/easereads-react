@@ -54,7 +54,7 @@ const paths: Path[] = [
             <Past />
         ),
         name: "Past Questions",
-        path: 'past-questions',
+        path: '/jupeb/past-Question',
     },
     {
         id: 7,
@@ -73,7 +73,7 @@ const paths: Path[] = [
         path: 'analytic',
     },
     {
-        id: 8,
+        id: 9,
         icon: (
             <Others />
         ),
@@ -81,7 +81,7 @@ const paths: Path[] = [
         path: 'others',
     },
      {
-        id: 8,
+        id: 10,
         icon: (
             <Logout />
         ),

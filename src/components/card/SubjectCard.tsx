@@ -1,0 +1,196 @@
+// components/card/SubjectCard.tsx
+
+import React from "react";
+import Button from "../shared/button";
+import ProgressBarCard from "../progressbar/progressbar";
+import Star from "../../assets/icon/star";
+import { useNavigate } from "react-router-dom";
+
+interface Subject {
+  id: number;
+  img: string;
+  title: string;
+  isExpired?: boolean;
+  daysLeft?: number;
+  topics: string;
+  rating: number;
+  progress: number;
+  avatars: string[];
+  starRating?: number;
+  questions?: number;
+}
+
+interface Props {
+  subject: Subject;
+  variant: "textbook" | "past-question";
+  hasTaken?: boolean; // Only for past-question variant
+}
+
+const SubjectCard: React.FC<Props> = ({ subject, variant, hasTaken }) => {
+  const navigate = useNavigate();
+
+  const renderStars = () => {
+    const totalStars = 5;
+    const fullStars = Math.floor(subject.starRating || 0);
+    const hasHalfStar = (subject.starRating || 0) % 1 !== 0;
+    const emptyStars = totalStars - fullStars - (hasHalfStar ? 1 : 0);
+
+    return (
+      <>
+        {[...Array(fullStars)].map((_, index) => (
+          <Star key={`full-${index}`} fill="full"  />
+        ))}
+        {hasHalfStar && <Star key="half" fill="half" />}
+        {[...Array(emptyStars)].map((_, index) => (
+          <Star key={`empty-${index}`} fill="none" />
+        ))}
+      </>
+    );
+  };
+
+  const handleCardClick = () => {
+    if (variant === "textbook") {
+      navigate(`/jupeb/topic/${subject.id}`);
+    } else {
+      navigate(`/jupeb/past-Question/single/${subject.id}`);
+    }
+  };
+
+  return (
+    <div
+      className="w-full h-auto min-h-[450px] sm:min-h-[450px] bg-white shadow-lg rounded-xl flex flex-col justify-between transition-all duration-300 hover:shadow-xl cursor-pointer"
+      onClick={handleCardClick}
+    >
+      <div>
+        <div className="relative w-full h-40 sm:h-48">
+          <div className="absolute bg-gray-100 rounded-3xl top-3 sm:top-4 left-3 sm:left-4 py-1 sm:py-2 px-4 sm:px-6 z-10">
+            <h3 className="text-sm sm:text-base font-semibold text-gray-700">
+              {variant === "textbook" ? "Textbook" : "Past Question"}
+            </h3>
+          </div>
+          <img
+            src={subject.img}
+            alt={`${subject.title}`}
+            className="w-full h-full object-cover rounded-tl-xl rounded-tr-xl"
+          />
+        </div>
+
+        <div className="px-4 sm:px-7">
+         <div className="flex justify-between items-start sm:items-center mt-3">
+  <h2 className="text-xl sm:text-2xl font-bold truncate">{subject.title}</h2>
+
+  <div className="flex flex-col items-end space-y-1">
+    {variant === "past-question" && subject.questions !== undefined && (
+      <p className="text-xs font-semibold text-gray-700 bg-[#4CB8514D] py-1 px-3 rounded-full">{subject.questions} Questions</p>
+    )}
+
+    {subject.isExpired ? (
+      <p className="text-xs font-bold bg-red-100 py-1 px-3 rounded-full">Expired</p>
+    ) : (
+      subject.daysLeft && (
+        <p className="text-xs font-bold bg-green-100 py-1 px-3 rounded-full">
+          {subject.daysLeft} days left
+        </p>
+      )
+    )}
+  </div>
+</div>
+
+
+          <p className="text-sm sm:text-base text-gray-600 mt-2 line-clamp-2">{subject.topics}</p>
+
+          <div className="flex justify-between items-center mt-4">
+            <div className="flex items-center">
+              <div className="flex -space-x-2">
+                {subject.avatars.slice(0, 3).map((avatar, index) => (
+                  <img
+                    key={index}
+                    src={avatar}
+                    alt="Avatar"
+                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-white"
+                  />
+                ))}
+              </div>
+              <div className="flex items-center bg-gray-200 rounded-lg py-1 px-2 ml-2">
+                <span className="text-xs sm:text-sm text-gray-600">{subject.rating}</span>
+              </div>
+            </div>
+            <div className="flex items-center">{renderStars()}</div>
+          </div>
+
+          <div className="w-full my-3 sm:my-4">
+            <ProgressBarCard
+              label=""
+              progress={subject.progress}
+              currentLevel={subject.progress}
+            />
+          </div>
+
+          {/* Buttons Section */}
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-4 mb-6">
+            {/* --- TEXTBOOK VARIANT --- */}
+            {variant === "textbook" && (
+              <>
+                <Button
+                  color="bg-white"
+                  textColor="text-gray-800"
+                  className="w-full sm:flex-1 border border-blue-600"
+                  rounded="full"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/jupeb/analytics/${subject.id}`);
+                  }}
+                >
+                  View Analytics
+                </Button>
+                {subject.isExpired ? (
+                  <Button
+                    color="bg-gray-400"
+                    textColor="text-white"
+                    className="w-full sm:flex-1"
+                    rounded="full"
+                    disabled
+                  >
+                    Upgrade
+                  </Button>
+                ) : subject.progress === 0 ? (
+                  <Button
+                    color="bg-blue-600"
+                    textColor="text-white"
+                    className="w-full sm:flex-1"
+                    rounded="full"
+                  >
+                    Read
+                  </Button>
+                ) : (
+                  <Button
+                    color="bg-blue-600"
+                    textColor="text-white"
+                    className="w-full sm:flex-1"
+                    rounded="full"
+                  >
+                    Continue Reading
+                  </Button>
+                )}
+              </>
+            )}
+
+            {/* --- PAST QUESTION VARIANT --- */}
+            {variant === "past-question" && (
+              <Button
+                color="bg-blue-600"
+                textColor="text-white"
+                className="w-full sm:flex-1"
+                rounded="full"
+              >
+                {hasTaken ? "Retake Question" : "Practice"}
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SubjectCard;

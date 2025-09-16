@@ -1,9 +1,15 @@
-import Overview from "./overview"
-import Exam from "./exams"
+import Overview from './overview'
+import PastQuestion from './PastQuestion';
+import Exam from './exams'
+import Textbook from './textbook';
+
 
 const JupebPages = {
-    Overview,
-    Exam
+   Overview,
+   Textbook,
+   PastQuestion,
+   Exam
 }
 
 export default JupebPages
+

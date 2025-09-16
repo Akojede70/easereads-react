@@ -55,13 +55,13 @@ const Answer = () => {
               </Button>
               </div>
             
-              <div className='w-[45%] md:w-[28%] lg:w-[25%]'>
+              {/* <div className='w-[45%] md:w-[28%] lg:w-[25%]'>
                  <Button
                 variant='outline'
               >
                 Read Textbook
               </Button>
-              </div>
+              </div> */}
             </div>
             </div>
 
@@ -97,13 +97,13 @@ const Answer = () => {
               </Button>
               </div>
             
-              <div className='w-[45%] md:w-[28%] lg:w-[25%]'>
+              {/* <div className='w-[45%] md:w-[28%] lg:w-[25%]'>
                  <Button
                 variant='outline'
               >
                 Read Textbook
               </Button>
-              </div>
+              </div> */}
             </div>
 
             </div>
