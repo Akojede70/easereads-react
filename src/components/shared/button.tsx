@@ -14,6 +14,7 @@ interface ButtonProps {
   fullWidth?: boolean; // for mobile responsiveness
   rounded?: "sm" | "md" | "lg" | "xl" | "full";
   name?: string;
+  variant?: "solid" | "outline"; 
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -26,6 +27,7 @@ export const Button: React.FC<ButtonProps> = ({
   textColor = "text-white",
   fullWidth = true,
   rounded = "md",
+  variant = "solid",
 }) => {
   const baseStyles =
     "w-full p-2 rounded-[10px] mb-2 h-[48px] disabled:opacity-50 cursor-pointer transition";
@@ -44,17 +46,14 @@ export const Button: React.FC<ButtonProps> = ({
         // base styles
         "px-4 py-2 font-medium transition duration-200 flex items-center justify-center",
         "hover:opacity-90 disabled:opacity-50 cursor-pointer",
-        
         // shape + sizing
         fullWidth ? "w-full sm:w-auto" : "w-auto",
         `rounded-${rounded}`,
-
-        // colors
         color,
-        textColor,
-
-        // custom overrides allowed
-        className
+        textColor,        
+        baseStyles,
+        variantStyles,
+        className // Use the className prop here
       )}
     >
       {children}

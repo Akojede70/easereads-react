@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Layout from "../../../components/layout/layout";
-import Button from "../../../components/shared/button";
-import ProgressBar from "../../../components/progressbar/progressbar";
+import { Button } from "../../../components/shared";
+import { ProgressBar } from "../../../components/progressbar";
 import {
   ArrowLeft,
   BookIcon,

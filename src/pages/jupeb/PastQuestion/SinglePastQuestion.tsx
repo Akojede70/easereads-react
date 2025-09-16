@@ -1,10 +1,7 @@
-
-import CardImg from "../../../assets/images/subjectcardimg.svg";
-import Avatar1 from "../../../assets/images/avatar1.png";
-import Avatar2 from "../../../assets/images/avatar2.png";
-import TopicCard from "../../../components/card/TopicCard";
+import { Avatar2, Avatar1, CardImg} from '../../../assets/images';
 import { ArrowLeft, TextbookIcon } from '../../../assets/icon';
-import Button from '../../../components/shared/button';
+import { Button } from "../../../components/shared";
+import { TopicCard } from "../../../components/card";
 
 interface PastQuestionSingles {
   id: number;

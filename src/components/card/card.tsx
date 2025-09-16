@@ -156,9 +156,11 @@ interface StatCardProps {
   value: number | string;
   width?: string;
   height?: string;
+  icon?: React.ElementType;
 }
 
 const StatCard: React.FC<StatCardProps> = ({
+  icon: Icon,
   title,
   value,
   width = "w-[32%] md:w-[29%]",
@@ -170,6 +172,7 @@ const StatCard: React.FC<StatCardProps> = ({
     >
       <div className="w-[83%] md:w-[70%] mx-auto">
         <div className="w-full h-[40px] rounded-[20px] bg-primaryBlue text-center flex items-center justify-center">
+                  {Icon && <Icon />}
           <p className="text-primaryWhite text-[12px] md:text-[16px]">{title}</p>
         </div>
       </div>

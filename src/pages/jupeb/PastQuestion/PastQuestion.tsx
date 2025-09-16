@@ -1,12 +1,9 @@
 // pages/jupeb/past-question/index.tsx
 
-
 import Layout from "../../../components/layout/layout";
-import Button from "../../../components/shared/button";
-import SubjectCard from "../../../components/card/SubjectCard";
-import CardImg from "../../../assets/images/subjectcardimg.svg";
-import Avatar1 from "../../../assets/images/avatar1.png";
-import Avatar2 from "../../../assets/images/avatar2.png";
+import { Avatar2, Avatar1, CardImg} from '../../../assets/images';
+import { SubjectCard } from "../../../components/card";
+import { Button } from "../../../components/shared";
 
 const pastQuestions = [
   {

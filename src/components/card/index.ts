@@ -1,20 +1,5 @@
-<<<<<<< HEAD
 
-export { 
-    LeaderboardCard, 
-    MiniCard, 
-    LongCard
- } 
-    from "./card";
-=======
-import MiniCard from './card';
-import SubjectCard from './SubjectCard';
+export { LeaderboardCard, MiniCard, LongCard, } from "./card";
+export { default as SubjectCard } from "./SubjectCard";
+export { default as TopicCard } from "./TopicCard";
 
-
-const Cards = {
-    MiniCard,
-    SubjectCard: SubjectCard,
-}
-
-export default Cards;
->>>>>>> 8c290c2028c95504c3eecea01ed0186da97fcf4b

@@ -1,10 +1,9 @@
 import React from "react";
-import Button from "../../../components/shared/button";
 import { ArrowLeft, TextbookIcon } from "../../../assets/icon";
-import CardImg from "../../../assets/images/subjectcardimg.svg";
-import Avatar1 from "../../../assets/images/avatar1.png";
-import Avatar2 from "../../../assets/images/avatar2.png";
-import TopicCard from "../../../components/card/TopicCard";
+import { Avatar2, Avatar1, CardImg} from '../../../assets/images';
+import { Button } from "../../../components/shared";
+import { TopicCard } from "../../../components/card";
+
 
 interface Topic {
   id: number;
@@ -57,7 +56,6 @@ const TopicSingle: React.FC = () => {
       {/* 1. Header: Back Button (Responsive) */}
       <header className="w-full bg-white px-4 sm:px-6 lg:px-10 py-3 sm:py-4">
         <Button
-          
           color="bg-white"
           textColor="text-gray-800"
           rounded="full"

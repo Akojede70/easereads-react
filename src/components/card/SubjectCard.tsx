@@ -1,10 +1,10 @@
 // components/card/SubjectCard.tsx
 
 import React from "react";
-import Button from "../shared/button";
-import ProgressBarCard from "../progressbar/progressbar";
-import Star from "../../assets/icon/star";
+import { ProgressBar } from "../progressbar/progressbar";
+import { Stars } from "../../assets/icon/star";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../shared";
 
 interface Subject {
   id: number;
@@ -38,11 +38,11 @@ const SubjectCard: React.FC<Props> = ({ subject, variant, hasTaken }) => {
     return (
       <>
         {[...Array(fullStars)].map((_, index) => (
-          <Star key={`full-${index}`} fill="full"  />
+          <Stars key={`full-${index}`} fill="full"  />
         ))}
-        {hasHalfStar && <Star key="half" fill="half" />}
+        {hasHalfStar && <Stars key="half" fill="half" />}
         {[...Array(emptyStars)].map((_, index) => (
-          <Star key={`empty-${index}`} fill="none" />
+          <Stars key={`empty-${index}`} fill="none" />
         ))}
       </>
     );
@@ -119,7 +119,7 @@ const SubjectCard: React.FC<Props> = ({ subject, variant, hasTaken }) => {
           </div>
 
           <div className="w-full my-3 sm:my-4">
-            <ProgressBarCard
+            <ProgressBar
               label=""
               progress={subject.progress}
               currentLevel={subject.progress}

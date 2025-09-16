@@ -2,14 +2,11 @@
 
 import React from "react";
 import Layout from "../../../components/layout/layout";
-import Button from "../../../components/shared/button";
-import MiniCard from "../../../components/card/card";
-import SubjectCard from "../../../components/card/SubjectCard";
+import { MiniCard } from "../../../components/card";
+import { SubjectCard } from "../../../components/card";
 import { DayStreak, ExamTaken, SmallVideo, StudyTime } from "../../../assets/icon";
-
-import CardImg from "../../../assets/images/subjectcardimg.svg";
-import Avatar1 from "../../../assets/images/avatar1.png";
-import Avatar2 from "../../../assets/images/avatar2.png";
+import { Avatar2, Avatar1, CardImg} from '../../../assets/images';
+import { Button } from "../../../components/shared";
 
 const subjects = [
   {

@@ -1,4 +1,4 @@
-const menu = () => {
+const menu = ( { className}: { className?: string}) => {
   return (
     <svg
       width="19"
@@ -6,6 +6,7 @@ const menu = () => {
       viewBox="0 0 19 13"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
     >
       <path
         d="M0.125 12.75V10.6667H18.875V12.75H0.125ZM0.125 7.54167V5.45833H18.875V7.54167H0.125ZM0.125 2.33333V0.25H18.875V2.33333H0.125Z"

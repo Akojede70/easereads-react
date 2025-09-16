@@ -51,14 +51,16 @@ export { default as  UpperBoldTriangle } from './upperboldtriangle';
 export { default as  Congratulations } from './congratulations';
 export { default as  Performance } from './performance';
 export { default as  Ring } from './ring';
-export { default as  Star } from './star';
+
+export {  Star, Stars } from './star';
+// export { default as  Star } from './star';
+
 export { default as  Triangle } from './triangle';
 export { default as  DownBoldTriangle } from './downboldtriangle';
 export { default as  Emoji } from './emoji';
 export { default as  Stop } from './stop';
 export { default as  HoldOn } from './holdon';
 export { default as  Mark } from './mark';
-// export { default as  Star } from './star';
 export { default as  ArrowRight } from './arrowRight';
 export { default as  ArrowLeft } from './arrowleft';
 export { default as  ArrowUp } from './arrowUp';

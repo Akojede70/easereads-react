@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as pdfjs from "pdfjs-dist";
-import Button from "../../../components/shared/button";
 import DummyPdf from "../../../assets/marvellous relocation_Letter.pdf";
 import {
   ArrowDown,
@@ -10,6 +9,7 @@ import {
   MenuIcon,
   CloseIcon,
 } from "../../../assets/icon";
+import { Button } from "../../../components/shared";
 
 // Set up PDF.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
@@ -20,6 +20,7 @@ const DocumentReader: React.FC = () => {
   const [numPages, setNumPages] = useState<number>(0);
   const [scale] = useState<number>(1.0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const pdfRef = useRef<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -78,14 +79,18 @@ const DocumentReader: React.FC = () => {
       canvas.width = viewport.width;
 
       // Clear canvas
-      context.clearRect(0, 0, canvas.width, canvas.height);
+      if (context) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
 
-      const renderContext = {
-        canvasContext: context,
-        viewport: viewport,
-      };
+        const renderContext = {
+          canvasContext: context,
+          viewport: viewport,
+        };
 
-      await page.render(renderContext).promise;
+        await page.render(renderContext).promise;
+      } else {
+        setError("Failed to get canvas context.");
+      }
     } catch (err) {
       console.error("Error rendering page:", err);
       setError("Failed to render the page.");
@@ -135,6 +140,7 @@ const DocumentReader: React.FC = () => {
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       handleSearch(e as any);
     }
   };
