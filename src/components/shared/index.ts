@@ -1,9 +1,6 @@
-import Button from './button';
+export { 
+    Button, 
+    BackButton 
+} from "./button";
 
-
-const shared = {
-    Button,
-  
-}
-
-export default shared;
+export { default as Modal } from "./modal";

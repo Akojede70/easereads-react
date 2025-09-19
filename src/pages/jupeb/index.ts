@@ -1,8 +1,15 @@
 import Overview from './overview'
+import PastQuestion from './PastQuestion';
+import Exam from './exams'
+import Textbook from './textbook';
 
 
-const jupeb = {
-   Overview
+const JupebPages = {
+   Overview,
+   Textbook,
+   PastQuestion,
+   Exam
 }
 
-export default jupeb;
+export default JupebPages
+

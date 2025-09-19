@@ -33,7 +33,45 @@ export { default as  ExpiredIcon } from './expired';
 export { default as  Dot } from './dot';
 export { default as  Gift } from './gift';
 export { default as  SmallVideo } from './smallvideo';
-export { default as  ExamTaken } from './examTaken';
+export { default as  ExamTaken } from './examtaken';
 export { default as  StudyTime } from './studytime';
 export { default as  DayStreak } from './daystreak';
+export { default as  Rank1 } from './rank1';
+export { default as  Rank2 } from './rank2';
+export { default as  Rank3 } from './rank3';
+export { default as  Rank4 } from './rank4';
+export { default as  UpperTriangle } from './uppertriangle';
+export { default as  DownTriangle } from './downtriangle';
+export { default as  LeftArrow } from './leftarrow';
+export { default as  LeaderboardPics } from './leaderboardpics';
+export { default as  FirstTag } from './firsttag';
+export { default as  SecondTag } from './secondtag';
+export { default as  ThirdTag } from './thirdtag';
+export { default as  UpperBoldTriangle } from './upperboldtriangle';
+export { default as  Congratulations } from './congratulations';
+export { default as  Performance } from './performance';
+export { default as  Ring } from './ring';
+
+export {  Star, Stars } from './star';
+// export { default as  Star } from './star';
+
+export { default as  Triangle } from './triangle';
+export { default as  DownBoldTriangle } from './downboldtriangle';
+export { default as  Emoji } from './emoji';
+export { default as  Stop } from './stop';
+export { default as  HoldOn } from './holdon';
+export { default as  Mark } from './mark';
+export { default as  ArrowRight } from './arrowRight';
+export { default as  ArrowLeft } from './arrowleft';
+export { default as  ArrowUp } from './arrowUp';
+export { default as  ArrowDown } from './arrowDown';
+export { default as  SearchIcon } from './searchicon';
+export { default as  PageIcon } from './PageIcon';
+export { default as  ExamIcon2 } from './examIcon2';
+export { default as  BookIcon } from './bookIcon';
+export { default as  BadgeIcon } from './badgeIcon';
+export { default as  MenuIcon } from './menu';
+export { default as  CloseIcon } from './close';
+
+
 

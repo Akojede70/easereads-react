@@ -1,5 +1,6 @@
 import MainPages from "./main"
-import JupebPages from './jupeb'
+import JupebPages from "./jupeb"
+
 
 export {
     MainPages,

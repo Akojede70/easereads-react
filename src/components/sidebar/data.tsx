@@ -14,7 +14,7 @@ const paths: Path[] = [
            <Overview/>
         ),
         name: "Overview",
-        path: '/',
+        path: '/jupeb/overview',
     },
     {
         id: 2,
@@ -22,7 +22,7 @@ const paths: Path[] = [
           <Textbook/>
         ),
         name: "Textbook",
-        path: 'textbook',
+        path: '/jupeb/textbook',
     },
     {
         id: 3,
@@ -38,7 +38,7 @@ const paths: Path[] = [
             <Exam/>
         ),
         name: "Exam Practice",
-        path: 'exam',
+        path: '/jupeb/exam-practice',
     },
     {
         id: 5,
@@ -54,7 +54,7 @@ const paths: Path[] = [
             <Past />
         ),
         name: "Past Questions",
-        path: 'past-questions',
+        path: '/jupeb/past-Question',
     },
     {
         id: 7,
@@ -73,7 +73,7 @@ const paths: Path[] = [
         path: 'analytic',
     },
     {
-        id: 8,
+        id: 9,
         icon: (
             <Others />
         ),
@@ -81,7 +81,7 @@ const paths: Path[] = [
         path: 'others',
     },
      {
-        id: 8,
+        id: 10,
         icon: (
             <Logout />
         ),

@@ -1,8 +1,1 @@
-import ProgressBarCard from './progressbar';
-
-
-const progressbar = {
-    ProgressBarCard,
-}
-
-export default progressbar;
+export { ProgressBar, ProgressBarWithAction } from "./progressbar";

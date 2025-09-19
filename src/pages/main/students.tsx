@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Laptop } from '../../assets/images';
 import { Call, Program, Cap, Subject, Email } from '../../assets/icon';
-import Button from '../../components/shared/button';
+import { Button } from '../../components/shared';
 import Alert from '../../components/helpers/alert';
 import { studentProfile, type StudentProfileFormData } from '../../service/auth';
 import { useNavigate } from 'react-router-dom';
