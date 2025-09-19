@@ -12,7 +12,7 @@ interface Topic {
   pages: string;
   topics: string;
   rating: number;
-  avatars: string[];
+  avatars: string[]; 
   viewNumber: number;
 }
 
