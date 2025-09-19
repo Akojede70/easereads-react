@@ -51,6 +51,17 @@ export { default as  UpperBoldTriangle } from './upperboldtriangle';
 export { default as  Congratulations } from './congratulations';
 export { default as  Performance } from './performance';
 export { default as  Ring } from './ring';
+export { default as  LiveIcon } from './liveIcon';
+export { default as  TimeWhite } from './timeWhite';
+export { default as  UpcomingIcon } from './Upcoming';
+export { default as  AttendedIcon } from './Attendance';
+export { default as  MissedIcon } from './MissedIcon';
+export { default as  CalendarIcon } from './CalendarIcon';
+export { default as  PreviousIcon } from './PreviousIcon';
+export { default as  PlayIcon } from './PlayIcon';
+export { default as  GoldIcon } from './gold';
+export { default as  SilverIcon } from './silver';
+export { default as  BronzeIcon } from './bronze';
 
 export {  Star, Stars } from './star';
 // export { default as  Star } from './star';
