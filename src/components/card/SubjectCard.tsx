@@ -38,7 +38,7 @@ const SubjectCard: React.FC<Props> = ({ subject, variant, hasTaken }) => {
     return (
       <>
         {[...Array(fullStars)].map((_, index) => (
-          <Stars key={`full-${index}`} fill="full"  />
+          <Stars key={`full-${index}`} fill="full" />
         ))}
         {hasHalfStar && <Stars key="half" fill="half" />}
         {[...Array(emptyStars)].map((_, index) => (
@@ -76,28 +76,36 @@ const SubjectCard: React.FC<Props> = ({ subject, variant, hasTaken }) => {
         </div>
 
         <div className="px-4 sm:px-7">
-         <div className="flex justify-between items-start sm:items-center mt-3">
-  <h2 className="text-xl sm:text-2xl font-bold truncate">{subject.title}</h2>
+          <div className="flex justify-between items-start sm:items-center mt-3">
+            <h2 className="text-xl sm:text-2xl font-bold truncate">
+              {subject.title}
+            </h2>
 
-  <div className="flex flex-col items-end space-y-1">
-    {variant === "past-question" && subject.questions !== undefined && (
-      <p className="text-xs font-semibold text-gray-700 bg-[#4CB8514D] py-1 px-3 rounded-full">{subject.questions} Questions</p>
-    )}
+            <div className="flex flex-col items-end space-y-1">
+              {variant === "past-question" &&
+                subject.questions !== undefined && (
+                  <p className="text-xs font-semibold text-gray-700 bg-[#4CB8514D] py-1 px-3 rounded-full">
+                    {subject.questions} Questions
+                  </p>
+                )}
 
-    {subject.isExpired ? (
-      <p className="text-xs font-bold bg-red-100 py-1 px-3 rounded-full">Expired</p>
-    ) : (
-      subject.daysLeft && (
-        <p className="text-xs font-bold bg-green-100 py-1 px-3 rounded-full">
-          {subject.daysLeft} days left
-        </p>
-      )
-    )}
-  </div>
-</div>
+              {subject.isExpired ? (
+                <p className="text-xs font-bold bg-red-100 py-1 px-3 rounded-full">
+                  Expired
+                </p>
+              ) : (
+                subject.daysLeft && (
+                  <p className="text-xs font-bold bg-green-100 py-1 px-3 rounded-full">
+                    {subject.daysLeft} days left
+                  </p>
+                )
+              )}
+            </div>
+          </div>
 
-
-          <p className="text-sm sm:text-base text-gray-600 mt-2 line-clamp-2">{subject.topics}</p>
+          <p className="text-sm sm:text-base text-gray-600 mt-2 line-clamp-2">
+            {subject.topics}
+          </p>
 
           <div className="flex justify-between items-center mt-4">
             <div className="flex items-center">
@@ -112,7 +120,9 @@ const SubjectCard: React.FC<Props> = ({ subject, variant, hasTaken }) => {
                 ))}
               </div>
               <div className="flex items-center bg-gray-200 rounded-lg py-1 px-2 ml-2">
-                <span className="text-xs sm:text-sm text-gray-600">{subject.rating}</span>
+                <span className="text-xs sm:text-sm text-gray-600">
+                  {subject.rating}
+                </span>
               </div>
             </div>
             <div className="flex items-center">{renderStars()}</div>

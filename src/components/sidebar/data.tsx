@@ -5,6 +5,12 @@ interface Path {
     icon: React.ReactNode;
     name: ReactNode;
     path: string;
+    hasSubmenu?: boolean;
+    submenu?: {
+        id: number;
+        name: string;
+        path: string;
+    }[];
 }
 
 const paths: Path[] = [
@@ -46,7 +52,7 @@ const paths: Path[] = [
             <Live />
         ),
         name: "Live Class",
-        path: 'class',
+        path: '/jupeb/live-class',
     },
     {
         id: 6,
@@ -74,11 +80,22 @@ const paths: Path[] = [
     },
     {
         id: 9,
-        icon: (
-            <Others />
-        ),
-        name: "others",
-        path: 'others',
+        icon: <Others />,
+        name: "Others",
+        path: '/jupeb/others',
+        hasSubmenu: true,
+        submenu: [
+            {
+                id: 1,
+                name: "Referral Points",
+                path: '/jupeb/referral-points',
+            },
+            {
+                id: 2,
+                name: "Help Center",
+                path: '/jupeb/help-center',
+            },
+        ],
     },
      {
         id: 10,

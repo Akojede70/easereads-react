@@ -229,6 +229,7 @@ const DocumentReader: React.FC = () => {
 
             <div className="relative mb-4">
               <select
+              
                 value={selectedChapter}
                 onChange={handleChapterChange}
                 className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2 pr-10 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
@@ -247,10 +248,10 @@ const DocumentReader: React.FC = () => {
 
             <div className="flex flex-col gap-2">
               <Button
-                color="bg-gray-100"
-                textColor="text-gray-700"
+               color="bg-blue-600"
+                textColor="text-white"
                 rounded="lg"
-                className="px-4 py-2 hover:bg-gray-200 transition-colors items-center justify-center border border-gray-800"
+                className="px-4 py-2 hover:bg-blue-700 transition-colors items-center justify-center"
                 onClick={() => (window.location.href = "/dashboard")}
               >
                 Dashboard
