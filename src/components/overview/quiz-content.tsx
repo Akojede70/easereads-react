@@ -49,8 +49,8 @@ export const QuizContent: React.FC<QuizCardProps> = ({
             
             </div>
             </div>
-            <div className="flex gap-[10px]">
-          <div className="pt-[5px] md:ml-[18px]">
+            <div className="flex gap-[10px] w-[170px]">
+          <div className="pt-[5px] md:ml-[2%] lg:ml-[18px]">
           <Dot />
           </div>
           <div>
@@ -60,8 +60,8 @@ export const QuizContent: React.FC<QuizCardProps> = ({
         </div>
       
         <div >
-          <p>
-          {date} <span className="md:pl-[25px]">{time}</span>
+          <p className=" w-full">
+          {date} <span className="lg:pl-[25px]">{time}</span>
         </p>
         </div>
        
