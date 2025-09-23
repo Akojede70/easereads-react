@@ -5,18 +5,38 @@ import { JupebPages } from "../pages";
 const AuthRoutes = () => {
   return (
     <>
+      {/* Overview */}
       <Routes>
-        <Route path='/overview' element={<JupebPages.Overview.Overview  />} />
-        <Route path='/leaderboard' element={<JupebPages.Overview.Leaderboard  />} />
-        <Route path='/exam-practice' element={<JupebPages.Exam.ExamPractice  />} />
-        <Route path='/exam-history' element={<JupebPages.Exam.ExamHistory  />} />
-        <Route path='/exam-instruction' element={<JupebPages.Exam.ExamInstruction  />} />
-        <Route path='/exam-form' element={<JupebPages.Exam.ExamForm  />} />
-        <Route path='/exam-question' element={<JupebPages.Exam.Question  />} />
-        <Route path='/exam-answer' element={<JupebPages.Exam.Answer  />} />
-        <Route path='/exam-solution-answer' element={<JupebPages.Exam.ExamsSolutionsAnswer  />} />
+        <Route path="/overview" element={<JupebPages.Overview.Overview />} />
+        <Route
+          path="/leaderboard"
+          element={<JupebPages.Overview.Leaderboard />}
+        />
+
+        {/* Exam */}
+        <Route
+          path="/exam-practice"
+          element={<JupebPages.Exam.ExamPractice />}
+        />
+        <Route path="/exam-history" element={<JupebPages.Exam.ExamHistory />} />
+        <Route
+          path="/exam-instruction"
+          element={<JupebPages.Exam.ExamInstruction />}
+        />
+        <Route path="/exam-form" element={<JupebPages.Exam.ExamForm />} />
+        <Route path="/exam-question" element={<JupebPages.Exam.Question />} />
+        <Route path="/exam-answer" element={<JupebPages.Exam.Answer />} />
+        <Route
+          path="/exam-solution-answer"
+          element={<JupebPages.Exam.ExamsSolutionsAnswer />}
+        />
+
+        {/* TextBook */}
         <Route path="/textbook" element={<JupebPages.Textbook.Textbook />} />
-        <Route path="/topic/:id" element={<JupebPages.Textbook.TopicSingle />} />
+        <Route
+          path="/topic/:id"
+          element={<JupebPages.Textbook.TopicSingle />}
+        />
         <Route
           path="/topic/reader/:id"
           element={<JupebPages.Textbook.DocumentReader />}
@@ -36,6 +56,23 @@ const AuthRoutes = () => {
         <Route
           path="/past-Question/single/:id"
           element={<JupebPages.PastQuestion.SinglePastQuestion />}
+        />
+
+        {/* Live Class */}
+        <Route
+          path="/live-class"
+          element={<JupebPages.LiveClass.LiveClass />}
+        />
+
+        {/* Others */}
+        <Route path="/help-center" element={<JupebPages.Others.HelpCenter />} />
+        <Route
+          path="/referral-points"
+          element={<JupebPages.Others.Referral />}
+        />
+        <Route
+          path="/user-profile"
+          element={<JupebPages.Others.UserProfile />}
         />
       </Routes>
     </>

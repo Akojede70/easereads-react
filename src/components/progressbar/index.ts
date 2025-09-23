@@ -1,1 +1,1 @@
-export { ProgressBar, ProgressBarWithAction } from "./progressbar";
+export { ProgressBar, ProgressBarWithAction, PeterProgressBar } from "./progressbar";

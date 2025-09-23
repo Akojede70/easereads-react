@@ -4,8 +4,13 @@ import React from "react";
 import Layout from "../../../components/layout/layout";
 import { MiniCard } from "../../../components/card";
 import { SubjectCard } from "../../../components/card";
-import { DayStreak, ExamTaken, SmallVideo, StudyTime } from "../../../assets/icon";
-import { Avatar2, Avatar1, CardImg} from '../../../assets/images';
+import {
+  DayStreak,
+  ExamTaken,
+  SmallVideo,
+  StudyTime,
+} from "../../../assets/icon";
+import { Avatar2, Avatar1, CardImg } from "../../../assets/images";
 import { Button } from "../../../components/shared";
 
 const subjects = [
@@ -52,7 +57,9 @@ const Textbook = () => {
       <div className="w-full bg-white px-4 sm:px-6 lg:px-10 flex flex-col sm:flex-row justify-between items-start sm:items-center">
         <div>
           <p className="text-3xl font-bold pt-6">Overview</p>
-          <p className="text-base pt-2 pb-4">Hi Emmanuel Kelvin, here’s your progress today!</p>
+          <p className="text-base pt-2 pb-4">
+            Hi Emmanuel Kelvin, here’s your progress today!
+          </p>
         </div>
         <div className="pb-4 sm:pb-0">
           <Button
@@ -65,20 +72,22 @@ const Textbook = () => {
           </Button>
         </div>
       </div>
-
+      <div className="pl-[3%] md:ml-0 md:flex flex-wrap gap-[20px] mt-[20px]">
+        <MiniCard icon={SmallVideo} title="Total Textbooks" value={5} />
+        <MiniCard icon={ExamTaken} title="Completed" value={2} />
+        <MiniCard icon={StudyTime} title="Read Time" value="50m" />
+        <MiniCard icon={DayStreak} title="Progress" value="40%" />
+      </div>
       {/* Mini Stats */}
       <div className="px-4 sm:px-6 lg:px-10 py-6">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-          <MiniCard icon={SmallVideo} title="Total Textbooks" value={5} />
-          <MiniCard icon={ExamTaken} title="Completed" value={2} />
-          <MiniCard icon={StudyTime} title="Read Time" value="50m" />
-          <MiniCard icon={DayStreak} title="Progress" value="40%" />
-        </div>
-
         {/* Subjects */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 mb-20">
           {subjects.map((subject) => (
-            <SubjectCard key={subject.id} subject={subject} variant="textbook" />
+            <SubjectCard
+              key={subject.id}
+              subject={subject}
+              variant="textbook"
+            />
           ))}
         </div>
       </div>

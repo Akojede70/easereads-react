@@ -52,7 +52,7 @@ const handleCardClick = () => {
             </div>
 
             <div className="flex items-center gap-1 ml-2 flex-shrink-0">
-              <span className="w-4 h-4 sm:w-5 sm:h-5" > <PageIcon /> </span>
+              <span className="" > <PageIcon /> </span>
               <span className="text-xs sm:text-sm text-gray-500">
                 {topic.pages || topic.question}
               </span>

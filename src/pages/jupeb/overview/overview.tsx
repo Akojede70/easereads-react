@@ -4,7 +4,7 @@ import {  Gift, SmallVideo, ExamTaken, Leaderboard, DayStreak, StudyTime, Rank1,
 import "react-circular-progressbar/dist/styles.css";
 import { Harmonic, Equation } from '../../../assets/images';
 import { MiniCard } from '../../../components/card';
-import { ProgressBar, ProgressBarWithAction } from '../../../components/progressbar';
+import { ProgressBarWithAction, PeterProgressBar } from '../../../components/progressbar';
 import { ClassContent, QuizContent } from '../../../components/overview';
 
 
@@ -38,7 +38,7 @@ const Overview = () => {
                    <p className="w-full lg:w-[80%] pt-[15px] text-[16px] md:text-[18px]"> Level: {currentLevel}</p>
                   </div>
                   </div>
-                  <div className='md:pl-[2.9%] mt-[4%] md:mt-[2%] '>
+                  <div className='md:pl-[2.9%] mt-[4%] md:mt-[2%]'>
       <div className="relative w-[70%] md:w-[73%] lg:w-[98%] ml-[8px] md:ml-0 h-[250px] md:h-[225px] bg-[#087cdf] text-white p-4 rounded-[5px] lg:rounded-lg overflow-hidden flex gap-[290px] ">
       {/* Banner content */}
       <div className="pl-[1%] md:pl-[7%] lg:pl-[50px]">
@@ -117,9 +117,9 @@ const Overview = () => {
           </div>
           </div>
             <div className='pr-4 md:px-4 flex flex-col gap-[20px]'>
-            <ProgressBar label="Physics" progress={80} currentLevel={80} />
-            <ProgressBar label="Chemistry" progress={40} currentLevel={40}  color="bg-[#ffa024]" />
-            <ProgressBar label="English" progress={60} currentLevel={60} />
+            <PeterProgressBar label="Physics" progress={80} currentLevel={80} />
+            <PeterProgressBar label="Chemistry" progress={40} currentLevel={40}  color="bg-[#ffa024]" />
+            <PeterProgressBar label="English" progress={60} currentLevel={60} />
             </div>
         </div>   
       </div>
@@ -230,14 +230,14 @@ const Overview = () => {
         </div>
       </div>
 
-      <div className='lg:flex gap-[30px]'>
+      <div className='lg:flex md:gap-[30px]'>
          <div className="bg-primaryWhite p-4 rounded-[15px] shadow ml-[3%] md:ml-0 w-[67%] md:w-[73%] lg:w-[55%] mt-[30px] mb-[40px] lg:mb-[120px]">
-          <div className='mb-[20px]'>
+          <div className='mb-[20px] lg:mt-[16px]'>
             <p className='text-[17px] font-bold'> Continue Learning</p>
             <p className='text-[14px] py-[8px]'> Pick up where you left off </p>
           </div>
       {/* Tabs Header */}
-      <div className="flex justify-between border-b border-gray-200">
+      <div className="flex md:gap-[60px] border-b border-gray-200">
         <button
           className={`px-4 py-2 text-[11px] md:text-[17px] font-bold cursor-pointer ${
             activeTab === "textbook"
@@ -304,6 +304,14 @@ const Overview = () => {
                   buttonText="Continue Reading"
                   onButtonClick={() => alert("Continue Physics")}
                  />
+                 <ProgressBarWithAction
+                  label="Crs"
+                  progress={80}
+                  currentLevel={80}
+                  buttonText="Continue Reading"
+                  onButtonClick={() => alert("Continue Physics")}
+                 />
+                 
             </div>
         )}
 
@@ -321,6 +329,20 @@ const Overview = () => {
                   label="Chemistry"
                   progress={40}
                   currentLevel={40}
+                  buttonText="Continue Reading"
+                  onButtonClick={() => alert("Continue Physics")}
+                 />
+                 <ProgressBarWithAction
+                  label="Physics"
+                  progress={60}
+                  currentLevel={60}
+                  buttonText="Continue Reading"
+                  onButtonClick={() => alert("Continue Physics")}
+                 />
+                 <ProgressBarWithAction
+                  label="Physics"
+                  progress={60}
+                  currentLevel={60}
                   buttonText="Continue Reading"
                   onButtonClick={() => alert("Continue Physics")}
                  />
@@ -366,14 +388,21 @@ const Overview = () => {
                   buttonText="Continue Reading"
                   onButtonClick={() => alert("Continue Physics")}
                  />
+                  <ProgressBarWithAction
+                  label="Economics"
+                  progress={100}
+                  currentLevel={100}
+                  buttonText="Continue Reading"
+                  onButtonClick={() => alert("Continue Physics")}
+                 />
             </div>
         )}
       </div>
     </div>
 
-    <div className='ml-[3%] md:ml-0 w-[68%] md:w-[73%] lg:w-[40%] h-[750px] md:h-[463px] mt-[10px] lg:mt-[30px] bg-primaryWhite rounded-[15px] mb-[120px] lg:mb-0'>
+    <div className='ml-[3%] md:ml-0 w-[68%] md:w-[73%] lg:w-[40%] h-[630px] md:h-[463px] mt-[10px] lg:mt-[30px] bg-primaryWhite rounded-[15px] mb-[120px] lg:mb-0'>
        <div className='flex justify-between px-6 font-bold pt-[20px] text-[14px] md:text-[18px]'>
-              <p> Upcoming Quiz</p>
+              <p> Upcoming Classes</p>
           <p className='text-primaryBlue underline cursor-pointer pr-2'> See All</p> 
           </div>
          <ClassContent 

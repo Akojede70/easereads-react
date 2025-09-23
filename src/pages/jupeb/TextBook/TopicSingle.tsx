@@ -20,7 +20,7 @@ const TopicSingle: React.FC = () => {
   // Renamed `topic` → `topics` (plural, since it’s an array)
   const topics: Topic[] = [
     {
-      id: 1,
+      id: 1, 
       img: CardImg,
       title: "Biology 101",
       pages: "120 Pages",

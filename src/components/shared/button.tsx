@@ -23,19 +23,18 @@ export const Button: React.FC<ButtonProps> = ({
   type = "button",
   className = "",
   disabled = false,
-  color = "bg-blue-600",
+  color = "bg-[#106EBE]",
   textColor = "text-white",
   fullWidth = true,
   rounded = "md",
   variant = "solid",
 }) => {
-  const baseStyles =
-    "w-full p-2 rounded-[10px] mb-2 h-[48px] disabled:opacity-50 cursor-pointer transition";
+  const baseStyles = "px-4 py-2 font-medium transition duration-200 flex items-center justify-center hover:opacity-90 disabled:opacity-50 cursor-pointer";
 
   const variantStyles =
     variant === "outline"
-      ? "border border-primaryBlue text-primaryBlue bg-transparent hover:bg-primaryBlue hover:text-white"
-      : "bg-primaryBlue text-white hover:opacity-90";
+      ? "border border-primaryBlue bg-transparent hover:bg-primaryBlue"
+      : "";
 
   return (
     <button
@@ -44,16 +43,13 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       className={clsx(
         // base styles
-        "px-4 py-2 font-medium transition duration-200 flex items-center justify-center",
-        "hover:opacity-90 disabled:opacity-50 cursor-pointer",
-        // shape + sizing
-        fullWidth ? "w-full sm:w-auto" : "w-auto",
+        baseStyles,
+        fullWidth ? "w-full " : "w-auto",
         `rounded-${rounded}`,
         color,
-        textColor,        
-        baseStyles,
+        textColor,
         variantStyles,
-        className // Use the className prop here
+        className
       )}
     >
       {children}
@@ -79,4 +75,3 @@ export const BackButton: React.FC<BackButtonProps> = ({ onClick, className }) =>
     </button>
   );
 };
-
