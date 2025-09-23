@@ -80,6 +80,10 @@ const AuthRoutes = () => {
           path="/subscriptions"
           element={<JupebPages.Subscription.Subscription />}
         />
+         <Route
+          path="/summary"
+          element={<JupebPages.Subscription.Summary />}
+        />
       </Routes>
     </>
   );

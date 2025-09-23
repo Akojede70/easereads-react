@@ -64,7 +64,7 @@ export { default as  SilverIcon } from './silver';
 export { default as  BronzeIcon } from './bronze';
 
 export {  Star, Stars } from './star';
-// export { default as  Star } from './star';
+export { default as  Check } from './check';
 
 export { default as  Triangle } from './triangle';
 export { default as  DownBoldTriangle } from './downboldtriangle';
