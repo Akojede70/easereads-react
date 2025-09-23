@@ -74,6 +74,12 @@ const AuthRoutes = () => {
           path="/user-profile"
           element={<JupebPages.Others.UserProfile />}
         />
+          
+          {/* Transactions and Subscriptions */}
+        <Route
+          path="/subscriptions"
+          element={<JupebPages.Subscription.Subscription />}
+        />
       </Routes>
     </>
   );

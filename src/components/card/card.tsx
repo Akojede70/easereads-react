@@ -184,7 +184,55 @@ const StatCard: React.FC<StatCardProps> = ({
   );
 };
 
+interface DurationCardProps {
+  duration: string;
+  oldPrice: number;
+  newPrice: number;
+  discount: number;
+  bgColor?: string;
+  border?: boolean;
+  borderColor?: string;
+}
+
+export const DurationCard: React.FC<DurationCardProps> = ({
+  duration,
+  oldPrice,
+  newPrice,
+  discount,
+  bgColor = "#e8f1f9",
+  border = true,
+  borderColor = "#e8e8e8",
+}) => {
+  return (
+    <div className="py-[20px] bg-[#e8f1f9] border border-[#e8e8e8] flex flex-col gap-[10px] items-center justify-center rounded-[18px] w-[12%] mt-[20px]"
+     style={{
+        backgroundColor: bgColor,
+        border: border ? `1px solid ${borderColor}` : "none",
+      }}
+     >
+      {/* Duration */}
+      <p className="bg-primaryBlue w-[140px] text-center text-primaryWhite rounded-[10px] py-[4px]">
+        {duration}
+      </p>
+
+      {/* Old Price */}
+      <p className="line-through text-[22px] text-[#adadad]">N {oldPrice}</p>
+
+      {/* New Price */}
+      <p className="text-[25px] font-bold">N {newPrice}</p>
+
+      {/* Discount */}
+      <div className="border w-[120px] rounded-[12px] bg-primaryYellow text-primaryWhite text-center">
+        {discount}% discount
+      </div>
+    </div>
+  );
+};
+
+
 export default StatCard;
+
+
 
 
 

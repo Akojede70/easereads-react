@@ -4,6 +4,7 @@ import Exam from './exams'
 import Textbook from './textbook';
 import LiveClass from './LiveClass';
 import Others from './Others';
+import Subscription from './subscription';
 
 
 
@@ -13,7 +14,8 @@ const JupebPages = {
    PastQuestion,
    Exam,
    LiveClass,
-   Others
+   Others,
+   Subscription
 }
 
 export default JupebPages
