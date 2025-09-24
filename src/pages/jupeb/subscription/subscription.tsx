@@ -15,18 +15,17 @@ const Subscription = () => {
   return (
     <Layout>
     <div>
-        <div className='bg-primaryWhite mt-[20px] w-[92%] h-[100px] mx-auto rounded-[20px] flex justify-center items-center gap-[30px] '>
-                <div className='w-[350px]'>
-                    <Button className='rounded-[30px]' rounded='full'> Subscription </Button>
-                </div>
-
-
-                <div className='w-[350px]'>
-                    <Button color='bg-[#f5f5f5]' textColor='text-[#333333]' rounded='xl' className='font-bold text-[16px]'> History </Button>
-                </div>
-        </div>
+        <div className='bg-primaryWhite mt-[20px] w-[85%] lg:w-[92%]  px-auto flex flex-col gap-[40px]  lg:flex-row  ml-[5%] h-[190px] lg:h-[100px] lg:mx-auto rounded-[20px] lg:flex justify-center items-center lg:gap-[30px] '>
+                       <div className='w-[60%] lg:w-[350px] pt-[7%] md:pt-0'>
+                           <Button className='rounded-[30px]' rounded='full'> Subscription </Button>
+                       </div>
+       
+                       <div className='w-[60%] lg:w-[350px]'>
+                           <Button color='bg-[#f5f5f5]' textColor='text-[#333333]' rounded='xl' className='font-bold text-[16px]'> History </Button>
+                       </div>
+               </div>
       
-      <div className='flex gap-[5px] ml-[3%]'>
+      <div className='flex flex-wrap gap-[5px] ml-[3%]'>
         <div className="p-6">
       <button
         onClick={() => setCongratulations(true)}
@@ -35,7 +34,7 @@ const Subscription = () => {
         1st Modal
       </button>
 
-      <Modal open={congratulations} onClose={() => setCongratulations(false)} width='700px'>
+      <Modal open={congratulations} onClose={() => setCongratulations(false)} className="w-[95%] md:w-[90%] lg:w-[45%]">
         <div className='flex flex-col items-center justify-center gap-[20px] mt-[15%] mb-[10%]'>
          <Congratulations />
         <p className='text-3xl font-bold text-[#333333]'> Wait While Loading </p> 
@@ -52,7 +51,7 @@ const Subscription = () => {
         2nd Modal
       </button>
 
-      <Modal open={open} onClose={() => setOpen(false)} width='700px'>
+      <Modal open={open} onClose={() => setOpen(false)} className="w-[95%] md:w-[90%] lg:w-[45%]">
         <div className='flex flex-col items-center justify-center gap-[20px] mt-[15%] mb-[10%]'>
         <Congratulations />
         <p className='text-3xl font-bold text-[#333333]'> Congratulations </p>
@@ -72,7 +71,7 @@ const Subscription = () => {
         3rd Modal
       </button>
 
-      <Modal open={wait} onClose={() => setWait(false)} width='700px'>
+      <Modal open={wait} onClose={() => setWait(false)} className="w-[95%] md:w-[90%] lg:w-[45%]">
         <div className='flex flex-col items-center justify-center gap-[20px] mt-[15%] mb-[10%]'>
         <Check  />
         <p className='text-3xl font-bold text-[#333333]'> Payment Successful </p>
@@ -89,41 +88,41 @@ const Subscription = () => {
         4th Modal
       </button>
 
-      <Modal open={summary} onClose={() => setSummary(false)} width='700px'>
+      <Modal open={summary} onClose={() => setSummary(false)} className="w-[95%] md:w-[90%] lg:w-[45%]">
         <div className='px-[2%]'>
         <div >
           <p className='text-[25px] text-primaryBlue font-bold'> Summary </p>
           <p className='pt-[20px] font-bold'> Subjects</p>
-          <div className='border-2 p-[12px] border-[#e8e8e8] flex justify-between rounded-[8px] mt-[10px]'>
-            <div className='flex gap-[25px] pl-[20px] pt-[5px] font-bold'>
+          <div className='text-[13px] md:text-[18px] border-2 p-[12px] border-[#e8e8e8] flex justify-between rounded-[8px] mt-[10px]'>
+            <div className='md:flex gap-[25px] pl-[20px] pt-[5px] font-bold'>
               <p> Mathematics</p>
               <p> Physics </p>
             </div>
-            <div className='bg-primaryYellow rounded-[20px] px-[10px]'>
+            <div className='bg-primaryYellow rounded-[20px] p-[10px] md:px-[10px]'>
               <p> 3% discount </p>
             </div>
           </div>
 
-            <p className='pt-[20px] font-bold'> Additional Services</p>
+            <p className='pt-[20px] font-bold text-[14px] md:text-[18px]'> Additional Services</p>
            <div className='border-2 p-[12px] border-[#e8e8e8] flex justify-between rounded-[8px] mt-[10px]'>
-            <div className='flex gap-[20px] pl-[20px] pt-[5px] font-bold'>
+            <div className='flex gap-[20px] pl-[20px] pt-[5px] font-bold text-[12px] md:text-[17px]'>
                  <input
                  type="checkbox"
                  className="w-5 h-5 rounded-full cursor-pointer accent-[#106EBE] mt-[2px] border-2 border-gray-300 focus:ring-2 focus:ring-[#106EBE] focus:ring-opacity-50"
                />  
-                <p> Live Class</p>
+                <p className='pt-[4px] md:pt-0'> Live Class</p>
                  <input
                   type="checkbox"
                   // checked={checked}
                   // onChange={onChange}
                   className="w-5 h-5 rounded-full cursor-pointer accent-[#106EBE] border-2 mt-[2px] border-gray-300 focus:ring-2 focus:ring-[#106EBE] focus:ring-opacity-50"
                 />
-              <p> Video Tutorial </p>
+              <p className='pt-[4px] md:pt-0'> Video Tutorial </p>
             </div>
           </div>
 
-           <p className='pt-[20px] font-bold'> Duration</p>
-           <div className='border-2 p-[12px] border-[#e8e8e8] flex justify-between rounded-[8px] mt-[10px]'>
+           <p className='pt-[20px] font-bold text-[14px] md:text-[18px]'> Duration</p>
+           <div className='border-2 p-[12px] border-[#e8e8e8] flex justify-between rounded-[8px] mt-[10px] text-[13px] md:text-[20px]'>
             <div className='flex gap-[25px] pl-[20px] pt-[5px] font-bold'>
               <p> 1 Months</p>
             </div>
@@ -132,34 +131,34 @@ const Subscription = () => {
               <p> 3% discount </p>
             </div>
 
-            <div className='font-bold'>
+            <div className='font-bold pt-[2%] md:pt-[1%] lg:pt-0'>
               N5,000
             </div>
           </div>
         </div>
 
-        <div className='flex justify-end gap-[40px] mt-[4%]'>
+        <div className='text-[12px] md:text-[20px] flex justify-end gap-[40px] mt-[4%]'>
           <div className='flex flex-col gap-[20px] font-bold'>
             <p> Total discount</p>
             <p> Additional Services</p>
             <p> Total Price</p>
           </div>
           <div className='flex flex-col gap-[20px]'>
-            <p> <span className='font-bold'> N2,000 </span> (20% discount)</p>
-            <p> <span className='font-bold'> N1,000 </span> (Video Tutorial)</p>
-            <p className='font-bold pl-[120px]'> N5,000</p>
+            <p> <span className='font-bold pl-[19%] md:pl-0'> N2,000 </span> (20% discount)</p>
+            <p> <span className='font-bold pl-[19%] md:pl-0'> N1,000 </span> (Video Tutorial)</p>
+            <p className='font-bold pl-[120px] pt-[7%] md:pt-0'> N5,000</p>
           </div>
         </div>
-        <div className='border border-[#e8e8e8] w-full my-[2%]'></div>
-        <div className='flex justify-end gap-[195px] font-bold'>
-          <p> Balance to pay</p>
+        <div className='border border-[#e8e8e8] w-full my-[5%] md:my-[2%]'></div>
+        <div className='flex justify-end gap-[125px] md:gap-[195px] font-bold text-[15px] md:text-[20px]'>
+          <p className=''> Balance to pay</p>
           <p> N 3,000</p>
         </div>
 
-        <div>
-          <p className='font-bold text-[17px]'> Select Payment Method</p>
-          <div className=' border-[2px] border-[#e8e8e8] w-full rounded-[10px] h-[160px] pt-[3%] pl-[5%] mt-[2%]'>
-             <div className='flex gap-[20px]'>
+        <div className='text-[14px] md:text-[17px] mt-[15px] lg:mt-0'>
+          <p className='font-bold'> Select Payment Method</p>
+          <div className=' border-[2px] border-[#e8e8e8] w-full rounded-[10px] h-[190px] lg:h-[210px] pt-[3%] pl-[5%] mt-[2%]'>
+             <div className='flex gap-[4px] md:gap-[20px]'>
                <input
                   type="checkbox"
                   // checked={checked}
@@ -168,8 +167,8 @@ const Subscription = () => {
                 />
                 <IconForReferral/>
               <p className='font-bold'> Referral Points</p>
-              <div className='bg-primaryYellow w-[35%] pl-[2%] rounded-[20px]'>
-              <p className='font-bold'> Insufficient (15 Points) </p>
+              <div className='bg-primaryYellow w-[35%] md:w-[40%] lg:w-[30%] p-[5px] pl-[5%] md:pl-[2%] rounded-[20px]'>
+              <p className='font-bold text-[12px] md:text-[18px]'> Insufficient (15 Points) </p>
             </div>
              </div>
              <div className='flex gap-[20px]'>
@@ -205,7 +204,7 @@ const Subscription = () => {
              
           </div>
         </div>
-        <div className='mt-[4%] mb-[2%]'>
+        <div className='text-[15px] md:text-[22px] mt-[4%] mb-[2%]'>
               <Button >
                 Pay N3,000 Now
               </Button>
@@ -215,14 +214,14 @@ const Subscription = () => {
     </div>
     </div>
 
-        <div className='pl-[4%] mt-[1.2%]'>
-            <p className='text-[25px] font-bold'> Subscription </p>
-            <p className='mt-[7px]'> choose the plan that works best for your learning goals </p>
+        <div className='pl-[9%] md:pl-[6%] lg:pl-[4%] mt-[1.2%]'>
+            <p className='text-[18px] md:text-[25px] font-bold'> Subscription </p>
+            <p className='mt-[7px] w-[85%] lg:w-[50%]'> choose the plan that works best for your learning goals </p>
         </div>
 
-        <div className='bg-primaryWhite mt-[30px] mx-auto w-[92%] h-[180px] rounded-[20px] pt-[20px] pl-[50px]'>
-        <p className='text-[23px] font-bold text-primaryBlue '> Benefit of Subscription </p>
-        <div className='pt-[15px] w-[50%] flex flex-wrap gap-[20px]'> 
+        <div className='bg-primaryWhite mt-[30px] lg:mx-auto w-[85%] lg:w-[92%] h-[400px] lg:h-[180px] rounded-[20px] pt-[20px] ml-[5%]  pl-[25px] lg:pl-[50px]'>
+        <p className='text-[19px] md:text-[23px] font-bold text-primaryBlue '> Benefit of Subscription </p>
+        <div className='pt-[15px] w-[95%] md:w-[50%] flex flex-wrap gap-[20px]'> 
        <div className='flex gap-[10px]'> <Dot className='mt-[7px]' color='#333333'/><p> Access to Textbook</p></div>
        <div className='flex gap-[10px]'> <Dot className='mt-[7px]' color='#333333'/><p> Access to Past-Question and Answers</p></div>
        <div className='flex gap-[10px]'> <Dot className='mt-[7px]' color='#333333'/><p> Access to (AOC)</p></div>
@@ -233,16 +232,16 @@ const Subscription = () => {
         
         </div>
 
-         <div className='bg-primaryWhite mt-[30px] mx-auto w-[92%] h-[210px] rounded-[20px] pt-[20px] pl-[50px]'>
-        <p className='text-[23px] font-bold text-primaryBlue '> Subjects</p>
-        <div className='w-[32%] mt-[15px] bg-[#fff4e5] pl-[20px] flex gap-[10px] p-2 rounded-[30px]'>
+         <div className='bg-primaryWhite mt-[30px] lg:mx-auto w-[85%] lg:w-[92%] h-[400px] lg:h-[210px] rounded-[20px] ml-[5%] pt-[20px] pl-[30px] lg:pl-[50px]'>
+        <p className='text-[18px] md:text-[23px] font-bold text-primaryBlue '> Subjects</p>
+        <div className='w-[90%] lg:w-[32%] mt-[15px] bg-[#fff4e5] pl-[10px] lg:pl-[20px] flex gap-[10px] p-2 rounded-[30px]'>
             <div className='pt-[4px]'>
             <Signal />
             </div>
              <p> Select more than one (1) and get extra 3% discount </p>
         </div>
          
-           <div className='flex gap-[50px]'>
+           <div className='lg:flex gap-[50px]'>
            <SelectableSubject
            label="Mathematics"
            checked={selected}
@@ -261,11 +260,11 @@ const Subscription = () => {
             </div>
         </div>
 
-         <div className='bg-primaryWhite mb-[1%] mt-[30px] mx-auto w-[92%] h-[360px] rounded-[20px] pt-[20px] pl-[50px]'>
-        <p className='text-[23px] mb-[10px] font-bold text-primaryBlue '> Duration</p>
-        <p> Select preferred duration based on discount</p>
+         <div className='bg-primaryWhite mb-[8%] md:mb-[5%] lg:mb-[0%] mt-[30px] ml-[5%]  lg:mx-auto w-[85%] lg:w-[92%] h-[1250px] md:h-[850px] lg:h-[360px] rounded-[20px] pt-[20px] pl-[30px] lg:pl-[50px]'>
+        <p className='text-[19px] lg:text-[23px] mb-[10px] font-bold text-primaryBlue '> Duration</p>
+        <p className='w-[90%] lg:w-[90%]'> Select preferred duration based on discount</p>
 
-          <div className="flex gap-8">
+          <div className="md:flex flex-wrap gap-8">
         <DurationCard duration="1 week" oldPrice={700} newPrice={500} discount={3} border={false} />
         <DurationCard duration="1 month" oldPrice={2500} newPrice={2000} discount={5} bgColor="#fff"/>
         <DurationCard duration="3 months" oldPrice={7000} newPrice={6000} discount={10} bgColor="#fff" />
@@ -274,7 +273,7 @@ const Subscription = () => {
       </div>
         </div>
 
-         <div className='mb-[8%] mt-[2%] w-[92%] mx-auto'>
+         <div className='mb-[35%] md:mb-[20%] lg:mb-[8%] lg:mt-[2%] w-[83%] md:w-[84%] lg:w-[92%] ml-[6%] lg:mx-auto'>
         <Button> Subscribe</Button>
       </div>
 

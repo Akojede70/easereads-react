@@ -204,7 +204,7 @@ export const DurationCard: React.FC<DurationCardProps> = ({
   borderColor = "#e8e8e8",
 }) => {
   return (
-    <div className="py-[20px] bg-[#e8f1f9] border border-[#e8e8e8] flex flex-col gap-[10px] items-center justify-center rounded-[18px] w-[12%] mt-[20px]"
+    <div className="py-[20px] bg-[#e8f1f9] border border-[#e8e8e8] flex flex-col gap-[10px] items-center justify-center rounded-[18px] w-[85%] md:w-[45%] lg:w-[12%] mt-[20px]"
      style={{
         backgroundColor: bgColor,
         border: border ? `1px solid ${borderColor}` : "none",

@@ -37,17 +37,18 @@ type ModalProps = {
   open: boolean;
   onClose: () => void;
   children: React.ReactNode;
-  width?: string; // e.g. "500px", "70%", "w-[80%]" if using Tailwind
+  // width?: string; // e.g. "500px", "70%", "w-[80%]" if using Tailwind
+   className?: string;
 };
 
-const Modal: React.FC<ModalProps> = ({ open, onClose, children, width }) => {
+const Modal: React.FC<ModalProps> = ({ open, onClose, children, className }) => {
   if (!open) return null;
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div
-        style={{ width: width || "500px" }} // 👈 control width here
-        className="bg-white p-6 rounded-[15px] relative"
+        // style={{ width: width || "500px" }} // 👈 control width here
+        className={`bg-white p-6 rounded-[15px] relative ${className || "w-[700px]"} max-h-[90vh] overflow-y-auto`}
       >
         <button
           onClick={onClose}
