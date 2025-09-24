@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Button, Modal } from '../../../components/shared'
 import Layout from '../../../components/layout/layout'
-import { Congratulations, Dot, Signal, Check, IconForReferral, FlutterWaveIcon, PaystackIcon, AlatPayIcon } from '../../../assets/icon'
+import { Congratulations, Dot, Signal, Check, IconForReferral, FlutterWaveIcon, PaystackIcon, AlatPayIcon, BigEmailIcon, Email } from '../../../assets/icon'
 import { SelectableSubject } from '../../../components/card'
 import { DurationCard } from '../../../components/card/card'
 
@@ -11,6 +11,46 @@ const Subscription = () => {
     const [congratulations, setCongratulations] = useState(false);
     const [wait, setWait] = useState(false);
     const [summary, setSummary] = useState(false);
+    const [email, setEmail] = useState(false);
+    const [toContinue, setToContinue] = useState(false);
+    const [payment, setPayment] = useState(false);
+
+    const [inputValues, setInputValues] = useState(['', '', '', '', '', '']);
+     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);  
+       const handlePinChange = (index: number, value: string) => {
+          const newPin = [...inputValues];
+          if (/^\d$/.test(value) || value === '') {
+            newPin[index] = value;
+            setInputValues(newPin);
+            if (value && index < 5) {
+              inputRefs.current[index + 1]?.focus();
+            }
+          }
+        };
+       // paste the pin easily when you copy
+           const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+           e.preventDefault();
+           const pasteData = e.clipboardData.getData('text').slice(0, 6); // take first 6 chars
+           const newValues = pasteData.split('').map(char => (/\d/.test(char) ? char : ''));
+           const filledValues = [...inputValues];
+           for (let i = 0; i < newValues.length; i++) {
+            filledValues[i] = newValues[i];
+           }
+           setInputValues(filledValues);
+        
+           // focus last filled input
+            const lastIndex = newValues.length - 1;
+            if (lastIndex < inputRefs.current.length) {
+            inputRefs.current[lastIndex]?.focus();
+            }
+           };
+      
+        const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+          if (e.key === 'Backspace' && !inputValues[index] && index > 0) {
+            inputRefs.current[index - 1]?.focus();
+          }
+        };
+
     
   return (
     <Layout>
@@ -212,6 +252,163 @@ const Subscription = () => {
              </div>
       </Modal>
     </div>
+
+
+        <div className="p-6">
+      <button
+        onClick={() => setEmail(true)}
+        className="px-2 py-2 bg-primaryBlue text-white rounded-lg cursor-pointer"
+      >
+        5th Modal
+      </button>
+
+      <Modal open={email} onClose={() => setEmail(false)} className="w-[98%] md:w-[90%] lg:w-[45%]">
+         <div className="w-full  flex items-center justify-center">
+        <div className="w-[94% sm:w-[90%] lg:w-[70%]flex flex-col items-center justify-center h-[85%] sm:h-[551px]  sm:rounded-[20px] px-[18px] sm:px-[50px] lg:px-[100px]  sm:py-[30px]">
+           <div className='flex items-center justify-center'>
+            <BigEmailIcon />
+          </div>
+            <div className=' mt-[50px] lg:mt-[20px] text-center'>
+                <h2 className="text-primaryBlue text-2xl font-bold mb-[50px]"> Email Verification </h2>
+                <p className="text-primaryGrey text-sm sm:text-[18px]">Enter 6 digit verification code sent to </p>
+                <p className="text-primaryGrey text-sm sm:text-[18px]"> Peter Bass @gmail.com  </p>
+            </div> 
+            
+            <form >
+                <div className="flex justify-center items-center p-1 mt-[40px]" >
+                 {inputValues.map((value, index) => (
+                   <input
+                     key={index}
+                     type="text"
+                     value={value}
+                     maxLength={1}
+                     className="w-[44px] sm:w-[50px] h-[50px] border-2 border-borderColor rounded-md mx-1.5 text-center"
+                     onChange={(e) => handlePinChange(index, e.target.value)}
+                     onKeyDown={(e) => handleKeyDown(index, e)}
+                     onPaste={handlePaste}
+                     ref={(el) => { inputRefs.current[index] = el; }}
+                   />
+                 ))}
+                 </div>
+                 <div className='mt-[32px]'>
+
+                  { <Button  type="submit" className="w-full bg-primaryBlue text-white p-2 rounded-[10px] mb-2 h-[48px]"> Verify and continue to payment </Button> }
+
+                       </div>
+                 <p className='text-center text-[16px]  mt-[10px]'> Didn't get the code ? <span className='text-primaryBlue font-bold'> Resend Code </span> </p>
+               </form>
+        </div>
+      </div>
+      </Modal>
+    </div>
+
+     <div className="p-6">
+      <button
+        onClick={() => setToContinue(true)}
+        className="px-2 py-2 bg-primaryBlue text-white rounded-lg cursor-pointer"
+      >
+        6th Modal
+      </button>
+
+      <Modal open={toContinue} onClose={() => setToContinue(false)} className="w-[95%] md:w-[90%] lg:w-[45%]">
+         <div className="w-full  flex items-center justify-center">
+        <div className="w-[94%] sm:w-[90%] lg:w-[70%]flex flex-col items-center justify-center h-[85%] sm:h-[551px]  sm:rounded-[20px] px-[18px] sm:px-[50px] lg:px-[100px]  sm:py-[30px]">
+           <div className='flex items-center justify-center'>
+            <BigEmailIcon />
+          </div>
+            <div className=' mt-[50px] lg:mt-[20px] text-center'>
+                <h2 className="text-primaryBlue text-2xl font-bold mb-[50px]"> Almost there! Enter your email to continue </h2>
+                <p className="text-primaryGrey text-sm sm:text-[18px]"> We'll use this to send your purchase and give you access later </p>
+            </div> 
+            
+            <form >
+               <div className='pt-[5%]'>
+              <label className="block text-primaryGrey text-[16px] mb-1">Email</label>
+              <div className="w-full p-2 border h-[58px] border-borderColor rounded-[10px] flex items-center">
+                <Email  />
+                <input
+                 name='email'
+                  type="email"
+                  //  value={formData.email}
+                  // onChange={(e) => r.onChange(e)}
+                  className="w-full outline-none pl-3"
+                />
+              </div>
+            </div>
+                 <div className='mt-[32px]'>
+
+                  { <Button  type="submit" className="w-full bg-primaryBlue text-white p-2 rounded-[10px] mb-2 h-[48px]"> Continue </Button> }
+
+                       </div>
+                 <p className='text-center text-[16px]  mt-[10px]'> By continuing, you agree to our terms and privacy. </p>
+               </form>
+        </div>
+      </div>
+      </Modal>
+    </div>
+
+    <div className="p-6">
+      <button
+        onClick={() => setPayment(true)}
+        className="px-2 py-2 bg-primaryBlue text-white rounded-lg cursor-pointer"
+      >
+        7th Modal
+      </button>
+
+      <Modal open={payment} onClose={() => setPayment(false)} className="w-[95%] md:w-[90%] lg:w-[45%]">
+         <div className="w-full  flex items-center justify-center">
+        <div className="w-[94%] mb-[6%] sm:w-[90%] lg:w-[70%]flex flex-col items-center justify-center h-[85%] sm:h-[551px]  sm:rounded-[20px] px-[18px] sm:px-[50px] lg:px-[100px]  sm:py-[30px]">
+           
+            <div className=' text-center'>
+                <h2 className="text-primaryBlue text-3xl font-bold mb-[20px] text-left"> Payment Option </h2>
+                <p className="text-primaryGrey text-sm sm:text-[18px] text-left"> Select any payment option of your choice and continue </p>
+            </div> 
+            
+            <form >
+              <div className="flex flex-col gap-[20px] my-[3%]">
+  <div className="relative flex items-center gap-[20px] p-4 rounded-lg cursor-pointer border border-gray-300 overflow-hidden group">
+    {/* animated border */}
+    <span className="absolute inset-0 border-2 border-blue-600 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+    <span className="relative flex items-center gap-[20px]">
+      <IconForReferral /> <p className="font-bold">Referral Points</p>
+    </span>
+  </div>
+
+  <div className="relative flex items-center gap-[20px] p-4 rounded-lg cursor-pointer border border-gray-300 overflow-hidden group">
+    <span className="absolute inset-0 border-2 border-blue-600 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+    <span className="relative flex items-center gap-[20px]">
+      <FlutterWaveIcon /> <p className="font-bold">Flutterwave</p>
+    </span>
+  </div>
+
+  <div className="relative flex items-center gap-[20px] p-4 rounded-lg cursor-pointer border border-gray-300 overflow-hidden group">
+    <span className="absolute inset-0 border-2 border-blue-600 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+    <span className="relative flex items-center gap-[20px]">
+      <PaystackIcon /> <p className="font-bold">Paystack</p>
+    </span>
+  </div>
+
+  <div className="relative flex items-center gap-[20px] p-4 rounded-lg cursor-pointer border border-gray-300 overflow-hidden group">
+    <span className="absolute inset-0 border-2 border-blue-600 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+    <span className="relative flex items-center gap-[20px]">
+      <AlatPayIcon /> <p className="font-bold">ALAT PAY</p>
+    </span>
+  </div>
+</div>
+
+                 <div className='mt-[32px]'>
+
+                  { <Button  type="submit" className="w-full bg-primaryBlue text-white p-2 rounded-[10px] mb-2 h-[48px]"> Select any payment and continue </Button> }
+
+                       </div>
+                 <p className='text-center text-[16px]  mt-[10px]'> By continuing, you agree to our terms and privacy. </p>
+               </form>
+        </div>
+      </div>
+      </Modal>
+    </div>
+
+
     </div>
 
         <div className='pl-[9%] md:pl-[6%] lg:pl-[4%] mt-[1.2%]'>

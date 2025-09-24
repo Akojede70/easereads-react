@@ -62,6 +62,7 @@ export { default as  PlayIcon } from './PlayIcon';
 export { default as  GoldIcon } from './gold';
 export { default as  SilverIcon } from './silver';
 export { default as  BronzeIcon } from './bronze';
+export { default as  BigEmailIcon } from './big-email';
 
 export {  Star, Stars } from './star';
 export { default as  Check } from './check';
