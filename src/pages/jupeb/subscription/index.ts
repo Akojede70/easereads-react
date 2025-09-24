@@ -1,11 +1,11 @@
 import Subscription from './subscription'
-import Summary from './summary'
+import History from './history'
 
 
 
 const jupeb = {
    Subscription,
-   Summary
+   History
 }
 
 export default jupeb;

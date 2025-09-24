@@ -65,6 +65,11 @@ export { default as  BronzeIcon } from './bronze';
 
 export {  Star, Stars } from './star';
 export { default as  Check } from './check';
+export { default as  IconForReferral } from './referral';
+export { default as  AlatPayIcon } from './alatpay';
+export { default as  FlutterWaveIcon } from './flutterwave';
+export { default as  PaystackIcon } from './paystack';
+
 
 export { default as  Triangle } from './triangle';
 export { default as  DownBoldTriangle } from './downboldtriangle';
