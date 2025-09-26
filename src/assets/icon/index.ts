@@ -70,7 +70,11 @@ export { default as  IconForReferral } from './referral';
 export { default as  AlatPayIcon } from './alatpay';
 export { default as  FlutterWaveIcon } from './flutterwave';
 export { default as  PaystackIcon } from './paystack';
-
+export { default as  RedStreakIcon } from './red-streak';
+export { default as  QuizIcon } from './quiz-icon';
+export { default as  People } from './people';
+export { default as  TimeIcon } from './time';
+export { default as  DateIcon } from './date';
 
 export { default as  Triangle } from './triangle';
 export { default as  DownBoldTriangle } from './downboldtriangle';

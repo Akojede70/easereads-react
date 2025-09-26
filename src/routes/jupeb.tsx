@@ -84,7 +84,15 @@ const AuthRoutes = () => {
           path="/history"
           element={<JupebPages.Subscription.History />}
         />
+        
+         {/* Quiz */}
+       <Route
+          path="/quiz"
+          element={<JupebPages.Quiz.Quiz />}
+        />
       </Routes>
+     
+        
     </>
   );
 };
