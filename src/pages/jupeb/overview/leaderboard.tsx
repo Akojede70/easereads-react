@@ -31,7 +31,7 @@ const Leaderboard = () => {
         1st Modal
       </button>
 
-      <Modal open={open} onClose={() => setOpen(false)} width='700px'>
+      <Modal open={open} onClose={() => setOpen(false)} className="w-[95%] md:w-[90%] lg:w-[45%]">
         <div className='flex flex-col items-center justify-center gap-[20px] mt-[15%] mb-[10%]'>
         <Congratulations />
         <p className='text-3xl font-bold text-[#333333]'> Congratulations </p>
@@ -51,7 +51,7 @@ const Leaderboard = () => {
         2nd Modal
       </button>
 
-      <Modal open={performanceOpen} onClose={() => setPerformanceOpen(false)} width='610px'>
+      <Modal open={performanceOpen} onClose={() => setPerformanceOpen(false)} className="w-[95%] md:w-[90%] lg:w-[45%]">
         <div className='flex flex-col items-center justify-center gap-[20px] mt-[5%] mb-[5%]'>
         <Performance />
         <p className='text-3xl font-bold text-[#333333]'> weekly performance </p>
@@ -77,7 +77,7 @@ const Leaderboard = () => {
         3rd Modal
       </button>
 
-       <Modal open={quizOpen} onClose={() => setQuizOpen(false)} width='700px'>
+       <Modal open={quizOpen} onClose={() => setQuizOpen(false)} className="w-[95%] md:w-[90%] lg:w-[45%]">
         <div className='flex flex-col items-center justify-center gap-[20px] mt-[7%] mb-[10%]'>
         <Ring />
         <p className='text-3xl font-bold text-[#333333]'> Weekly Quiz Challenge Alert </p>
@@ -99,7 +99,7 @@ const Leaderboard = () => {
         4th Modal
       </button>
 
-       <Modal open={liveClassOpen} onClose={() => setLiveClassOpen(false)} width='700px'>
+       <Modal open={liveClassOpen} onClose={() => setLiveClassOpen(false)} className="w-[95%] md:w-[90%] lg:w-[45%]">
         <div className='flex flex-col items-center justify-center gap-[20px] mt-[7%] mb-[10%]'>
         <Ring />
         <p className='text-3xl font-bold text-[#333333]'> Live Class Countdown  <span className='text-[30px] text-primaryBlue'> - 7 Days Left! </span> </p>
@@ -121,7 +121,7 @@ const Leaderboard = () => {
         5th Modal
       </button>
 
-       <Modal open={rateOpen} onClose={() => setRateOpen(false)} width='700px'>
+       <Modal open={rateOpen} onClose={() => setRateOpen(false)} className="w-[95%] md:w-[90%] lg:w-[45%]">
         <div className='mt-[30px] px-4'>
           <p> Rate & Review </p>
           <div className='flex gap-[10px] my-[20px]'>
@@ -145,30 +145,6 @@ const Leaderboard = () => {
         </div>
       </Modal>
     </div>
-
-       {/* <div className="p-6">
-      <button
-        onClick={() => setLeaveOpen(true)}
-        className="px-2 py-2 bg-primaryBlue text-white rounded-lg cursor-pointer"
-      >
-        6th Modal
-      </button>
-
-       <Modal open={leaveOpen} onClose={() => setLeaveOpen(false)} width='700px'>
-        <div className='flex flex-col items-center justify-center gap-[20px] mt-[9%] mb-[10%]'>
-        <Triangle />
-        <p className='text-3xl font-bold text-[#333333]'> Whoa, Leaving already?   </p>
-        <div className='text-center text-[17px] w-full text-[#333333] leading-[25px]'>
-           <p> we'll miss you! Are you sure you want to log out now </p>
-        </div>
-        <div className=' mt-[20px]'>
-          <button className='px-6 py-2 bg-[#f5f5f5] border text-primaryBlue rounded-[22px] mr-[20px] cursor-pointer'> Nope, Take Me Back </button>
-          <button className='px-6 py-2 bg-[#ff0808] text-white rounded-[20px] cursor-pointer'> Yep, Log Me Out </button>
-        </div>
-        </div>
-      </Modal>
-    </div> */}
-
         </div>
 
       </div>

@@ -75,6 +75,8 @@ export { default as  QuizIcon } from './quiz-icon';
 export { default as  People } from './people';
 export { default as  TimeIcon } from './time';
 export { default as  DateIcon } from './date';
+export { default as  QuizIcon1 } from './quizIcons';
+export { default as  QuizIcon2 } from './quizIcons1';
 
 export { default as  Triangle } from './triangle';
 export { default as  DownBoldTriangle } from './downboldtriangle';

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Layout from '../../../components/layout/layout'
-import { QuizIcon, RedStreakIcon } from '../../../assets/icon'
+import { QuizIcon, RedStreakIcon, QuizIcon1, QuizIcon2, LeaderboardPics, FirstTag, SecondTag, ThirdTag, UpperBoldTriangle, DownBoldTriangle } from '../../../assets/icon'
 import { Button } from '../../../components/shared'
-import { ChallengeCard, QuizChallengeCard } from '../../../components/card'
+import { ChallengeCard, LeaderboardCard, LongCard, QuizChallengeCard } from '../../../components/card'
 
 const Quiz = () => {
 
@@ -82,7 +82,7 @@ const Quiz = () => {
       </div>
 
       {/* Tab Content */}
-      <div className="mt-[30px]">
+      <div className="mt-[30px] mb-[140px]">
         {activeTab === "subscription" && (
         
         <div>
@@ -97,6 +97,31 @@ const Quiz = () => {
                  time="15mins"
                  date="Friday Sep 26th, 2025"
                />
+                <ChallengeCard
+                 icon={<QuizIcon1 />}  
+                 title="Chemistry Quick Quiz"
+                 description="Quick chemistry concepts review"
+                 badgeText="Chemistry"
+                 badgeColor="#4cb851"
+                 participants={10}
+                 questions={10}
+                 time="15mins"
+                 date="Friday Sep 26th, 2025"
+                 subjectTextColor='#fff'
+               />
+                <ChallengeCard
+                 icon={<QuizIcon2 />}  
+                 title="Maths Lightning Round"
+                 description="Quick maths concepts review"
+                 badgeText="Maths"
+                 badgeColor="#fff"
+                 participants={10}
+                 questions={10}
+                 time="15mins"
+                 date="Friday Sep 26th, 2025"
+                 subjectBorder='1px solid #106EBE'
+                 subjectTextColor='#106EBE'
+               />
            </div>
         )}
 
@@ -105,25 +130,113 @@ const Quiz = () => {
              <div>
             <QuizChallengeCard
                  icon={<QuizIcon />}  
-                 title="Daily Physics Challenge"
+                 title="Chemistry Basics"
                  description="Test your Physics knowledge with today's Challenge"
-                 badgeText="Physics"
-                 badgeColor="#ffc67d"
                  participants={10}
                  questions={10}
                  time="15mins"
-                 date="Friday Sep 26th, 2025"
+                 date="Today"
                  accuracyPercentage="80%"
                  accuracyTextColor="#4cb851"
+               />
+                <QuizChallengeCard
+                 icon={<QuizIcon1 />}  
+                 title="Chemistry Basics"
+                 description="Test your Physics knowledge with today's Challenge"
+                 participants={10}
+                 questions={10}
+                 time="15mins"
+                 date="Yesterday"
+                 accuracyPercentage="80%"
+                 accuracyTextColor="#d32f2f"
                />
            </div>
 
         )}
 
         {activeTab === "leaderboard" && (
-          <div className="bg-primaryWhite mt-[30px] h-[200px] flex items-center justify-center rounded-[10px] ml-[2%] w-[95%]">
-            <p className="text-gray-600">Leaderboard content goes here.</p>
-          </div>
+          <div>
+           <div className=' w-[900px] mx-auto md:w-full flex flex-col lg:flex-row items-center justify-center gap-[20px]'>
+          <LeaderboardCard
+        avatar={<LeaderboardPics />}
+        name="Emmanuel 28"
+        level={12}
+        tag={<FirstTag />}
+        progress={70}
+        rankLabel="1st"
+      />
+       <LeaderboardCard
+        avatar={<LeaderboardPics />}
+        name="Emmanuel 28"
+        level={12}
+        tag={<SecondTag />}
+        progress={70}
+        rankLabel="1st"
+      />
+       <LeaderboardCard
+        avatar={<LeaderboardPics />}
+        name="Emmanuel 28"
+        level={12}
+        tag={<ThirdTag />}
+        progress={70}
+        rankLabel="1st"
+      />
+
+     
+        </div>
+         <div className='flex  md:pb-[90px] mt-[30px] flex-col gap-[20px] items-center justify-center'>
+              <LongCard
+               name="Emmanuel"
+               age={28}
+               progress={20}
+               currentLevel={20}
+               level={9}
+               rank="2nd"
+               PicComponent={<LeaderboardPics />}
+               IconComponent={<UpperBoldTriangle />}
+        />
+         <LongCard
+               name="Emmanuel"
+               age={28}
+               progress={40}
+               currentLevel={40}
+               level={9}
+               rank="2nd"
+               PicComponent={<LeaderboardPics />}
+               IconComponent={<DownBoldTriangle />}
+        />
+         <LongCard
+               name="Emmanuel"
+               age={28}
+               progress={60}
+               currentLevel={60}
+               level={9}
+               rank="2nd"
+               PicComponent={<LeaderboardPics />}
+               IconComponent={<UpperBoldTriangle />}
+        />
+         <LongCard
+               name="Emmanuel"
+               age={28}
+               progress={80}
+               currentLevel={80}
+               level={9}
+               rank="2nd"
+               PicComponent={<LeaderboardPics />}
+               IconComponent={<DownBoldTriangle />}
+        />
+         <LongCard
+               name="Emmanuel"
+               age={28}
+               progress={100}
+               currentLevel={100}
+               level={9}
+               rank="2nd"
+               PicComponent={<LeaderboardPics />}
+               IconComponent={<UpperBoldTriangle />}
+        />
+            </div>
+        </div>
         )}
       </div>
     </div>

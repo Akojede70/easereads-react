@@ -55,13 +55,14 @@ const Answer = () => {
               </Button>
               </div>
             
-              {/* <div className='w-[45%] md:w-[28%] lg:w-[25%]'>
-                 <Button
-                variant='outline'
-              >
-                Read Textbook
-              </Button>
-              </div> */}
+               <div className='w-[35%] lg:w-[180px]'>
+            <button 
+            className='border w-[160px] h-[43px]  border-primaryBlue rounded-[8px] p-[10px] text-primaryBlue hover:bg-primaryBlue hover:text-white cursor-pointer'
+            onClick={handlePrevious}
+         >
+          Read Text Book
+        </button>
+        </div>
             </div>
             </div>
 
@@ -97,13 +98,15 @@ const Answer = () => {
               </Button>
               </div>
             
-              {/* <div className='w-[45%] md:w-[28%] lg:w-[25%]'>
-                 <Button
-                variant='outline'
-              >
-                Read Textbook
-              </Button>
-              </div> */}
+             <div className='w-[35%] lg:w-[180px]'>
+            <button 
+            className='border w-[160px] h-[43px]  border-primaryBlue rounded-[8px] p-[10px] text-primaryBlue hover:bg-primaryBlue hover:text-white cursor-pointer'
+            onClick={handlePrevious}
+         >
+          Read Text Book
+        </button>
+        </div>
+              
             </div>
 
             </div>

@@ -7,6 +7,10 @@ interface ChallengeCardProps {
   description: string;
   badgeText: string;
   badgeColor?: string; // optional, default is #ffc67d
+  subjectBackgroundColor?: string; 
+  subjectBorder?: string; 
+  subjectTextColor?: string; 
+  subjectRoundedBorder?: string;
   participants: number;
   questions: number;
   time: string;
@@ -19,6 +23,9 @@ interface ChallengeCardProps {
   description,
   badgeText,
   badgeColor = "#ffc67d",
+  subjectBorder = '1px solid #E0E0E0',
+  subjectTextColor,
+  subjectRoundedBorder,
   participants,
   questions,
   time,
@@ -35,12 +42,17 @@ interface ChallengeCardProps {
               <p className="text-[22px] font-bold">{title}</p>
               <p
                 className="p-[3px] text-[15px] text-center ml-[20px] rounded-[15px] w-[150px]"
-                style={{ backgroundColor: badgeColor }}
+                style={{ backgroundColor: badgeColor, 
+                         color: subjectTextColor , 
+                         border: subjectBorder, 
+                         borderRadius: subjectRoundedBorder
+                        
+                        }}
               >
                 {badgeText}
               </p>
             </div>
-            <p>{description}</p>
+            <p className="pt-[5px]">{description}</p>
           </div>
         </div>
         <div className="w-[13%]">
@@ -84,7 +96,7 @@ interface QuizChallengeCardProps {
   icon: React.ReactNode // any React component (like QuizIcon, TimeIcon, etc.)
   title: string;
   description: string;
-  badgeText: string;
+  badgeText?: string;
   badgeColor?: string; // optional, default is #ffc67d
   participants: number;
   questions: number;
@@ -97,9 +109,7 @@ interface QuizChallengeCardProps {
  export const QuizChallengeCard: React.FC<QuizChallengeCardProps> = ({
   icon: icon,
   title,
-  description,
-  badgeText,
-  badgeColor = "#ffc67d",
+  // description,
   participants,
   questions,
   time,
@@ -112,24 +122,14 @@ interface QuizChallengeCardProps {
       {/* Header */}
       <div className="flex justify-between">
         <div className="flex gap-[17px]">
-          {icon } {/* Render passed icon */}
+          {icon } 
           <div className="flex flex-col gap-[3px]">
             <div className="flex gap-[15px]">
               <p className="text-[22px] font-bold">{title}</p>
-              <p
-                className="p-[3px] text-[15px] text-center ml-[20px] rounded-[15px] w-[150px]"
-                style={{ backgroundColor: badgeColor }}
-              >
-                {badgeText}
-              </p>
             </div>
-            <p>{description}</p>
           </div>
         </div>
-        {/* <div className="w-[13%]">
-          <Button>Start Quiz</Button>
-        </div> */}
-         <div className="flex gap-[90px]">
+         <div className="flex gap-[250px]">
                         <div className='flex flex-col gap-[13px]'>
                        <p className='text-[25px] font-bold' style={{ color: accuracyTextColor}}> {accuracyPercentage}</p>
                   <p> Accuracy </p>

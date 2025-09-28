@@ -29,7 +29,7 @@ const Answer = () => {
     <div className='bg-creamWhite w-full h-screen pt-[10%]'>
      <div className="w-[90%] md:w-[80%] lg:w-[45%] h-[450px] mx-auto px-[3%] bg-primaryWhite rounded-[10px] shadow-md font-bold">
       <div className="text-[15px] md:text-[16px] flex justify-between  items-center mb-[3%] pt-[5%]">
-        <h2 className=" font-semibold">Exam Report</h2>
+        <h2 className="text-[22px] font-bold">Exam Report</h2>
         <div >Total Percentage: {totalPercentage}%</div>
       </div>
       <div className="mb-4 text-[13px] md:text-[16px]">
@@ -56,16 +56,15 @@ const Answer = () => {
         
       </div>
 
-      <div className="flex gap-[5%] mt-[5%]">
-              <div className='w-[30%] md:w-[15%]'>
-                  <Button 
-               onClick={handlePrevious}
-               disabled={currentQuestionIndex === 0}
-               variant="outline"
-               >
-                Previous 
-              </Button>
-              </div>
+      <div className="flex mt-[5%]">
+                <div className='w-[25%] lg:w-[170px]'>
+            <button 
+            className='border w-[130px] border-primaryBlue h-[40px] rounded-[8px]  text-primaryBlue hover:bg-primaryBlue hover:text-white cursor-pointer'
+            onClick={handlePrevious}
+         >
+          Previous 
+        </button>
+        </div>
             
               <div className='w-[30%] md:w-[15%]'>
                  <Button
@@ -77,16 +76,23 @@ const Answer = () => {
               </div>
             </div>
 
-            <div className='md:flex justify-between mt-[3%] pt-[2%] border-t border-[#dbdbdb]'>
+            <div className='md:flex justify-between mt-[3%] pt-[1%] border-t border-[#dbdbdb]'>
               
               <div className='flex flex-col gap-[15px]  font-bold text-[14px] pt-[10px]'>
                 <p>Correct Answers: {correctAnswers} out of {totalQuestions}</p>
                 <p>Wrong Answers: {wrongAnswers} out of {totalQuestions}</p>
               </div>
 
-              <div className='text-[13px] md:text-[12px] lg:text-[14px] flex w-full md:w-[50%] gap-[20px] pt-[4%]'>
+              <div className='text-[13px] md:text-[12px] lg:text-[14px] flex w-full md:w-[50%] gap-[20px] pt-[2%]'>
                 <div className='w-full'>
-                <Button variant='outline'> Retake Exam</Button>
+                    <div className='w-[35%] lg:w-[180px]'>
+            <button 
+            className='border w-[170px] h-[40px] border-primaryBlue rounded-[8px] text-primaryBlue hover:bg-primaryBlue hover:text-white cursor-pointer'
+            onClick={handlePrevious}
+         >
+          Retake Exam
+        </button>
+        </div>
                 </div>
                 <div className='w-full'>
                 <Button > Result Breakdown</Button>
