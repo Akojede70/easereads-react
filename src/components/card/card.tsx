@@ -230,6 +230,55 @@ export const DurationCard: React.FC<DurationCardProps> = ({
 };
 
 
+interface ScoreCardProps {
+  score: string | number; // ✅ can be a number or string (e.g., "85%" or 85)
+  label?: string;         // ✅ pass custom label (defaults to "Overall Score")
+  status?: string;        // ✅ optional badge
+  statusBg?: string;
+  statusTextColor?: string;
+  scoreTextColor?: string;
+  width?: string;
+  height?: string;
+}
+
+export const ScoreCard: React.FC<ScoreCardProps> = ({
+  score,
+  label = "Overall Score", 
+  status,
+  statusBg = "#ff0808",
+  statusTextColor = "#ffffff",
+  scoreTextColor = "#106EBE",
+  width = "18%",
+  height = "20%",
+}) => {
+  return (
+    <div
+      className="bg-primaryWhite rounded-[10px] ml-[1%] flex flex-col justify-center items-center pt-[10px]"
+      style={{ width, height }}
+    >
+      <div className="flex flex-col justify-center items-center gap-[15px]">
+
+        <p className="text-[22px] font-bold" style={{ color: scoreTextColor }}>
+          {score}
+        </p>
+
+        <p className="font-bold">{label}</p>
+
+        {/* Status (optional) */}
+        {status && (
+          <p
+            className="rounded-[10px] w-[180px] text-center p-[5px]"
+            style={{ backgroundColor: statusBg, color: statusTextColor }}
+          >
+            {status}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+
 export default StatCard;
 
 
