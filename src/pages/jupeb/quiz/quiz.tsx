@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import Layout from '../../../components/layout/layout'
-import { QuizIcon, RedStreakIcon, QuizIcon1, QuizIcon2, LeaderboardPics, FirstTag, SecondTag, ThirdTag, UpperBoldTriangle, DownBoldTriangle } from '../../../assets/icon'
-import { Button } from '../../../components/shared'
+import { QuizIcon, RedStreakIcon, QuizIcon1, QuizIcon2, LeaderboardPics, FirstTag, SecondTag, ThirdTag, UpperBoldTriangle, DownBoldTriangle, Cup,  } from '../../../assets/icon'
+import { Button, Modal } from '../../../components/shared'
 import { ChallengeCard, LeaderboardCard, LongCard, QuizChallengeCard } from '../../../components/card'
 
 const Quiz = () => {
 
      const [activeTab, setActiveTab] = useState("subscription");
+     const [performanceOpen, setPerformanceOpen] = useState(false);
 
   return (
     <div>
@@ -32,6 +33,40 @@ const Quiz = () => {
                 <p className=' '> Accuracy </p>
             </div>
         </div>
+
+        
+    <div className="p-6">
+      <button
+        onClick={() => setPerformanceOpen(true)}
+        className="px-2 py-2 bg-primaryBlue text-white rounded-lg cursor-pointer"
+      >
+        2nd Modal
+      </button>
+
+      <Modal open={performanceOpen} onClose={() => setPerformanceOpen(false)} className="w-[95%] md:w-[90%] lg:w-[30%]">
+        <div className='flex flex-col items-center justify-center gap-[20px] mt-[5%] mb-[5%]'>
+        <Cup />
+        <p className='text-3xl font-bold text-[#333333]'> Keep Practicing </p>
+        <div className='text-[17px] w-full text-[#333333] leading-[25px]'>
+          <div className='flex gap-[20px] my-[3%]'>
+            <div className='bg-[#e8f1f9] w-[50%] rounded-[10px] text-center py-[5%] flex flex-col gap-[20px]'>
+              <p className='text-[25px] font-bold text-primaryBlue'> 80% </p>
+              <p> Score</p>
+            </div>
+             <div className='bg-[#fff6e9] w-[50%] rounded-[10px] text-center py-[5%] flex flex-col gap-[20px]'>
+              <p className='text-[25px] font-bold text-[#ff9f23]'> 10% </p>
+              <p> Correct </p>
+            </div>
+          </div>
+             <div className='flex flex-col gap-[10px] mt-[30px]'>
+           <Button type='submit'> Take another Quiz </Button>
+        <Button variant='outline' type='submit' textColor='#106EBE'> Watch Tutorial</Button>
+        </div>
+       
+        </div>
+        </div>
+      </Modal>
+    </div>
 
           
           <div className="w-full">

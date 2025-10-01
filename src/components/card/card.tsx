@@ -248,13 +248,13 @@ export const ScoreCard: React.FC<ScoreCardProps> = ({
   statusBg = "#ff0808",
   statusTextColor = "#ffffff",
   scoreTextColor = "#106EBE",
-  width = "18%",
+  // width = "78%",
   height = "20%",
 }) => {
   return (
     <div
-      className="bg-primaryWhite rounded-[10px] ml-[1%] flex flex-col justify-center items-center pt-[10px]"
-      style={{ width, height }}
+      className="bg-primaryWhite mb-[20px] md:mb-0 rounded-[10px] w-[80%] md:w-[60%] lg:w-[18%] ml-[3%] md:ml-[1%] flex flex-col justify-center items-center pt-[10px]"
+      style={{  height }}
     >
       <div className="flex flex-col justify-center items-center gap-[15px]">
 

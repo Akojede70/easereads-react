@@ -33,7 +33,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variantStyles =
     variant === "outline"
-      ? "border border-primaryBlue bg-transparent hover:bg-primaryBlue"
+      ? "border border-primaryBlue bg-transparent hover:bg-primaryBlue text-[#106EBE] hover:text-white"
       : "";
 
   return (

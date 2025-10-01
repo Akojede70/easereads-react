@@ -78,6 +78,7 @@ export { default as  DateIcon } from './date';
 export { default as  QuizIcon1 } from './quizIcons';
 export { default as  QuizIcon2 } from './quizIcons1';
 export { default as  Cup } from './cup';
+export { default as  SmallArrowRight } from './small-arrow-right';
 
 export { default as  Triangle } from './triangle';
 export { default as  DownBoldTriangle } from './downboldtriangle';
