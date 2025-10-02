@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Notification, Dp, HamburgerMenu } from '../../assets/icon';
 
@@ -19,7 +18,11 @@ function Navbar({ onMenuToggle }: NavbarProps) {
           <HamburgerMenu />
         </button>
 
-        <div className="flex items-center gap-4 md:gap-6 md:mr-[90px]">
+        {/* Empty div to balance the layout on mobile */}
+        <div className="md:hidden" />
+
+        {/* User section - always aligned to the right */}
+        <div className="flex items-center gap-4 md:gap-6 md:ml-auto">
           <Notification />
           <Link
             to="/jupeb/user-profile"
