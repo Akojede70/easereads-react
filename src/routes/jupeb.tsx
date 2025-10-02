@@ -74,6 +74,25 @@ const AuthRoutes = () => {
           path="/user-profile"
           element={<JupebPages.Others.UserProfile />}
         />
+
+
+        {/* Video Tutorial */}
+         <Route path="/video-tutorial" element={<JupebPages.VideoTutorial.VideoTutorial />} />
+          <Route
+          path="/video-topics/:id"
+          element={<JupebPages.VideoTutorial.TopicVideoSingle />}
+        />
+        <Route
+          path="/topic/video-player/:id"
+          element={<JupebPages.VideoTutorial.VideoPlayer />}
+        />
+
+
+        {/* Analytics */}
+          <Route
+          path="/analytics"
+          element={<JupebPages.Analytics.Analytics/>}
+        />
       </Routes>
     </>
   );

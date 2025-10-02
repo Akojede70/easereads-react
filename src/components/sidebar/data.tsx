@@ -36,7 +36,7 @@ const paths: Path[] = [
            <Video />
         ),
         name: "Video Tutorials",
-        path: 'video',
+        path: '/jupeb/video-tutorial',
     },
     {
         id: 4,
@@ -76,7 +76,7 @@ const paths: Path[] = [
             <Analytics />
         ),
         name: "Analytic",
-        path: 'analytic',
+        path: '/jupeb/analytics',
     },
     {
         id: 9,
