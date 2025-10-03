@@ -1,8 +1,9 @@
 
 import * as auth from "./auth"
+import * as overview from "./overview"
 
-const services = {
+
+export const Services = {
     auth,
+    overview
 }
-
-export default services

@@ -1,20 +1,74 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../../../components/layout/layout'
 import {  Gift, SmallVideo, ExamTaken, Leaderboard, DayStreak, StudyTime, Rank1, Rank2, Rank3, Rank4, UpperTriangle, DownTriangle,} from '../../../assets/icon';
 import "react-circular-progressbar/dist/styles.css";
 import { Harmonic, Equation } from '../../../assets/images';
 import { MiniCard } from '../../../components/card';
+import type { ReduxStore } from '../../../redux/store';
+import { useSelector } from 'react-redux';
 import { ProgressBarWithAction, PeterProgressBar } from '../../../components/progressbar';
+import { overviewDetails } from '../../../service/overview';
 import { ClassContent, QuizContent } from '../../../components/overview';
+import { Services } from '../../../service';
+import type { Overview, ProgressData } from '../../../types/overview';
 
 
 
 const Overview = () => { 
 
+  const userId = useSelector((state: ReduxStore) => state.auth.userId);
   const [activeTab, setActiveTab] = useState<"textbook" | "video" | "exam">('textbook');
   const currentLevel = 3;
-  const progress = ((currentLevel - 1) / 4) * 100;
 
+ 
+  const progress = ((currentLevel - 1) / 4) * 100;
+  const [overviewData, setOverviewData] = useState<Overview | null>(null);
+
+  const [ progressPercentage, setProgressPercentage ] = useState<ProgressData>({
+  textbooks: [],
+  videos: [],
+  exams: []
+  });
+
+
+  
+        // overView Card Display
+        useEffect(() => {
+          const overviewInfo = async ( userId: number | string) => {
+            try {
+              const response = await overviewDetails(userId);
+              setOverviewData(response?.data?.overview);
+              
+            } catch (error) { 
+                void error;            }
+          };
+          if (userId) {
+            overviewInfo(userId );
+          }
+          }, []);
+  
+           console.log(progressPercentage.textbooks, 'progressPercentage.textbooks')
+          // percentage progress
+        useEffect(() => {
+          const percentageProgress = async ( userId: number | string) => {
+            try {
+              const response = await Services.overview.percentageProgress(userId);
+              if (response) {
+                setProgressPercentage({
+                  textbooks: response?.textbooks || [],
+                  videos: response?.videos || [],
+                  exams: response?.exams || [],
+                })
+              }              
+            } catch (error) { 
+              void error;
+            }
+          };
+          if (userId) {
+            percentageProgress(userId );
+          }
+          }, []);
+  
 
   return (
     <Layout name='overview ' >
@@ -65,22 +119,22 @@ const Overview = () => {
           <MiniCard 
       icon={SmallVideo} 
       title="Textbooks Read" 
-      value={5}
+      value={overviewData?.textBooksRead || 0}
       />
         <MiniCard 
       icon={ExamTaken} 
       title="Exam Taken" 
-      value={2}
+      value={overviewData?.examsTaken || 0}
       />
         <MiniCard 
       icon={StudyTime} 
       title="Study Time" 
-      value={'12h 34m'}
+      value={overviewData?.studyTime || 0}
       />
         <MiniCard 
       icon={DayStreak} 
       title="Day Streak" 
-      value={'5 days'}
+      value={overviewData?.textbooksRead || 0}
       />
      </div>
     
@@ -274,127 +328,50 @@ const Overview = () => {
       <div className="mt-4">
         {activeTab === "textbook" && (
           <div className='md:px-4 flex flex-col'>
-               <ProgressBarWithAction
-                  label="Biology"
-                  progress={20}
-                  color='bg-[#ffa024]'
-                  currentLevel={20}
-                  buttonText="Continue Reading"
-                  onButtonClick={() => alert("Continue Physics")}
-                 />
-                 <ProgressBarWithAction
-                  label="Chemistry"
-                  progress={40}
-                  currentLevel={40}
-                  buttonText="Continue Reading"
-                  onButtonClick={() => alert("Continue Physics")}
-                 />
-                 <ProgressBarWithAction
-                  label="Physics"
-                  progress={60}
-                  color='bg-[#ffa024]'
-                  currentLevel={60}
-                  buttonText="Continue Reading"
-                  onButtonClick={() => alert("Continue Physics")}
-                 />
-                 <ProgressBarWithAction
-                  label="Crs"
-                  progress={80}
-                  currentLevel={80}
-                  buttonText="Continue Reading"
-                  onButtonClick={() => alert("Continue Physics")}
-                 />
-                 <ProgressBarWithAction
-                  label="Crs"
-                  progress={80}
-                  currentLevel={80}
-                  buttonText="Continue Reading"
-                  onButtonClick={() => alert("Continue Physics")}
-                 />
-                 
+            {progressPercentage.textbooks.map((item, index) => (
+             <ProgressBarWithAction
+               key={`textbook-${index}`}
+               label={item.title}
+               progress={item.progress}
+               currentLevel={item.progress}
+               color="bg-[#ffa024]"
+               buttonText="Continue Reading"
+               onButtonClick={() => alert("Continue " + item.title)}
+             />
+           ))}
             </div>
         )}
 
         {activeTab === "video" && (
         <div className='md:px-4 flex flex-col'>
-               <ProgressBarWithAction
-                  label="Biology"
-                  progress={20}
-                  color='bg-[#ffa024]'
-                  currentLevel={20}
-                  buttonText="Continue Reading"
-                  onButtonClick={() => alert("Continue Physics")}
-                 />
-                 <ProgressBarWithAction
-                  label="Chemistry"
-                  progress={40}
-                  currentLevel={40}
-                  buttonText="Continue Reading"
-                  onButtonClick={() => alert("Continue Physics")}
-                 />
-                 <ProgressBarWithAction
-                  label="Physics"
-                  progress={60}
-                  currentLevel={60}
-                  buttonText="Continue Reading"
-                  onButtonClick={() => alert("Continue Physics")}
-                 />
-                 <ProgressBarWithAction
-                  label="Physics"
-                  progress={60}
-                  currentLevel={60}
-                  buttonText="Continue Reading"
-                  onButtonClick={() => alert("Continue Physics")}
-                 />
-                 <ProgressBarWithAction
-                  label="Physics"
-                  progress={60}
-                  currentLevel={60}
-                  buttonText="Continue Reading"
-                  onButtonClick={() => alert("Continue Physics")}
-                 />
+            {progressPercentage.videos.map((item, index) => (
+             <ProgressBarWithAction
+               key={`textbook-${index}`}
+               label={item.title}
+               progress={item.progress}
+               currentLevel={item.progress}
+               color="bg-[#ffa024]"
+               buttonText="Continue Reading"
+               onButtonClick={() => alert("Continue " + item.title)}
+             />
+           ))}
             </div>
         )}
 
          {activeTab === "exam" && (
          <div className='md:px-4 flex flex-col'>
-               <ProgressBarWithAction
-                  label="Biology"
-                  progress={20}
-                  color='bg-[#ffa024]'
-                  currentLevel={20}
-                  buttonText="Continue Reading"
-                  onButtonClick={() => alert("Continue Physics")}
-                 />
-                 <ProgressBarWithAction
-                  label="Chemistry"
-                  progress={40}
-                  currentLevel={40}
-                  buttonText="Continue Reading"
-                  onButtonClick={() => alert("Continue Physics")}
-                 />
-                 <ProgressBarWithAction
-                  label="Physics"
-                  progress={60}
-                  currentLevel={60}
-                  color='bg-[#ffa024]'
-                  buttonText="Continue Reading"
-                  onButtonClick={() => alert("Continue Physics")}
-                 />
-                 <ProgressBarWithAction
-                  label="Crs"
-                  progress={80}
-                  currentLevel={80}
-                  buttonText="Continue Reading"
-                  onButtonClick={() => alert("Continue Physics")}
-                 />
-                  <ProgressBarWithAction
-                  label="Economics"
-                  progress={100}
-                  currentLevel={100}
-                  buttonText="Continue Reading"
-                  onButtonClick={() => alert("Continue Physics")}
-                 />
+              
+              {progressPercentage.exams.map((item, index) => (
+             <ProgressBarWithAction
+               key={`textbook-${index}`}
+               label={item.title}
+               progress={item.progress}
+               currentLevel={item.progress}
+               color="bg-[#ffa024]"
+               buttonText="Continue Reading"
+               onButtonClick={() => alert("Continue " + item.title)}
+             />
+           ))}
             </div>
         )}
       </div>

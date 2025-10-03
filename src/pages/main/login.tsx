@@ -50,6 +50,7 @@ const Login = () => {
                   email: response.data.email,
                   firstName: response.data.firstName,
                   lastName: response.data.lastName,
+                  userId: response.data.userId,
                   accessToken: response.data.accessToken
                 }))
                 setShowAlert(true)
@@ -62,7 +63,7 @@ const Login = () => {
                   } else if (step === 2 ) {
                     navigate('/student')
                   } else {
-                       navigate("/dashboard")
+                       navigate("/jupeb/overview")
                   } }, 5000)
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
