@@ -18,7 +18,6 @@ const Leaderboard = () => {
         const [rateOpen, setRateOpen] = useState(false);
 
         const [leaderBoardInformation, setLeaderBoardInformation] = useState<LeaderboardUser[]>([]);
-        console.log('leaderBoardInformation', leaderBoardInformation)
         const [loading, setLoading] = useState(false);
 
         const handleGoBack = () => {

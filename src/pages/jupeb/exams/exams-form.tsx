@@ -159,10 +159,10 @@ const ExamForm = () => {
           setAlertMessage(response?.message)
           setAlertStatus('success')
           setTimeout(() => { setShowAlert(false); navigate('/jupeb/exam-question'); }, 5000)
-        
+          localStorage.setItem("questions", JSON.stringify(response.data))
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
-          if (error.response) {
+          if (error.response) { 
                  setShowAlert(true);
                  setAlertMessage(error?.response?.data?.message);
                  setAlertStatus("error");
@@ -240,7 +240,7 @@ const ExamForm = () => {
                    ${formList.selectedSubject ? "text-black" : "text-[#989898]"}`}
             >
               <option value="">Select Subject</option>
-              {formList.subjectDropDown.map((subject) => (
+              {formList.loadingSubject ? <ComponentLoader /> : formList.subjectDropDown.map((subject) => (
                 <option key={subject} value={subject}>{subject}</option>
               ))}
             </select>
