@@ -3,7 +3,7 @@ import React from "react";
 interface MiniCardProps {
   icon?: React.ElementType;
   title: string;
-  value: string | number;
+  value: React.ReactNode;
   className?: string;
 }
 

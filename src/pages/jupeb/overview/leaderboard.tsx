@@ -1,20 +1,51 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BackButton, Button, Modal } from '../../../components/shared'
 import {  Congratulations, DownBoldTriangle, FirstTag, LeaderboardPics, Performance, Ring, SecondTag, Star, ThirdTag, UpperBoldTriangle } from '../../../assets/icon';
 import { LeaderboardCard, LongCard } from '../../../components/card';
+import { useNavigate } from 'react-router-dom';
+import { Services } from '../../../service';
+import { Helper } from '../../../components';
+import type { LeaderboardUser } from '../../../types/overview';
+
+const {   Spinner  } = Helper;
 
 const Leaderboard = () => {
+        const navigate = useNavigate()
         const [open, setOpen] = useState(false);
         const [performanceOpen, setPerformanceOpen] = useState(false);
         const [quizOpen, setQuizOpen] = useState(false);
         const [liveClassOpen, setLiveClassOpen] = useState(false);
         const [rateOpen, setRateOpen] = useState(false);
-        // const [leaveOpen, setLeaveOpen] = useState(false);
+
+        const [leaderBoardInformation, setLeaderBoardInformation] = useState<LeaderboardUser[]>([]);
+        console.log('leaderBoardInformation', leaderBoardInformation)
+        const [loading, setLoading] = useState(false);
+
+        const handleGoBack = () => {
+           navigate(-1); 
+        };
+
+         useEffect(() => {
+         const leaderBoardDisplay = async ( ) => {
+           try {
+             setLoading(true)
+             const response = await Services.overview.leaderboard();
+             setLeaderBoardInformation(response?.data);             
+           } catch (error) { 
+             void error;
+           } finally {
+             setLoading(false)
+          }
+         };
+          leaderBoardDisplay();
+         }, []);
 
   return (
     <div className='w-full '>
-        <div className='w-[900px] md:w-full bg-primaryWhite h-[140px] md:h-[80px] pt-[40px] md:pt-[15px] pl-[30%] md:pl-[13%] border-t border-b flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
-          <BackButton />
+        <div 
+        onClick={handleGoBack}
+        className='w-[900px] md:w-full bg-primaryWhite h-[140px] md:h-[80px] pt-[40px] md:pt-[15px] pl-[30%] md:pl-[13%] border-t border-b flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
+          <BackButton className='hover:bg-primaryBlue hover:text-primaryWhite hover:border-none'/>
       </div>
       <div className='w-[900px] md:w-full h-[1800px] md:h-full bg-[#f5f5f5]'>
 
@@ -150,30 +181,19 @@ const Leaderboard = () => {
       </div>
         
         <div className='w-[900px] mx-auto md:w-full flex flex-col lg:flex-row items-center justify-center gap-[20px]'>
-          <LeaderboardCard
-        avatar={<LeaderboardPics />}
-        name="Emmanuel 28"
-        level={12}
-        tag={<FirstTag />}
-        progress={70}
-        rankLabel="1st"
-      />
-       <LeaderboardCard
-        avatar={<LeaderboardPics />}
-        name="Emmanuel 28"
-        level={12}
-        tag={<SecondTag />}
-        progress={70}
-        rankLabel="1st"
-      />
-       <LeaderboardCard
-        avatar={<LeaderboardPics />}
-        name="Emmanuel 28"
-        level={12}
-        tag={<ThirdTag />}
-        progress={70}
-        rankLabel="1st"
-      />
+          {
+            loading ? <Spinner top={22} /> : leaderBoardInformation && leaderBoardInformation.slice(0, 2).map((item, index) => (
+              <LeaderboardCard
+              key={index} 
+              avatar={<LeaderboardPics />}
+              name={item.name}
+              level={item.level}
+              tag={ index === 0 ? <FirstTag /> : index === 1 ? <SecondTag /> : index === 2 ? <ThirdTag /> : <div className='w-[70px] h-[30px] bg-[#E0E0E0] rounded-[5px] flex items-center justify-center'><p className='text-[14px] font-bold text-[#333333]'>{index + 1}th</p></div>}
+              progress={item.level}
+              rankLabel={ index === 0 ? "1st" : index === 1 ? "2nd" : index === 2 ? "3rd" : `${index + 1}th`}
+            />
+            ))
+          }
         </div>
 
         <div className='flex  md:pb-[90px] mt-[30px] flex-col gap-[20px] items-center justify-center'>

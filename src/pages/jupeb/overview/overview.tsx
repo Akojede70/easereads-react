@@ -8,27 +8,40 @@ import type { ReduxStore } from '../../../redux/store';
 import { useSelector } from 'react-redux';
 import { ProgressBarWithAction, PeterProgressBar } from '../../../components/progressbar';
 import { overviewDetails } from '../../../service/overview';
-import { ClassContent, QuizContent } from '../../../components/overview';
+import { ClassContent, QuizContent, UserRankCard } from '../../../components/overview';
 import { Services } from '../../../service';
-import type { Overview, ProgressData } from '../../../types/overview';
+import { Helper } from '../../../components';
+import  { useNavigate } from 'react-router-dom';
+import type { Overview, ProgressData, LeaderboardUser } from '../../../types/overview';
+
+const { Spinner, ComponentLoader  } = Helper;
 
 
 
 const Overview = () => { 
 
-  const userId = useSelector((state: ReduxStore) => state.auth.userId);
-  const [activeTab, setActiveTab] = useState<"textbook" | "video" | "exam">('textbook');
-  const currentLevel = 3;
+          const userId = useSelector((state: ReduxStore) => state.auth.userId);
+          const [activeTab, setActiveTab] = useState<"textbook" | "video" | "exam">('textbook');
+          const currentLevel = 3;
+          const navigate = useNavigate()
+          const [loading, setLoading] = useState({
+            overview: false,
+            progress: false,
+            leaderboard: false  
+          })
 
  
-  const progress = ((currentLevel - 1) / 4) * 100;
-  const [overviewData, setOverviewData] = useState<Overview | null>(null);
+          const progress = ((currentLevel - 1) / 4) * 100;
+          const [overviewData, setOverviewData] = useState<Overview | null>(null);
+          
+         
+          const [leaderBoardInformation, setLeaderBoardInformation] = useState<LeaderboardUser[]>([]);
 
-  const [ progressPercentage, setProgressPercentage ] = useState<ProgressData>({
-  textbooks: [],
-  videos: [],
-  exams: []
-  });
+          const [ progressPercentage, setProgressPercentage ] = useState<ProgressData>({
+          textbooks: [],
+          videos: [],
+          exams: []
+          });
 
 
   
@@ -36,22 +49,27 @@ const Overview = () => {
         useEffect(() => {
           const overviewInfo = async ( userId: number | string) => {
             try {
+              setLoading((prev ) => ({ ...prev, overview: true }))
+
               const response = await overviewDetails(userId);
               setOverviewData(response?.data?.overview);
               
             } catch (error) { 
-                void error;            }
+                void error;         
+           } finally {
+              setLoading(( prev) => ({ ...prev, overview: false }))
+           }
           };
           if (userId) {
             overviewInfo(userId );
           }
           }, []);
   
-           console.log(progressPercentage.textbooks, 'progressPercentage.textbooks')
           // percentage progress
         useEffect(() => {
           const percentageProgress = async ( userId: number | string) => {
             try {
+              setLoading((prev ) => ({ ...prev, progress: true }))
               const response = await Services.overview.percentageProgress(userId);
               if (response) {
                 setProgressPercentage({
@@ -62,11 +80,28 @@ const Overview = () => {
               }              
             } catch (error) { 
               void error;
-            }
+            } finally {
+              setLoading(( prev) => ({ ...prev, progress: false }))
+           }
           };
           if (userId) {
             percentageProgress(userId );
           }
+          }, []);
+
+          useEffect(() => {
+          const leaderBoardDisplay = async ( ) => {
+            try {
+              setLoading((prev ) => ({ ...prev, leaderboard: true }))
+              const response = await Services.overview.leaderboard();
+              setLeaderBoardInformation(response?.data);             
+            } catch (error) { 
+              void error;
+            } finally {
+              setLoading(( prev) => ({ ...prev, leaderboard: false }))
+           }
+          };
+            leaderBoardDisplay();
           }, []);
   
 
@@ -116,25 +151,25 @@ const Overview = () => {
      </div>
 
      <div className='ml-[3%] md:ml-0 md:flex flex-wrap gap-[20px] mt-[20px]'>
-          <MiniCard 
+      <MiniCard 
       icon={SmallVideo} 
       title="Textbooks Read" 
-      value={overviewData?.textBooksRead || 0}
+      value={loading.overview ? <ComponentLoader color={'#106EBE'} /> : (overviewData?.textBooksRead || 0)}
       />
         <MiniCard 
       icon={ExamTaken} 
       title="Exam Taken" 
-      value={overviewData?.examsTaken || 0}
+       value={loading.overview ? <ComponentLoader color={'#106EBE'} /> : (overviewData?.examsTaken || 0)}
       />
         <MiniCard 
       icon={StudyTime} 
       title="Study Time" 
-      value={overviewData?.studyTime || 0}
+      value={loading.overview ? <ComponentLoader color={'#106EBE'} /> : (overviewData?.studyTime || 0)}
       />
         <MiniCard 
       icon={DayStreak} 
       title="Day Streak" 
-      value={overviewData?.textbooksRead || 0}
+      value={loading.overview ? <ComponentLoader color={'#106EBE'} /> : (overviewData?.textbooksRead || 0)}
       />
      </div>
     
@@ -233,53 +268,20 @@ const Overview = () => {
         <div className="ml-[3%] md:ml-0 w-[67%] md:w-[73%] lg:w-[35%] bg-primaryWhite p-4 rounded-[15px] shadow">
           <div className='flex justify-between px-1 md:px-4 mt-[2%] md:mt-0'>
              <h3 className="pt-[15px] md:pt-0 text-[13px] md:text-[17px] font-bold">Leaderboard</h3>
-          <button className="mt-2 text-primaryBlue font-bold underline text-[16px]">See All</button>
+          <button className="mt-2 text-primaryBlue font-bold underline text-[16px] cursor-pointer" onClick={() => navigate('/jupeb/leaderboard')}>See All</button>
           </div>
-          <div className='text-[14px] md:text-[16px] my-[20px] md:w-[80%] md:ml-[18px]'>
-            <p > Top Performance this week based on quiz scores and study time</p>
-          </div>
-         
-          <div className="mt-4 px-1 md:px-4 space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-5">
-                <Rank1 />
-                <span className="font-bold text-[12px] md:text-[16px]">Emmanuel Kelvin</span>
-              </div>
-              <div className='flex gap-[9px]'>
-                <p> Lvl 12</p>
-                <UpperTriangle />
-              </div>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-5">
-                <Rank2 />
-                <span className="font-bold text-[12px] md:text-[16px]">John Yemi</span>
-              </div>
-               <div className='flex gap-[10px]'>
-                <p> Lvl 10</p>
-                <UpperTriangle />
-              </div>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-5">
-                <Rank3 />
-                <span className="font-bold text-[12px] md:text-[16px]">King Ammy</span>
-              </div>
-               <div className='flex gap-[10px]'>
-                <p> Lvl 09</p>
-                <DownTriangle />
-              </div>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-5">
-                <Rank4/>
-                <span className="font-bold text-[12px] md:text-[16px]">Martins Bush</span>
-              </div>
-               <div className='flex gap-[10px]'>
-                <p> Lvl 05</p>
-                <UpperTriangle />
-              </div>
-            </div>
+          <div className='text-[14px] md:text-[16px] my-[20px] md:w-[94%] md:ml-[18px]'>
+
+            {leaderBoardInformation && leaderBoardInformation.slice(0, 4).map((user: LeaderboardUser, index: number) => (
+              <UserRankCard  
+                key={index}
+                name={'Peter Bass'}
+                level={user.level}
+                RankIcon={index === 0 ? Rank1 : index === 1 ? Rank2 : index === 2 ? Rank3 : Rank4}   
+                ArrowIcon={index % 2 === 0 ? UpperTriangle : DownTriangle} 
+              />
+            ))}
+
           </div>
         </div>
       </div>
@@ -360,8 +362,10 @@ const Overview = () => {
 
          {activeTab === "exam" && (
          <div className='md:px-4 flex flex-col'>
+
+
               
-              {progressPercentage.exams.map((item, index) => (
+              {  loading.progress ? <Spinner top={20}/> : progressPercentage.exams.map((item, index) => (
              <ProgressBarWithAction
                key={`textbook-${index}`}
                label={item.title}

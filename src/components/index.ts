@@ -1,7 +1,9 @@
-import Shared from './shared'
+// import Shared from './shared'
 import Layout from './layout';
+import Helper from './helpers';
 
 export {
-  Shared,
-  Layout
+  // Shared,
+  Layout,
+  Helper
 };

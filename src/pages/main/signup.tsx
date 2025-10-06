@@ -5,9 +5,10 @@ import { Google, ClosePassword, Email, Padlock, Person } from '../../assets/icon
 import { Button } from '../../components/shared';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../../redux/auth-slice';
-import { registerUser, type RegisterFormData } from '../../service/auth';
-import ComponentLoader from '../../components/helpers/componentLoader';
-import Alert from '../../components/helpers/alert';
+import { registerUser } from '../../service/auth';
+import type { RegisterFormData } from '../../types/auth';
+import { Helper } from '../../components';
+const { ComponentLoader, Alert } = Helper;
 
 const Signup = () => {
       const dispatch = useDispatch();

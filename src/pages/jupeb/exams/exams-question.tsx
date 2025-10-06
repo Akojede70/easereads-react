@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { BackButton, Button } from '../../../components/shared';
+import {  useNavigate } from 'react-router-dom';
 
 const Question = () => {
 
     type QuestionType = { question: string; options: string[] };
     const [questions, setQuestions] = useState<QuestionType[]>([]);
-    
+    const navigate = useNavigate()
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(24 * 60 * 60); // 24 hours in seconds
   const totalQuestions = 20;
+
+   const handleGoBack = () => {
+      navigate("/jupeb/exam-form")
+    } 
 
   
   useEffect(() => {
@@ -65,7 +70,7 @@ const Question = () => {
     <div className='bg-creamWhite h-screen relative'>
          <div className='w-full bg-primaryWhite h-[90px] md:h-[100px] pt-[15px] md:pt-[30px] pl-[7%] md:pl-[3%] border-t border-b border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
           <div className='flex gap-[68%] w-[48%]  mx-auto'>
-          <div >
+          <div  onClick={ handleGoBack}>
                         <BackButton />
           </div>
           <div>

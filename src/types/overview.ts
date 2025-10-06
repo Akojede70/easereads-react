@@ -1,5 +1,3 @@
-
-
   export interface Overview {
   textBooksRead: number;
   examsTaken: number;
@@ -17,3 +15,8 @@ export type  ProgressData = {
    videos: progressType[]
    exams: progressType[]
 }
+
+ export interface LeaderboardUser {
+            name: string;
+            level: number;
+ }

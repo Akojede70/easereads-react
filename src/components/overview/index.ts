@@ -1,2 +1,2 @@
 
-export { QuizContent, ClassContent } from "./quiz-content";
+export { QuizContent, ClassContent, UserRankCard } from "./quiz-content";

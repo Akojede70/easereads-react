@@ -44,3 +44,32 @@ body {
 .font-open-sans {
   font-family: 'Open Sans', sans-serif;
 }
+
+/* for circle checkboxes */
+.custom-checkbox {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ccc;
+  border-radius: 50%; /* Makes the checkbox circular */
+  appearance: none; /* Removes default styling */
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none; /* For Firefox */
+  cursor: pointer;
+  position: relative;
+  background-color: white; /* Ensure background is visible */
+}
+
+.custom-checkbox:checked {
+  background-color: #00296B;
+  border-color: #00296B;
+}
+
+.custom-checkbox:checked::after {
+  content: "✔";
+  color: white;
+  font-size: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

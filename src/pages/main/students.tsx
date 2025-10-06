@@ -3,7 +3,8 @@ import { Laptop } from '../../assets/images';
 import { Call, Program, Cap, Subject, Email } from '../../assets/icon';
 import { Button } from '../../components/shared';
 import Alert from '../../components/helpers/alert';
-import { studentProfile, type StudentProfileFormData } from '../../service/auth';
+import { studentProfile, } from '../../service/auth';
+import type { StudentProfileFormData } from '../../types/auth';
 import { useNavigate } from 'react-router-dom';
 import ComponentLoader from '../../components/helpers/componentLoader';
 import Select, { type SingleValue, type MultiValue } from 'react-select';
@@ -11,7 +12,6 @@ import {  universityOptions, programOptions, subjectOptions, type Option } from 
 
 
 const Student = () => {
-
         const [loading, setLoading] = useState(false)
         const [showAlert, setShowAlert] = useState(false)
         const [alertMessage, setAlertMessage] = useState('')

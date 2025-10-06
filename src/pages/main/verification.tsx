@@ -9,7 +9,6 @@ import type { ReduxStore  } from '../../redux/store';
 import { useNavigate } from 'react-router-dom';
 import ComponentLoader from '../../components/helpers/componentLoader';
 
-
 const Verifications = () => {
 
   const navigate = useNavigate()

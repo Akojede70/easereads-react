@@ -1,37 +1,185 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../../../components/layout/layout'
-import {  Stop, HoldOn, Mark } from '../../../assets/icon';
+import {  Stop, HoldOn, Mark, Dropdown } from '../../../assets/icon';
 import "react-circular-progressbar/dist/styles.css";
 import { BackButton, Button, Modal } from '../../../components/shared';
+import { useNavigate } from 'react-router-dom';
+import { Services } from '../../../service';
+import { useSelector } from 'react-redux';
+import type { ReduxStore } from '../../../redux/store';
+import { Helper } from '../../../components';
+
+const { ComponentLoader, Alert } = Helper;
 
 
 
 const ExamForm = () => { 
+      const userId = useSelector((state: ReduxStore) => state.auth.userId);
+      const program = useSelector((state: ReduxStore) => state.auth.program);
 
-            const [open, setOpen] = useState(false);
+      const [open, setOpen] = useState(false);
+      const [showAlert, setShowAlert] = useState(false)
+      const [alertMessage, setAlertMessage] = useState('')
+      const [alertStatus, setAlertStatus] = useState('')
+      const navigate = useNavigate()
+
+
+      const [formList, setFormList] = useState({
+      subjectDropDown: [],
+      sectionDropDown: [],
+      topicDropDown: [],
+      selectedSubject: '',
+      selectedSection: [] as string[],
+      selectedTopic: [] as string [],
+      dropdownOpen: false,
+      topicDropdownOpen: false,
+      loadingSubject: false,
+      loadingSection: false,
+      loadingTopic: false,
+      loadingSubmitForm: false
+      })
+  
+
+ 
+
+   const handleGoBack = () => {
+      navigate('/jupeb/exam-instruction')
+    } 
+
+    useEffect(() => {
+    const getExamData = async () => {
+       try {
+              
+      // If no subject selected yet → only fetch subjects once
+      if (!formList.selectedSubject) {
+       setFormList ((prev) => ({
+        ...prev,
+        loadingSubject: true
+       }))
+        const subjectPayload = { userId, program };
+        const subjectRes = await Services.exams.subjectList(subjectPayload);
+        setFormList((prev) => ({
+          ...prev,
+          subjectDropDown: subjectRes?.subjects || [],
+        }));
+        return; // stop here
+      }
+
+      // If subject selected but no section selected → fetch sections
+      if (formList.selectedSubject && formList.selectedSection.length === 0) {
+         setFormList ((prev) => ({
+        ...prev,
+        loadingSubject: true
+       }))
+        const sectionPayload = {
+          userId,
+          program,
+          subject: formList.selectedSubject,
+        };
+        const sectionRes = await Services.exams.sectionList(sectionPayload);
+        setFormList((prev) => ({
+          ...prev,
+          sectionDropDown: sectionRes?.sections || [],
+        }));
+        return; // stop here
+      }
+
+      // If subject + section selected → fetch topics
+      if (formList.selectedSection.length <= 2) {
+         setFormList ((prev) => ({
+        ...prev,
+        loadingTopic: true
+       }))
+        const topicPayload = {
+          userId,
+          program,
+          subject: formList.selectedSubject,
+          sections: formList.selectedSection,
+        };
+        const topicRes = await Services.exams.chapters(topicPayload);
+        setFormList((prev) => ({
+          ...prev,
+          topicDropDown: topicRes?.topics || [],
+        }));
+      }
+    } catch (error) { 
+      void error 
+    } finally {
+      setFormList((prev) => ({ 
+        ...prev, 
+        loadingSubject: false,
+        loadingSection: false,
+        loadingTopic: false
+       }));
+    }
+  };
+
+  getExamData();
+}, [userId, program, formList.selectedSubject, formList.selectedSection]);
+
+
+    const r = {
+      onChange({ target }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+        const { name, value } = target;
+
+        setFormList(prev => {
+          // 🧹 If subject changes, reset section and topic selections
+          if (name === "selectedSubject") {
+            return {
+              ...prev,
+              [name]: value,
+              selectedSection: [], // clear previously selected sections
+              selectedTopic: [],   // clear topic selection
+            };
+          }
+
+          return {
+            ...prev,
+            [name]: value,
+          };
+        });
+      },
+
+
+      async handleFormSubmit ()  {
+
+        try {
+            setFormList((prev) => ({ ...prev, loadingSubmitForm: true }));
+
+          const payload ={
+              userId: userId,
+              program: program,
+              subject: formList.selectedSubject,
+              section: formList.selectedSection,
+              selectedTopics: formList.selectedTopic
+          }
+
+          const response = await Services.exams.viewQuestions(payload);
+          setShowAlert(true)
+          setAlertMessage(response?.message)
+          setAlertStatus('success')
+          setTimeout(() => { setShowAlert(false); navigate('/jupeb/exam-question'); }, 5000)
+        
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+          if (error.response) {
+                 setShowAlert(true);
+                 setAlertMessage(error?.response?.data?.message);
+                 setAlertStatus("error");
+                 setTimeout(() => setShowAlert(false), 4000)
+               }
+        } finally {
+          setFormList((prev) => ({ ...prev, loadingSubmitForm: true }));
+        }
+      }
     
-
-     const [selectedSubject, setSelectedSubject] = useState('Select Subject');
-  const [selectedTopic, setSelectedTopic] = useState('Select Topic');
-
-  const subjects = ['Biology', 'Chemistry', 'English', 'Mathematics'];
-  const topics = ['Topic 1', 'Topic 2', 'Topic 3', 'Topic 4', 'Topic 5', 'Topic 6', 'Topic 7'];
-
-  const handleSubjectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedSubject(e.target.value);
-    setSelectedTopic('Select Topic'); // Reset topic when subject changes
-  };
-
-  const handleTopicChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedTopic(e.target.value);
-  };
-
+    };
 
 
 
   return (
     <Layout name='Exams History ' >
-      <div className='w-full bg-primaryWhite h-[90px] md:h-[80px] pt-[15px] md:pt-[15px] pl-[7%] md:pl-[3%] border-t border-b flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
+      <div onClick={handleGoBack} className='w-full bg-primaryWhite cursor-pointer h-[90px] md:h-[80px] pt-[15px] md:pt-[15px] pl-[7%] md:pl-[3%] border-t border-b flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
                 <BackButton />
             </div>
 
@@ -56,7 +204,7 @@ const ExamForm = () => {
           <div className='mb-[20px] md:mb-0 w-[150px] md:w-[100px] lg:w-full text-[12px] lg:text-[16px] md:pt-[15px] lg:pt-0'>
         <Button onClick={() => setOpen(true)}> Get Access to Exam </Button>
           </div>
-         <Modal open={open} onClose={() => setOpen(false)} width='700px'>
+         <Modal open={open} onClose={() => setOpen(false)} className="w-[95%] md:w-[90%] lg:w-[45%]">
        <div className="flex items-center justify-center p-6">
       <div className=" p-8">
         <h2 className="text-3xl font-bold text-center mb-6">Preparing Exams Question</h2>
@@ -81,69 +229,209 @@ const ExamForm = () => {
         </div>
        
 
-        <div className="space-y-4">
+        <div className="space-y-[8px]">
           <div>
-            <label className="block text-sm font-medium mb-1">Subject</label>
+            <label className="block text-md font-medium mb-1">Subject</label>
             <select
-              value={selectedSubject}
-              onChange={handleSubjectChange}
+              name="selectedSubject"
+              value={formList.selectedSubject}
+              onChange={r.onChange}
               className={`w-full p-2 border border-[#dbdbdb] rounded-[10px] h-[50px] 
-                   ${selectedSubject ? "text-black" : "text-[#989898]"}`}
+                   ${formList.selectedSubject ? "text-black" : "text-[#989898]"}`}
             >
               <option value="">Select Subject</option>
-              {subjects.map((subject) => (
+              {formList.subjectDropDown.map((subject) => (
                 <option key={subject} value={subject}>{subject}</option>
               ))}
             </select>
           </div>
           
-          <div>
-                   <label className="block text-sm font-medium mb-1">Subject</label>
-                <select
-                 value={selectedSubject}
-                 onChange={handleSubjectChange}
-                 className={`w-full p-2 border border-[#dbdbdb] rounded-[10px] h-[50px] 
-                   ${selectedSubject ? "text-black" : "text-[#989898]"}`}
-               >
-                 <option value="">Select Subject Section</option>
-                 {subjects.map((subject) => (
-                   <option key={subject} value={subject}>
-                     {subject}
-                   </option>
-                 ))}
-          </select>
-          </div>
-         
 
+{/* ✅ Custom Checklist Dropdown for Sections */}
+  <div>
+       <label className="text-md font-medium mb-[20px]">Sections</label>
+  </div>
+<div className="relative">
+  {/* Dropdown toggle (looks like your select box) */}
 
+  <div
+    onClick={() =>
+      setFormList((prev) => ({
+        ...prev,
+        dropdownOpen: !prev.dropdownOpen,
+      }))
+    }
+    className={`w-full p-2 border border-[#dbdbdb] rounded-[10px] h-[50px] flex items-center justify-between cursor-pointer ${
+      formList.selectedSection.length ? "text-black" : "text-[#989898]"
+    }`}
+  >
+    {formList.selectedSection.length > 0
+      ? formList.selectedSection.join(", ")
+      : "Select Subject Sections"}
+    <span className="ml-2"><Dropdown/></span>
+  </div>
+
+  {/* Dropdown list */}
+  {formList.dropdownOpen && (
+    <div 
+      onMouseLeave={() =>
+      setFormList((prev) => ({ ...prev, dropdownOpen: false }))
+    } 
+    className="absolute mt-2 w-full bg-primaryWhite border border-gray-200 rounded-[10px] shadow-lg p-3 z-10">
+      <div className="flex flex-col gap-3 max-h-[220px] overflow-y-auto">
+        {/* ✅ Indication text */}
+        <p className="text-md text-sm text-[#ff9f23] mt-1 px-2 text-center">
+          You can only select up to 2 sections
+        </p>
+        { formList.loadingSubject? <ComponentLoader  /> :formList.sectionDropDown.map((subject) => (
+          <label
+            key={subject}
+            className="flex items-center justify-between px-3 py-2  rounded-lg hover:bg-gray-50 cursor-pointer"
+          >
+            {/* Text at left */}
+            <span className="text-sm text-[#333]">{subject}</span>
+
+            {/* Checkbox at right */}
+            <input
+              type="checkbox"
+              checked={formList.selectedSection.includes(subject)}
+              onChange={() => {
+                const alreadySelected =
+                  formList.selectedSection.includes(subject);
+
+                let updatedValues;
+                if (alreadySelected) {
+                  // Remove if already selected
+                  updatedValues = formList.selectedSection.filter(
+                    (item) => item !== subject
+                  );
+                } else if (formList.selectedSection.length < 2) {
+                  // Add if below 2
+                  updatedValues = [...formList.selectedSection, subject];
+                } else {
+                  // Prevent more than 2 — just keep same values
+                  updatedValues = formList.selectedSection;
+                }
+
+                setFormList((prev) => ({
+                  ...prev,
+                  selectedSection: updatedValues,
+                  dropdownOpen: updatedValues.length < 2, 
+                }));
+              }}
+              className="custom-checkbox accent-[#00296B] w-4 h-4"    
+                />
+          </label>
+        ))}
+        
+      </div>
+    </div>
+  )}
+</div>
+
+          {/* ✅ Custom Checklist Dropdown for Topics */}
           <div>
-            <label className="block text-sm font-medium mb-1">Topic</label>
-            <select
-              value={selectedTopic}
-              onChange={handleTopicChange}
-              className={`w-full p-2 border border-[#dbdbdb] rounded-[10px] h-[50px] 
-                   ${selectedTopic ? "text-black" : "text-[#989898]"}`}
-            >
-              <option value="">Select More Than One Topic</option>
-              {topics.map((topic) => (
-                <option key={topic} value={topic}>{topic}</option>
-              ))}
-            </select>
-            <div className="text-[12px] md:text-[16px] w-full lg:w-[60%] mx-auto bg-[#fff6e9] text-[#ff9f23] p-2 rounded-[15px] mt-[30px] flex gap-[10px]">
-                <HoldOn/>
-              select maximum of 7 topics to get depth knowledge of each topic
-            </div>
-          </div>
+            <label className="text-md font-medium">Topics</label>
+         </div>
+              <div className="relative">
+                {/* Dropdown toggle (looks like your select box) */}
+                <div
+                  onClick={() =>
+                    setFormList((prev) => ({
+                      ...prev,
+                      topicDropdownOpen: !prev.topicDropdownOpen,
+                    }))
+                  }
+                  className={`w-full p-2 border border-[#dbdbdb] rounded-[10px] h-[50px] flex items-center justify-between cursor-pointer ${
+                    formList.selectedTopic.length ? "text-black" : "text-[#989898]"
+                  }`}
+                >
+                  {formList.selectedTopic.length > 0
+                    ? formList.selectedTopic.join(", ")
+                    : "Select Topics"}
+                  <span className="ml-2"><Dropdown/></span>
+                </div>
+
+                {/* Dropdown list */}
+                {formList.topicDropdownOpen && (
+                  <div 
+                    onMouseLeave={() =>
+                      setFormList((prev) => ({ ...prev, topicDropdownOpen: false }))
+                    } 
+                    className="absolute mt-2 w-full bg-primaryWhite border border-gray-200 rounded-[10px] shadow-lg p-3 z-10"
+                  >
+                    <div className="flex flex-col gap-3 max-h-[220px] overflow-y-auto">
+                      {/* ✅ Indication text */}
+                      <p className="text-xs text-[#ff9f23] mt-1 px-2 text-center">
+                        You can only select up to 7 topics
+                      </p>
+                      {formList.loadingTopic ? <ComponentLoader /> : formList.topicDropDown.map((topic) => (
+                        <label
+                          key={topic}
+                          className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-50 cursor-pointer"
+                        >
+                          <span className="text-sm text-[#333]">{topic}</span>
+                          <input
+                            type="checkbox"
+                            
+                            checked={formList.selectedTopic.includes(topic)}
+                            // onChange={() => handleTopicChange(topic)}
+                            className="custom-checkbox accent-[#00296B] w-4 h-4"
+                            onChange={() => {
+                const alreadySelected =
+                  formList.selectedTopic.includes(topic);
+
+                let updatedValues;
+                if (alreadySelected) {
+                  // Remove if already selected
+                  updatedValues = formList.selectedTopic.filter(
+                    (item) => item !== topic
+                  );
+                } else if (formList.selectedTopic.length < 7) {
+                  // Add if below 2
+                  updatedValues = [...formList.selectedTopic, topic];
+                } else {
+                  // Prevent more than 2 — just keep same values
+                  updatedValues = formList.selectedTopic;
+                }
+
+                setFormList((prev) => ({
+                  ...prev,
+                  selectedTopic: updatedValues,
+                  topicDropdownOpen: updatedValues.length < 7, 
+                }));
+              }}
+                          />
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <div className="text-[12px] md:text-[16px] w-full lg:w-[60%] mx-auto bg-[#fff6e9] text-[#ff9f23] p-2 rounded-[15px] mt-[30px] flex gap-[10px]">
+                  <HoldOn />
+                  select maximum of 7 topics to get depth knowledge of each topic
+                </div>
+              </div>
         </div>
         
         <div className='w-full mt-[30px]'>
-        <Button > Practice Exams </Button>
+          { formList.loadingSubmitForm ? (
+             <Button>
+               <ComponentLoader color={'#fff'} />
+             </Button>
+          ) :
+        <Button 
+        disabled={!formList.selectedSection || !formList.selectedSubject || !formList.selectedTopic}
+        onClick={r.handleFormSubmit}> Practice Exams </Button>
+          }
         </div>
         </div>
       </div>
     </div>
-
-       
+               {showAlert && <Alert message={alertMessage} status={alertStatus}  />}
     </Layout>
   )
 }

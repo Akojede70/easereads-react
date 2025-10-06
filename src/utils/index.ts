@@ -1,8 +1,9 @@
 
 import * as profileData from "./profile-data"
+import * as Tools from './tools';
 
-const services = {
+
+export   {
     profileData,
+    Tools
 }
-
-export default services

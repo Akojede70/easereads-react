@@ -6,7 +6,8 @@ import { Button } from '../../components/shared';
 import Alert from '../../components/helpers/alert';
 import { setCredentials } from '../../redux/auth-slice';
 import { useDispatch } from 'react-redux';
-import { loginUser, type LoginFormData } from '../../service/auth';
+import { loginUser, } from '../../service/auth';
+import type { LoginFormData } from '../../types/auth';
 import ComponentLoader from '../../components/helpers/componentLoader';
 
 
@@ -19,7 +20,6 @@ const Login = () => {
       const [alertStatus, setAlertStatus] = useState('')
       const navigate = useNavigate()
       const [showPassword, setShowPassword] = useState(false)
-
       
       
       const [formData, setFormData] = useState<LoginFormData>({
@@ -50,8 +50,9 @@ const Login = () => {
                   email: response.data.email,
                   firstName: response.data.firstName,
                   lastName: response.data.lastName,
+                  accessToken: response.data.accessToken,
+                  program: response.data.program,
                   userId: response.data.userId,
-                  accessToken: response.data.accessToken
                 }))
                 setShowAlert(true)
                 setAlertMessage(response?.message)

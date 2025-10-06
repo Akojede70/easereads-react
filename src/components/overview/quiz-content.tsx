@@ -134,7 +134,32 @@ export const ClassContent: React.FC<ClassContentProps> = ({
   );
 };
 
+interface UserRankCardProps {
+  name: string;
+  level: number;
+  RankIcon?: React.ComponentType;   
+  ArrowIcon?: React.ComponentType; 
+}
 
+export const UserRankCard: React.FC<UserRankCardProps> = ({ 
+  name, 
+  level, 
+  RankIcon, 
+  ArrowIcon 
+}) => {
+  return (
+    <div className="flex items-center justify-between">
+      <div className="flex items-center space-x-5">
+        {RankIcon && <RankIcon />}
+        <span className="font-bold text-[12px] md:text-[16px]">{name}</span>
+      </div>
 
+      <div className="flex gap-[9px] items-center md:pl-[5%]">
+        <p>Lvl {level}</p>
+        {ArrowIcon && <ArrowIcon />}
+      </div>
+    </div>
+  );
+};
 
-
+export default UserRankCard;

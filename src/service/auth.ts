@@ -1,14 +1,7 @@
 import axiosInstance from './axios-instance';
+import type { RegisterFormData, LoginFormData, StudentProfileFormData } from '../types/auth';
 
 
-// registered and type
-export type RegisterFormData = {
-         firstName: string;
-         lastName: string;
-         email: string;
-         password: string;
-         confirmPassword?: string;
-       }
 
 export const registerUser = async (payload: RegisterFormData) => {
     const response = await axiosInstance.post('/student/register', payload);
@@ -17,19 +10,13 @@ export const registerUser = async (payload: RegisterFormData) => {
     return response.data;
 };
 
-// login
-
-export type LoginFormData = {
-  email: string;
-  password: string;
-};
 
 export const loginUser = async (payload: LoginFormData) => {
     const response = await axiosInstance.post('/student/login', payload);
     if (response.data && response.data.user) {
-        const { accessToken, refreshToken } = response.data.user; 
-        localStorage.setItem('token', accessToken); 
-        localStorage.setItem('refreshToken', refreshToken); 
+        // const { accessToken, refreshToken } = response.data.user; 
+        // localStorage.setItem('token', accessToken); 
+        // localStorage.setItem('refreshToken', refreshToken); 
     }
     
     return response.data; 
@@ -66,14 +53,6 @@ export const resendEmail = async (email: string, ) => {
     const response = await axiosInstance.get(`/student/resend-email/${email}`);
     return response.data; 
 };
-
-export type StudentProfileFormData = {
-         program: string;
-         email: string;
-         university: string;
-         phoneNumber: string;
-         subject: string[];
-       }
 
 export const studentProfile = async (payload: StudentProfileFormData) => {
     const response = await axiosInstance.post('/student/profile', payload);

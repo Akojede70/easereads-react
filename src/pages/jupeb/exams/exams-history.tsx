@@ -3,10 +3,13 @@ import Layout from '../../../components/layout/layout'
 import "react-circular-progressbar/dist/styles.css";
 import { Button } from '../../../components/shared';
 import StatCard from '../../../components/card/card';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const ExamPractice = () => { 
+
+  const navigate = useNavigate()
 
      const scores = [
     { date: "21-04-2025", subject: "Mathematics", question: 40, score: 10.25 },
@@ -19,7 +22,7 @@ const ExamPractice = () => {
     <Layout name='Exams History ' >
        <div className='w-[70%] md:w-[95%] lg:w-full  h-[120px] mt-[30px] lg:mt-0 ml-[2%] md:ml-[3%]  lg:ml-0 pl-[13px] md:pl-[40px] border lg:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
            <div className='w-[98%] lg:flex items-center justify-between'>
-             <div className='pt-[12px] lg:pt-0'>
+             <div className='pt-[12px] lg:pt-0' >
                 <p className='font-bold text-[18px] lg:text-[30px]'> Exam Practice </p>
               </div>
                 <div className='flex gap-[10px] lg:gap-0 w-[98%] md:w-[80%] lg:w-[30%] mt-[15px] lg:mt-0'>
@@ -27,7 +30,7 @@ const ExamPractice = () => {
                   <button className='text-[#fff] px-1 md:px-5 text-[13px] md:text-[15px] lg:text-[18px] rounded-[15px] h-[50px] bg-[#4cb851]'> WhatsApp Community</button>
                   </div>
                   <div className='w-[60%] md:w-[70%] lg:w-[68%]'>
-                  <Button className='rounded-[15px] text-[13px] md:text-[15px] lg:text-[18px]'> Practice Exam </Button>
+                  <Button className='rounded-[15px] text-[13px] md:text-[15px] lg:text-[18px] cursor-pointer' onClick={() => navigate('/Jupeb/exam-instruction')}> Practice Exam </Button>
                   </div>
                </div>
            </div>
