@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 
 const ExamComplete = () => {
    const navigate = useNavigate()
-   const examId = "68c7bb0fbd68d5c087d33f27"
    const questionsString = localStorage.getItem("questions");
   const parsedData = questionsString ? JSON.parse(questionsString) : {};
   const getTimeSpentInQuestionInMinutes = localStorage.getItem("timeSpentOnAttendingQuestion");
@@ -13,7 +12,6 @@ const ExamComplete = () => {
 
   const getLocalStorageDetails = localStorage.getItem("submitQuestion")
   const studentScore = getLocalStorageDetails ? JSON.parse(getLocalStorageDetails) : {}
-  // console.log("second", studentScore)
   return (
     <div className='bg-white h-[1800px] lg:h-[1150px]'>
         <div className=' flex flex-col justify-center items-center pt-10 gap-[20px]'>
@@ -68,7 +66,7 @@ const ExamComplete = () => {
         <div>
 
           <div 
-          onClick={() => navigate(`../exam-answer/${examId}`)}
+          onClick={() => navigate('../exam-answer')}
           className='flex justify-between '>
         <p> View Exam Correction </p>
         <div className=' w-[90px] md:w-[100px] pl-[10px] mb-[20px] md:mb-[10px] rounded-[10px] bg-primaryBlue text-primaryWhite'>
@@ -81,7 +79,9 @@ const ExamComplete = () => {
         <div className='flex justify-between'>
         <p>  View Detailed Analytics  </p>
         <div className='w-[90px] md:w-[100px] pl-[10px] mb-[25px] md:mb-[10px] rounded-[10px] bg-primaryBlue text-primaryWhite'>
-          <button className='flex gap-[10px] items-center justify-center  p-2'>
+          <button 
+          onClick={() => navigate("../exam-solution-answer")}
+          className='cursor-pointer flex gap-[10px] items-center justify-center  p-2'>
           View <SmallArrowRight /> 
           </button>
         </div>
@@ -89,8 +89,8 @@ const ExamComplete = () => {
 
           <div className='flex justify-between'>
         <p>  Retake Exams  </p>
-        <div className='w-[90px] md:w-[100px] pl-[10px] rounded-[10px] bg-primaryBlue text-primaryWhite'>
-          <button className='flex cursor-pointer gap-[10px] items-center justify-center  p-2'>
+        <div className='cursor-pointer w-[90px] md:w-[100px] pl-[10px] rounded-[10px] bg-primaryBlue text-primaryWhite'>
+          <button  onClick={() => navigate("/jupeb/exam-form")} className='flex cursor-pointer gap-[10px] items-center justify-center  p-2'>
           View <SmallArrowRight /> 
           </button>
         </div>

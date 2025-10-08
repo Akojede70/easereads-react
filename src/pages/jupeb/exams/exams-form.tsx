@@ -43,7 +43,7 @@ const ExamForm = () => {
  
 
    const handleGoBack = () => {
-      navigate('/jupeb/exam-instruction')
+      navigate(-1)
     } 
 
     useEffect(() => {
@@ -241,94 +241,94 @@ const ExamForm = () => {
                    ${formList.selectedSubject ? "text-black" : "text-[#989898]"}`}
             >
               <option value="">Select Subject</option>
-              {formList.loadingSubject ? <ComponentLoader /> : formList.subjectDropDown.map((subject) => (
+              {formList.subjectDropDown.map((subject) => (
                 <option key={subject} value={subject}>{subject}</option>
               ))}
             </select>
           </div>
           
 
-{/* ✅ Custom Checklist Dropdown for Sections */}
-  <div>
-       <label className="text-md font-medium mb-[20px]">Sections</label>
-  </div>
-<div className="relative">
-  {/* Dropdown toggle (looks like your select box) */}
+        {/* ✅ Custom Checklist Dropdown for Sections */}
+          <div>
+              <label className="text-md font-medium mb-[20px]">Sections</label>
+          </div>
+        <div className="relative">
+          {/* Dropdown toggle (looks like your select box) */}
 
-  <div
-    onClick={() =>
-      setFormList((prev) => ({
-        ...prev,
-        dropdownOpen: !prev.dropdownOpen,
-      }))
-    }
-    className={`w-full p-2 border border-[#dbdbdb] rounded-[10px] h-[50px] flex items-center justify-between cursor-pointer ${
-      formList.selectedSection.length ? "text-black" : "text-[#989898]"
-    }`}
-  >
-    {formList.selectedSection.length > 0
-      ? formList.selectedSection.join(", ")
-      : "Select Subject Sections"}
-    <span className="ml-2"><Dropdown/></span>
-  </div>
-
-  {/* Dropdown list */}
-  {formList.dropdownOpen && (
-    <div 
-      onMouseLeave={() =>
-      setFormList((prev) => ({ ...prev, dropdownOpen: false }))
-    } 
-    className="absolute mt-2 w-full bg-primaryWhite border border-gray-200 rounded-[10px] shadow-lg p-3 z-10">
-      <div className="flex flex-col gap-3 max-h-[220px] overflow-y-auto">
-        {/* ✅ Indication text */}
-        <p className="text-md text-sm text-[#ff9f23] mt-1 px-2 text-center">
-          You can only select up to 2 sections
-        </p>
-        { formList.loadingSubject? <ComponentLoader  /> :formList.sectionDropDown.map((subject) => (
-          <label
-            key={subject}
-            className="flex items-center justify-between px-3 py-2  rounded-lg hover:bg-gray-50 cursor-pointer"
+          <div
+            onClick={() =>
+              setFormList((prev) => ({
+                ...prev,
+                dropdownOpen: !prev.dropdownOpen,
+              }))
+            }
+            className={`w-full p-2 border border-[#dbdbdb] rounded-[10px] h-[50px] flex items-center justify-between cursor-pointer ${
+              formList.selectedSection.length ? "text-black" : "text-[#989898]"
+            }`}
           >
-            {/* Text at left */}
-            <span className="text-sm text-[#333]">{subject}</span>
+            {formList.selectedSection.length > 0
+              ? formList.selectedSection.join(", ")
+              : "Select Subject Sections"}
+            <span className="ml-2"><Dropdown/></span>
+          </div>
 
-            {/* Checkbox at right */}
-            <input
-              type="checkbox"
-              checked={formList.selectedSection.includes(subject)}
-              onChange={() => {
-                const alreadySelected =
-                  formList.selectedSection.includes(subject);
+          {/* Dropdown list */}
+          {formList.dropdownOpen && (
+            <div 
+              onMouseLeave={() =>
+              setFormList((prev) => ({ ...prev, dropdownOpen: false }))
+            } 
+            className="absolute mt-2 w-full bg-primaryWhite border border-gray-200 rounded-[10px] shadow-lg p-3 z-10">
+              <div className="flex flex-col gap-3 max-h-[220px] overflow-y-auto">
+                {/* ✅ Indication text */}
+                <p className="text-md text-sm text-[#ff9f23] mt-1 px-2 text-center">
+                  You can only select up to 2 sections
+                </p>
+                { formList.loadingSubject? <ComponentLoader  /> :formList.sectionDropDown.map((subject) => (
+                  <label
+                    key={subject}
+                    className="flex items-center justify-between px-3 py-2  rounded-lg hover:bg-gray-50 cursor-pointer"
+                  >
+                    {/* Text at left */}
+                    <span className="text-sm text-[#333]">{subject}</span>
 
-                let updatedValues;
-                if (alreadySelected) {
-                  // Remove if already selected
-                  updatedValues = formList.selectedSection.filter(
-                    (item) => item !== subject
-                  );
-                } else if (formList.selectedSection.length < 2) {
-                  // Add if below 2
-                  updatedValues = [...formList.selectedSection, subject];
-                } else {
-                  // Prevent more than 2 — just keep same values
-                  updatedValues = formList.selectedSection;
-                }
+                    {/* Checkbox at right */}
+                    <input
+                      type="checkbox"
+                      checked={formList.selectedSection.includes(subject)}
+                      onChange={() => {
+                        const alreadySelected =
+                          formList.selectedSection.includes(subject);
 
-                setFormList((prev) => ({
-                  ...prev,
-                  selectedSection: updatedValues,
-                  dropdownOpen: updatedValues.length < 2, 
-                }));
-              }}
-              className="custom-checkbox accent-[#00296B] w-4 h-4"    
-                />
-          </label>
-        ))}
-        
-      </div>
-    </div>
-  )}
-</div>
+                        let updatedValues;
+                        if (alreadySelected) {
+                          // Remove if already selected
+                          updatedValues = formList.selectedSection.filter(
+                            (item) => item !== subject
+                          );
+                        } else if (formList.selectedSection.length < 2) {
+                          // Add if below 2
+                          updatedValues = [...formList.selectedSection, subject];
+                        } else {
+                          // Prevent more than 2 — just keep same values
+                          updatedValues = formList.selectedSection;
+                        }
+
+                        setFormList((prev) => ({
+                          ...prev,
+                          selectedSection: updatedValues,
+                          dropdownOpen: updatedValues.length < 2, 
+                        }));
+                      }}
+                      className="custom-checkbox accent-[#00296B] w-4 h-4"    
+                        />
+                  </label>
+                ))}
+                
+              </div>
+            </div>
+          )}
+        </div>
 
           {/* ✅ Custom Checklist Dropdown for Topics */}
           <div>

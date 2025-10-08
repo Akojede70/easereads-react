@@ -191,7 +191,7 @@ const storedPayload = storedPayloadString ? JSON.parse(storedPayloadString) : nu
                         <BackButton />
           </div>
           <div>
-            <Button > Dashboard </Button>
+            <Button onClick={ () => navigate('/jupeb/overview')}> Dashboard </Button>
           </div>
               </div>
             </div>

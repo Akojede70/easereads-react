@@ -1,4 +1,4 @@
-import ExamPractice from './exams-practice'
+// import ExamPractice from './exams-practice'
 import ExamHistory from './exams-history'
 import ExamInstruction from './exams-instruction'
 import ExamForm from './exams-form'
@@ -8,7 +8,7 @@ import ExamsSolutionsAnswer from './exams-solution-answer'
 import ExamComplete from './exam-complete'
 
 const jupeb = {
-   ExamPractice,
+   // ExamPractice,
    ExamHistory,
    ExamInstruction,
    ExamForm,
