@@ -152,8 +152,8 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({
 
 
 interface StatCardProps {
-  title: string;
-  value: number | string;
+  title: string; 
+  value: React.ReactNode  
   width?: string;
   height?: string;
   icon?: React.ElementType;
@@ -231,7 +231,7 @@ export const DurationCard: React.FC<DurationCardProps> = ({
 
 
 interface ScoreCardProps {
-  score: string | number; // ✅ can be a number or string (e.g., "85%" or 85)
+  score: string | number | null; // ✅ can be a number or string (e.g., "85%" or 85)
   label?: string;         // ✅ pass custom label (defaults to "Overall Score")
   status?: string;        // ✅ optional badge
   statusBg?: string;

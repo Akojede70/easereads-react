@@ -159,6 +159,7 @@ const ExamForm = () => {
           setAlertMessage(response?.message)
           setAlertStatus('success')
           setTimeout(() => { setShowAlert(false); navigate('/jupeb/exam-question'); }, 5000)
+           localStorage.setItem("examFormSubmitPayload", JSON.stringify(payload));
           localStorage.setItem("questions", JSON.stringify(response.data))
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
@@ -424,7 +425,7 @@ const ExamForm = () => {
              </Button>
           ) :
         <Button 
-        disabled={!formList.selectedSection || !formList.selectedSubject || !formList.selectedTopic}
+        disabled={formList.selectedSection.length === 0 || !formList.selectedSubject || formList.selectedTopic.length === 0}
         onClick={r.handleFormSubmit}> Practice Exams </Button>
           }
         </div>

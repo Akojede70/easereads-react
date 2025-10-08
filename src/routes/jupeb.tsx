@@ -26,7 +26,7 @@ const AuthRoutes = () => {
         <Route path="/exam-form" element={<JupebPages.Exam.ExamForm />} />
         <Route path="/exam-complete" element={<JupebPages.Exam.ExamComplete />} />
         <Route path="/exam-question" element={<JupebPages.Exam.Question />} />
-        <Route path="/exam-answer" element={<JupebPages.Exam.Answer />} />
+        <Route path="/exam-answer/:id" element={<JupebPages.Exam.Answer />} />
         <Route
           path="/exam-solution-answer"
           element={<JupebPages.Exam.ExamsSolutionsAnswer />}

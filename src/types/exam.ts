@@ -23,3 +23,28 @@ export type viewTopicInterFace = {
     section: string[] | null | undefined;
     selectedTopics: string[] | null | undefined;
 }
+
+export type submitQuestionsInterface = {
+    userId: number | null | undefined;
+    program: string | null | undefined;
+    subject: string | null | undefined;
+    section: string[] | null | undefined;
+    selectedTopics: string[] | null | undefined;
+    startDate: string | null | undefined
+    finishedDate: string  | null | undefined
+    questionDetails: {
+    questionContent: string;
+    userAnswer: string;
+  }[]; 
+}
+
+export type QuestionType = {
+     question: string;
+     answers_suggestion: string[];
+     content: string
+   }; 
+
+   export type examHistoryInterface = {
+    userId: number | null | undefined;
+    program: string | null | undefined;
+   }; 

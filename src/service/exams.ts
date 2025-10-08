@@ -1,4 +1,4 @@
-import type { topicInterFace, UserIdAndNumber, UserIdNumberAndSubject, viewTopicInterFace } from '../types/exam';
+import type { examHistoryInterface, submitQuestionsInterface, topicInterFace, UserIdAndNumber, UserIdNumberAndSubject, viewTopicInterFace } from '../types/exam';
 import axiosInstance from './axios-instance';
 
 
@@ -22,17 +22,17 @@ export const viewQuestions = async (payload: viewTopicInterFace) => {
     return response.data; 
 };
 
-export const submitQuestions = async () => {
-    const response = await axiosInstance.post('/student/exam/score');
+export const submitQuestions = async (payload: submitQuestionsInterface) => {
+    const response = await axiosInstance.post('/student/exam/score', payload);
     return response.data; 
 };
 
-export const examPage = async () => {
-    const response = await axiosInstance.post('/student/exam/block');
+export const examPage = async (payload: examHistoryInterface) => {
+    const response = await axiosInstance.post('/student/exam/block', payload );
     return response.data; 
 };
 
-export const examDetails = async (id: number) => {
-    const response = await axiosInstance.post(`/student/exam/details/${id}`);
+export const examDetails = async (id: number | string) => {
+    const response = await axiosInstance.get(`/student/exam/details/${id}`);
     return response.data; 
 };

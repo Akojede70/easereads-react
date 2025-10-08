@@ -1,22 +1,85 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../../../components/layout/layout'
 import "react-circular-progressbar/dist/styles.css";
 import { Button } from '../../../components/shared';
 import StatCard from '../../../components/card/card';
 import { useNavigate } from 'react-router-dom';
+import { Services } from '../../../service';
+import { useSelector } from 'react-redux';
+import { Tools } from '../../../utils';
+import type { ReduxStore } from '../../../redux/store';
+import { Helper } from '../../../components';
+import Spinner from '../../../components/helpers/spinner';
+
+const { ComponentLoader  } = Helper;
 
 
 
 const ExamPractice = () => { 
+   const userId = useSelector((state: ReduxStore) => state.auth.userId);
+      const program = useSelector((state: ReduxStore) => state.auth.program);
 
-  const navigate = useNavigate()
+ 
+          const [loading, setLoading] = useState(false)
+          const navigate = useNavigate()
 
-     const scores = [
-    { date: "21-04-2025", subject: "Mathematics", question: 40, score: 10.25 },
-    { date: "21-04-2025", subject: "Mathematics", question: 40, score: 35 },
-    { date: "21-04-2025", subject: "Mathematics", question: 40, score: 10.25 },
-    { date: "21-04-2025", subject: "Mathematics", question: 40, score: 35 },
-  ];
+
+          type ExamBlock = {
+          id: number;
+          userId: number;
+          examId: string;
+          program: string;
+          title: string;
+          attemptId: string;
+          score: number;
+          percentage: string;
+          questions: number;
+          createdAt: string;
+          updatedAt: string;
+        };
+
+        type ExamHistory = {
+          examBlocks: ExamBlock[];
+          totalQuestions: number;
+          averagePercentage: number;
+          totalSubjects: number;
+        };
+
+
+        const [history, setHistory] = useState<ExamHistory>({
+          examBlocks: [],
+          totalQuestions: 0,
+          averagePercentage: 0,
+          totalSubjects: 0,
+        });
+
+
+
+  useEffect(() => {
+            const fetchHistory = async () => {
+              try {
+                setLoading(true)
+                const examHistoryPayload = {
+                  userId: userId,
+                  program: program
+                }
+          const response = await Services.exams.examPage(examHistoryPayload);
+                 setHistory({
+            examBlocks: response.examBlocks,
+            totalQuestions: response.totalQuestions,
+            averagePercentage: response.averagePercentage,
+            totalSubjects: response.totalSubjects,
+          });
+                        
+              } catch (error) { 
+                  void error;         
+             } finally {
+                setLoading(false)
+             }
+            };
+              fetchHistory( );
+     }, []);
+    
 
   return (
     <Layout name='Exams History ' >
@@ -37,12 +100,12 @@ const ExamPractice = () => {
          </div>
 
        <div className='flex flex-wrap gap-[10px] md:gap-[3px] lg:gap-[10px]'>
-         <StatCard title="Average Score" value={6} />
-           <StatCard title="Total Students" value={120} />
-           <StatCard title="Pass Rate" value="46/100%" />
+         <StatCard title="Total Subjects" value={ loading ? <ComponentLoader color={'#106EBE'} /> : history?.totalSubjects} />
+           <StatCard title="Total Exam Practice" value={ loading ? <ComponentLoader color={'#106EBE'} /> : history?.totalQuestions} />
+           <StatCard title="Average Score" value={ loading ? <ComponentLoader color={'#106EBE'} /> : Math.round(history?.averagePercentage)} />
        </div>
            
-   <div className='mt-[5%]'>
+   <div className='mt-[5%] mb-[13%]'>
         <table className='w-[94%] rounded-[20px] bg-primaryWhite  mx-auto'>
           <thead>
             <tr className='pt-[9%] h-[30px]'>
@@ -54,11 +117,20 @@ const ExamPractice = () => {
             </tr>
           </thead>
           <tbody className=''>
-            {scores.map((score, index) => (
+
+          
+            {loading ? (
+        <tr>
+          <td colSpan={5} className="relative h-[250px]">
+            <Spinner top={20} />
+          </td>
+        </tr>
+      )
+            : history?.examBlocks?.map((score, index) => (
               <tr key={index} className=''>
-                <td className='py-2 px-4 pl-[4%]'>{score.date}</td>
-                <td className='py-2 px-4 pl-[10%]'>{score.subject}</td>
-                <td className='py-2 px-4 pl-[9%]'>{score.question}</td>
+                <td className='py-2 px-4 pl-[4%]'>{Tools.formatDateToDDMMYYYY(score.updatedAt)}</td>
+                <td className='py-2 px-4 pl-[10%]'>{score.title}</td>
+                <td className='py-2 px-4 pl-[9%]'>{score.questions}</td>
                 <td className='py-2 px-4 flex items-center  w-full pl-[32%]'>
                   <div className='w-32 h-4 rounded-full bg-[#e8f1f9]'>
                     <div

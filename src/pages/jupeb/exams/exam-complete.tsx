@@ -1,8 +1,19 @@
 import React from 'react'
 import { Cup, SmallArrowRight } from '../../../assets/icon'
 import { ScoreCard } from '../../../components/card'
+import { useNavigate } from 'react-router-dom'
 
 const ExamComplete = () => {
+   const navigate = useNavigate()
+   const examId = "68c7bb0fbd68d5c087d33f27"
+   const questionsString = localStorage.getItem("questions");
+  const parsedData = questionsString ? JSON.parse(questionsString) : {};
+  const getTimeSpentInQuestionInMinutes = localStorage.getItem("timeSpentOnAttendingQuestion");
+
+
+  const getLocalStorageDetails = localStorage.getItem("submitQuestion")
+  const studentScore = getLocalStorageDetails ? JSON.parse(getLocalStorageDetails) : {}
+  // console.log("second", studentScore)
   return (
     <div className='bg-white h-[1800px] lg:h-[1150px]'>
         <div className=' flex flex-col justify-center items-center pt-10 gap-[20px]'>
@@ -15,27 +26,27 @@ const ExamComplete = () => {
      
      <div className='flex flex-col lg:flex-row items-center justify-center mx-auto gap-[20px] mt-[50px]'>
        <ScoreCard
-       score={'5%'}
+       score={`${Math.round(studentScore?.percentageScore)}%`}
        status="Needs Improvement"
        height='180px'
        />
         <ScoreCard 
-        score={10} 
-        label="Correct Answers out if 50"  
+        score={studentScore?.totalCorrect} 
+        label={`Correct Answers out of ${parsedData?.questionDetails?.length}`}  
         height='180px'
         scoreTextColor='#4cb851'
         />
 
          <ScoreCard 
-        score={70} 
+        score={studentScore?.totalWrong} 
         label="Incorrect Answers need review"  
         height='180px'
         scoreTextColor='#ff0808'
         />
 
          <ScoreCard 
-        score={'40 : 20m'} 
-        label="Time Taken out of 45 minutes"  
+        score={getTimeSpentInQuestionInMinutes} 
+        label={`Time Taken out of ${parsedData?.timePeriod} mins`}  
         height='180px'
         scoreTextColor='#333333'
         />
@@ -56,10 +67,12 @@ const ExamComplete = () => {
       <div className='md:border md:border-borderColor flex flex-col gap-[20px] w-full md:w-[90%] rounded-[10px] p-5 m-5 ml-[2%] md:ml-[6%]'>
         <div>
 
-          <div className='flex justify-between'>
+          <div 
+          onClick={() => navigate(`../exam-answer/${examId}`)}
+          className='flex justify-between '>
         <p> View Exam Correction </p>
-        <div className='w-[90px] md:w-[100px] pl-[10px] mb-[20px] md:mb-[10px] rounded-[10px] bg-primaryBlue text-primaryWhite'>
-          <button className='flex gap-[10px] items-center justify-center  p-2'>
+        <div className=' w-[90px] md:w-[100px] pl-[10px] mb-[20px] md:mb-[10px] rounded-[10px] bg-primaryBlue text-primaryWhite'>
+          <button className='cursor-pointer flex gap-[10px] items-center justify-center  p-2'>
           View <SmallArrowRight /> 
           </button>
         </div>
@@ -82,11 +95,8 @@ const ExamComplete = () => {
           </button>
         </div>
         </div>
-
         </div>
-
               </div>
-     
      </div>
     </div>
   )
