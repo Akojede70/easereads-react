@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import * as pdfjs from "pdfjs-dist";
-import DummyPdf from "../../../assets/marvellous relocation_Letter.pdf";
 import {
   ArrowDown,
   ArrowLeft,
@@ -10,42 +10,95 @@ import {
   CloseIcon,
 } from "../../../assets/icon";
 import { Button } from "../../../components/shared";
+import { useSelector } from "react-redux";
+import type { ReduxStore } from "../../../redux/store";
+import {
+  GetTextBookSectionByTextBookSectionId,
+  GetSingleTextBookSectionByTextBookSectionChapterId,
+} from "../../../service/textbook";
 
 // Set up PDF.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 
+interface Chapter {
+  _id: string;
+  chapterTitle: string;
+}
+
 const DocumentReader: React.FC = () => {
+  const studentId = useSelector((state: ReduxStore) => state.auth.userId);
+    const token = useSelector((state: ReduxStore) => state.auth.accessToken);
+  const { bookId, sectionId } = useParams<{ bookId: string; sectionId: string }>();
   // PDF state
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [numPages, setNumPages] = useState<number>(0);
   const [scale] = useState<number>(1.0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const pdfRef = useRef<any>(null);
+  const pdfRef = useRef<pdfjs.PDFDocumentProxy | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
-  // Search and chapter state
+  // Chapter and URL state
+  const [chapters, setChapters] = useState<Chapter[]>([]);
+  const [selectedChapter, setSelectedChapter] = useState<string>("");
+  const [pdfUrl, setPdfUrl] = useState<string>("");
+
+  // Search state
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [selectedChapter, setSelectedChapter] =
-    useState<string>("Select Chapter");
-  const [chapters] = useState<string[]>([
-    "Chapter 1: Introduction",
-    "Chapter 2: Fundamentals",
-    "Chapter 3: Advanced Topics",
-    "Chapter 4: Applications",
-    "Chapter 5: Conclusion",
-  ]);
+
+  // Fetch section data and chapters
+  useEffect(() => {
+    const fetchSectionData = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        if (!studentId || !bookId || !sectionId) {
+          throw new Error("Student ID, Book ID, or Section ID is missing.");
+        }
+        const data = await GetTextBookSectionByTextBookSectionId(studentId, bookId, sectionId, token);
+        setChapters(data.data.chapters);
+        setPdfUrl(data.data.validUrl);
+        setSelectedChapter(data.data.lastReadChapter?._id || "");
+      } catch (err) {
+        console.error("Error fetching section data:", err);
+        setError("Failed to load section data. Please try again later.");
+        setChapters([]);
+        setPdfUrl("");
+        setIsLoading(false);
+      }
+    };
+
+    fetchSectionData();
+  }, [studentId, bookId, sectionId]);
+
+  // Fetch chapter data when selectedChapter changes
+  useEffect(() => {
+    const fetchChapterData = async () => {
+      if (selectedChapter && selectedChapter !== "Select Chapter") {
+        try {
+          await GetSingleTextBookSectionByTextBookSectionChapterId(studentId, selectedChapter, token);
+          // No need to update pdfUrl; continue using validUrl from initial response
+        } catch (err) {
+          console.error("Error fetching chapter data:", err);
+          setError("Failed to load chapter data. Please try again later.");
+        }
+      }
+    };
+
+    fetchChapterData();
+  }, [selectedChapter, studentId]);
 
   // Load PDF document
   useEffect(() => {
     const loadPdf = async () => {
+      if (!pdfUrl) return;
+
       setIsLoading(true);
       setError(null);
 
       try {
-        const loadingTask = pdfjs.getDocument(DummyPdf);
+        const loadingTask = pdfjs.getDocument(pdfUrl);
         const pdf = await loadingTask.promise;
 
         setNumPages(pdf.numPages);
@@ -53,15 +106,13 @@ const DocumentReader: React.FC = () => {
         setIsLoading(false);
       } catch (err) {
         console.error("Error loading PDF:", err);
-        setError(
-          "Failed to load the document. Please check if the PDF file exists."
-        );
+        setError("Failed to load the document. Please check if the PDF file exists.");
         setIsLoading(false);
       }
     };
 
     loadPdf();
-  }, []);
+  }, [pdfUrl]);
 
   // Render the current page
   const renderPage = async () => {
@@ -132,35 +183,20 @@ const DocumentReader: React.FC = () => {
       setCurrentPage(pageNum);
       setSearchTerm("");
     } else if (searchTerm.trim()) {
-      alert(
-        `Searching for: ${searchTerm}\n(Text search not implemented in this demo)`
-      );
+      alert(`Searching for: ${searchTerm}\n(Text search not implemented in this demo)`);
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       handleSearch(e as any);
     }
   };
 
   // Chapter selection
   const handleChapterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const chapter = e.target.value;
-    setSelectedChapter(chapter);
-
-    const chapterPageMap: { [key: string]: number } = {
-      "Chapter 1: Introduction": 1,
-      "Chapter 2: Fundamentals": Math.ceil(numPages * 0.2),
-      "Chapter 3: Advanced Topics": Math.ceil(numPages * 0.4),
-      "Chapter 4: Applications": Math.ceil(numPages * 0.6),
-      "Chapter 5: Conclusion": Math.ceil(numPages * 0.8),
-    };
-
-    if (chapterPageMap[chapter]) {
-      setCurrentPage(chapterPageMap[chapter]);
-    }
+    const chapterId = e.target.value;
+    setSelectedChapter(chapterId);
   };
 
   // Keyboard navigation
@@ -229,15 +265,16 @@ const DocumentReader: React.FC = () => {
 
             <div className="relative mb-4">
               <select
-              
                 value={selectedChapter}
                 onChange={handleChapterChange}
                 className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2 pr-10 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
               >
-                <option disabled>Select Chapter</option>
+                <option value="" disabled>
+                  Select Chapter
+                </option>
                 {chapters.map((chapter) => (
-                  <option key={chapter} value={chapter}>
-                    {chapter}
+                  <option key={chapter._id} value={chapter._id}>
+                    {chapter.chapterTitle}
                   </option>
                 ))}
               </select>
@@ -248,7 +285,7 @@ const DocumentReader: React.FC = () => {
 
             <div className="flex flex-col gap-2">
               <Button
-               color="bg-blue-600"
+                color="bg-blue-600"
                 textColor="text-white"
                 rounded="lg"
                 className="px-4 py-2 hover:bg-blue-700 transition-colors items-center justify-center"
@@ -269,9 +306,8 @@ const DocumentReader: React.FC = () => {
           </div>
         )}
 
-        {/* Desktop Header - All items in one row */}
+        {/* Desktop Header */}
         <div className="hidden lg:flex items-center justify-between space-x-4">
-          {/* Left side: Search and Chapter */}
           <div className="flex items-center space-x-4 flex-1">
             <form onSubmit={handleSearch} className="relative w-64">
               <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4">
@@ -293,10 +329,12 @@ const DocumentReader: React.FC = () => {
                 onChange={handleChapterChange}
                 className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2 pr-10 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
               >
-                <option disabled>Select Chapter</option>
+                <option value="" disabled>
+                  Select Chapter
+                </option>
                 {chapters.map((chapter) => (
-                  <option key={chapter} value={chapter}>
-                    {chapter}
+                  <option key={chapter._id} value={chapter._id}>
+                    {chapter.chapterTitle}
                   </option>
                 ))}
               </select>
@@ -306,7 +344,6 @@ const DocumentReader: React.FC = () => {
             </div>
           </div>
 
-          {/* Right side: Dashboard and Practice Exams buttons */}
           <div className="flex items-center space-x-2">
             <Button
               color="bg-gray-100"
@@ -359,7 +396,6 @@ const DocumentReader: React.FC = () => {
           </span>
         </div>
 
-        {/* Navigation buttons - Flex on mobile/tablet */}
         <div className="flex flex-row gap-2 w-full md:w-auto justify-center">
           <Button
             onClick={goToPreviousPage}
@@ -389,7 +425,26 @@ const DocumentReader: React.FC = () => {
       {/* Loading indicator */}
       {isLoading && (
         <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+          <svg
+            className="animate-spin h-12 w-12 text-green-500"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            ></circle>
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
           <span className="ml-3 text-gray-600">Loading document...</span>
         </div>
       )}
@@ -399,7 +454,7 @@ const DocumentReader: React.FC = () => {
         <div className="bg-white shadow-lg rounded-lg overflow-hidden h-full flex flex-col mx-0 sm:mx-2 lg:mx-4">
           <div className="flex-1 overflow-auto flex items-center justify-center p-2 sm:p-4 bg-gray-50">
             {!isLoading && !error && (
-              <div className="border shadow-lg bg-white p-2 sm:p-4 rounded w-full max-w-xl ">
+              <div className="border shadow-lg bg-white p-2 sm:p-4 rounded w-full max-w-xl">
                 <canvas
                   ref={canvasRef}
                   className="max-w-full h-auto block mx-auto"
@@ -415,7 +470,6 @@ const DocumentReader: React.FC = () => {
           {/* Bottom Navigation */}
           {!isLoading && !error && (
             <div className="p-3 sm:p-4 bg-gray-50 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
-              {/* Page input */}
               <div className="flex items-center space-x-2 w-full md:w-auto justify-center md:justify-start">
                 <span className="text-sm text-gray-600">Go to page:</span>
                 <input
@@ -433,7 +487,6 @@ const DocumentReader: React.FC = () => {
                 <span className="text-sm text-gray-600">of {numPages}</span>
               </div>
 
-              {/* Navigation buttons - Flex on mobile/tablet */}
               <div className="flex flex-row gap-2 w-full md:w-auto justify-center">
                 <Button
                   onClick={goToPreviousPage}
@@ -446,7 +499,6 @@ const DocumentReader: React.FC = () => {
                   <ArrowLeft />
                   Previous
                 </Button>
-
                 <Button
                   onClick={goToNextPage}
                   disabled={currentPage >= numPages}

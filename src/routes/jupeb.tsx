@@ -34,15 +34,15 @@ const AuthRoutes = () => {
         {/* TextBook */}
         <Route path="/textbook" element={<JupebPages.Textbook.Textbook />} />
         <Route
-          path="/topic/:id"
+          path="/topic/:bookId/:textBookName"
           element={<JupebPages.Textbook.TopicSingle />}
         />
         <Route
-          path="/topic/reader/:id"
+          path="/topic/reader/:bookId/:sectionId"
           element={<JupebPages.Textbook.DocumentReader />}
         />
         <Route
-          path="/past-question/reader/:id"
+          path="/past-question/reader/:bookId/:sectionId"
           element={<JupebPages.Textbook.DocumentReader />}
         />
         <Route
@@ -54,7 +54,7 @@ const AuthRoutes = () => {
           element={<JupebPages.PastQuestion.PastQuestion />}
         />
         <Route
-          path="/past-Question/single/:id"
+          path="/past-Question/single/:bookId/:textBookName"
           element={<JupebPages.PastQuestion.SinglePastQuestion />}
         />
 

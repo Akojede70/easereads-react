@@ -63,6 +63,15 @@ const VideoTutorial = () => {
           </Button>
         </div>
       </div>
+       {/* <div className="mb-6">
+          <SearchFilter
+            placeholder="Search Textbook"
+            onSearchChange={setSearchTerm}
+            onFilterChange={setSelectedChapter}
+            filterOptions={chapters}
+            filterLabel="Chapters"
+          />
+        </div> */}
       <div className="pl-[3%] md:ml-0 md:flex flex-wrap gap-[20px] mt-[20px]">
         <MiniCard icon={SmallVideo} title="Total Video" value={5} />
         <MiniCard icon={ExamTaken} title="Completed" value={2} />

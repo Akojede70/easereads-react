@@ -14,6 +14,8 @@ interface TopicCardProps {
     question?: string;
     viewNumber?: number;
     practiceNumber?: number;
+    bookId: string;
+    sectionId: string;
   };
 }
 
@@ -23,10 +25,10 @@ const TopicCard: React.FC<TopicCardProps> = ({ topic }) => {
 const handleCardClick = () => {
   if (topic.pages) {
     // Textbook
-    navigate(`/jupeb/topic/reader/${topic.id}`);
+    navigate(`/jupeb/topic/reader/${topic.bookId}/${topic.sectionId}`);
   } else if (topic.question) {
     // Past Question
-    navigate(`/jupeb/past-question/reader/${topic.id}`);
+    navigate(`/jupeb/past-question/reader/${topic.bookId}/${topic.sectionId}`);
   }
 };
 

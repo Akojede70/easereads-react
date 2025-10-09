@@ -11,7 +11,7 @@ export type RegisterFormData = {
 
 export const registerUser = async (payload: RegisterFormData) => {
   const response = await axiosInstance.post(
-    "/api/v2/student/register",
+    "/student/register",
     payload
   );
   // const { accessToken } = response.data.data;
@@ -27,11 +27,11 @@ export type LoginFormData = {
 };
 
 export const loginUser = async (payload: LoginFormData) => {
-  const response = await axiosInstance.post("/api/v2/student/login", payload);
+  const response = await axiosInstance.post("/student/login", payload);
   if (response.data && response.data.user) {
-    const { accessToken, refreshToken } = response.data.user;
-    localStorage.setItem("token", accessToken);
-    localStorage.setItem("refreshToken", refreshToken);
+
+    // localStorage.setItem("token", accessToken);
+    // localStorage.setItem("refreshToken", refreshToken);
   }
 
   return response.data;
@@ -45,7 +45,7 @@ export const passwordReset = async (payload: {
   otp: string;
 }) => {
   const response = await axiosInstance.put(
-    "/api/v2/student/reset-password",
+    "/student/reset-password",
     payload
   );
   return response.data;
@@ -55,7 +55,7 @@ export const passwordReset = async (payload: {
 
 export const ForgetPassword = async (email: string) => {
   const response = await axiosInstance.get(
-    `/api/v2/student/forgot-password/${email}`
+    `/student/forgot-password/${email}`
   );
 
   return response.data;
@@ -65,7 +65,7 @@ export const ForgetPassword = async (email: string) => {
 
 export const verification = async (payload: { email: string; otp: string }) => {
   const response = await axiosInstance.put(
-    "/api/v2/student/verify-email",
+    "/student/verify-email",
     payload
   );
   return response.data;
@@ -76,7 +76,7 @@ export const verifyPassword = async (payload: {
   otp: string;
 }) => {
   const response = await axiosInstance.post(
-    "/api/v2/student/reset-password-otp",
+    "/student/reset-password-otp",
     payload
   );
   return response.data;
@@ -84,7 +84,7 @@ export const verifyPassword = async (payload: {
 
 export const resendEmail = async (email: string) => {
   const response = await axiosInstance.get(
-    `/api/v2/student/resend-email/${email}`
+    `/student/resend-email/${email}`
   );
   return response.data;
 };
@@ -98,6 +98,6 @@ export type StudentProfileFormData = {
 };
 
 export const studentProfile = async (payload: StudentProfileFormData) => {
-  const response = await axiosInstance.post("/api/v2/student/profile", payload);
+  const response = await axiosInstance.post("/student/profile", payload);
   return response.data;
 };

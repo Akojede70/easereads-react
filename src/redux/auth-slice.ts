@@ -6,6 +6,8 @@ interface AuthState {
   firstName: string | null;
   lastName: string | null;
   accessToken: string | null;
+  userId: string | null,
+  program: string | null
   // isLoggedIn: boolean;       // true if user is fully logged in
 }
 
@@ -14,6 +16,9 @@ const initialState: AuthState = {
   firstName: null,
   lastName: null,
   accessToken: null,
+  userId: null,
+  program: null
+
   // isLoggedIn: false,
 };
 
@@ -29,12 +34,16 @@ const authSlice = createSlice({
         firstName?: string;
         lastName?: string;
         accessToken?: string;
+        userId?: string;
+        program?: string
       }>
     ) => {
       state.email = action.payload.email;
       state.firstName = action.payload.firstName || null;
       state.lastName = action.payload.lastName || null;
       state.accessToken = action.payload.accessToken || null;
+      state.userId = action.payload.userId || null;
+      state.program = action.payload.program || null;
       // state.isLoggedIn = !!action.payload.firstName; // true only if user has firstName (i.e., logged in)
     },
 
@@ -44,6 +53,8 @@ const authSlice = createSlice({
       state.firstName = null;
       state.lastName = null;
       state.accessToken = null;
+      state.userId = null;
+      state.program = null;
       // state.isLoggedIn = false;
     },
   },

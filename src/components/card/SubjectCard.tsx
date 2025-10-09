@@ -48,11 +48,13 @@ const SubjectCard: React.FC<Props> = ({ subject, variant, hasTaken }) => {
     );
   };
 
+
+
   const handleCardClick = () => {
     if (variant === "textbook") {
-      navigate(`/jupeb/topic/${subject.id}`);
+      navigate(`/jupeb/topic/${subject.bookId}/${subject.title}`);
     } else {
-      navigate(`/jupeb/past-Question/single/${subject.id}`);
+      navigate(`/jupeb/past-Question/single/${subject.bookId}/${subject.title}`);
     }
   };
 
