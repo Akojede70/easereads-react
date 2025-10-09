@@ -15,6 +15,7 @@ interface ChallengeCardProps {
   questions: number;
   time: string;
   date: string;
+  onStartQuiz?: () => void;
 }
 
  export const ChallengeCard: React.FC<ChallengeCardProps> = ({
@@ -30,6 +31,7 @@ interface ChallengeCardProps {
   questions,
   time,
   date,
+  onStartQuiz
 }) => {
   return (
     <div className="bg-primaryWhite mt-[30px] h-[250px] pt-[30px] rounded-[10px] ml-[2%] w-[95%] px-[4%]">
@@ -56,7 +58,7 @@ interface ChallengeCardProps {
           </div>
         </div>
         <div className="w-[13%]">
-          <Button>Start Quiz</Button>
+          <Button onClick={onStartQuiz} >Start Quiz</Button>
         </div>
       </div>
 

@@ -9,12 +9,14 @@ import type { ReduxStore } from '../../../redux/store'
 import { Services } from '../../../service'
 import type { LeaderboardUser } from '../../../types/overview'
 import type { QuizData, QuizHistoryItem } from '../../../types/quiz'
+import { useNavigate } from 'react-router-dom'
 
 const {   ComponentLoader  } = Helper;
 
 const Quiz = () => {
      const userId = useSelector((state: ReduxStore) => state.auth.userId);
      const [activeTab, setActiveTab] = useState("available");
+     const navigate = useNavigate()
      const [performanceOpen, setPerformanceOpen] = useState(false);
      const icons = [<QuizIcon />, <QuizIcon1 />, <QuizIcon2 />];
       const colors = ["#ffc67d", "#4cb851", "#ffffff", ];
@@ -222,6 +224,7 @@ const Quiz = () => {
         time={`${quiz.timePeriod || 0} mins`}
         subjectTextColor={subjectColor [index % subjectColor?.length]}
         date={new Date(quiz.createdAt).toLocaleDateString('en-GB', {
+
           weekday: 'long',
           day: 'numeric',
           month: 'short',
@@ -230,6 +233,13 @@ const Quiz = () => {
         subjectBorder={
          index === colors.length - 1 ? "1px solid #106EBE" : undefined
           }
+          onStartQuiz={() =>
+          navigate("/jupeb/quiz-question", {
+            state: {
+              quizId: quiz._id,
+            },
+          })
+        }
             />
           ))
         ) : (
