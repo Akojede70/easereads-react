@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { PageIcon, } from "../../assets/icon";
+
 
 interface TopicCardProps {
   topic: {
@@ -14,23 +14,15 @@ interface TopicCardProps {
     question?: string;
     viewNumber?: number;
     practiceNumber?: number;
-    bookId: string;
-    sectionId: string;
   };
 }
 
-const TopicCard: React.FC<TopicCardProps> = ({ topic }) => {
+const TopicVideoCard: React.FC<TopicCardProps> = ({ topic }) => {
   const navigate = useNavigate();
 
-const handleCardClick = () => {
-  if (topic.pages) {
-    // Textbook
-    navigate(`/jupeb/topic/reader/${topic.bookId}/${topic.sectionId}`);
-  } else if (topic.question) {
-    // Past Question
-    navigate(`/jupeb/past-question/reader/${topic.bookId}/${topic.sectionId}`);
-  }
-};
+  const handleCardClick = () => {
+    navigate(`/jupeb/topic/video-player/${topic.id}`);
+  };
 
   return (
     <div
@@ -39,26 +31,39 @@ const handleCardClick = () => {
     >
       <div>
         <div className="relative w-full h-40 sm:h-48">
-          <img
-            src={topic.img}
-            alt={`${topic.title} Model`}
-            className="w-full h-full object-cover rounded-tl-xl rounded-tr-xl"
-          />
+          <div className="relative w-full h-full">
+            <img
+              src={topic.img}
+              alt={`${topic.title}`}
+              className="w-full h-full object-cover rounded-tl-xl rounded-tr-xl"
+            />
+            <div className="absolute inset-0 bg-black opacity-50 rounded-tl-xl rounded-tr-xl"></div>
+          </div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <svg
+              width="64"
+              height="64"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="text-white"
+            >
+              <circle cx="12" cy="12" r="10" fill="white" opacity="0.75" />
+              <path d="M9 8L15 12L9 16V8Z" fill="currentColor" />
+            </svg>
+          </div>
         </div>
 
         <div className="px-4 sm:px-6 lg:px-7">
           {/* Title + Page Count or Question Count */}
           <div className="flex justify-between items-center mt-3 sm:mt-4">
             <div className="flex-1 min-w-0">
-              <h2 className="text-xl sm:text-2xl font-bold truncate">{topic.title}</h2>
+              <h2 className="text-xl sm:text-2xl font-bold truncate">
+                {topic.title}
+              </h2>
             </div>
 
-            <div className="flex items-center gap-1 ml-2 flex-shrink-0">
-              <span className="" > <PageIcon /> </span>
-              <span className="text-xs sm:text-sm text-gray-500">
-                {topic.pages || topic.question}
-              </span>
-            </div>
+            
           </div>
 
           {/* Topics Description */}
@@ -80,7 +85,9 @@ const handleCardClick = () => {
                 ))}
               </div>
               <div className="flex items-center bg-gray-200 rounded-lg py-1 px-2 ml-2">
-                <span className="text-xs sm:text-sm text-gray-600">{topic.rating}</span>
+                <span className="text-xs sm:text-sm text-gray-600">
+                  {topic.rating}
+                </span>
               </div>
             </div>
 
@@ -100,4 +107,4 @@ const handleCardClick = () => {
   );
 };
 
-export default TopicCard;
+export default TopicVideoCard;

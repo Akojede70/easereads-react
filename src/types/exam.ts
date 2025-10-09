@@ -1,11 +1,11 @@
         export type UserIdAndNumber = {
             program: string | null | undefined;
-            userId: number | null;
+            userId: number | null | undefined
         }
 
         export type UserIdNumberAndSubject = {
             program: string | null | undefined;
-            userId: number | null;
+            userId: number | null | undefined;
             subject: string | null | undefined;
         }
 

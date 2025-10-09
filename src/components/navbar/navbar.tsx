@@ -1,19 +1,37 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { Notification, Dp } from '../../assets/icon';
+import { Notification, Dp, HamburgerMenu } from '../../assets/icon';
 
-function Navbar() {
+interface NavbarProps {
+  onMenuToggle: () => void;
+}
+
+function Navbar({ onMenuToggle }: NavbarProps) {
   return (
-    <div className="w-full h-[75px]">
-      <div className="w-[85%] md:w-[97%] flex justify-center items-center gap-[20px] lg:justify-end lg:gap-[20px] pt-[30px] md:mr-[90px]">
-        <Notification />
-        <Link
-          to="/jupeb/user-profile"
-          className="flex items-center gap-[10px] hover:bg-gray-100 rounded-lg p-2 transition-colors"
+    <div className="w-full h-[75px] bg-white border-b border-gray-200">
+      <div className="w-full flex justify-between items-center px-4 md:px-6 pt-[30px]">
+        {/* Hamburger Menu Button */}
+        <button 
+          className="md:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
+          onClick={onMenuToggle}
+          aria-label="Toggle menu"
         >
-          <Dp />
-          <p className="font-bold md:text-[20px]">Emmanuel Kelvin</p>
-        </Link>
+          <HamburgerMenu />
+        </button>
+
+        {/* Empty div to balance the layout on mobile */}
+        <div className="md:hidden" />
+
+        {/* User section - always aligned to the right */}
+        <div className="flex items-center gap-4 md:gap-6 md:ml-auto">
+          <Notification />
+          <Link
+            to="/jupeb/user-profile"
+            className="flex items-center gap-3 hover:bg-gray-100 rounded-lg p-2 transition-colors"
+          >
+            <Dp />
+            <p className="font-bold text-lg hidden sm:block">Emmanuel Kelvin</p>
+          </Link>
+        </div>
       </div>
     </div>
   );

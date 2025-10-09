@@ -6,6 +6,8 @@ import LiveClass from './LiveClass';
 import Others from './Others';
 import Subscription from './subscription';
 import Quiz from './quiz';
+import VideoTutorial from './VideoTutorial';
+import Analytics from './Analytics';
 
 
 
@@ -17,7 +19,9 @@ const JupebPages = {
    LiveClass,
    Others,
    Subscription,
-   Quiz
+   Quiz,
+   VideoTutorial,
+   Analytics
 }
 
 export default JupebPages

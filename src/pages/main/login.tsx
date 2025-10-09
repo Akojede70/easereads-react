@@ -51,8 +51,8 @@ const Login = () => {
                   firstName: response.data.firstName,
                   lastName: response.data.lastName,
                   accessToken: response.data.accessToken,
-                  program: response.data.program,
                   userId: response.data.userId,
+                  program: response.data.program,
                 }))
                 setShowAlert(true)
                 setAlertMessage(response?.message)

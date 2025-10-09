@@ -1,5 +1,3 @@
-// components/card/SubjectCard.tsx
-
 import React from "react";
 import { ProgressBar } from "../progressbar/progressbar";
 import { Stars } from "../../assets/icon/star";
@@ -22,11 +20,9 @@ interface Subject {
 
 interface Props {
   subject: Subject;
-  variant: "textbook" | "past-question";
-  hasTaken?: boolean; // Only for past-question variant
 }
 
-const SubjectCard: React.FC<Props> = ({ subject, variant, hasTaken }) => {
+const VideoCard: React.FC<Props> = ({ subject }) => {
   const navigate = useNavigate();
 
   const renderStars = () => {
@@ -48,14 +44,8 @@ const SubjectCard: React.FC<Props> = ({ subject, variant, hasTaken }) => {
     );
   };
 
-
-
   const handleCardClick = () => {
-    if (variant === "textbook") {
-      navigate(`/jupeb/topic/${subject.bookId}/${subject.title}`);
-    } else {
-      navigate(`/jupeb/past-Question/single/${subject.bookId}/${subject.title}`);
-    }
+    navigate(`/jupeb/video-topics/${subject.id}`);
   };
 
   return (
@@ -67,14 +57,33 @@ const SubjectCard: React.FC<Props> = ({ subject, variant, hasTaken }) => {
         <div className="relative w-full h-40 sm:h-48">
           <div className="absolute bg-gray-100 rounded-3xl top-3 sm:top-4 left-3 sm:left-4 py-1 sm:py-2 px-4 sm:px-6 z-10">
             <h3 className="text-sm sm:text-base font-semibold text-gray-700">
-              {variant === "textbook" ? "Textbook" : "Past Question"}
+              Subject
             </h3>
           </div>
-          <img
-            src={subject.img}
-            alt={`${subject.title}`}
-            className="w-full h-full object-cover rounded-tl-xl rounded-tr-xl"
-          />
+          <div className="relative w-full h-full">
+            <img
+              src={subject.img}
+              alt={`${subject.title}`}
+              className="w-full h-full object-cover rounded-tl-xl rounded-tr-xl"
+            />
+            <div className="absolute inset-0 bg-black opacity-50 rounded-tl-xl rounded-tr-xl"></div>
+          </div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <svg
+              width="64"
+              height="64"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="text-white"
+            >
+              <circle cx="12" cy="12" r="10" fill="white" opacity="0.75" />
+              <path
+                d="M9 8L15 12L9 16V8Z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
         </div>
 
         <div className="px-4 sm:px-7">
@@ -84,13 +93,6 @@ const SubjectCard: React.FC<Props> = ({ subject, variant, hasTaken }) => {
             </h2>
 
             <div className="flex flex-col items-end space-y-1">
-              {variant === "past-question" &&
-                subject.questions !== undefined && (
-                  <p className="text-xs font-semibold text-gray-700 bg-[#4CB8514D] py-1 px-3 rounded-full">
-                    {subject.questions} Questions
-                  </p>
-                )}
-
               {subject.isExpired ? (
                 <p className="text-xs font-bold bg-[#4CB8514D] py-1 px-3 rounded-full">
                   Expired
@@ -140,64 +142,49 @@ const SubjectCard: React.FC<Props> = ({ subject, variant, hasTaken }) => {
 
           {/* Buttons Section */}
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-4 mb-6">
-            {/* --- TEXTBOOK VARIANT --- */}
-            {variant === "textbook" && (
-              <>
-                <Button
-                  color="bg-white"
-                  textColor="text-gray-800"
-                  className="w-full sm:flex-1 border border-blue-600"
-                  rounded="full"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate(`/jupeb/analytics/${subject.id}`);
-                  }}
-                >
-                  View Analytics
-                </Button>
-                {subject.isExpired ? (
-                  <Button
-                    color="bg-gray-400"
-                    textColor="text-white"
-                    className="w-full sm:flex-1"
-                    rounded="full"
-                    disabled
-                  >
-                    Upgrade
-                  </Button>
-                ) : subject.progress === 0 ? (
-                  <Button
-                    color="bg-blue-600"
-                    textColor="text-white"
-                    className="w-full sm:flex-1"
-                    rounded="full"
-                  >
-                    Read
-                  </Button>
-                ) : (
-                  <Button
-                    color="bg-blue-600"
-                    textColor="text-white"
-                    className="w-full sm:flex-1"
-                    rounded="full"
-                  >
-                    Continue Reading
-                  </Button>
-                )}
-              </>
-            )}
-
-            {/* --- PAST QUESTION VARIANT --- */}
-            {variant === "past-question" && (
+            <>
               <Button
-                color="bg-blue-600"
-                textColor="text-white"
-                className="w-full sm:flex-1"
+                color="bg-white"
+                textColor="text-gray-800"
+                className="w-full sm:flex-1 border border-blue-600"
                 rounded="full"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/jupeb/analytics/${subject.id}`);
+                }}
               >
-                {hasTaken ? "Retake Question" : "Practice"}
+                View Analytics
               </Button>
-            )}
+              {subject.isExpired ? (
+                <Button
+                  color="bg-gray-400"
+                  textColor="text-white"
+                  className="w-full sm:flex-1"
+                  rounded="full"
+                  disabled
+                >
+                  Upgrade
+                </Button>
+              ) : subject.progress === 0 ? (
+                <Button
+                  color="bg-blue-600"
+                  textColor="text-white"
+                  className="w-full sm:flex-1"
+                  rounded="full"
+                >
+                  Watch Tutorial
+                </Button>
+              ) : (
+                <Button
+                  color="bg-blue-600"
+                  textColor="text-white"
+                  className="w-full sm:flex-1"
+                  rounded="full"
+                >
+                  Continue Watching
+                </Button>
+              )}
+            </>
           </div>
         </div>
       </div>
@@ -205,4 +192,4 @@ const SubjectCard: React.FC<Props> = ({ subject, variant, hasTaken }) => {
   );
 };
 
-export default SubjectCard;
+export default VideoCard;

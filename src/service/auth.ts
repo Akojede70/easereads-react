@@ -22,14 +22,14 @@ export const loginUser = async (payload: LoginFormData) => {
     return response.data; 
 };
 
-// reset Password 
+// reset Password
 
 export const passwordReset = async (payload: {email: string, password: string, otp: string}) => {
     const response = await axiosInstance.put('/student/reset-password', payload);
     return response.data; 
 };
 
-// forget password 
+// forget password
 
 export const ForgetPassword = async (email: string) => {
     const response = await axiosInstance.get(`/student/forgot-password/${email}`,);
@@ -37,7 +37,7 @@ export const ForgetPassword = async (email: string) => {
     return response.data; 
 };
 
-// verify email 
+// verify email
 
 export const verification = async (payload: {email: string, otp: string}) => {
     const response = await axiosInstance.put('/student/verify-email', payload);

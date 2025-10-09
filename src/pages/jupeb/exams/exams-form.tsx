@@ -179,7 +179,7 @@ const ExamForm = () => {
 
 
   return (
-    <Layout name='Exams History ' >
+    <Layout >
       <div onClick={handleGoBack} className='w-full bg-primaryWhite cursor-pointer h-[90px] md:h-[80px] pt-[15px] md:pt-[15px] pl-[7%] md:pl-[3%] border-t border-b flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
                 <BackButton />
             </div>
