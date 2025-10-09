@@ -3,7 +3,7 @@ import { Button } from "../shared";
 
 interface ChallengeCardProps {
   icon: React.ReactNode // any React component (like QuizIcon, TimeIcon, etc.)
-  title: string;
+  title: string [];
   description: string;
   badgeText: string;
   badgeColor?: string; // optional, default is #ffc67d

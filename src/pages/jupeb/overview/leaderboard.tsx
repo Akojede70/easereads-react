@@ -7,7 +7,7 @@ import { Services } from '../../../service';
 import { Helper } from '../../../components';
 import type { LeaderboardUser } from '../../../types/overview';
 
-const {   Spinner  } = Helper;
+const {   ComponentLoader  } = Helper;
 
 const Leaderboard = () => {
         const navigate = useNavigate()
@@ -181,7 +181,7 @@ const Leaderboard = () => {
         
         <div className='w-[900px] mx-auto md:w-full flex flex-col lg:flex-row items-center justify-center gap-[20px]'>
           {
-            loading ? <Spinner top={22} /> : leaderBoardInformation && leaderBoardInformation.slice(0, 2).map((item, index) => (
+            loading ? <ComponentLoader  /> : leaderBoardInformation && leaderBoardInformation.slice(0, 2).map((item, index) => (
               <LeaderboardCard
               key={index} 
               avatar={<LeaderboardPics />}

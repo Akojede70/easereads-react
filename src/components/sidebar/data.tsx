@@ -46,6 +46,14 @@ const paths: Path[] = [
         name: "Exam Practice",
         path: '/jupeb/exam-history',
     },
+     {
+        id: 4,
+        icon: (
+            <Exam/>
+        ),
+        name: "Quiz",
+        path: '/jupeb/quiz',
+    },
     {
         id: 5,
         icon: (

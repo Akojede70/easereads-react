@@ -1,13 +1,81 @@
-import React, { useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import Layout from '../../../components/layout/layout'
 import { QuizIcon, RedStreakIcon, QuizIcon1, QuizIcon2, LeaderboardPics, FirstTag, SecondTag, ThirdTag, UpperBoldTriangle, DownBoldTriangle, Cup,  } from '../../../assets/icon'
 import { Button, Modal } from '../../../components/shared'
 import { ChallengeCard, LeaderboardCard, LongCard, QuizChallengeCard } from '../../../components/card'
+import { useSelector } from 'react-redux'
+import { Helper } from '../../../components';
+import type { ReduxStore } from '../../../redux/store'
+import { Services } from '../../../service'
+import type { LeaderboardUser } from '../../../types/overview'
+import type { QuizData, QuizHistoryItem } from '../../../types/quiz'
+
+const {   ComponentLoader  } = Helper;
 
 const Quiz = () => {
-
-     const [activeTab, setActiveTab] = useState("subscription");
+     const userId = useSelector((state: ReduxStore) => state.auth.userId);
+     const [activeTab, setActiveTab] = useState("available");
      const [performanceOpen, setPerformanceOpen] = useState(false);
+     const icons = [<QuizIcon />, <QuizIcon1 />, <QuizIcon2 />];
+      const colors = ["#ffc67d", "#4cb851", "#ffffff", ];
+      const subjectColor = ["#000", "#fff", "#106EBE"]
+     // types.ts (optional)
+
+
+     const [availableQuizData, setAvailableQuizData] = useState<QuizData[]>([])
+     const [historyData, setHistoryData] = useState<QuizHistoryItem[]>([])
+     const [leaderBoardInformation, setLeaderBoardInformation] = useState<LeaderboardUser[]>([]);
+     
+    const [loading, setLoading] = useState({
+      availableQuiz: false,
+      history: false,
+      leaderBoard: false
+    })
+
+            const fetchAvailableQuizData = async () => {
+          if (!userId) return;
+          try {
+            setLoading(prev => ({ ...prev, availableQuiz: true }));
+            const response = await Services.quiz.fetchAvailableQuiz(userId);
+            setAvailableQuizData(response?.data || []);
+          } catch (error) {
+            void error;
+          } finally {
+            setLoading(prev => ({ ...prev, availableQuiz: false }));
+          }
+        };
+
+        const fetchHistoryQuizData = async () => {
+          if (!userId) return;
+          try {
+            setLoading(prev => ({ ...prev, history: true }));
+            const response = await Services.quiz.fetchHistory(userId);
+            setHistoryData(response?.data || []);
+          } catch (error) {
+            void error;
+          } finally {
+            setLoading(prev => ({ ...prev, history: false }));
+          }
+        };
+  
+      const leaderboard = async () => {
+         if (!userId) return;
+          try {
+            setLoading(prev => ({ ...prev, leaderboard: true }));
+            const response = await Services.quiz.leaderboard();
+            setLeaderBoardInformation(response?.data || []);
+          } catch (error) {
+            void error;
+          } finally {
+            setLoading(prev => ({ ...prev, leaderboard: false }));
+          }
+      }
+
+      useEffect (() => {
+        if (userId) {
+          fetchAvailableQuizData()
+        }
+      }, [userId])
 
   return (
     <div>
@@ -76,9 +144,15 @@ const Quiz = () => {
           <Button
              color='bg-[#f5f5f5]'
             textColor='text-[#333333]'
-            onClick={() => setActiveTab("subscription")}
+            // onClick={() => setActiveTab("available")}
+             onClick={() => {
+            setActiveTab("available");
+            if (availableQuizData.length === 0 && userId) {
+              void fetchAvailableQuizData();
+            }
+          }}
             className={`font-bold text-[16px] rounded-xl ${
-              activeTab === "subscription" ? "bg-primaryBlue text-white" : ""
+              activeTab === "available" ? "bg-primaryBlue text-white" : ""
             }`}
           >
             Available Quiz
@@ -89,7 +163,12 @@ const Quiz = () => {
           <Button
              color='bg-[#f5f5f5]'
             textColor='text-[#333333]'
-            onClick={() => setActiveTab("history")}
+            onClick={() => {
+            setActiveTab("history");
+            if (historyData.length === 0 && userId) {
+              void fetchHistoryQuizData();
+            }
+          }}
             className={`font-bold text-[16px] rounded-xl ${
               activeTab === "history"
                 ? "bg-primaryBlue text-white"
@@ -104,7 +183,12 @@ const Quiz = () => {
           <Button
             color='bg-[#f5f5f5]'
             textColor='text-[#333333]'
-            onClick={() => setActiveTab("leaderboard")}
+            onClick={() => {
+            setActiveTab("leaderboard");
+            if (leaderBoardInformation.length === 0 && userId) {
+              void leaderboard();
+            }
+          }}
             className={`font-bold text-[16px] rounded-xl ${
               activeTab === "leaderboard"
                 ? "bg-primaryBlue text-white"
@@ -118,107 +202,92 @@ const Quiz = () => {
 
       {/* Tab Content */}
       <div className="mt-[30px] mb-[140px]">
-        {activeTab === "subscription" && (
+        {activeTab === "available" && (
         
         <div>
-            <ChallengeCard
-                 icon={<QuizIcon />}  
-                 title="Daily Physics Challenge"
-                 description="Test your Physics knowledge with today's Challenge"
-                 badgeText="Physics"
-                 badgeColor="#ffc67d"
-                 participants={10}
-                 questions={10}
-                 time="15mins"
-                 date="Friday Sep 26th, 2025"
-               />
-                <ChallengeCard
-                 icon={<QuizIcon1 />}  
-                 title="Chemistry Quick Quiz"
-                 description="Quick chemistry concepts review"
-                 badgeText="Chemistry"
-                 badgeColor="#4cb851"
-                 participants={10}
-                 questions={10}
-                 time="15mins"
-                 date="Friday Sep 26th, 2025"
-                 subjectTextColor='#fff'
-               />
-                <ChallengeCard
-                 icon={<QuizIcon2 />}  
-                 title="Maths Lightning Round"
-                 description="Quick maths concepts review"
-                 badgeText="Maths"
-                 badgeColor="#fff"
-                 participants={10}
-                 questions={10}
-                 time="15mins"
-                 date="Friday Sep 26th, 2025"
-                 subjectBorder='1px solid #106EBE'
-                 subjectTextColor='#106EBE'
-               />
+
+          {loading.availableQuiz ? (
+            <ComponentLoader />
+  ) : availableQuizData && availableQuizData?.length > 0 ? (
+    availableQuizData.map((quiz, index) => (
+      <ChallengeCard
+        key={quiz._id || index}
+        icon={icons[index % icons.length]}  
+        title={quiz.topics}
+        description={`Test your ${quiz.title} knowledge with today's challenge`}
+        badgeText={quiz.title}
+         badgeColor={colors[index % colors.length]}
+        participants={quiz.participants || 0}
+        questions={quiz.totalQuestion || 0}
+        time={`${quiz.timePeriod || 0} mins`}
+        subjectTextColor={subjectColor [index % subjectColor?.length]}
+        date={new Date(quiz.createdAt).toLocaleDateString('en-GB', {
+          weekday: 'long',
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric'
+        })}
+        subjectBorder={
+         index === colors.length - 1 ? "1px solid #106EBE" : undefined
+          }
+            />
+          ))
+        ) : (
+          <p className='text-center'>No quizzes available</p>
+        )} 
            </div>
         )}
 
         {activeTab === "history" && (
            
              <div>
-            <QuizChallengeCard
-                 icon={<QuizIcon />}  
-                 title="Chemistry Basics"
-                 description="Test your Physics knowledge with today's Challenge"
-                 participants={10}
-                 questions={10}
-                 time="15mins"
-                 date="Today"
-                 accuracyPercentage="80%"
-                 accuracyTextColor="#4cb851"
-               />
-                <QuizChallengeCard
-                 icon={<QuizIcon1 />}  
-                 title="Chemistry Basics"
-                 description="Test your Physics knowledge with today's Challenge"
-                 participants={10}
-                 questions={10}
-                 time="15mins"
-                 date="Yesterday"
-                 accuracyPercentage="80%"
-                 accuracyTextColor="#d32f2f"
-               />
+              {loading.history ? (
+      <ComponentLoader />
+    ) : historyData && historyData?.length > 0 ? (
+      historyData.map((item, index) => (
+        <QuizChallengeCard
+          key={item.attemptId}
+          icon={icons[index % icons.length]} // You can rotate icons like before if you want
+          title={item.title}
+          description={`Test your ${item.title} knowledge with today's Challenge`}
+          participants={item.participants}
+          questions={item.questions}
+          time="15 mins"  // or calculate from item.timePeriod if available
+          date={new Date(item.createdAt).toLocaleDateString('en-GB', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+          })}
+          accuracyPercentage={`${Math.ceil((parseFloat(item.percentage)))}%`}
+          accuracyTextColor={parseFloat(item.percentage) >= 50 ? "#4cb851" : "#d32f2f"}
+        />
+      ))
+    ) : (
+      <p className='text-center'>No quiz history available</p>
+    )}
            </div>
 
         )}
 
         {activeTab === "leaderboard" && (
           <div>
-           <div className=' w-[900px] mx-auto md:w-full flex flex-col lg:flex-row items-center justify-center gap-[20px]'>
-          <LeaderboardCard
-        avatar={<LeaderboardPics />}
-        name="Emmanuel 28"
-        level={12}
-        tag={<FirstTag />}
-        progress={70}
-        rankLabel="1st"
-      />
-       <LeaderboardCard
-        avatar={<LeaderboardPics />}
-        name="Emmanuel 28"
-        level={12}
-        tag={<SecondTag />}
-        progress={70}
-        rankLabel="1st"
-      />
-       <LeaderboardCard
-        avatar={<LeaderboardPics />}
-        name="Emmanuel 28"
-        level={12}
-        tag={<ThirdTag />}
-        progress={70}
-        rankLabel="1st"
-      />
 
-     
-        </div>
+             <div className='w-[900px] mx-auto md:w-full flex flex-col lg:flex-row items-center justify-center gap-[20px]'>
+                      {
+                        loading.leaderBoard ? <ComponentLoader  />  : leaderBoardInformation && leaderBoardInformation.slice(0, 2).map((item, index) => (
+                          <LeaderboardCard
+                          key={index} 
+                          avatar={<LeaderboardPics />}
+                          name={item.name}
+                          level={item.level}
+                          tag={ index === 0 ? <FirstTag /> : index === 1 ? <SecondTag /> : index === 2 ? <ThirdTag /> : <div className='w-[70px] h-[30px] bg-[#E0E0E0] rounded-[5px] flex items-center justify-center'><p className='text-[14px] font-bold text-[#333333]'>{index + 1}th</p></div>}
+                          progress={item.level}
+                          rankLabel={ index === 0 ? "1st" : index === 1 ? "2nd" : index === 2 ? "3rd" : `${index + 1}th`}
+                        />
+                        ))
+                      }
+                    </div>
          <div className='flex  md:pb-[90px] mt-[30px] flex-col gap-[20px] items-center justify-center'>
               <LongCard
                name="Emmanuel"

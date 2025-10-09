@@ -365,7 +365,7 @@ const Overview = () => {
 
 
               
-              {  loading.progress ? <Spinner top={20}/> : progressPercentage.exams.map((item, index) => (
+              {  loading.progress ? <Spinner paddingTop={20}/> : progressPercentage.exams.map((item, index) => (
              <ProgressBarWithAction
                key={`textbook-${index}`}
                label={item.title}
