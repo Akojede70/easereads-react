@@ -19,7 +19,8 @@ const { Spinner, ComponentLoader  } = Helper;
 
 
 const Overview = () => { 
-
+          const firstName = useSelector((state: ReduxStore) => state.auth.firstName);
+          const lastName = useSelector((state: ReduxStore) => state.auth.lastName);
           const userId = useSelector((state: ReduxStore) => state.auth.userId);
           const [activeTab, setActiveTab] = useState<"textbook" | "video" | "exam">('textbook');
           const currentLevel = 3;
@@ -106,11 +107,11 @@ const Overview = () => {
   
 
   return (
-    <Layout name='overview ' >
-       <div className='w-[70%] lg:w-full mt-[20px] lg:mt-0 ml-[2%] md:ml-[3%]  lg:ml-0 pl-[13px] md:pl-[40px] border lg:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
+    <Layout >
+       <div className='w-[88.5%] md:w-[93%] lg:w-full mt-[20px] lg:mt-0 ml-[6%] md:ml-[3%]  lg:ml-0 pl-[13px] md:pl-[40px] border lg:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
                   <div>
                       <p className='text-[20px] md:text-4xl flex flex-col font-bold pt-[30px]'> Overview</p>
-                      <p className='w-[70%] md:w-[78%] lg:w-full text-[12px] md:text-[18px] lg:text-[16px] pt-[10px] pb-[15px] pl-[5px]'> Hi Emmanuel Kelvin, here's your progress today!</p>
+                      <p className='w-[70%] md:w-[78%] lg:w-full text-[12px] md:text-[18px] lg:text-[16px] pt-[10px] pb-[15px] pl-[5px]'> Hi {firstName + " " + lastName}, here's your progress today!</p>
                   </div>
                   <div className='w-[95%] lg:w-[20%] flex h-[60px] lg:pt-[40px]'>
                       <div>
@@ -128,10 +129,10 @@ const Overview = () => {
                   </div>
                   </div>
                   <div className='md:pl-[2.9%] mt-[4%] md:mt-[2%]'>
-      <div className="relative w-[70%] md:w-[73%] lg:w-[98%] ml-[8px] md:ml-0 h-[250px] md:h-[225px] bg-[#087cdf] text-white p-4 rounded-[5px] lg:rounded-lg overflow-hidden flex gap-[290px] ">
+      <div className="relative w-[88%] md:w-[96%] lg:w-[98%] ml-[29px] md:ml-0 h-[250px] md:h-[225px] bg-[#087cdf] text-white p-4 rounded-[5px] lg:rounded-lg overflow-hidden flex gap-[290px] ">
       {/* Banner content */}
       <div className="pl-[1%] md:pl-[7%] lg:pl-[50px]">
-        <div className='w-[280px] md:w-[320px] lg:w-[80%]'>
+        <div className='w-[280px] md:w-[390px] lg:w-[80%]'>
         <h2 className="text-[15px] md:text-[18px] lg:text-3xl font-bold pt-[20px]">Upgrade to Premium & Save 40%</h2>
         <p className="w-[80%] md:w-[97%] mt-[20px] text-[15px] md:text-[16.5px] lg:text-[16px]">
           Get unlimited access to all textbooks, live classes, and AI tutoring Limited  time offer ending soon!
@@ -150,7 +151,7 @@ const Overview = () => {
       </div>
      </div>
 
-     <div className='ml-[3%] md:ml-0 md:flex flex-wrap gap-[20px] mt-[20px]'>
+     <div className='ml-[6%] md:ml-0 md:flex flex-wrap gap-[20px] mt-[20px]'>
       <MiniCard 
       icon={SmallVideo} 
       title="Textbooks Read" 
@@ -173,9 +174,9 @@ const Overview = () => {
       />
      </div>
     
-     <div className='lg:flex gap-[30px]'>
+     <div className='lg:flex gap-[30px] mt-[30px] sm:mt-0'>
       
-      <div className="ml-[3%] md:ml-0 w-[67%] md:w-[73%] lg:w-[60%] flex gap-[60px] mb-6">
+      <div className="ml-[6%] md:ml-0 w-[88%] md:w-[96%] lg:w-[60%] flex gap-[60px] mb-6">
         <div className="w-[100%] h-[320px] bg-primaryWhite p-2 md:p-4 rounded-[15px] shadow">
           <div className='flex px-1 md:px-4 justify-between'>
             <div>
@@ -213,7 +214,7 @@ const Overview = () => {
         </div>   
       </div>
 
-      <div className='ml-[3%] md:ml-0  h-[230px] md:h-[325px] w-[66%] md:w-[73%] lg:w-[35%]  bg-primaryWhite  mb-[20px] rounded-[15px]'>
+      <div className='ml-[6%] md:ml-0  h-[230px] md:h-[325px] w-[87%] md:w-[96%] lg:w-[35%]  bg-primaryWhite  mb-[20px] rounded-[15px]'>
         <p className='pl-[20px] pt-[20px] text-[16px] md:text-[20px] font-bold'> Referral Points </p>
         <div className='text-center'>
             <p className='text-[16px] md:text-[20px] pt-[20px] md:pt-[60px] font-bold'> 2,400 <span className='text-[13px]'> Total points</span></p>
@@ -233,8 +234,8 @@ const Overview = () => {
      </div>
 
       {/* Main Content Row */}
-      <div className="w-full lg:flex gap-[30px]">
-        <div className="ml-[3%] md:ml-0 mb-[7%] lg:mb-0 w-[67%] md:w-[73%] lg:w-[60%] bg-primaryWhite p-[20px] rounded-[20px] shadow">
+      <div className="w-full lg:flex gap-[30px] mt-[6%] sm:mt-0">
+        <div className="ml-[6%] md:ml-0 mb-[7%] lg:mb-0 w-[87%] md:w-[96%] lg:w-[60%] bg-primaryWhite p-[20px] rounded-[20px] shadow">
           <div className='flex justify-between px-1 lg:px-4 font-bold text-[14px] md:text-[17px]'>
               <p> Upcoming Quiz</p>
           <p className='text-primaryBlue underline cursor-pointer'> See All</p> 
@@ -265,14 +266,14 @@ const Overview = () => {
         </div>
 
         {/* Leaderboard */}
-        <div className="ml-[3%] md:ml-0 w-[67%] md:w-[73%] lg:w-[35%] bg-primaryWhite p-4 rounded-[15px] shadow">
+        <div className="ml-[6%] md:ml-0 w-[86%] md:w-[95%] lg:w-[35%] bg-primaryWhite p-4 rounded-[15px] shadow">
           <div className='flex justify-between px-1 md:px-4 mt-[2%] md:mt-0'>
              <h3 className="pt-[15px] md:pt-0 text-[13px] md:text-[17px] font-bold">Leaderboard</h3>
           <button className="mt-2 text-primaryBlue font-bold underline text-[16px] cursor-pointer" onClick={() => navigate('/jupeb/leaderboard')}>See All</button>
           </div>
           <div className='text-[14px] md:text-[16px] my-[20px] md:w-[94%] md:ml-[18px]'>
 
-            {leaderBoardInformation && leaderBoardInformation.slice(0, 4).map((user: LeaderboardUser, index: number) => (
+            {loading.leaderboard ? <ComponentLoader /> : leaderBoardInformation && leaderBoardInformation.slice(0, 4).map((user: LeaderboardUser, index: number) => (
               <UserRankCard  
                 key={index}
                 name={'Peter Bass'}
@@ -287,7 +288,7 @@ const Overview = () => {
       </div>
 
       <div className='lg:flex md:gap-[30px]'>
-         <div className="bg-primaryWhite p-4 rounded-[15px] shadow ml-[3%] md:ml-0 w-[67%] md:w-[73%] lg:w-[55%] mt-[30px] mb-[40px] lg:mb-[120px]">
+         <div className="bg-primaryWhite p-4 rounded-[15px] shadow ml-[6%] md:ml-0 w-[85%] md:w-[95%] lg:w-[55%] mt-[30px] mb-[40px] lg:mb-[120px]">
           <div className='mb-[20px] lg:mt-[16px]'>
             <p className='text-[17px] font-bold'> Continue Learning</p>
             <p className='text-[14px] py-[8px]'> Pick up where you left off </p>
@@ -330,7 +331,8 @@ const Overview = () => {
       <div className="mt-4">
         {activeTab === "textbook" && (
           <div className='md:px-4 flex flex-col'>
-            {progressPercentage.textbooks.map((item, index) => (
+
+            { loading?.progress ? <ComponentLoader /> :progressPercentage.textbooks.map((item, index) => (
              <ProgressBarWithAction
                key={`textbook-${index}`}
                label={item.title}
@@ -381,7 +383,7 @@ const Overview = () => {
       </div>
     </div>
 
-    <div className='ml-[3%] md:ml-0 w-[68%] md:w-[73%] lg:w-[40%] h-[630px] md:h-[463px] mt-[10px] lg:mt-[30px] bg-primaryWhite rounded-[15px] mb-[120px] lg:mb-0'>
+    <div className='ml-[6%] md:ml-0 w-[85%] md:w-[95%] lg:w-[40%] h-[630px] md:h-[463px] mt-[10px] lg:mt-[30px] bg-primaryWhite rounded-[15px] mb-[120px] lg:mb-[7.5%]'>
        <div className='flex justify-between px-6 font-bold pt-[20px] text-[14px] md:text-[18px]'>
               <p> Upcoming Classes</p>
           <p className='text-primaryBlue underline cursor-pointer pr-2'> See All</p> 

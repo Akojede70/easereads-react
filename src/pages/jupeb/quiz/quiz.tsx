@@ -15,7 +15,7 @@ const {   ComponentLoader  } = Helper;
 
 const Quiz = () => {
      const userId = useSelector((state: ReduxStore) => state.auth.userId);
-     const [activeTab, setActiveTab] = useState("leaderboard");
+     const [activeTab, setActiveTab] = useState("available");
      const navigate = useNavigate()
      const icons = [<QuizIcon />, <QuizIcon1 />, <QuizIcon2 />];
       const colors = ["#ffc67d", "#4cb851", "#ffffff", ];
@@ -170,162 +170,163 @@ const Quiz = () => {
         </div>
       </div>
 
-      {/* Tab Content */}
-      <div className="mt-[30px] mb-[140px]">
-        {activeTab === "available" && (
-        
-        <div>
+              {/* Tab Content */}
+              <div className="mt-[30px] mb-[140px]">
+                {activeTab === "available" && (
+                
+                <div>
 
-          {loading.availableQuiz ? (
-            <ComponentLoader />
-  ) : availableQuizData && availableQuizData?.length > 0 ? (
-    availableQuizData.map((quiz, index) => (
-      <ChallengeCard
-        key={quiz._id || index}
-        icon={icons[index % icons.length]}  
-        title={`${quiz.period} ${quiz.title} challenge`}
-        description={`Test your ${quiz.title} knowledge with today's challenge`}
-        badgeText={quiz.title}
-         badgeColor={colors[index % colors.length]}
-        participants={quiz.participants || 0}
-        questions={quiz.totalQuestion || 0}
-        time={`${quiz.timePeriod || 0} mins`}
-        subjectTextColor={subjectColor [index % subjectColor?.length]}
-        date={new Date(quiz.createdAt).toLocaleDateString('en-GB', {
+                  {loading.availableQuiz ? (
+                    <ComponentLoader />
+          ) : availableQuizData && availableQuizData?.length > 0 ? (
+            availableQuizData.map((quiz, index) => (
+              <ChallengeCard
+                key={quiz._id || index}
+                icon={icons[index % icons.length]}  
+                title={`${quiz.period} ${quiz.title} challenge`}
+                description={`Test your ${quiz.title} knowledge with today's challenge`}
+                badgeText={quiz.title}
+                badgeColor={colors[index % colors.length]}
+                participants={quiz.participants || 0}
+                questions={quiz.totalQuestion || 0}
+                time={`${quiz.timePeriod || 0} mins`}
+                subjectTextColor={subjectColor [index % subjectColor?.length]}
+                date={new Date(quiz.createdAt).toLocaleDateString('en-GB', {
 
-          weekday: 'long',
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric'
-        })}
-        subjectBorder={
-         index === colors.length - 1 ? "1px solid #106EBE" : undefined
-          }
-          onStartQuiz={() =>
-          navigate("/jupeb/quiz-question", {
-            state: {
-              quizId: quiz._id,
-            },
-          })
-        }
-            />
-          ))
-        ) : (
-          <p className='text-center'>No quizzes available</p>
-        )} 
-           </div>
-        )}
+                  weekday: 'long',
+                  day: 'numeric',
+                  month: 'short',
+                  year: 'numeric'
+                })}
+                subjectBorder={
+                index === colors.length - 1 ? "1px solid #106EBE" : undefined
+                  }
+                  onStartQuiz={() =>
+                  navigate("/jupeb/quiz-question", {
+                    state: {
+                      quizId: quiz._id,
+                    },
+                  })
+                }
+                    />
+                  ))
+                ) : (
+                  <p className='text-center'>No quizzes available</p>
+                )} 
+                  </div>
+                )}
 
-        {activeTab === "history" && (
-           
-             <div>
-              {loading.history ? (
-      <ComponentLoader />
-    ) : historyData && historyData?.length > 0 ? (
-      historyData.map((item, index) => (
-        <QuizChallengeCard
-          key={item.attemptId}
-          icon={icons[index % icons.length]} // You can rotate icons like before if you want
-          title={item.title}
-          description={`Test your ${item.title} knowledge with ${item.period} Challenge`}
-          participants={item.participants}
-          questions={item.answers.length}
-          time={`${Math.floor(Number(item.timePeriod) / 60)} Mins` }  
-          date={new Date(item.quizDate).toLocaleDateString('en-GB', {
-            weekday: 'long',
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric'
-          })}
-          accuracyPercentage={`${Math.ceil((parseFloat(item.percentage)))}%`}
-          accuracyTextColor={parseFloat(item.percentage) >= 50 ? "#4cb851" : "#d32f2f"}
-        />
-      ))
-    ) : (
-      <p className='text-center'>No quiz history available</p>
-    )}
-           </div>
+                {activeTab === "history" && (
+                  
+                    <div>
+                      {loading.history ? (
+              <ComponentLoader />
+            ) : historyData && historyData?.length > 0 ? (
+              historyData.map((item, index) => (
+                <QuizChallengeCard
+                  id={item._id}
+                  key={item.attemptId}
+                  icon={icons[index % icons.length]} // You can rotate icons like before if you want
+                  title={item.title}
+                  description={`Test your ${item.title} knowledge with ${item.period} Challenge`}
+                  participants={item.participants}
+                  questions={item.answers.length}
+                  time={`${Math.floor(Number(item.timePeriod) / 60)} Mins` }  
+                  date={new Date(item.quizDate).toLocaleDateString('en-GB', {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric'
+                  })}
+                  accuracyPercentage={`${Math.ceil((parseFloat(item.percentage)))}%`}
+                  accuracyTextColor={parseFloat(item.percentage) >= 50 ? "#4cb851" : "#d32f2f"}
+                />
+              ))
+            ) : (
+              <p className='text-center'>No quiz history available</p>
+            )}
+                  </div>
 
-        )}
+                )}
 
-        {activeTab === "leaderboard" && (
-          <div>
+            {activeTab === "leaderboard" && (
+              <div>
 
-             <div className='w-[900px] mx-auto md:w-full flex flex-col lg:flex-row items-center justify-center gap-[20px]'>
-                      {
-                        loading.leaderBoard ? <ComponentLoader /> : leaderBoardInformation && leaderBoardInformation.slice(0, 2).map((item, index) => (
-                          <LeaderboardCard
-                          key={index} 
-                          avatar={<LeaderboardPics />}
-                          name={item.name}
-                          level={item.level}
-                          tag={ index === 0 ? <FirstTag /> : index === 1 ? <SecondTag /> : index === 2 ? <ThirdTag /> : <div className='w-[70px] h-[30px] bg-[#E0E0E0] rounded-[5px] flex items-center justify-center'><p className='text-[14px] font-bold text-[#333333]'>{index + 1}th</p></div>}
-                          progress={item.level}
-                          rankLabel={ index === 0 ? "1st" : index === 1 ? "2nd" : index === 2 ? "3rd" : `${index + 1}th`}
-                        />
-                        ))
-                      }
-                    </div>
-         <div className='flex  md:pb-[90px] mt-[30px] flex-col gap-[20px] items-center justify-center'>
-              <LongCard
-               name="Emmanuel"
-               age={28}
-               progress={20}
-               currentLevel={20}
-               level={9}
-               rank="2nd"
-               PicComponent={<LeaderboardPics />}
-               IconComponent={<UpperBoldTriangle />}
-        />
-         <LongCard
-               name="Emmanuel"
-               age={28}
-               progress={40}
-               currentLevel={40}
-               level={9}
-               rank="2nd"
-               PicComponent={<LeaderboardPics />}
-               IconComponent={<DownBoldTriangle />}
-        />
-         <LongCard
-               name="Emmanuel"
-               age={28}
-               progress={60}
-               currentLevel={60}
-               level={9}
-               rank="2nd"
-               PicComponent={<LeaderboardPics />}
-               IconComponent={<UpperBoldTriangle />}
-        />
-         <LongCard
-               name="Emmanuel"
-               age={28}
-               progress={80}
-               currentLevel={80}
-               level={9}
-               rank="2nd"
-               PicComponent={<LeaderboardPics />}
-               IconComponent={<DownBoldTriangle />}
-        />
-         <LongCard
-               name="Emmanuel"
-               age={28}
-               progress={100}
-               currentLevel={100}
-               level={9}
-               rank="2nd"
-               PicComponent={<LeaderboardPics />}
-               IconComponent={<UpperBoldTriangle />}
-        />
+                <div className='w-[900px] mx-auto md:w-full flex flex-col lg:flex-row items-center justify-center gap-[20px]'>
+               {
+                 loading.leaderBoard ? <ComponentLoader /> : leaderBoardInformation && leaderBoardInformation.slice(0, 2).map((item, index) => (
+                   <LeaderboardCard
+                   key={index} 
+                   avatar={<LeaderboardPics />}
+                   name={item.name}
+                   level={item.level}
+                   tag={ index === 0 ? <FirstTag /> : index === 1 ? <SecondTag /> : index === 2 ? <ThirdTag /> : <div className='w-[70px] h-[30px] bg-[#E0E0E0] rounded-[5px] flex items-center justify-center'><p className='text-[14px] font-bold text-[#333333]'>{index + 1}th</p></div>}
+                   progress={item.level}
+                   rankLabel={ index === 0 ? "1st" : index === 1 ? "2nd" : index === 2 ? "3rd" : `${index + 1}th`}
+                 />
+                 ))
+               }
             </div>
+            <div className='flex  md:pb-[90px] mt-[30px] flex-col gap-[20px] items-center justify-center'>
+                  <LongCard
+                  name="Emmanuel"
+                  age={28}
+                  progress={20}
+                  currentLevel={20}
+                  level={9}
+                  rank="2nd"
+                  PicComponent={<LeaderboardPics />}
+                  IconComponent={<UpperBoldTriangle />}
+            />
+            <LongCard
+                  name="Emmanuel"
+                  age={28}
+                  progress={40}
+                  currentLevel={40}
+                  level={9}
+                  rank="2nd"
+                  PicComponent={<LeaderboardPics />}
+                  IconComponent={<DownBoldTriangle />}
+            />
+            <LongCard
+                  name="Emmanuel"
+                  age={28}
+                  progress={60}
+                  currentLevel={60}
+                  level={9}
+                  rank="2nd"
+                  PicComponent={<LeaderboardPics />}
+                  IconComponent={<UpperBoldTriangle />}
+            />
+            <LongCard
+                  name="Emmanuel"
+                  age={28}
+                  progress={80}
+                  currentLevel={80}
+                  level={9}
+                  rank="2nd"
+                  PicComponent={<LeaderboardPics />}
+                  IconComponent={<DownBoldTriangle />}
+            />
+            <LongCard
+                  name="Emmanuel"
+                  age={28}
+                  progress={100}
+                  currentLevel={100}
+                  level={9}
+                  rank="2nd"
+                  PicComponent={<LeaderboardPics />}
+                  IconComponent={<UpperBoldTriangle />}
+            />
+                </div>
+            </div>
+            )}
+          </div>
         </div>
-        )}
-      </div>
-    </div>
-        
-    </Layout>
+            
+        </Layout>
 
-    </div>
+        </div>
   )
 }
 

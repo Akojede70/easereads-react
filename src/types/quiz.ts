@@ -17,6 +17,7 @@ export interface QuizData {
 }
 
  export interface QuizHistoryItem {
+  _id: number;                
   id: number;                
   userId: number;            
   quizId: string;            
@@ -67,3 +68,27 @@ export interface QuizData {
             correctAnswer: string;
             isCorrect: boolean;
             };
+
+    export type quizResult = {
+  totalQuestion: number;
+  correctAnswers: number;
+  wrongAnswers: number;
+  quizQuestions: {
+    _id: string;
+    userId: string;
+    quizId: string;
+    program: string;
+    answers: {
+      question: string;
+      topic: string;
+      selectedAnswer: string;
+      correctAnswer: string;
+      isCorrect: boolean;
+    }[];
+    score: number;
+    percentage: number;
+    timePeriod: number;
+    quizDate: string;
+    __v: number;
+  };
+}

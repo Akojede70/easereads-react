@@ -1,5 +1,6 @@
 import { DateIcon, People, TimeIcon } from "../../assets/icon";
 import { Button } from "../shared";
+import { useNavigate } from "react-router-dom";
 
 interface ChallengeCardProps {
   icon: React.ReactNode // any React component (like QuizIcon, TimeIcon, etc.)
@@ -95,6 +96,7 @@ interface ChallengeCardProps {
 
 
 interface QuizChallengeCardProps {
+  id: number
   icon: React.ReactNode // any React component (like QuizIcon, TimeIcon, etc.)
   title: string;
   description: string;
@@ -109,6 +111,7 @@ interface QuizChallengeCardProps {
 }
 
  export const QuizChallengeCard: React.FC<QuizChallengeCardProps> = ({
+  id,
   icon: icon,
   title,
   // description,
@@ -119,6 +122,11 @@ interface QuizChallengeCardProps {
   accuracyTextColor = '#4cb851',
   accuracyPercentage
 }) => {
+   const navigate = useNavigate()
+   const handleViewResult = () => {
+    navigate("/jupeb/quiz-answer", { state: { id } });
+  };
+
   return (
     <div className="bg-primaryWhite mt-[30px] h-[250px] pt-[30px] rounded-[10px] ml-[2%] w-[95%] px-[4%]">
       {/* Header */}
@@ -137,7 +145,7 @@ interface QuizChallengeCardProps {
                   <p> Accuracy </p>
                    </div>
                   <div className='w-[150px]'>
-               <Button> Result </Button>
+               <Button onClick={handleViewResult}> Result </Button>
             </div>
          </div>
       </div>

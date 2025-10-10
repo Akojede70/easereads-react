@@ -37,6 +37,7 @@ const Question = () => {
     return now;
   });
 
+    
 
    const handleGoBack = () => {
       navigate(-1)
@@ -273,7 +274,7 @@ const seconds = timeLeft % 60;
             </div>
             
              <div className="w-[44%] absolute top-[20%] left-[28%] text-[14px] md:text-xl flex items-center justify-between text-center mb-4">
-        <h2 className="font-semibold"> { currentQuestion?.content} </h2>
+              <h2> Mathematics </h2>
         <div className='flex gap-[10px] items-center'>
   <p className='font-bold pt-[7px] hidden md:block text-[17px]'>
     Time Remaining:
@@ -291,7 +292,8 @@ const seconds = timeLeft % 60;
       </div>
 
     <div className="w-[85%] lg:w-[45%]  h-[500px] md:h-[480px] mx-auto  mt-[7%] md:mt-[23%] lg:mt-[8%] pt-[40px] px-[20px] md:px-[50px] bg-primaryWhite rounded-[15px] shadow-md">
-     
+               <h2 className="font-semibold mb-[3%]"> { currentQuestion?.content} </h2>
+
       <div className="space-y-[25px] mb-[30px]">
         {currentQuestion?.answers_suggestion.map((option: string, index: number) => (
           <label 

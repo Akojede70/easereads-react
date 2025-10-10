@@ -27,8 +27,8 @@ export const submitQuizQuestion = async (payload: submitQuizInterface) => {
     return response.data; 
 };
 
-export const getQuizHistory = async (userId: number | string) => {
-    const response = await axiosInstance.get(`/student/quiz/result${userId}`);
+export const showResult = async (userId: number | string) => {
+    const response = await axiosInstance.get(`/student/quiz/result/${userId}`);
     return response.data; 
 };
 

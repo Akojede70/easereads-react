@@ -1,6 +1,9 @@
-import React, {  useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { Button } from '../../../components/shared';
-import {  useNavigate } from 'react-router-dom';
+import {  useLocation, useNavigate } from 'react-router-dom';
+import { Services } from '../../../service';
+import type { quizResult } from '../../../types/quiz';
+import Spinner from '../../../components/helpers/spinner';
 
 
 const Answer = () => {
@@ -16,35 +19,41 @@ const Answer = () => {
   // const questionsString = localStorage.getItem('questions');
   // const parsedData = questionsString ? JSON.parse(questionsString) : {};
 
-  // const [loading, setLoading] = useState(false);
-  // const [questions, setQuestions] = useState<ExamAnswer[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [questions, setQuestions] = useState<quizResult[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [historyData, setHistoryData] = useState<any>();
+  const [correctWrongAnswer, setCorrectWrongAnswer] = useState<quizResult | null>(null);
+   const location = useLocation()
+     const { id } = location.state || {};
   const [currentIndex, setCurrentIndex] = useState(0);
  
 const getQuizResult = JSON.parse(localStorage.getItem("quizResult") || '{}')
 // const getQuizResultInformation = getQuizResult?.data
-console.log("getQuizResult",getQuizResult)
   // ✅ Fetch data only when examId exists
-  // useEffect(() => {
-  //   const overviewInfo = async (examId: string | number) => {
-  //     try {
-  //       setLoading(true);
-  //       const response = await Services.exams.examDetails(examId);
-  //       setQuestions(response?.examDetails?.answers || []);
-  //     } catch (error) {
-  //       void error
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const showHistoryResult = async (id: string | number) => {
+      try {
+        setLoading(true);
+        const response = await Services.quiz.showResult(id);
+        setCorrectWrongAnswer(response?.data || 0);
+        setHistoryData(response?.data?.quizQuestions || []);
+        setQuestions(response?.data?.quizQuestions?.answers || []);
+      } catch (error) {
+        void error
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  //   if (examId) {
-  //     overviewInfo(examId);
-  //   }
-  // }, [examId]);
+    if (id) {
+      showHistoryResult(id);
+    }
+  }, [id]);
 
   // ✅ Navigation handlers
   const handleNext = () => {
-    const total =  getQuizResult?.attempt?.answers?.length || 0;
+    const total =  id ? questions?.length : getQuizResult?.attempt?.answers?.length || 0;
     if (currentIndex < total - 1) setCurrentIndex(prev => prev + 1);
   };
 
@@ -53,9 +62,10 @@ console.log("getQuizResult",getQuizResult)
   };
 
   // ✅ Correctly select current question based on data source
-  const currentQuestion =  getQuizResult?.attempt?.answers?.[currentIndex];
+  const currentQuestion = id ? questions[currentIndex] : getQuizResult?.attempt?.answers?.[currentIndex];
+  console.log('currentQuestion',currentQuestion)
 
-  const totalQuestions =getQuizResult?.attempt?.answers?.length || 0;;
+  const totalQuestions = id ? questions.length : getQuizResult?.attempt?.answers?.length || 0;;
 
   return (
     <div className="bg-creamWhite w-full h-screen">
@@ -74,12 +84,15 @@ console.log("getQuizResult",getQuizResult)
       </div>
 
       <div>
+        {loading ? (
+          <Spinner />
+        ) : (
           <div className="w-[90%] mt-[7%] md:w-[80%] lg:w-[45%] mx-auto px-[3%] bg-primaryWhite rounded-[10px] shadow-md font-bold">
             {/* Title */}
             <div className="text-[15px] md:text-[16px] flex justify-between items-center mb-[3%] pt-[5%]">
               <h2 className="text-[22px] font-bold">Exam Report</h2>
               <div>
-                Total Percentage: {getQuizResult?.attempt?.percentage}
+                Total Percentage: {id ? historyData?.percentage : getQuizResult?.attempt?.percentage}
                 
               </div>
             </div>
@@ -149,11 +162,11 @@ console.log("getQuizResult",getQuizResult)
             <div className="md:flex justify-between mt-[3%] pt-[1%] border-t border-[#dbdbdb]">
               <div className="mb-[5%] flex flex-col gap-[15px] font-bold text-[14px] pt-[10px]">
                 <p>
-                  Correct Answers: {getQuizResult?.correctAnswers}
+                  Correct Answers: {id ? correctWrongAnswer?.correctAnswers : getQuizResult?.correctAnswers}
                  
                 </p>
                 <p>
-                  Wrong Answers: {getQuizResult?.wrongAnswers}
+                  Wrong Answers: {id ? correctWrongAnswer?.wrongAnswers : getQuizResult?.wrongAnswers}
                  
                 </p>
               </div>
@@ -174,6 +187,7 @@ console.log("getQuizResult",getQuizResult)
               )}
             </div>
           </div>
+        )}
       </div>
     </div>
   );

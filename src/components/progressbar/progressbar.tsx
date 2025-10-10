@@ -139,7 +139,7 @@ export const ProgressBarWithAction: React.FC<ProgressBarWithActionProps> = ({
       className={`w-full flex justify-between items-center gap-4 ${className}`}
     >
       {/* Label */}
-      <div className="w-[15%] text-[13px] md:text-[16px]">
+      <div className="w-[40%] text-[13px] md:text-[16px]">
         <p>{label}</p>
       </div>
 

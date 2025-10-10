@@ -70,7 +70,7 @@ const ExamPractice = () => {
 
 
   return (
-    <Layout name='Exams History ' >
+    <Layout >
 
          {
 
@@ -81,7 +81,25 @@ const ExamPractice = () => {
         ) : 
          hasHistory ? 
          
-          <>           <div className='flex flex-wrap gap-[10px] md:gap-[3px] lg:gap-[10px]'>
+         
+          <>  
+
+          <div className='w-[95%] lg:w-full  h-[120px] mt-[30px] lg:mt-0 ml-[2%] md:ml-[3%]  lg:ml-0 pl-[13px] md:pl-[40px] border lg:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
+                     <div className='w-[98%] lg:flex items-center justify-between'>
+                       <div className='pt-[12px] lg:pt-0'>
+                          <p className='font-bold text-[18px] lg:text-[30px]'> Exam Practice </p>
+                        </div>
+                          <div className='flex gap-[10px] lg:gap-0 w-[98%] md:w-[80%] lg:w-[30%] mt-[15px] lg:mt-0'>
+                            <div className='w-[58%] md:w-[70%] lg:w-[90%]'>
+                            <button className='text-[#fff] px-1 md:px-5 text-[13px] md:text-[15px] lg:text-[18px] rounded-[15px] h-[50px] bg-[#4cb851]'> WhatsApp Community</button>
+                            </div>
+                            <div className='w-[60%] md:w-[70%] lg:w-[68%]'>
+                            <Button className='rounded-[15px] text-[13px] md:text-[15px] lg:text-[18px]' onClick={() => navigate('/jupeb/exam-instruction')}> Practice Exam </Button>
+                            </div>
+                         </div>
+                     </div>
+                   </div> 
+                  <div className='flex flex-wrap gap-[10px] md:gap-[3px] lg:gap-[10px]'>
          <StatCard title="Total Subjects" value={ loading ? <ComponentLoader color={'#106EBE'} /> : history?.totalSubjects} />
            <StatCard title="Total Exam Practice" value={ loading ? <ComponentLoader color={'#106EBE'} /> : history?.totalQuestions} />
            <StatCard title="Average Score" value={ loading ? <ComponentLoader color={'#106EBE'} /> : `${Math.round(history?.averagePercentage)}%`} />
