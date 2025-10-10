@@ -3,7 +3,7 @@ import { Button } from "../shared";
 
 interface ChallengeCardProps {
   icon: React.ReactNode // any React component (like QuizIcon, TimeIcon, etc.)
-  title: string [];
+  title: string ;
   description: string;
   badgeText: string;
   badgeColor?: string; // optional, default is #ffc67d
@@ -102,7 +102,7 @@ interface QuizChallengeCardProps {
   badgeColor?: string; // optional, default is #ffc67d
   participants: number;
   questions: number;
-  time: string;
+  time: string | number;
   date: string;
   accuracyPercentage: string
   accuracyTextColor: string
@@ -131,7 +131,7 @@ interface QuizChallengeCardProps {
             </div>
           </div>
         </div>
-         <div className="flex gap-[250px]">
+         <div className="flex gap-[330px]">
                         <div className='flex flex-col gap-[13px]'>
                        <p className='text-[25px] font-bold' style={{ color: accuracyTextColor}}> {accuracyPercentage}</p>
                   <p> Accuracy </p>

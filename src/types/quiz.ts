@@ -28,6 +28,42 @@ export interface QuizData {
   percentage: string;         
   questions: number;         
   createdAt: string;         
-  updatedAt: string;          
+  updatedAt: string;  
+  period: string;    
+  timePeriod: string | number;    
   participants: number;      
+  answers: string [];
+  quizDate: string;
 }
+
+ export type submitQuizInterface = {
+            userId: number | null | undefined;
+            quizId: number | null | undefined;
+            program: string | null | undefined;
+            totalTime: number | null | undefined;
+            questionDetails: {
+            questionContent: string;
+            userAnswer: string;
+        }[]; 
+        }
+
+        export type quizType = {
+            questionContent: string;
+            userAnswer: string[];
+            content: string
+            answers_suggestion: string []
+            question_type: string
+        };
+
+        export type quizDataType = {
+           timePeriod: number;
+        };
+
+
+        export type quizAnswer = {
+            question: string;
+            topic: string;
+            selectedAnswer: string;
+            correctAnswer: string;
+            isCorrect: boolean;
+            };

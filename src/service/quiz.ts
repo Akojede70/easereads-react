@@ -1,3 +1,4 @@
+import type { submitQuizInterface } from '../types/quiz';
 import axiosInstance from './axios-instance';
 
 
@@ -21,7 +22,7 @@ export const getQuizQuestion = async (userId: number | string) => {
     return response.data; 
 };
 
-export const submitQuizQuestion = async (payload: number | string) => {
+export const submitQuizQuestion = async (payload: submitQuizInterface) => {
     const response = await axiosInstance.post('/student/quiz/score', payload);
     return response.data; 
 };

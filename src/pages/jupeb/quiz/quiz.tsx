@@ -1,7 +1,7 @@
 import React, {  useEffect, useState } from 'react'
 import Layout from '../../../components/layout/layout'
-import { QuizIcon, RedStreakIcon, QuizIcon1, QuizIcon2, LeaderboardPics, FirstTag, SecondTag, ThirdTag, UpperBoldTriangle, DownBoldTriangle, Cup,  } from '../../../assets/icon'
-import { Button, Modal } from '../../../components/shared'
+import { QuizIcon, RedStreakIcon, QuizIcon1, QuizIcon2, LeaderboardPics, FirstTag, SecondTag, ThirdTag, UpperBoldTriangle, DownBoldTriangle  } from '../../../assets/icon'
+import { Button } from '../../../components/shared'
 import { ChallengeCard, LeaderboardCard, LongCard, QuizChallengeCard } from '../../../components/card'
 import { useSelector } from 'react-redux'
 import { Helper } from '../../../components';
@@ -15,9 +15,8 @@ const {   ComponentLoader  } = Helper;
 
 const Quiz = () => {
      const userId = useSelector((state: ReduxStore) => state.auth.userId);
-     const [activeTab, setActiveTab] = useState("available");
+     const [activeTab, setActiveTab] = useState("leaderboard");
      const navigate = useNavigate()
-     const [performanceOpen, setPerformanceOpen] = useState(false);
      const icons = [<QuizIcon />, <QuizIcon1 />, <QuizIcon2 />];
       const colors = ["#ffc67d", "#4cb851", "#ffffff", ];
       const subjectColor = ["#000", "#fff", "#106EBE"]
@@ -63,13 +62,13 @@ const Quiz = () => {
       const leaderboard = async () => {
          if (!userId) return;
           try {
-            setLoading(prev => ({ ...prev, leaderboard: true }));
+            setLoading(prev => ({ ...prev, leaderBoard: true }));
             const response = await Services.quiz.leaderboard();
             setLeaderBoardInformation(response?.data || []);
           } catch (error) {
             void error;
           } finally {
-            setLoading(prev => ({ ...prev, leaderboard: false }));
+            setLoading(prev => ({ ...prev, leaderBoard: false }));
           }
       }
 
@@ -105,38 +104,7 @@ const Quiz = () => {
         </div>
 
         
-    <div className="p-6">
-      <button
-        onClick={() => setPerformanceOpen(true)}
-        className="px-2 py-2 bg-primaryBlue text-white rounded-lg cursor-pointer"
-      >
-        2nd Modal
-      </button>
-
-      <Modal open={performanceOpen} onClose={() => setPerformanceOpen(false)} className="w-[95%] md:w-[90%] lg:w-[30%]">
-        <div className='flex flex-col items-center justify-center gap-[20px] mt-[5%] mb-[5%]'>
-        <Cup />
-        <p className='text-3xl font-bold text-[#333333]'> Keep Practicing </p>
-        <div className='text-[17px] w-full text-[#333333] leading-[25px]'>
-          <div className='flex gap-[20px] my-[3%]'>
-            <div className='bg-[#e8f1f9] w-[50%] rounded-[10px] text-center py-[5%] flex flex-col gap-[20px]'>
-              <p className='text-[25px] font-bold text-primaryBlue'> 80% </p>
-              <p> Score</p>
-            </div>
-             <div className='bg-[#fff6e9] w-[50%] rounded-[10px] text-center py-[5%] flex flex-col gap-[20px]'>
-              <p className='text-[25px] font-bold text-[#ff9f23]'> 10% </p>
-              <p> Correct </p>
-            </div>
-          </div>
-             <div className='flex flex-col gap-[10px] mt-[30px]'>
-           <Button type='submit'> Take another Quiz </Button>
-        <Button variant='outline' type='submit' textColor='#106EBE'> Watch Tutorial</Button>
-        </div>
-       
-        </div>
-        </div>
-      </Modal>
-    </div>
+   
 
           
           <div className="w-full">
@@ -215,7 +183,7 @@ const Quiz = () => {
       <ChallengeCard
         key={quiz._id || index}
         icon={icons[index % icons.length]}  
-        title={quiz.topics}
+        title={`${quiz.period} ${quiz.title} challenge`}
         description={`Test your ${quiz.title} knowledge with today's challenge`}
         badgeText={quiz.title}
          badgeColor={colors[index % colors.length]}
@@ -259,11 +227,11 @@ const Quiz = () => {
           key={item.attemptId}
           icon={icons[index % icons.length]} // You can rotate icons like before if you want
           title={item.title}
-          description={`Test your ${item.title} knowledge with today's Challenge`}
+          description={`Test your ${item.title} knowledge with ${item.period} Challenge`}
           participants={item.participants}
-          questions={item.questions}
-          time="15 mins"  // or calculate from item.timePeriod if available
-          date={new Date(item.createdAt).toLocaleDateString('en-GB', {
+          questions={item.answers.length}
+          time={`${Math.floor(Number(item.timePeriod) / 60)} Mins` }  
+          date={new Date(item.quizDate).toLocaleDateString('en-GB', {
             weekday: 'long',
             day: 'numeric',
             month: 'short',
@@ -285,7 +253,7 @@ const Quiz = () => {
 
              <div className='w-[900px] mx-auto md:w-full flex flex-col lg:flex-row items-center justify-center gap-[20px]'>
                       {
-                        loading.leaderBoard ? <ComponentLoader  />  : leaderBoardInformation && leaderBoardInformation.slice(0, 2).map((item, index) => (
+                        loading.leaderBoard ? <ComponentLoader /> : leaderBoardInformation && leaderBoardInformation.slice(0, 2).map((item, index) => (
                           <LeaderboardCard
                           key={index} 
                           avatar={<LeaderboardPics />}

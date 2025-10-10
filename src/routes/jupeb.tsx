@@ -87,6 +87,13 @@ const AuthRoutes = () => {
         />
         
          {/* Quiz */}
+
+         
+         <Route
+          path="/quiz-answer"
+          element={<JupebPages.Quiz.Answer />}
+          />
+
        <Route
           path="/quiz"
           element={<JupebPages.Quiz.Quiz />}
