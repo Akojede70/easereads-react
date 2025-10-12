@@ -34,7 +34,7 @@ const ResetPassword = () => {
                    setShowAlert(true)
                     setAlertMessage(response?.message)
                     setAlertStatus('success')
-                    setTimeout(() => { setShowAlert(false); navigate('/reset-password-verification'); }, 5000)
+                    setTimeout(() => { setShowAlert(false); navigate('../reset-password-verification'); }, 5000)
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               } catch (error:any) {
                  if (error.response) {

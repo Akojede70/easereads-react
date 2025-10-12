@@ -68,7 +68,7 @@ const Signup = () => {
                     setShowAlert(true)
                     setAlertMessage(response?.message)
                     setAlertStatus('success')
-                    setTimeout(() => { setShowAlert(false); navigate('verification'); }, 5000)
+                    setTimeout(() => { setShowAlert(false); navigate('../verification'); }, 5000)
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
                if (error.response) {
@@ -219,7 +219,7 @@ const Signup = () => {
             }
             </div>
             <p className="text-primaryGrey text-[16px] text-center my-[20px] sm:my-[3%]">By signing up, you agree to the <span className='text-primaryBlue'> Terms of Service </span> and <span className='text-primaryBlue'> Privacy Policy </span></p>
-            <p className="text-primaryGrey text-[16px] text-center mt-2">Already have an Account ? <span className='text-primaryBlue cursor-pointer' onClick={() => navigate("/login")}> Login </span></p>
+            <p className="text-primaryGrey text-[16px] text-center mt-2">Already have an Account ? <span className='text-primaryBlue cursor-pointer' onClick={() => navigate("../login")}> Login </span></p>
           </form>
         </div>
       </div>

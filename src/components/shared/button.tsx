@@ -67,7 +67,7 @@ export const BackButton: React.FC<BackButtonProps> = ({ onClick, className }) =>
     <button
       onClick={onClick}
       className={`text-[18px] cursor-pointer bg-primaryWhite border border-primaryBlack shadow-[0_4px_10px_#e0e0e0] 
-        rounded-[15px] w-[30%] md:w-[20%] lg:w-[130px] h-[55px] md:h-[44px] flex items-center justify-center gap-[10px] 
+        rounded-[15px] w-[90px] md:w-[120px] lg:w-[130px] h-[55px] md:h-[44px] flex items-center justify-center gap-[10px] 
         hover:shadow-[0_6px_12px_#d0d0d0] transition-all duration-200 ${className}`}
     >
        <span> <LeftArrow/> </span>

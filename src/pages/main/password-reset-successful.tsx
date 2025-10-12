@@ -30,7 +30,7 @@ const PasswordSuccessful = () => {
 
             <div className='mt-[32px]'>
                 <Button 
-                onClick={() => navigate('/login')}
+                onClick={() => navigate('../login')}
                 className="w-full bg-primaryBlue text-white p-2 rounded-[10px] mb-2 h-[48px] cursor-pointer"
                 > Go to Login </Button>
              </div>

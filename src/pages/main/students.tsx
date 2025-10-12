@@ -94,7 +94,7 @@ const Student = () => {
                       setShowAlert(true)
                       setAlertMessage(response?.message)
                       setAlertStatus('success')
-                      setTimeout(() => { setShowAlert(false); navigate('/dashboard'); }, 5000)
+                      setTimeout(() => { setShowAlert(false); navigate('/jupeb/dashboard'); }, 5000)
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               } catch (error: any) {
                  if (error.response) {

@@ -17,7 +17,7 @@ function Navbar({ onMenuToggle }: NavbarProps) {
       <div className="w-full flex justify-between items-center px-4 md:px-6 pt-[30px]">
         {/* Hamburger Menu Button */}
         <button 
-          className="md:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
+          className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
           onClick={onMenuToggle}
           aria-label="Toggle menu"
         >
@@ -28,14 +28,14 @@ function Navbar({ onMenuToggle }: NavbarProps) {
         <div className="md:hidden" />
 
         {/* User section - always aligned to the right */}
-        <div className="flex items-center gap-4 md:gap-6 md:ml-auto">
+        <div className="flex items-center gap-4 md:gap-6 md:ml-auto lg:ml-[84.5%]">
           <Notification />
           <Link
             to="/jupeb/user-profile"
             className="flex items-center gap-3 hover:bg-gray-100 rounded-lg p-2 transition-colors"
           >
             <Dp />
-            <p className="font-bold text-lg hidden sm:block">{firstName + " " + lastName} </p>
+            <p className="font-bold text-lg">{firstName + " " + lastName} </p>
           </Link>
         </div>
       </div>

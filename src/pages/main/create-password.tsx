@@ -57,7 +57,7 @@ const CreatePassword = () => {
                           setAlertStatus('success')
                           setTimeout(() => { setShowAlert(false);
                           sessionStorage.removeItem('resetToken')
-                          navigate('/password-reset-successful'); }, 5000)
+                          navigate('../password-reset-successful'); }, 5000)
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   } catch (error: any) {
                      if (error.response) {

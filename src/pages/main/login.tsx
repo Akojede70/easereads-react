@@ -60,9 +60,9 @@ const Login = () => {
                 setTimeout(() => { setShowAlert(false); 
                   const step = response?.data?.step;
                   if (step === 1) {
-                    navigate('/verification')
+                    navigate('../verification')
                   } else if (step === 2 ) {
-                    navigate('/student')
+                    navigate('../student')
                   } else {
                        navigate("/jupeb/overview")
                   } }, 5000)
@@ -146,7 +146,7 @@ const Login = () => {
                
               </div>
               <div className='flex justify-end pt-[20px]'>
-                <p onClick={() => navigate('/reset-password')} className='font-bold text-primaryBlue cursor-pointer'>Forget Password ?</p>
+                <p onClick={() => navigate('../reset-password')} className='font-bold text-primaryBlue cursor-pointer'>Forget Password ?</p>
               </div>
             </div>
             <div className='mt-[32px]'>
@@ -164,11 +164,11 @@ const Login = () => {
             }
             </div>
             <p className="text-primaryGrey text-[16px] text-center my-[20px] sm:my-[3%]">By signing up, you agree to the <span className='text-primaryBlue'> Terms of Service </span> and <span className='text-primaryBlue'> Privacy Policy </span></p>
-            <p className="text-primaryGrey text-[16px] text-center mt-2">New to easeread ? <span className='text-primaryBlue cursor-pointer' onClick={() => navigate("/sign-up")}> Sign Up </span></p>
+            <p className="text-primaryGrey text-[16px] text-center mt-2">New to easeread ? <span className='text-primaryBlue cursor-pointer' onClick={() => navigate("../sign-up")}> Sign Up </span></p>
           </form>
         </div>
       </div>
-                   {showAlert && <Alert message={alertMessage} status={alertStatus}  />}
+          {showAlert && <Alert message={alertMessage} status={alertStatus}  />}
     </div>
   );
 };

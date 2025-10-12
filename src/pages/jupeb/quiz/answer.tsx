@@ -71,7 +71,7 @@ const getQuizResult = JSON.parse(localStorage.getItem("quizResult") || '{}')
     <div className="bg-creamWhite w-full h-screen">
       {/* Header */}
       <div className="w-full bg-primaryWhite h-[90px] md:h-[100px] pt-[15px] md:pt-[30px] pl-[7%] md:pl-[3%] border-t border-b border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]">
-        <div className="flex justify-end w-[48%] mx-auto">
+        <div className="flex justify-end w-[88%] md:w-[48%] mx-auto">
           {/* <div onClick={handleGoBack}>
             <BackButton />
           </div> */}
@@ -87,29 +87,32 @@ const getQuizResult = JSON.parse(localStorage.getItem("quizResult") || '{}')
         {loading ? (
           <Spinner />
         ) : (
-          <div className="w-[90%] mt-[7%] md:w-[80%] lg:w-[45%] mx-auto px-[3%] bg-primaryWhite rounded-[10px] shadow-md font-bold">
+          <div className="w-[90%] mt-[10%] md:mt-[7%] md:w-[80%] lg:w-[45%] mx-auto px-[3%] bg-primaryWhite rounded-[10px] shadow-md font-bold">
             {/* Title */}
             <div className="text-[15px] md:text-[16px] flex justify-between items-center mb-[3%] pt-[5%]">
-              <h2 className="text-[22px] font-bold">Exam Report</h2>
+              <h2 className="text-[18px] md:text-[22px] font-bold">Exam Report</h2>
               <div>
-                Total Percentage: {id ? historyData?.percentage : getQuizResult?.attempt?.percentage}
+               Total Percentage: {id 
+                ? Math.round(historyData?.percentage ?? 0) 
+                : Math.round(getQuizResult?.attempt?.percentage ?? 0)
+              }%
                 
               </div>
             </div>
 
             {/* Question Section */}
             {currentQuestion ? (
-              <div className="mb-4 text-[13px] md:text-[16px]">
-                <div className="flex gap-[25px] md:gap-[5%]">
-                  <p className="text-primaryBlue w-[110px] md:w-[120px]">
+              <div className="mb-4 flex flex-col gap-[35px] text-[13px] md:text-[16px]">
+                <div className="flex pt-[30px] ">
+                  <p className="text-primaryBlue w-[60%]">
                     Question {currentIndex + 1} -
                   </p>
-                  <p>{currentQuestion?.question || currentQuestion?.questionContent}</p>
+                  <p className='ml-[10%]'>{currentQuestion?.question || currentQuestion?.questionContent}</p>
                 </div>
 
-                <div className="flex gap-[30px] md:gap-[7%] pt-[2%]">
-                  <p className="text-primaryBlue font-bold">Under Topic -</p>
-                  <p>{currentQuestion?.topic || currentQuestion?.topics}</p>
+                <div className="flex pt-[2%]">
+                  <p className="text-primaryBlue font-bold w-[155px]">Under Topic -</p>
+                  <p className='ml-[10px]'>{currentQuestion?.topic || currentQuestion?.topics}</p>
                 </div>
 
                 <div className="flex gap-[30px] md:gap-[7%] pt-[2%]">
@@ -135,7 +138,7 @@ const getQuizResult = JSON.parse(localStorage.getItem("quizResult") || '{}')
             )}
 
             {/* Navigation Buttons */}
-            <div className="flex mt-[5%]">
+            <div className="flex justify-between my-[7%]">
               <div className="w-[25%] lg:w-[170px]">
                 { currentIndex > 0 &&
                    <button
@@ -160,12 +163,12 @@ const getQuizResult = JSON.parse(localStorage.getItem("quizResult") || '{}')
 
             {/* Footer Summary */}
             <div className="md:flex justify-between mt-[3%] pt-[1%] border-t border-[#dbdbdb]">
-              <div className="mb-[5%] flex flex-col gap-[15px] font-bold text-[14px] pt-[10px]">
+              <div className="mb-[9%] flex flex-col gap-[15px] font-bold text-[14px] pt-[10px]">
                 <p>
                   Correct Answers: {id ? correctWrongAnswer?.correctAnswers : getQuizResult?.correctAnswers}
                  
                 </p>
-                <p>
+                <p className='mb-[30px]'>
                   Wrong Answers: {id ? correctWrongAnswer?.wrongAnswers : getQuizResult?.wrongAnswers}
                  
                 </p>
@@ -174,7 +177,7 @@ const getQuizResult = JSON.parse(localStorage.getItem("quizResult") || '{}')
               {currentIndex === totalQuestions - 1 && (
                 <div className="text-[13px] md:text-[12px] lg:text-[14px] flex w-full md:w-[30%] gap-[20px] pt-[2%]">
                   <div className="w-full">
-                    <div className="w-[35%] lg:w-[180px]">
+                    <div className="mb-[20px] md:mb-0 w-[35%] lg:w-[180px]">
                       <button
                         className="border w-[170px] h-[40px] border-primaryBlue rounded-[8px] text-primaryBlue hover:bg-primaryBlue hover:text-white cursor-pointer"
                         onClick={() => navigate('/jupeb/quiz')}

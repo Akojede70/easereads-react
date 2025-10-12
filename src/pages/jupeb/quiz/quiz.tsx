@@ -2,7 +2,7 @@ import React, {  useEffect, useState } from 'react'
 import Layout from '../../../components/layout/layout'
 import { QuizIcon, RedStreakIcon, QuizIcon1, QuizIcon2, LeaderboardPics, FirstTag, SecondTag, ThirdTag, UpperBoldTriangle, DownBoldTriangle  } from '../../../assets/icon'
 import { Button } from '../../../components/shared'
-import { ChallengeCard, LeaderboardCard, LongCard, QuizChallengeCard } from '../../../components/card'
+import { ChallengeCard, LeaderBoardMiniCard, LongMiniCard, QuizChallengeCard } from '../../../components/card'
 import { useSelector } from 'react-redux'
 import { Helper } from '../../../components';
 import type { ReduxStore } from '../../../redux/store'
@@ -80,37 +80,36 @@ const Quiz = () => {
 
   return (
     <div>
-    <Layout>
-        <div className='bg-primaryWhite w-[99%] h-[15%] pt-[30px] flex justify-between ml-[4px] mt-[5px] px-[2%]'>
+    <Layout >
+      <div className='w-[88%] md:w-[91%] md-[50%] ml-[6%] md:ml-[4.5%] lg:ml-[4%]'>
+        <div className='bg-primaryWhite w-full md:w-full h-[150px] md:h-[160px] lg:h-[130px] pt-[30px] flex justify-between lg:ml-[4px] mt-[20px] px-[2%]'>
             <div className='flex flex-col gap-[15px]'>
-           <h2 className='text-[30px] font-bold'> Quiz Hub </h2>
-           <p> Change yourself with interactive Quizzes</p>
+           <h2 className='text-[18px] md:text-[30px] font-bold'> Quiz Hub </h2>
+           <p className='w-[68%] lg:w-full'> Change yourself with interactive Quizzes</p>
             </div>
-            <div className='flex gap-[10px] pt-[25px] pr-[1%]'>
+            <div className='w-[18%] md:w-[30%] lg:w-[16%] flex flex-col gap-[8px] md:flex md:flex-row md:gap-[20px] md:pt-[25px] '>
+              <div className='pt-0 md:pt-[2px] lg:pt-0 ml-[10px] md:ml-0'>
                 <RedStreakIcon />
-                <p> Streak </p>
-                <p className='text-[23px] font-bold pl-[20px]'> 5 days</p>
+              </div>
+                <p className='pt-0 md:pt-[3px] lg:pt-0'> Streak </p>
+                <p className='text-[15px] md:text-[23px] font-bold lg:pl-[20px]'> 5 days</p>
             </div>
         </div>
-        <div className='bg-primaryBlue rounded-[20px] text-white mx-auto w-[95%] h-[18%] pt-[30px] flex justify-between ml-[2%] mt-[1.5%] px-[2%]'>
+        <div className='bg-primaryBlue rounded-[20px] text-white lg:mx-auto w-full lg:w-[95%] h-[125px] md:h-[150px] lg:h-[145px] pt-[10px] md:pt-[15px] lg:pt-[30px] flex justify-between lg:ml-[2%] mt-[5%] lg:mt-[1.5%] px-[2%]'>
             <div className='flex flex-col gap-[15px]'>
-           <h2 className='text-[30px] font-bold'> Today's Performance </h2>
-           <p> 28/35 questions correct + Average time 9m 30s </p>
+           <h2 className='text-[19px] md:text-[30px] font-bold'> Today's Performance </h2>
+           <p className='w-[80%] md:w-[60%] lg:w-full'> 28/35 questions correct + Average time 9m 30s </p>
             </div>
-            <div className='flex flex-col gap-[10px] pt-[10px] pr-[1%]'>
-                <p className='text-[35px] font-bold'> 80% </p>
+            <div className='flex flex-col gap-[10px] pt-[0px] md:pt-[10px] pr-[1%]'>
+                <p className='text-[25px] md:text-[35px] font-bold'> 80% </p>
                 <p className=' '> Accuracy </p>
             </div>
         </div>
-
-        
-   
-
           
           <div className="w-full">
       {/* Tab Buttons */}
-      <div className="bg-[#e0e0e0] mt-[20px] w-[85%] lg:w-[95%] flex flex-col lg:flex-row gap-[40px] lg:gap-[30px] ml-[5%] lg:ml-[2%] h-[200px] lg:h-[100px] rounded-[20px] justify-center items-center">
-        <div className="w-[60%] lg:w-[350px] pt-[7%] md:pt-0">
+      <div className="bg-[#e0e0e0] mt-[20px] md:mt-[40px] w-full lg:w-[95%] flex flex-row gap-[10px] md:gap-[40px] lg:gap-[30px] lg:ml-[2%] h-[120px] lg:h-[100px] pt-[5px] md:pt-0 rounded-[20px] md:justify-center md:items-center px-[10px]">
+        <div className="w-[40%] md:w-[60%] lg:w-[350px] pt-[7%] md:pt-0">
           <Button
              color='bg-[#f5f5f5]'
             textColor='text-[#333333]'
@@ -129,7 +128,7 @@ const Quiz = () => {
           </Button>
         </div>
 
-        <div className="w-[60%] lg:w-[350px]">
+        <div className="pt-[35px] md:pt-0 w-[45%] md:w-[60%] lg:w-[350px]">
           <Button
              color='bg-[#f5f5f5]'
             textColor='text-[#333333]'
@@ -149,7 +148,7 @@ const Quiz = () => {
           </Button>
         </div>
 
-        <div className="w-[60%] lg:w-[350px]">
+        <div className="pt-[25px] md:pt-0 w-[40%] md:w-[60%] lg:w-[350px]">
           <Button
             color='bg-[#f5f5f5]'
             textColor='text-[#333333]'
@@ -175,7 +174,6 @@ const Quiz = () => {
                 {activeTab === "available" && (
                 
                 <div>
-
                   {loading.availableQuiz ? (
                     <ComponentLoader />
           ) : availableQuizData && availableQuizData?.length > 0 ? (
@@ -192,7 +190,6 @@ const Quiz = () => {
                 time={`${quiz.timePeriod || 0} mins`}
                 subjectTextColor={subjectColor [index % subjectColor?.length]}
                 date={new Date(quiz.createdAt).toLocaleDateString('en-GB', {
-
                   weekday: 'long',
                   day: 'numeric',
                   month: 'short',
@@ -252,10 +249,10 @@ const Quiz = () => {
             {activeTab === "leaderboard" && (
               <div>
 
-                <div className='w-[900px] mx-auto md:w-full flex flex-col lg:flex-row items-center justify-center gap-[20px]'>
+                <div className='md:mx-auto md:w-full flex flex-col lg:flex-row md:items-center md:justify-center gap-[20px]'>
                {
                  loading.leaderBoard ? <ComponentLoader /> : leaderBoardInformation && leaderBoardInformation.slice(0, 2).map((item, index) => (
-                   <LeaderboardCard
+                   <LeaderBoardMiniCard
                    key={index} 
                    avatar={<LeaderboardPics />}
                    name={item.name}
@@ -267,8 +264,8 @@ const Quiz = () => {
                  ))
                }
             </div>
-            <div className='flex  md:pb-[90px] mt-[30px] flex-col gap-[20px] items-center justify-center'>
-                  <LongCard
+            <div className='flex  md:pb-[90px] mt-[30px] flex-col gap-[20px] md:items-center md:justify-center'>
+                  <LongMiniCard
                   name="Emmanuel"
                   age={28}
                   progress={20}
@@ -278,7 +275,7 @@ const Quiz = () => {
                   PicComponent={<LeaderboardPics />}
                   IconComponent={<UpperBoldTriangle />}
             />
-            <LongCard
+            <LongMiniCard
                   name="Emmanuel"
                   age={28}
                   progress={40}
@@ -288,7 +285,7 @@ const Quiz = () => {
                   PicComponent={<LeaderboardPics />}
                   IconComponent={<DownBoldTriangle />}
             />
-            <LongCard
+            <LongMiniCard
                   name="Emmanuel"
                   age={28}
                   progress={60}
@@ -298,7 +295,7 @@ const Quiz = () => {
                   PicComponent={<LeaderboardPics />}
                   IconComponent={<UpperBoldTriangle />}
             />
-            <LongCard
+            <LongMiniCard
                   name="Emmanuel"
                   age={28}
                   progress={80}
@@ -308,7 +305,7 @@ const Quiz = () => {
                   PicComponent={<LeaderboardPics />}
                   IconComponent={<DownBoldTriangle />}
             />
-            <LongCard
+            <LongMiniCard
                   name="Emmanuel"
                   age={28}
                   progress={100}
@@ -323,7 +320,7 @@ const Quiz = () => {
             )}
           </div>
         </div>
-            
+        </div>
         </Layout>
 
         </div>
