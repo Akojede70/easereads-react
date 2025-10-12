@@ -11,14 +11,22 @@ import { overviewDetails } from '../../../service/overview';
 import { ClassContent, QuizContent, UserRankCard } from '../../../components/overview';
 import { Services } from '../../../service';
 import { Helper } from '../../../components';
-import  { useNavigate } from 'react-router-dom';
+import  { useLocation, useNavigate } from 'react-router-dom';
 import type { Overview, ProgressData, LeaderboardUser } from '../../../types/overview';
+import Alert from '../../../components/helpers/alert';
 
 const { Spinner, ComponentLoader  } = Helper;
 
 
 
 const Overview = () => { 
+          const location = useLocation()
+          const message = location.state?.message;
+          const status = location.state?.status;
+          const [showAlert, setShowAlert] = useState(false)
+          const [alertMessage, setAlertMessage] = useState('')
+          const [alertStatus, setAlertStatus] = useState('')
+
           const firstName = useSelector((state: ReduxStore) => state.auth.firstName);
           const lastName = useSelector((state: ReduxStore) => state.auth.lastName);
           const userId = useSelector((state: ReduxStore) => state.auth.userId);
@@ -104,7 +112,17 @@ const Overview = () => {
           };
             leaderBoardDisplay();
           }, []);
-  
+      
+       
+  useEffect(() => {
+    if (message) {
+      setAlertMessage(message);
+      setAlertStatus(status);
+      setShowAlert(true);
+      const timer = setTimeout(() => setShowAlert(false), 4000 )
+      return () => clearTimeout(timer) 
+    }
+  }, [message, status]);
 
   return (
     <Layout >
@@ -276,7 +294,7 @@ const Overview = () => {
             {loading.leaderboard ? <ComponentLoader /> : leaderBoardInformation && leaderBoardInformation.slice(0, 4).map((user: LeaderboardUser, index: number) => (
               <UserRankCard  
                 key={index}
-                name={'Peter Bass'}
+                name={user?.student?.firstName + " " + user?.student?.lastName}
                 level={user.level}
                 RankIcon={index === 0 ? Rank1 : index === 1 ? Rank2 : index === 2 ? Rank3 : Rank4}   
                 ArrowIcon={index % 2 === 0 ? UpperTriangle : DownTriangle} 
@@ -340,7 +358,6 @@ const Overview = () => {
                currentLevel={item.progress}
                color="bg-[#ffa024]"
                buttonText="Continue Reading"
-               onButtonClick={() => alert("Continue " + item.title)}
              />
            ))}
             </div>
@@ -356,7 +373,6 @@ const Overview = () => {
                currentLevel={item.progress}
                color="bg-[#ffa024]"
                buttonText="Continue Reading"
-               onButtonClick={() => alert("Continue " + item.title)}
              />
            ))}
             </div>
@@ -375,7 +391,6 @@ const Overview = () => {
                currentLevel={item.progress}
                color="bg-[#ffa024]"
                buttonText="Continue Reading"
-               onButtonClick={() => alert("Continue " + item.title)}
              />
            ))}
             </div>
@@ -416,7 +431,7 @@ const Overview = () => {
       />
     </div>
     </div>
-     
+   {showAlert && <Alert message={alertMessage} status={alertStatus}  />}
     </div>
     </Layout>
   )

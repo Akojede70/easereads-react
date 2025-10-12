@@ -13,6 +13,7 @@ interface Path {
     }[];
 }
 
+
 const paths: Path[] = [
     {
         id: 1,
@@ -111,7 +112,7 @@ const paths: Path[] = [
             <Logout />
         ),
         name: "logout",
-        path: 'logout',
+        path: '../../auth/login',
     },
 ];
 

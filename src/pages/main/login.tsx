@@ -54,18 +54,16 @@ const Login = () => {
                   userId: response.data.userId,
                   program: response.data.program,
                 }))
-                setShowAlert(true)
-                setAlertMessage(response?.message)
-                setAlertStatus('success')
-                setTimeout(() => { setShowAlert(false); 
                   const step = response?.data?.step;
                   if (step === 1) {
                     navigate('../verification')
                   } else if (step === 2 ) {
                     navigate('../student')
                   } else {
-                       navigate("/jupeb/overview")
-                  } }, 5000)
+                       navigate("/jupeb/overview", {
+                        state: { message: response?.message, status: "success" } 
+                       })
+                  } 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
                if (error.response) {

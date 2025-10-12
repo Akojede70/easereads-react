@@ -185,7 +185,7 @@ const Leaderboard = () => {
               <LeaderboardCard
               key={index} 
               avatar={<LeaderboardPics />}
-              name={item.name}
+              name={item?.student?.firstName + " " + item?.student?.lastName}
               level={item.level}
               tag={ index === 0 ? <FirstTag /> : index === 1 ? <SecondTag /> : index === 2 ? <ThirdTag /> : <div className='w-[70px] h-[30px] bg-[#E0E0E0] rounded-[5px] flex items-center justify-center'><p className='text-[14px] font-bold text-[#333333]'>{index + 1}th</p></div>}
               progress={item.level}

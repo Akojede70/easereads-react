@@ -71,7 +71,7 @@ const getQuizResult = JSON.parse(localStorage.getItem("quizResult") || '{}')
     <div className="bg-creamWhite w-full h-screen">
       {/* Header */}
       <div className="w-full bg-primaryWhite h-[90px] md:h-[100px] pt-[15px] md:pt-[30px] pl-[7%] md:pl-[3%] border-t border-b border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]">
-        <div className="flex justify-end w-[88%] md:w-[79%] mx-auto">
+        <div className="flex justify-end w-[88%] md:w-[79%] lg:w-[43%] mx-auto">
           {/* <div onClick={handleGoBack}>
             <BackButton />
           </div> */}

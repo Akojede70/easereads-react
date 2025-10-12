@@ -19,4 +19,9 @@ export type  ProgressData = {
  export interface LeaderboardUser {
             name: string;
             level: number;
+            student: {
+            firstName: string;
+            lastName: string;
+            imageUrl: string | null;
+          };
  }

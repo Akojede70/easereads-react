@@ -1,6 +1,8 @@
 import React from "react";
 import clsx from "clsx";
 import { Button } from "../shared";
+import { useNavigate } from "react-router-dom";
+
 
 type ProgressBarProps = {
   label?: string;
@@ -122,7 +124,6 @@ type ProgressBarWithActionProps = {
   color?: string; // Tailwind color for bar
   className?: string; // extra classes
   buttonText: string; // text inside the button
-  onButtonClick: () => void; // callback when button clicked
 };
 
 export const ProgressBarWithAction: React.FC<ProgressBarWithActionProps> = ({
@@ -132,8 +133,8 @@ export const ProgressBarWithAction: React.FC<ProgressBarWithActionProps> = ({
   color = "bg-primaryBlue",
   className = "",
   buttonText,
-  onButtonClick,
 }) => {
+  const navigate = useNavigate()
   return (
     <div
       className={`w-full flex justify-between items-center gap-4 ${className}`}
@@ -164,7 +165,7 @@ export const ProgressBarWithAction: React.FC<ProgressBarWithActionProps> = ({
       {/* Action Button */}
       <div className="w-[27%] md:w-[260px] text-[11px] md:text-[16px] ml-[15px] md:ml-[27px] lg:ml-0">
          <Button
-        onClick={onButtonClick}
+        onClick={() => navigate('/jupeb/textbook')}
         className="rounded-[10px] md:rounded-[25px] border md:w-[210px] lg:w-[260px] mt-[15px]"
       >
         {buttonText}

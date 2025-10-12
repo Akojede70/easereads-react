@@ -2,12 +2,16 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import paths from "./data";
 import { SidebarIcon, ArrowUp, ArrowDown, CloseIcon } from "../../assets/icon";
+import { clearCredentials } from "../../redux/auth-slice";
+import { useDispatch } from "react-redux";
 
 interface SideBarProps {
   onMobileClose?: () => void;
 }
 
+
 function SideBar({ onMobileClose }: SideBarProps) {
+   const dispatch = useDispatch()
   const navigate = useNavigate();
   const location = useLocation();
   const [openSubmenus, setOpenSubmenus] = useState<Record<number, boolean>>({});
@@ -29,6 +33,12 @@ function SideBar({ onMobileClose }: SideBarProps) {
   const isSubmenuActive = (submenu: { path: string }[] = []) => {
     return submenu.some(item => isActivePath(item.path));
   };
+
+ const handleLogOut = () => {
+    dispatch(clearCredentials()); 
+    localStorage.clear()
+ }
+
 
   return (
     <div className="w-80 md:w-56 lg:w-60 h-screen bg-primaryWhite border-r border-creamWhite overflow-y-auto">
@@ -66,9 +76,7 @@ function SideBar({ onMobileClose }: SideBarProps) {
                     ? 'bg-primaryBlue text-white' 
                     : 'text-gray-600 hover:bg-gray-50'
                 }`}
-                onClick={() => {
-                  item.hasSubmenu ? toggleSubmenu(item.id) : handleNavigation(item.path);
-                }}
+                onClick={() => { item.hasSubmenu ? toggleSubmenu(item.id) : handleNavigation(item.path);}}
               >
                 <div className="flex items-center gap-3">
                   {item.icon}
@@ -97,7 +105,14 @@ function SideBar({ onMobileClose }: SideBarProps) {
                             ? 'bg-blue-50 text-primaryBlue font-medium' 
                             : 'text-gray-600 hover:bg-gray-50'
                         }`}
-                        onClick={() => handleNavigation(subItem.path)}
+                        // onClick={() => handleNavigation(subItem.path)}
+                        onClick={() => {
+                        if (subItem.name.toString().toLowerCase() === 'logout') {
+                          handleLogOut();
+                        } else  {
+                          handleNavigation(subItem.path);
+                        }
+                      }}
                       >
                         <span className="text-sm">
                           {subItem.name}
