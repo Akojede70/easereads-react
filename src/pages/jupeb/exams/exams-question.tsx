@@ -9,100 +9,109 @@ const { ComponentLoader, Alert } = Helper;
 
 const Question = () => {
     
-    const navigate = useNavigate()
-     const [showAlert, setShowAlert] = useState(false)
-     const [alertMessage, setAlertMessage] = useState('')
-     const [alertStatus, setAlertStatus] = useState('')
-    const [loading, setLoading] = useState(false)
-    
-    const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: string }>(() => {  
-    const savedAnswers = localStorage.getItem('selectedAnswers');
-    return savedAnswers ? JSON.parse(savedAnswers) : {};
-   });
-    const [startTime] = useState<string>(() => {
-    const saved = localStorage.getItem('examStartTime');
-    if (saved) return saved;
-    const now = new Date().toISOString();
-    localStorage.setItem('examStartTime', now);
-    return now;
-  });
-
-
-   const handleGoBack = () => {
-      navigate("/jupeb/exam-form")
-      localStorage.removeItem('timeLeft');
-      localStorage.removeItem('examStartTime');
-      localStorage.removeItem('selectedAnswers');
-    } 
-
-     const questionsString = localStorage.getItem("questions");
-  const parsedData = questionsString ? JSON.parse(questionsString) : {};
-
-   const [questions, setQuestions] = useState<QuestionType[]>([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(() => {
-  const savedIndex = localStorage.getItem('currentQuestionIndex');
-  if (savedIndex) {
-    const index = parseInt(savedIndex, 10);
-    // Ensure the index is valid (between 0 and questions.length - 1)
-    return index >= 0 && index < parsedData?.questionDetails?.length ? index : 0;
-  }
-  return 0;
-});
-
-  const totalTimeSeconds = parsedData?.timePeriod ? parsedData.timePeriod * 60 : 0;
-
-  const [timeLeft, setTimeLeft] = useState<number>(() => {
-  const savedTimeLeft = localStorage.getItem('timeLeft');
-  if (savedTimeLeft) {
-    return parseInt(savedTimeLeft, 10);
-  }
-  const start = new Date(startTime).getTime();
-  const now = new Date().getTime();
-  const elapsedSeconds = Math.floor((now - start) / 1000);
-  const remaining = totalTimeSeconds - elapsedSeconds;
-  return remaining > 0 ? remaining : 0;
-});
-
-   // Format to MM:SS
- const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
-
-  const storedPayloadString = localStorage.getItem("examFormSubmitPayload");
-const storedPayload = storedPayloadString ? JSON.parse(storedPayloadString) : null;
-
-
-  useEffect(() => {
-    if (timeLeft <= 0) {
-      // Submit exam when time is up
-      r.handleExamSubmit();
-      return;
-    }
-
-    const interval = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval); // Stop the timer
-          return 0;
-        }
-        return prev - 1;
+        const navigate = useNavigate()
+        const [showAlert, setShowAlert] = useState(false)
+        const [alertMessage, setAlertMessage] = useState('')
+        const [alertStatus, setAlertStatus] = useState('')
+        const [loading, setLoading] = useState(false)
+        
+        // saving selected answers in local storage
+        const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: string }>(() => {  
+        const savedAnswers = localStorage.getItem('selectedAnswers');
+        return savedAnswers ? JSON.parse(savedAnswers) : {};
       });
-    }, 1000);
+      //  I used this to handle the time incase of user reload the page 
+      //  the time start from where its being stopped
+        const [startTime] = useState<string>(() => {
+        const examCompleted = localStorage.getItem('examCompleted');
+        if (examCompleted) return ''; 
+        const saved = localStorage.getItem('examStartTime');
+        if (saved) return saved;
+        const now = new Date().toISOString();
+        localStorage.setItem('examStartTime', now);
+        return now;
+      });
 
-    return () => clearInterval(interval); // Cleanup interval on unmount
-  }, [timeLeft]);
 
-      useEffect(() => {
-      localStorage.setItem('selectedAnswers', JSON.stringify(selectedAnswers));
-      localStorage.setItem('currentQuestionIndex', currentQuestionIndex.toString());
-      localStorage.setItem('timeLeft', timeLeft.toString());
+      const handleGoBack = () => {
+          navigate("/jupeb/exam-form")
+          localStorage.removeItem('timeLeft');
+          localStorage.removeItem('examStartTime');
+          localStorage.removeItem('selectedAnswers');
+          localStorage.removeItem('currentQuestionIndex');
+        } 
+        
+        //  I get questions I want to display through local storage
+        // coming from the endpoint in previous page the proceed button
+        const questionsString = localStorage.getItem("questions");
+        const parsedData = questionsString ? JSON.parse(questionsString) : {};
 
-    }, [selectedAnswers, currentQuestionIndex, timeLeft ]);
+        // upon reload maintain the current question index
+        const [questions, setQuestions] = useState<QuestionType[]>([]);
+        const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(() => {
+        const savedIndex = localStorage.getItem('currentQuestionIndex');
+        if (savedIndex) {
+          const index = parseInt(savedIndex, 10);
+          // Ensure the index is valid (between 0 and questions.length - 1)
+          return index >= 0 && index < parsedData?.questionDetails?.length ? index : 0;
+        }
+        return 0;
+      });
+
+        const totalTimeSeconds = parsedData?.timePeriod ? parsedData.timePeriod * 60 : 0;
+
+        const [timeLeft, setTimeLeft] = useState<number>(() => {
+        const savedTimeLeft = localStorage.getItem('timeLeft');
+        if (savedTimeLeft) {
+          return parseInt(savedTimeLeft, 10);
+        }
+        const start = new Date(startTime).getTime();
+        const now = new Date().getTime();
+        const elapsedSeconds = Math.floor((now - start) / 1000);
+        const remaining = totalTimeSeconds - elapsedSeconds;
+        return remaining > 0 ? remaining : 0;
+      });
+
+        // Format to MM:SS
+      const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+
+        const storedPayloadString = localStorage.getItem("examFormSubmitPayload");
+      const storedPayload = storedPayloadString ? JSON.parse(storedPayloadString) : null;
+
 
         useEffect(() => {
-          if (parsedData?.questionDetails?.length) {
-            setQuestions(parsedData.questionDetails);
+          if (timeLeft <= 0) {
+            // Submit exam when time is up
+            r.handleExamSubmit();
+            return;
           }
-        }, []);
+
+          const interval = setInterval(() => {
+            setTimeLeft((prev) => {
+              if (prev <= 1) {
+                clearInterval(interval); // Stop the timer
+                return 0;
+              }
+              return prev - 1;
+            });
+          }, 1000);
+
+          return () => clearInterval(interval); // Cleanup interval on unmount
+        }, [timeLeft]);
+
+          useEffect(() => {
+          localStorage.setItem('selectedAnswers', JSON.stringify(selectedAnswers));
+          localStorage.setItem('currentQuestionIndex', currentQuestionIndex.toString());
+          localStorage.setItem('timeLeft', timeLeft.toString());
+
+        }, [selectedAnswers, currentQuestionIndex, timeLeft ]);
+
+            useEffect(() => {
+              if (parsedData?.questionDetails?.length) {
+                setQuestions(parsedData.questionDetails);
+              }
+            }, []);
 
         const currentQuestion = questions[currentQuestionIndex];
 
@@ -124,11 +133,12 @@ const storedPayload = storedPayloadString ? JSON.parse(storedPayloadString) : nu
       
               try {
                 setLoading(true)
-                const questionDetails = Object.entries(selectedAnswers)
-                .map(([index, userAnswer]) => ({
-                  questionContent: questions[Number(index)].content || questions[Number(index)].question,
-                  userAnswer,
+                const questionDetails = questions.map((question, index) => ({
+                  questionContent: question.content || question.question,
+                  userAnswer: selectedAnswers[index] || "No answer selected",
                 }));
+                console.log(questionDetails)
+
                 const finishedTime = new Date().toISOString();
                 const timeSpentSeconds = Math.floor(
                 (new Date(finishedTime).getTime() - new Date(startTime).getTime()) / 1000
@@ -139,8 +149,6 @@ const storedPayload = storedPayloadString ? JSON.parse(storedPayloadString) : nu
 
             const formattedTime = `${minutes}:${seconds.toString().padStart(2, "0")}m`;
             localStorage.setItem("timeSpentOnAttendingQuestion", formattedTime);
-
-
 
                 const submitQuestionPayload ={
                     userId: storedPayload.userId,
@@ -155,14 +163,18 @@ const storedPayload = storedPayloadString ? JSON.parse(storedPayloadString) : nu
                    
                 }      
                 const response = await Services.exams.submitQuestions(submitQuestionPayload);
+                if (response) {
                 setShowAlert(true)
                 setAlertMessage(response?.message)
                 setAlertStatus('success')
                 localStorage.setItem("submitQuestion", JSON.stringify(response))
+                localStorage.setItem('examCompleted', 'true');
                 localStorage.removeItem('timeLeft');
                 localStorage.removeItem('examStartTime');
                 localStorage.removeItem('selectedAnswers');
+                localStorage.removeItem('currentQuestionIndex');
                 setTimeout(() => { setShowAlert(false); navigate('/jupeb/exam-complete'); }, 5000)
+                }
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               } catch (error: any) {
 
@@ -181,7 +193,7 @@ const storedPayload = storedPayloadString ? JSON.parse(storedPayloadString) : nu
                 setLoading(false)
               }
             }
-    }
+        }
 
   return (
     <div className='bg-creamWhite h-screen relative'>
@@ -196,23 +208,23 @@ const storedPayload = storedPayloadString ? JSON.parse(storedPayloadString) : nu
               </div>
             </div>
             
-             <div className="w-[44%] absolute top-[20%] left-[28%] text-[14px] md:text-xl flex items-center justify-between text-center mb-4">
-        <h2 className="font-semibold"> Physics Exam </h2>
-        <div className='flex gap-[10px] items-center'>
-  <p className='font-bold pt-[7px] hidden md:block text-[17px]'>
-    Time Remaining:
-  </p>
+                    <div className="w-[44%] absolute top-[20%] left-[28%] text-[14px] md:text-xl flex items-center justify-between text-center mb-4">
+                <h2 className="font-semibold"> Physics Exam </h2>
+                <div className='flex gap-[10px] items-center'>
+              <p className='font-bold pt-[7px] hidden md:block text-[17px]'>
+                Time Remaining:
+              </p>
 
-  <span
-    className={`px-8 py-1 rounded-[30px] text-white transition-colors duration-500 ${
-      Number(minutes) < 5 ? 'bg-[#ff0808]' : 'bg-green-600'
-    }`}
-  >
-    ⏱ {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-  </span>
-</div>
+              <span
+                className={`px-8 py-1 rounded-[30px] text-white transition-colors duration-500 ${
+                  Number(minutes) < 5 ? 'bg-[#ff0808]' : 'bg-green-600'
+                }`}
+              >
+                ⏱ {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+              </span>
+            </div>
 
-      </div>
+                  </div>
 
     <div className="w-[85%] lg:w-[45%]  h-[500px] md:h-[480px] mx-auto  mt-[7%] md:mt-[23%] lg:mt-[8%] pt-[40px] px-[20px] md:px-[50px] bg-primaryWhite rounded-[15px] shadow-md">
                <h2 className="font-semibold mb-[3%]"> { currentQuestion?.content} </h2>
@@ -271,19 +283,36 @@ const storedPayload = storedPayloadString ? JSON.parse(storedPayloadString) : nu
         </Button>
         </div>
 
+              {currentQuestionIndex === parsedData?.questionDetails?.length - 1 && (
+              <div className='w-[35%] lg:w-[120px]'>
+                {loading ? (
+                  <Button>
+                    <ComponentLoader color={'#fff'} />
+                  </Button>
+                ) : (
+                  <Button
+                    className="bg-primaryBlue text-white px-4 py-2 rounded"
+                    onClick={r.handleExamSubmit}
+                  >
+                    Finish Quiz
+                  </Button>
+                )}
+              </div>
+            )}
 
-          <div className='w-[35%] lg:w-[120px]'>
-            { loading ? (  <Button>
-                <ComponentLoader color={'#fff'} />
-              </Button> ) :
-           <Button
-           className="bg-primaryBlue text-white px-4 py-2 rounded"
-          onClick={r.handleExamSubmit}
-        >
-          Finish Quiz
-        </Button>
-}
-        </div>
+
+                  {/* <div className='w-[35%] lg:w-[120px]'>
+                    { loading ? (  <Button>
+                        <ComponentLoader color={'#fff'} />
+                      </Button> ) :
+                  <Button
+                  className="bg-primaryBlue text-white px-4 py-2 rounded"
+                  onClick={r.handleExamSubmit}
+                >
+                  Finish Quiz
+                </Button>
+                  }
+                </div> */}
 
 
         </div>

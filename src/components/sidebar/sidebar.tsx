@@ -37,6 +37,7 @@ function SideBar({ onMobileClose }: SideBarProps) {
  const handleLogOut = () => {
     dispatch(clearCredentials()); 
     localStorage.clear()
+    console.log("clear")
  }
 
 
