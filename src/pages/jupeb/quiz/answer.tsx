@@ -71,7 +71,7 @@ const getQuizResult = JSON.parse(localStorage.getItem("quizResult") || '{}')
     <div className="bg-creamWhite w-full h-screen">
       {/* Header */}
       <div className="w-full bg-primaryWhite h-[90px] md:h-[100px] pt-[15px] md:pt-[30px] pl-[7%] md:pl-[3%] border-t border-b border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]">
-        <div className="flex justify-end w-[88%] md:w-[48%] mx-auto">
+        <div className="flex justify-end w-[88%] md:w-[79%] mx-auto">
           {/* <div onClick={handleGoBack}>
             <BackButton />
           </div> */}
@@ -87,7 +87,7 @@ const getQuizResult = JSON.parse(localStorage.getItem("quizResult") || '{}')
         {loading ? (
           <Spinner />
         ) : (
-          <div className="w-[90%] mt-[10%] md:mt-[7%] md:w-[80%] lg:w-[45%] mx-auto px-[3%] bg-primaryWhite rounded-[10px] shadow-md font-bold">
+          <div className="w-[90%] mt-[10%] md:mt-[7%] lg:mt-[2%] md:w-[80%] lg:w-[45%] mx-auto px-[3%] bg-primaryWhite rounded-[10px] shadow-md font-bold">
             {/* Title */}
             <div className="text-[15px] md:text-[16px] flex justify-between items-center mb-[3%] pt-[5%]">
               <h2 className="text-[18px] md:text-[22px] font-bold">Exam Report</h2>
@@ -104,7 +104,7 @@ const getQuizResult = JSON.parse(localStorage.getItem("quizResult") || '{}')
             {currentQuestion ? (
               <div className="mb-4 flex flex-col gap-[35px] text-[13px] md:text-[16px]">
                 <div className="flex pt-[30px] ">
-                  <p className="text-primaryBlue w-[60%]">
+                  <p className="text-primaryBlue w-[45%] md:w-[22%] lg:w-[13%]">
                     Question {currentIndex + 1} -
                   </p>
                   <p className='ml-[10%]'>{currentQuestion?.question || currentQuestion?.questionContent}</p>
