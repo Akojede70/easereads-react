@@ -274,8 +274,8 @@ const seconds = timeLeft % 60;
             </div>
             
              <div className="w-[93%] md:w-[85%] lg:w-[44%] absolute top-[14%] md:top-[20%] left-[3%] md:left-[8%] lg:left-[28%] text-[14px] md:text-xl flex items-center  justify-between text-center mb-4">
-              <h2 className='font-bold text-[14px] pt-[6px] md:pt-0 md:text-[17px]'> Mathematics </h2>
-            <p className='font-bold pt-[7px] text-[14px] md:text-[17px]'>
+              <h2 className="font-semibold"> Mathematics </h2>
+              <p className='font-bold pt-[7px] hidden md:block text-[17px]'>
               Time Remaining:
             </p>
 

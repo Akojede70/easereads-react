@@ -201,18 +201,18 @@ const Question = () => {
 
   return (
     <div className='bg-creamWhite h-screen relative'>
-         <div className='w-full bg-primaryWhite h-[90px] md:h-[100px] pt-[15px] md:pt-[30px] pl-[7%] md:pl-[3%] border-t border-b border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
-          <div className='flex gap-[68%] w-[48%]  mx-auto'>
+         <div className='w-full bg-primaryWhite h-[90px] md:h-[100px] pt-[15px] md:pt-[30px] md:pl-[3%] border-t border-b border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
+          <div className='flex  ml-[3%] md:ml-[7%] justify-between md:gap-[68%] w-[95%] md:w-[79%]  lg:mx-auto'>
           <div  onClick={ handleGoBack}>
                         <BackButton />
           </div>
-          <div>
+          <div className='pt-[10px] md:pt-0'>
             <Button onClick={ () => navigate('/jupeb/overview')}> Dashboard </Button>
           </div>
               </div>
             </div>
             
-                    <div className="w-[44%] absolute top-[20%] left-[28%] text-[14px] md:text-xl flex items-center justify-between text-center mb-4">
+             <div className="w-[93%] md:w-[85%] lg:w-[44%] absolute top-[14%] md:top-[20%] left-[3%] md:left-[8%] lg:left-[28%] text-[14px] md:text-xl flex items-center  justify-between text-center mb-4">
                 <h2 className="font-semibold"> {storedPayload?.subject} </h2>
                 <div className='flex gap-[10px] items-center'>
               <p className='font-bold pt-[7px] hidden md:block text-[17px]'>
@@ -230,7 +230,7 @@ const Question = () => {
 
                   </div>
 
-    <div className="w-[85%] lg:w-[45%]  h-[500px] md:h-[480px] mx-auto  mt-[7%] md:mt-[23%] lg:mt-[8%] pt-[40px] px-[20px] md:px-[50px] bg-primaryWhite rounded-[15px] shadow-md">
+    <div className="w-[95%] md:w-[85%] lg:w-[45%]  lg:h-[480px] mx-auto  mt-[20%] md:mt-[23%] lg:mt-[8%] pt-[40px] px-[20px] md:px-[50px] bg-primaryWhite rounded-[15px] shadow-md">
                <h2 className="font-semibold mb-[3%]"> { currentQuestion?.content} </h2>
       <div className="space-y-[25px] mb-[30px]">
         {currentQuestion?.answers_suggestion.map((option: string, index: number) => (
@@ -267,7 +267,7 @@ const Question = () => {
         {
           currentQuestionIndex  > 0 && (
         
-         <div className='w-[35%] lg:w-[70px]'>
+         <div className='w-[35%] lg:w-[70px] my-[50px] lg:my-0'>
             <button 
             className='border w-[100px] h-[40px]  border-primaryBlue rounded-[8px] text-primaryBlue hover:bg-primaryBlue hover:text-white cursor-pointer'
             onClick={handlePrevious}
@@ -277,7 +277,7 @@ const Question = () => {
         </div>
         )}
       
-        <div className='w-[35%] lg:w-[120px] ml-[3%]'>
+        <div className='w-[35%] lg:w-[120px] ml-[3%] my-[50px] lg:my-0'>
            <Button
                      className="bg-primaryBlue  text-white p-20 rounded"
           onClick={handleNext}
