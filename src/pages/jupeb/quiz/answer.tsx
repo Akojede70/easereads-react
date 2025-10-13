@@ -87,7 +87,7 @@ const getQuizResult = JSON.parse(localStorage.getItem("quizResult") || '{}')
         {loading ? (
           <Spinner />
         ) : (
-          <div className="w-[90%] mt-[10%] md:mt-[7%] lg:mt-[2%] md:w-[80%] lg:w-[45%] mx-auto px-[3%] bg-primaryWhite rounded-[10px] shadow-md font-bold">
+          <div className="w-[90%] mt-[10%] md:mt-[7%] lg:mt-[4%] md:w-[80%] lg:w-[45%] mx-auto px-[3%] bg-primaryWhite rounded-[10px] shadow-md font-bold">
             {/* Title */}
             <div className="text-[15px] md:text-[16px] flex justify-between items-center mb-[3%] pt-[5%]">
               <h2 className="text-[18px] md:text-[22px] font-bold">Exam Report</h2>
@@ -102,7 +102,7 @@ const getQuizResult = JSON.parse(localStorage.getItem("quizResult") || '{}')
 
             {/* Question Section */}
             {currentQuestion ? (
-              <div className="mb-4 flex flex-col gap-[35px] text-[13px] md:text-[16px]">
+              <div className="mb-4 flex flex-col gap-[15px] text-[13px] md:text-[16px]">
                 <div className="flex pt-[30px] ">
                   <p className="text-primaryBlue w-[45%] md:w-[22%] lg:w-[13%]">
                     Question {currentIndex + 1} -
@@ -163,12 +163,12 @@ const getQuizResult = JSON.parse(localStorage.getItem("quizResult") || '{}')
 
             {/* Footer Summary */}
             <div className="md:flex justify-between mt-[3%] pt-[1%] border-t border-[#dbdbdb]">
-              <div className="mb-[9%] flex flex-col gap-[15px] font-bold text-[14px] pt-[10px]">
+              <div className="mb-[9%] md:mb-[3%] flex flex-col gap-[15px] font-bold text-[14px] pt-[10px]">
                 <p>
                   Correct Answers: {id ? correctWrongAnswer?.correctAnswers : getQuizResult?.correctAnswers}
                  
                 </p>
-                <p className='mb-[30px]'>
+                <p className='mb-[15px]'>
                   Wrong Answers: {id ? correctWrongAnswer?.wrongAnswers : getQuizResult?.wrongAnswers}
                  
                 </p>

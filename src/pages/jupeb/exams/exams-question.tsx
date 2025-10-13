@@ -39,7 +39,10 @@ const Question = () => {
           localStorage.removeItem('examStartTime');
           localStorage.removeItem('selectedAnswers');
           localStorage.removeItem('currentQuestionIndex');
+          localStorage.removeItem('questions');
+          localStorage.removeItem('examFormSubmitPayload');
         } 
+        
         
         //  I get questions I want to display through local storage
         // coming from the endpoint in previous page the proceed button
@@ -137,7 +140,6 @@ const Question = () => {
                   questionContent: question.content || question.question,
                   userAnswer: selectedAnswers[index] || "No answer selected",
                 }));
-                console.log(questionDetails)
 
                 const finishedTime = new Date().toISOString();
                 const timeSpentSeconds = Math.floor(
@@ -169,10 +171,12 @@ const Question = () => {
                 setAlertStatus('success')
                 localStorage.setItem("submitQuestion", JSON.stringify(response))
                 localStorage.setItem('examCompleted', 'true');
-                localStorage.removeItem('timeLeft');
+                localStorage.removeItem('timeLeft'); 
                 localStorage.removeItem('examStartTime');
                 localStorage.removeItem('selectedAnswers');
                 localStorage.removeItem('currentQuestionIndex');
+                localStorage.removeItem('questions');
+                localStorage.removeItem('examFormSubmitPayload');
                 setTimeout(() => { setShowAlert(false); navigate('/jupeb/exam-complete'); }, 5000)
                 }
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -209,7 +213,7 @@ const Question = () => {
             </div>
             
                     <div className="w-[44%] absolute top-[20%] left-[28%] text-[14px] md:text-xl flex items-center justify-between text-center mb-4">
-                <h2 className="font-semibold"> Physics Exam </h2>
+                <h2 className="font-semibold"> {storedPayload?.subject} </h2>
                 <div className='flex gap-[10px] items-center'>
               <p className='font-bold pt-[7px] hidden md:block text-[17px]'>
                 Time Remaining:

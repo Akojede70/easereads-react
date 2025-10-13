@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Cup, SmallArrowRight } from '../../../assets/icon'
 import { ScoreCard } from '../../../components/card'
 import { useNavigate } from 'react-router-dom'
@@ -12,6 +12,26 @@ const ExamComplete = () => {
 
   const getLocalStorageDetails = localStorage.getItem("submitQuestion")
   const studentScore = getLocalStorageDetails ? JSON.parse(getLocalStorageDetails) : {}
+
+  const poorPerformanceTopics = studentScore?.topicAnalysis
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ?.filter((topic:any) => topic.failedFlag === true)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ?.map((topic: any) => topic.topic);
+
+   // Handle browser back button
+  useEffect(() => {
+    const handlePopState = () => {
+      navigate('/jupeb/exam-form');
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [navigate]);
+
   return (
     <div className='bg-white h-[1800px] lg:h-[1150px]'>
         <div className=' flex flex-col justify-center items-center pt-10 gap-[20px]'>
@@ -30,7 +50,7 @@ const ExamComplete = () => {
        />
         <ScoreCard 
         score={studentScore?.totalCorrect} 
-        label={`Correct Answers out of ${parsedData?.questionDetails?.length}`}  
+        label={`Correct Answers out of ${studentScore?.results?.length}`}  
         height='180px'
         scoreTextColor='#4cb851'
         />
@@ -55,7 +75,7 @@ const ExamComplete = () => {
 
       <div className='bg-[#ffe7e7] w-[96%] md:w-[90%] rounded-[10px] p-5 m-5 ml-[2%] md:ml-[6%]'>
         <p className='bg-[#ff0808] w-[80%] md:w-[45%] text-[18px] lg:w-[15%] rounded-[15px] p-1 text-primaryWhite pl-[15px]'> Needs improvement</p>
-        <p className='pt-[15px]'> Consider reviewing the study materials for Statistics before attempting another exam</p>
+        <p className='pt-[15px]'> Consider reviewing the study materials for  the topics <strong> {poorPerformanceTopics?.join(',')} </strong> before attempting another exam</p>
       </div>
      </div>
 

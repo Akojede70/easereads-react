@@ -296,7 +296,7 @@ const StatCard: React.FC<StatCardProps> = ({
 }) => {
   return (
     <div
-      className={`${width} ${height} ml-[2.8%] mt-[2%] rounded-[20px] bg-primaryWhite flex flex-col gap-[15px] items-center justify-center`}
+      className={`${width} ${height} w-full my-[8%] mt-[2%] rounded-[20px] bg-primaryWhite flex flex-col gap-[15px] items-center justify-center`}
     >
       <div className="w-[83%] md:w-[70%] mx-auto">
         <div className="w-full h-[40px] rounded-[20px] bg-primaryBlue text-center flex items-center justify-center">

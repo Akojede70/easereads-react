@@ -12,8 +12,12 @@ interface PerformanceModalProps {
 
 const PerformanceModal: React.FC<PerformanceModalProps> = ({ open, onClose, correct, score }) => {
     const navigate = useNavigate()
+     const handleClose = () => {
+    onClose(); 
+    navigate("/jupeb/quiz"); 
+  };
   return (
-    <Modal open={open} onClose={onClose} className="w-[95%] md:w-[90%] lg:w-[30%]">
+    <Modal open={open} onClose={handleClose} className="w-[95%] md:w-[90%] lg:w-[30%]">
       <div className="flex flex-col items-center justify-center gap-[20px] mt-[5%] mb-[5%]">
         <Cup />
         <p className="text-3xl font-bold text-[#333333]">Keep Practicing</p>

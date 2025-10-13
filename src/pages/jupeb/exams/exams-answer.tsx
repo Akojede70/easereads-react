@@ -83,7 +83,7 @@ const Answer = () => {
         {loading ? (
           <Spinner />
         ) : (
-          <div className="w-[90%] mt-[7%] md:w-[80%] lg:w-[45%] mx-auto px-[3%] bg-primaryWhite rounded-[10px] shadow-md font-bold">
+          <div className="w-[90%] mt-[4%] md:w-[80%] lg:w-[45%] mx-auto px-[3%] bg-primaryWhite rounded-[10px] shadow-md font-bold">
             {/* Title */}
             <div className="text-[15px] md:text-[16px] flex justify-between items-center mb-[3%] pt-[5%]">
               <h2 className="text-[22px] font-bold">Exam Report</h2>
@@ -97,7 +97,7 @@ const Answer = () => {
 
             {/* Question Section */}
             {currentQuestion ? (
-              <div className="mb-4 text-[13px] md:text-[16px]">
+              <div className="flex flex-col gap-[20px] mb-4 text-[13px] md:text-[16px]">
                 <div className="flex gap-[25px] md:gap-[5%]">
                   <p className="text-primaryBlue w-[110px] md:w-[120px]">
                     Question {currentIndex + 1} -

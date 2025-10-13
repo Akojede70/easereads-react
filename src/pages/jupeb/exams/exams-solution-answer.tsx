@@ -44,7 +44,7 @@ const Answer = () => {
           </div>
               </div>
             </div>
-     <div className="w-[90%] md:w-[80%] text-[12px] mt-[2%] md:text-[16px] lg:w-[45%] h-[800px] md:h-[960px] mx-auto px-[3%] mb-[40px] bg-primaryWhite rounded-[10px] shadow-md ">
+     <div className="w-[90%] md:w-[80%] text-[12px] mt-[2%] md:text-[16px] lg:w-[45%] mx-auto px-[3%] bg-primaryWhite rounded-[10px] shadow-md">
     
       <div className=" mb-[3%] pt-[10%] md:pt-[5%] pl-[1%] lg:pl-0">
         <h2 className="text-xl font-bold"> Your Performance Breakdown </h2>
@@ -54,8 +54,8 @@ const Answer = () => {
           <p className='font-bold text-[17px]'> Number Of Times Attempted</p> 
           <p> ({topicAnalysis?.length}) </p>
         </div>
-
-
+       
+        <div className="pb-[10px] md:pb-[6%] rounded-[15px] mb-[9%]">
              {topicAnalysis.map((topic, index) => (
           <div
             key={index}
@@ -115,8 +115,10 @@ const Answer = () => {
                 </button>
               </div>
             </div>
+            
           </div>
         ))}
+    </div>
     </div>
     </div>
   )

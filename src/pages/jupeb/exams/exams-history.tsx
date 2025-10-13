@@ -83,15 +83,15 @@ const ExamPractice = () => {
          
          
           <>  
-
-          <div className='w-[95%] lg:w-full  h-[120px] mt-[30px] lg:mt-0 ml-[2%] md:ml-[3%]  lg:ml-0 pl-[13px] md:pl-[40px] border lg:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
+        <div className='w-[87%] ml-[7%]'>
+          <div className='w-full  h-[120px] mt-[30px] lg:mt-0  pl-[13px] md:pl-[40px] lg:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
                      <div className='w-[98%] lg:flex items-center justify-between'>
                        <div className='pt-[12px] lg:pt-0'>
                           <p className='font-bold text-[18px] lg:text-[30px]'> Exam Practice </p>
                         </div>
                           <div className='flex gap-[10px] lg:gap-0 w-[98%] md:w-[80%] lg:w-[30%] mt-[15px] lg:mt-0'>
                             <div className='w-[58%] md:w-[70%] lg:w-[90%]'>
-                            <button className='text-[#fff] px-1 md:px-5 text-[13px] md:text-[15px] lg:text-[18px] rounded-[15px] h-[50px] bg-[#4cb851]'> WhatsApp Community</button>
+                            <button className='text-[#fff]  px-1 md:px-5 text-[13px] md:text-[15px] lg:text-[18px] rounded-[15px] h-[38px] md:h-[50px] bg-[#4cb851]'> WhatsApp Community</button>
                             </div>
                             <div className='w-[60%] md:w-[70%] lg:w-[68%]'>
                             <Button className='rounded-[15px] text-[13px] md:text-[15px] lg:text-[18px]' onClick={() => navigate('/jupeb/exam-instruction')}> Practice Exam </Button>
@@ -99,19 +99,19 @@ const ExamPractice = () => {
                          </div>
                      </div>
                    </div> 
-                  <div className='flex flex-wrap gap-[10px] md:gap-[3px] lg:gap-[10px]'>
+                  <div className='mt-[9%] md:flex gap-[10px] md:gap-[3px] lg:gap-[10px]'>
          <StatCard title="Total Subjects" value={ loading ? <ComponentLoader color={'#106EBE'} /> : history?.totalSubjects} />
            <StatCard title="Total Exam Practice" value={ loading ? <ComponentLoader color={'#106EBE'} /> : history?.totalQuestions} />
            <StatCard title="Average Score" value={ loading ? <ComponentLoader color={'#106EBE'} /> : `${Math.round(history?.averagePercentage)}%`} />
        </div>
-           <div className='pl-[1%] lg:pl-[3%] font-bold text-[22px] pt-[3%]'> Exams Practice History </div>
-   <div className='mt-[1%] mb-[13%]'>
-        <table className='w-[94%] rounded-[20px] bg-primaryWhite  mx-auto'>
+           <div className='pl-[1%] lg:pl-[3%] font-bold text-[17px] md:text-[22px] pt-[3%]'> Exams Practice History </div>
+   <div className=' mt-[1%] mb-[13%] overflow-x-auto'>
+        <table className='min-w-full md:w-[94%] rounded-[20px] bg-primaryWhite  mx-auto'>
           <thead>
             <tr className='pt-[9%] h-[30px]'>
-              <th className='py-4 w-[14%] '>Date</th>
-              <th className='py-4 px-4 pl-[8%]'>Subject</th>
-              <th className='py-4 px-4 pl-[6%]'>Question</th>
+              <th className='py-4 w-[100px] md:w-[14%]'>Date</th>
+              <th className='py-4 px-4 md:pl-[8%]'>Subject</th>
+              <th className='py-4 px-4 md:pl-[6%]'>Question</th>
               <th className='py-4 px-4'>Score</th>
               <th className='py-4 px-4 '>Action</th>
             </tr>
@@ -128,10 +128,10 @@ const ExamPractice = () => {
       )
             : history?.examBlocks?.map((score, index) => (
               <tr key={index} className=''>
-                <td className='py-2 px-4 pl-[4%]'>{Tools.formatDateToDDMMYYYY(score.updatedAt)}</td>
-                <td className='py-2 px-4 pl-[10%]'>{score.title}</td>
-                <td className='py-2 px-4 pl-[9%]'>{score.questions}</td>
-                <td className='py-2 px-4 flex items-center  w-full pl-[32%]'>
+                <td className='py-2 px-4 md:pl-[4%]'>{Tools.formatDateToDDMMYYYY(score.updatedAt)}</td>
+                <td className='py-2 px-4 pl-[5%] md:pl-[10%]'>{score.title}</td>
+                <td className='py-2 px-4 pl-[8%] md:pl-[9%]'>{score.questions}</td>
+                <td className='py-2 px-4 flex items-center  w-full pl-[10%] md:pl-[32%]'>
                   <div className='w-32 h-4 rounded-full bg-[#e8f1f9]'>
                     <div
                       className={`h-4 rounded-full ${score.score < 20 ? 'bg-red-500' : 'bg-green-500'}`}
@@ -149,6 +149,7 @@ const ExamPractice = () => {
             ))}
           </tbody>
         </table>
+      </div>
       </div>
       
       </>
