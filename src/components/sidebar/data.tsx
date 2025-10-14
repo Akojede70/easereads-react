@@ -76,8 +76,8 @@ const paths: Path[] = [
         icon: (
             <Subscription />
         ),
-        name: "Subscription",
-        path: 'subscription',
+        name: "Subscriptions",
+        path: '/jupeb/subscriptions',
     },
     {
         id: 8,

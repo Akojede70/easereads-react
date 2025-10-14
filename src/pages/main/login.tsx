@@ -54,6 +54,7 @@ const Login = () => {
                   userId: response.data.userId,
                   program: response.data.program,
                 }))
+                console.log('response', response)
                   const step = response?.data?.step;
                   if (step === 1) {
                     navigate('../verification')

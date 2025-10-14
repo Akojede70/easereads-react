@@ -288,7 +288,7 @@ const Question = () => {
         </div>
 
               {currentQuestionIndex === parsedData?.questionDetails?.length - 1 && (
-              <div className='w-[35%] lg:w-[120px]'>
+              <div className='w-[35%] lg:w-[120px] my-[40px] lg:my-0'>
                 {loading ? (
                   <Button>
                     <ComponentLoader color={'#fff'} />

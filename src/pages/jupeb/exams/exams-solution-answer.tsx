@@ -32,14 +32,14 @@ const Answer = () => {
 
   return (
     <div className='bg-creamWhite h-screen w-full pt-[7%] lg:pt-[0%] overflow-auto '>
-        <div className='w-full bg-primaryWhite h-[90px] md:h-[100px] pt-[15px] md:pt-[30px] pl-[7%] md:pl-[3%] border-t border-b border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
-          <div className='flex gap-[68%] w-[48%]  mx-auto'>
+        <div className='w-full bg-primaryWhite h-[90px] md:h-[100px] pt-[15px] md:pt-[30px]  border-t border-b border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
+          <div className='flex justify-between w-[88%] md:w-[79%] lg:w-[43%] mx-auto'>
            <div  
           onClick={ handleGoBack}
           >
                         <BackButton />
           </div>
-          <div>
+          <div className='pt-[2%] md:pt-0'>
             <Button onClick={ () => navigate('/jupeb/overview')} > Dashboard </Button>
           </div>
               </div>

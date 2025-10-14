@@ -34,8 +34,8 @@
 import React from "react";
 
 type ModalProps = {
-  open: boolean;
-  onClose: () => void;
+  open?: boolean;
+  onClose?: () => void;
   children: React.ReactNode;
   // width?: string; // e.g. "500px", "70%", "w-[80%]" if using Tailwind
    className?: string;

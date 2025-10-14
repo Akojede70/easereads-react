@@ -159,7 +159,7 @@ export const ProgressBarWithAction: React.FC<ProgressBarWithActionProps> = ({
 
       {/* Percentage */}
       <div className="w-[5%] text-[12px] md:text-[16px] font-bold">
-        <p>{currentLevel}%</p>
+        <p>{Math.round(currentLevel)}%</p>
       </div>
 
       {/* Action Button */}

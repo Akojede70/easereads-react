@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface MiniCardProps {
   icon?: React.ElementType;
@@ -296,7 +296,7 @@ const StatCard: React.FC<StatCardProps> = ({
 }) => {
   return (
     <div
-      className={`${width} ${height} w-full my-[8%] mt-[2%] rounded-[20px] bg-primaryWhite flex flex-col gap-[15px] items-center justify-center`}
+      className={`${width} ${height} w-full my-[8%] lg:my-[3%] mt-[2%] rounded-[20px] bg-primaryWhite flex flex-col gap-[15px] items-center justify-center`}
     >
       <div className="w-[83%] md:w-[70%] mx-auto">
         <div className="w-full h-[40px] rounded-[20px] bg-primaryBlue text-center flex items-center justify-center">
@@ -320,6 +320,8 @@ interface DurationCardProps {
   bgColor?: string;
   border?: boolean;
   borderColor?: string;
+  isActive: boolean;
+    onClick?: () => void;
 }
 
 export const DurationCard: React.FC<DurationCardProps> = ({
@@ -330,13 +332,32 @@ export const DurationCard: React.FC<DurationCardProps> = ({
   bgColor = "#e8f1f9",
   border = true,
   borderColor = "#e8e8e8",
+   isActive = false,
+   onClick
+   
 }) => {
+  const [hover, setHover] = useState(false);
   return (
-    <div className="py-[20px] bg-[#e8f1f9] border border-[#e8e8e8] flex flex-col gap-[10px] items-center justify-center rounded-[18px] w-[85%] md:w-[45%] lg:w-[12%] mt-[20px]"
+    <div className="cursor-pointer py-[20px] bg-[#e8f1f9] border border-[#e8e8e8] flex flex-col gap-[10px] items-center justify-center rounded-[18px] w-[85%] md:w-[45%] lg:w-[12%] mt-[20px] transition-all duration-300 ease-in-out"
      style={{
-        backgroundColor: bgColor,
-        border: border ? `1px solid ${borderColor}` : "none",
+        backgroundColor: isActive
+          ? "#e0f2fe" // 🔹 light blue for active
+          : hover
+          ? "#eff6ff" // 🔹 slightly lighter blue for hover
+          : bgColor, // default background
+        border: border
+          ? `1px solid ${
+              isActive
+                ? "#2563eb" // active border color (blue-600)
+                : hover
+                ? "#3b82f6" // hover border color (blue-500)
+                : borderColor
+            }`
+          : "none",
       }}
+       onClick={onClick}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
      >
       {/* Duration */}
       <p className="bg-primaryBlue w-[140px] text-center text-primaryWhite rounded-[10px] py-[4px]">

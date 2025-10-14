@@ -2,8 +2,15 @@ import React, { useRef, useState } from 'react'
 import { Button, Modal } from '../../../components/shared'
 import Layout from '../../../components/layout/layout'
 import { Congratulations, Dot, Signal, Check, IconForReferral, FlutterWaveIcon, PaystackIcon, AlatPayIcon, BigEmailIcon, Email } from '../../../assets/icon'
-import { SelectableSubject } from '../../../components/card'
+import { HistoryCard, SelectableSubject } from '../../../components/card'
 import { DurationCard } from '../../../components/card/card'
+// import { usePaystackPayment, PaystackProps } from 'react-paystack';
+// @ts-expect-error no types for paystack
+import  PaystackPop from '@paystack/inline-js';
+import { Services } from '../../../service'
+import { useSelector } from 'react-redux'
+import type { ReduxStore } from '../../../redux/store'
+
 
 const Subscription = () => {
     const [selected, setSelected] = useState(false)
@@ -11,10 +18,12 @@ const Subscription = () => {
     const [congratulations, setCongratulations] = useState(false);
     const [wait, setWait] = useState(false);
     const [summary, setSummary] = useState(false);
-    const [email, setEmail] = useState(false);
+    // const [email, setEmail] = useState(false);
     const [toContinue, setToContinue] = useState(false);
     const [payment, setPayment] = useState(false);
+    const [tab, setTab] = useState<"subscription" | "history">("subscription");
 
+  
     const [inputValues, setInputValues] = useState(['', '', '', '', '', '']);
      const inputRefs = useRef<(HTMLInputElement | null)[]>([]);  
        const handlePinChange = (index: number, value: string) => {
@@ -51,19 +60,166 @@ const Subscription = () => {
           }
         };
 
-    
+
+      const [activeIndex, setActiveIndex] = useState<number | null>(null);
+        const durations = [
+    { duration: "1 week", oldPrice: 700, newPrice: 500, discount: 3 },
+    { duration: "1 month", oldPrice: 2500, newPrice: 2000, discount: 5 },
+    { duration: "3 months", oldPrice: 7000, newPrice: 6000, discount: 10 },
+  ]; 
+
+    const userId = useSelector((state: ReduxStore) => state.auth.userId);
+  const program = useSelector((state: ReduxStore) => state.auth.program);
+  const userName = useSelector((state: ReduxStore) => state.auth.program);
+  const email = useSelector((state: ReduxStore) => state.auth.email);
+
+  // const r = {
+  //   async handlePayStackPayment () {
+  //      const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
+  //     try  {
+  //       const paymentPayload = {
+  //         metadata: {
+  //           type: 'multipurpose',
+  //           userId: userId,
+  //           userName: userName,
+  //           subjects: ['Physics', 'Chemistry', 'Biology'],
+  //           program: program,
+  //           itemId: '6882556f18941e1f02ffa01f',
+  //           valuePrice: 500,
+  //           period: 'yearly',
+  //           method: 'payment',
+  //         },
+          
+  //       }
+  //       const response = await Services.subscription.subscription(paymentPayload)
+  //       console.log(response)
+  //       const config = {
+  //         reference: `REF-${Date.now()}`,
+  //         email: email,
+  //         amount: 200 * 100, // kobo
+  //         publicKey,
+  //         metadata: paymentPayload.metadata,
+  //       };
+
+  //        const initializePayment = usePaystackPayment(config);
+  //        initializePayment(
+  //       (ref) => {
+  //         console.log('✅ Payment successful:', ref);
+  //         // You can verify on backend here if needed
+  //       },
+  //     );
+
+
+  //     } catch (error) {
+  //        void error;
+  //     }
+  //     }
+  //   }
+
+   const publicKey = 'pk_test_ea71901295b0fd08ed4d67cd00f3d8fd9a3c5f23'
+   console.log(publicKey)
+
+  const handlePayStackPayment = async (event?: React.MouseEvent<HTMLButtonElement>) => {
+    event?.preventDefault();
+  try {
+   const publicKey = 'pk_test_ea71901295b0fd08ed4d67cd00f3d8fd9a3c5f23'
+   console.log("12345",publicKey)
+
+   const paymentPayload = {
+  event: "charge.success",
+  data: {
+    reference: "REF-book-5026",
+    amount: 6000, // or 500 if that's intended
+    status: "success",
+    channel: "card",
+    customer: { 
+      id: userId, 
+      email: email 
+    },
+    metadata: {
+      type: 'multipurpose',
+      userId,
+      userName,
+      subjects: ['Physics', 'Chemistry', 'Biology'],
+      program,
+      itemId: 'physics',
+      valuePrice: 500, // or 6000 if you want to match the original
+      period: 'yearly',
+      method: 'payment',
+    }
+  }
+};
+
+
+    // (Optional) Send to your backend before starting payment
+    const response = await Services.subscription.subscription(paymentPayload);
+    console.log('Backend response:', response);
+    console.log('publicKey:', publicKey);
+
+    // --- Paystack configuration ---
+    const paystack = new PaystackPop();
+    paystack.newTransaction({
+      key: publicKey,
+      email: email, // user email
+      amount: paymentPayload.data.metadata.valuePrice * 100, // convert Naira → Kobo
+      reference: `REF-${Date.now()}`, // unique payment reference
+      metadata: paymentPayload.data.metadata,
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      onSuccess: (transaction: any) => {
+        console.log('✅ Payment successful:', transaction);
+        // 🔹 Optionally send `transaction.reference` to your backend for verification
+      },
+
+      onCancel: () => {
+        console.log('❌ Payment cancelled by user');
+      },
+    });
+  } catch (error) {
+    console.error('❌ Payment error:', error);
+  }
+};
+
   return (
     <Layout>
     <div>
         <div className='bg-primaryWhite mt-[20px] w-[85%] lg:w-[92%]  px-auto flex flex-col gap-[40px]  lg:flex-row  ml-[5%] h-[190px] lg:h-[100px] lg:mx-auto rounded-[20px] lg:flex justify-center items-center lg:gap-[30px] '>
-                       <div className='w-[60%] lg:w-[350px] pt-[7%] md:pt-0'>
+                       {/* <div className='w-[60%] lg:w-[350px] pt-[7%] md:pt-0'>
                            <Button className='rounded-[30px]' rounded='full'> Subscription </Button>
-                       </div>
+                      </div> */} 
+
+                      <div className="w-[60%] lg:w-[350px] pt-[7%] md:pt-0">
+                        <Button
+                          onClick={() => setTab("subscription")}
+                          className={`rounded-[90px] font-bold text-[16px] transition-all duration-300 ${
+                            tab === "subscription"
+                              ? "bg-primaryBlue text-white" 
+                              : "bg-[#f5f5f5] text-black w-[40%]"
+                          }`}
+                          textColor='#000'
+                        >
+                          Subscription
+                        </Button>
+                      </div>
        
-                       <div className='w-[60%] lg:w-[350px]'>
+                       {/* <div className='w-[60%] lg:w-[350px]'>
                            <Button color='bg-[#f5f5f5]' textColor='text-[#333333]' rounded='xl' className='font-bold text-[16px]'> History </Button>
-                       </div>
-               </div>
+                       </div> */}
+
+                       <div className="w-[60%] lg:w-[350px]">
+                        <Button
+                          onClick={() => setTab("history")}
+                          className={`rounded-[90px] font-bold text-[16px] transition-all duration-300 ${
+                            tab === "history"
+                              ? "bg-primaryBlue text-white"
+                              : "bg-[#f5f5f5] text-[#333333]"
+                          }`}
+                          textColor='#000'
+                        >
+                          History
+                        </Button>
+                      </div>
+                                  </div>
       
       <div className='flex flex-wrap gap-[5px] ml-[3%]'>
         <div className="p-6">
@@ -255,14 +411,17 @@ const Subscription = () => {
 
 
         <div className="p-6">
-      <button
+      {/* <button
         onClick={() => setEmail(true)}
         className="px-2 py-2 bg-primaryBlue text-white rounded-lg cursor-pointer"
       >
         5th Modal
-      </button>
+      </button> */}
 
-      <Modal open={email} onClose={() => setEmail(false)} className="w-[98%] md:w-[90%] lg:w-[45%]">
+      <Modal 
+      // open={email}
+      //  onClose={() => setEmail(false)} 
+       className="w-[98%] md:w-[90%] lg:w-[45%]">
          <div className="w-full  flex items-center justify-center">
         <div className="w-[94% sm:w-[90%] lg:w-[70%]flex flex-col items-center justify-center h-[85%] sm:h-[551px]  sm:rounded-[20px] px-[18px] sm:px-[50px] lg:px-[100px]  sm:py-[30px]">
            <div className='flex items-center justify-center'>
@@ -397,9 +556,7 @@ const Subscription = () => {
 </div>
 
                  <div className='mt-[32px]'>
-
                   { <Button  type="submit" className="w-full bg-primaryBlue text-white p-2 rounded-[10px] mb-2 h-[48px]"> Select any payment and continue </Button> }
-
                        </div>
                  <p className='text-center text-[16px]  mt-[10px]'> By continuing, you agree to our terms and privacy. </p>
                </form>
@@ -409,73 +566,115 @@ const Subscription = () => {
     </div>
 
 
-    </div>
-
-        <div className='pl-[9%] md:pl-[6%] lg:pl-[4%] mt-[1.2%]'>
-            <p className='text-[18px] md:text-[25px] font-bold'> Subscription </p>
-            <p className='mt-[7px] w-[85%] lg:w-[50%]'> choose the plan that works best for your learning goals </p>
-        </div>
-
-        <div className='bg-primaryWhite mt-[30px] lg:mx-auto w-[85%] lg:w-[92%] h-[400px] lg:h-[180px] rounded-[20px] pt-[20px] ml-[5%]  pl-[25px] lg:pl-[50px]'>
-        <p className='text-[19px] md:text-[23px] font-bold text-primaryBlue '> Benefit of Subscription </p>
-        <div className='pt-[15px] w-[95%] md:w-[50%] flex flex-wrap gap-[20px]'> 
-       <div className='flex gap-[10px]'> <Dot className='mt-[7px]' color='#333333'/><p> Access to Textbook</p></div>
-       <div className='flex gap-[10px]'> <Dot className='mt-[7px]' color='#333333'/><p> Access to Past-Question and Answers</p></div>
-       <div className='flex gap-[10px]'> <Dot className='mt-[7px]' color='#333333'/><p> Access to (AOC)</p></div>
-       <div className='flex gap-[10px]'> <Dot className='mt-[7px]' color='#333333'/><p> Unlimited Practice Exam Questions </p></div>
-       <div className='flex gap-[10px]'> <Dot className='mt-[7px]' color='#333333'/><p> Weekly/Monthly Quiz </p></div>
-       <div className='flex gap-[10px]'> <Dot className='mt-[7px]' color='#333333'/><p> Subject Analytics </p></div>
-        </div>
-        
-        </div>
-
-         <div className='bg-primaryWhite mt-[30px] lg:mx-auto w-[85%] lg:w-[92%] h-[400px] lg:h-[210px] rounded-[20px] ml-[5%] pt-[20px] pl-[30px] lg:pl-[50px]'>
-        <p className='text-[18px] md:text-[23px] font-bold text-primaryBlue '> Subjects</p>
-        <div className='w-[90%] lg:w-[32%] mt-[15px] bg-[#fff4e5] pl-[10px] lg:pl-[20px] flex gap-[10px] p-2 rounded-[30px]'>
-            <div className='pt-[4px]'>
-            <Signal />
             </div>
-             <p> Select more than one (1) and get extra 3% discount </p>
-        </div>
-         
-           <div className='lg:flex gap-[50px]'>
-           <SelectableSubject
-           label="Mathematics"
-           checked={selected}
-           onChange={(e) => setSelected(e.target.checked)}
-           />
-           <SelectableSubject
-           label="Mathematics"
-           checked={selected}
-           onChange={(e) => setSelected(e.target.checked)}
-           />
-           <SelectableSubject
-           label="Mathematics"
-           checked={selected}
-           onChange={(e) => setSelected(e.target.checked)}
-           />
+                {tab === "subscription" && (
+                  <>
+                <div className='pl-[9%] md:pl-[6%] lg:pl-[4%] mt-[1.2%]'>
+                    <p className='text-[18px] md:text-[25px] font-bold'> Subscription </p>
+                    <p className='mt-[7px] w-[85%] lg:w-[50%]'> choose the plan that works best for your learning goals </p>
+                </div>
+
+                <div className='bg-primaryWhite mt-[30px] lg:mx-auto w-[85%] lg:w-[92%] h-[400px] lg:h-[180px] rounded-[20px] pt-[20px] ml-[5%]  pl-[25px] lg:pl-[50px]'>
+                <p className='text-[19px] md:text-[23px] font-bold text-primaryBlue '> Benefit of Subscription </p>
+                <div className='pt-[15px] w-[95%] md:w-[50%] flex flex-wrap gap-[20px]'> 
+              <div className='flex gap-[10px]'> <Dot className='mt-[7px]' color='#333333'/><p> Access to Textbook</p></div>
+              <div className='flex gap-[10px]'> <Dot className='mt-[7px]' color='#333333'/><p> Access to Past-Question and Answers</p></div>
+              <div className='flex gap-[10px]'> <Dot className='mt-[7px]' color='#333333'/><p> Access to (AOC)</p></div>
+              <div className='flex gap-[10px]'> <Dot className='mt-[7px]' color='#333333'/><p> Unlimited Practice Exam Questions </p></div>
+              <div className='flex gap-[10px]'> <Dot className='mt-[7px]' color='#333333'/><p> Weekly/Monthly Quiz </p></div>
+              <div className='flex gap-[10px]'> <Dot className='mt-[7px]' color='#333333'/><p> Subject Analytics </p></div>
+                </div>
+                
+                </div>
+
+                <div className='bg-primaryWhite mt-[30px] lg:mx-auto w-[85%] lg:w-[92%] h-[400px] lg:h-[210px] rounded-[20px] ml-[5%] pt-[20px] pl-[30px] lg:pl-[50px]'>
+                <p className='text-[18px] md:text-[23px] font-bold text-primaryBlue '> Subjects</p>
+                <div className='w-[90%] lg:w-[32%] mt-[15px] bg-[#fff4e5] pl-[10px] lg:pl-[20px] flex gap-[10px] p-2 rounded-[30px]'>
+                    <div className='pt-[4px]'>
+                    <Signal />
+                    </div>
+                    <p> Select more than one (1) and get extra 3% discount </p>
+                </div>
+                
+                  <div className='lg:flex gap-[50px]'>
+                  <SelectableSubject
+                  label="Mathematics"
+                  checked={selected}
+                  onChange={(e) => setSelected(e.target.checked)}
+                  />
+                  <SelectableSubject
+                  label="Mathematics"
+                  checked={selected}
+                  onChange={(e) => setSelected(e.target.checked)}
+                  />
+                  <SelectableSubject
+                  label="Mathematics"
+                  checked={selected}
+                  onChange={(e) => setSelected(e.target.checked)}
+                  />
+                    </div>
+                </div>
+
+                <div className='bg-primaryWhite mb-[8%] md:mb-[5%] lg:mb-[0%] mt-[30px] ml-[5%]  lg:mx-auto w-[85%] lg:w-[92%] h-[1250px] md:h-[850px] lg:h-[360px] rounded-[20px] pt-[20px] pl-[30px] lg:pl-[50px]'>
+                <p className='text-[19px] lg:text-[23px] mb-[10px] font-bold text-primaryBlue '> Duration</p>
+                <p className='w-[90%] lg:w-[90%]'> Select preferred duration based on discount</p>
+
+              <div className="md:flex flex-wrap gap-8">
+              {durations.map((item, index) => (
+                <DurationCard
+                  key={index}
+                  {...item}
+                  bgColor="#fff"
+                  borderColor="#e8e8e8"
+                  isActive={activeIndex === index}
+                  onClick={() => setActiveIndex(index)}
+                />
+              ))}
             </div>
-        </div>
+                </div>
+                <div className='mb-[35%] md:mb-[20%] lg:mb-[8%] lg:mt-[2%] w-[83%] md:w-[84%] lg:w-[92%] ml-[6%] lg:mx-auto'>
+                <Button onClick={handlePayStackPayment}> Subscribe</Button>
+              </div>
 
-         <div className='bg-primaryWhite mb-[8%] md:mb-[5%] lg:mb-[0%] mt-[30px] ml-[5%]  lg:mx-auto w-[85%] lg:w-[92%] h-[1250px] md:h-[850px] lg:h-[360px] rounded-[20px] pt-[20px] pl-[30px] lg:pl-[50px]'>
-        <p className='text-[19px] lg:text-[23px] mb-[10px] font-bold text-primaryBlue '> Duration</p>
-        <p className='w-[90%] lg:w-[90%]'> Select preferred duration based on discount</p>
+              </>
+        )}
 
-          <div className="md:flex flex-wrap gap-8">
-        <DurationCard duration="1 week" oldPrice={700} newPrice={500} discount={3} border={false} />
-        <DurationCard duration="1 month" oldPrice={2500} newPrice={2000} discount={5} bgColor="#fff"/>
-        <DurationCard duration="3 months" oldPrice={7000} newPrice={6000} discount={10} bgColor="#fff" />
-        <DurationCard duration="3 months" oldPrice={7000} newPrice={6000} discount={10} bgColor="#fff" />
-        <DurationCard duration="3 months" oldPrice={7000} newPrice={6000} discount={10} bgColor="#fff" />
-      </div>
-        </div>
 
-         <div className='mb-[35%] md:mb-[20%] lg:mb-[8%] lg:mt-[2%] w-[83%] md:w-[84%] lg:w-[92%] ml-[6%] lg:mx-auto'>
-        <Button> Subscribe</Button>
-      </div>
+           {tab === "history" && (
+            <>
+               <div>
+                      <div className='pl-[9%] md:pl-[5%] lg:pl-[4%] mt-[9%] lg:mt-[1.2%] '>
+                          <p className='text-[19px] lg:text-[22px] font-bold'> Subscription History</p>
+                      </div>
+                     
+                     <div className='mb-[40%] md:mb-[22%] lg:mb-[10%]'>
+              
+                      <HistoryCard
+                       subjects={["Mathematics", "Physics"]}
+                       statusText="Insufficient (15 Points)"
+                       duration="3 months"
+                       expiryDate="2025-02-20"
+                       daysLeft={17}
+                       totalPaid="N2,000"
+                     />
+              
+                      <HistoryCard
+                       subjects={["Mathematics", "Physics"]}
+                       statusText="Insufficient (15 Points)"
+                       duration="3 months"
+                       expiryDate="2025-02-20"
+                       daysLeft={17}
+                       totalPaid="N2,000"
+                     />
+                            </div>
+              
+                    
+                  </div>
+            </>
+          )}
 
-    </div>
-   </Layout>
+            </div>
+          </Layout>
   )
 }
 

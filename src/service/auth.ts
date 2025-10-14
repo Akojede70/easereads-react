@@ -13,9 +13,9 @@ export const registerUser = async (payload: RegisterFormData) => {
 
 export const loginUser = async (payload: LoginFormData) => {
     const response = await axiosInstance.post('/student/login', payload);
-    if (response.data && response.data.user) {
-        // const { accessToken, refreshToken } = response.data.user; 
-        // localStorage.setItem('token', accessToken); 
+    if (response?.data?.data && response?.data?.data?.accessToken) {
+        const { accessToken,  } = response.data.data; 
+        localStorage.setItem('token', accessToken); 
         // localStorage.setItem('refreshToken', refreshToken); 
     }
     

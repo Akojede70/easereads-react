@@ -83,28 +83,28 @@ const ExamPractice = () => {
          
          
           <>  
-        <div className='w-[87%] ml-[7%]'>
+        <div className='w-[87%] ml-[7%] md:w-[92%] md:ml-[4.3%]'>
           <div className='w-full  h-[120px] mt-[30px] lg:mt-0  pl-[13px] md:pl-[40px] lg:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
                      <div className='w-[98%] lg:flex items-center justify-between'>
                        <div className='pt-[12px] lg:pt-0'>
                           <p className='font-bold text-[18px] lg:text-[30px]'> Exam Practice </p>
                         </div>
-                          <div className='flex gap-[10px] lg:gap-0 w-[98%] md:w-[80%] lg:w-[30%] mt-[15px] lg:mt-0'>
+                          <div className='flex gap-[10px] lg:gap-0 w-[98%] md:w-[100%] lg:w-[30%] mt-[15px] lg:mt-0'>
                             <div className='w-[58%] md:w-[70%] lg:w-[90%]'>
-                            <button className='text-[#fff]  px-1 md:px-5 text-[13px] md:text-[15px] lg:text-[18px] rounded-[15px] h-[38px] md:h-[50px] bg-[#4cb851]'> WhatsApp Community</button>
+                            <button className='text-[#fff]  px-1 md:px-5 text-[13px] md:text-[15px] lg:text-[18px] rounded-[15px] h-[38px] md:h-[40px] lg:h-[50px] bg-[#4cb851]'> WhatsApp Community</button>
                             </div>
-                            <div className='w-[60%] md:w-[70%] lg:w-[68%]'>
+                            <div className='w-[60%] md:w-[30%] lg:w-[68%] pt-[1%]'>
                             <Button className='rounded-[15px] text-[13px] md:text-[15px] lg:text-[18px]' onClick={() => navigate('/jupeb/exam-instruction')}> Practice Exam </Button>
                             </div>
                          </div>
                      </div>
                    </div> 
-                  <div className='mt-[9%] md:flex gap-[10px] md:gap-[3px] lg:gap-[10px]'>
+                  <div className='mt-[9%] lg:mt-[2%] md:flex gap-[10px] md:gap-[7%] lg:gap-[10%]'>
          <StatCard title="Total Subjects" value={ loading ? <ComponentLoader color={'#106EBE'} /> : history?.totalSubjects} />
            <StatCard title="Total Exam Practice" value={ loading ? <ComponentLoader color={'#106EBE'} /> : history?.totalQuestions} />
            <StatCard title="Average Score" value={ loading ? <ComponentLoader color={'#106EBE'} /> : `${Math.round(history?.averagePercentage)}%`} />
        </div>
-           <div className='pl-[1%] lg:pl-[3%] font-bold text-[17px] md:text-[22px] pt-[3%]'> Exams Practice History </div>
+           <div className='pl-[1%] lg:pl-[0%] font-bold text-[17px] md:text-[22px] pt-[3%] lg:pt-0'> Exams Practice History </div>
    <div className=' mt-[1%] mb-[13%] overflow-x-auto'>
         <table className='min-w-full md:w-[94%] rounded-[20px] bg-primaryWhite  mx-auto'>
           <thead>
@@ -157,34 +157,34 @@ const ExamPractice = () => {
      : 
       ( 
 
-           <div>
-       <div className='w-[70%] md:w-[95%] lg:w-full  h-[120px] mt-[30px] lg:mt-0 ml-[2%] md:ml-[3%]  lg:ml-0 pl-[13px] md:pl-[40px] border lg:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
+           <div className='w-[88%] ml-[6%]'>
+       <div className='w-full  h-[120px] mt-[30px] lg:mt-0  pl-[13px] md:pl-[40px]  lg:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
            <div className='w-[98%] lg:flex items-center justify-between'>
              <div className='pt-[12px] lg:pt-0' >
                 <p className='font-bold text-[18px] lg:text-[30px]'> Exam Practice </p>
               </div>
-                <div className='flex gap-[10px] lg:gap-0 w-[98%] md:w-[80%] lg:w-[30%] mt-[15px] lg:mt-0'>
+                <div className='flex gap-[10px] lg:gap-0 w-[98%] md:w-full lg:w-[30%] mt-[15px] lg:mt-0'>
                   <div className='w-[58%] md:w-[70%] lg:w-[90%]'>  
                    <a
                     href="https://chat.whatsapp.com/ETfgpKavqLNDlPFl06EtXa"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <button className="cursor-pointer text-[#fff] px-1 md:px-5 text-[13px] md:text-[15px] lg:text-[18px] rounded-[15px] h-[50px] bg-[#4cb851]">
+                    <button className="cursor-pointer text-[#fff] px-[10px] md:px-5 text-[13px] md:text-[15px] lg:text-[18px] rounded-[15px] p-[8px] md:p-auto md:h-[50px] bg-[#4cb851]">
                       WhatsApp Community
                     </button>
                   </a>
                   </div>
                   <div className='w-[60%] md:w-[70%] lg:w-[68%]'>
-                  <Button className='rounded-[15px] text-[13px] md:text-[15px] lg:text-[18px] cursor-pointer' onClick={() => navigate('/Jupeb/exam-instruction')}> Practice Exam </Button>
+                  <Button className='rounded-[15px] text-[13px] md:text-[15px] lg:text-[18px] cursor-pointer mt-0 md:mt-[5px] lg:mt-0' onClick={() => navigate('/Jupeb/exam-instruction')}> Practice Exam </Button>
                   </div>
                </div>
            </div>
          </div>
 
-         <div className='ml-[2.3%] w-[94%]  md:w-[95%] mt-[2%] md:mt-[9%] lg:mt-[2%]'>
+         <div className='w-full mt-[2%] md:mt-[9%] lg:mt-[2%]'>
           <div>
-            <p className='text-[15px] md:text-[18px] font-bold mb-[1%] mt-[30px] md:mt-0 ml-[2%] lg:ml-0'> Exams History</p>
+            <p className='text-[15px] md:text-[18px] font-bold mb-[1%] mt-[30px] md:mt-0'> Exams History</p>
           </div>
 
           <div className='w-[97%] lg:w-full bg-primaryWhite flex flex-col gap-[40px] items-center justify-center  rounded-[20px] h-[350px] md:h-[400px] mt-[20px] ml-[1%] md:ml-[1%]  lg:ml-0'>
@@ -195,11 +195,8 @@ const ExamPractice = () => {
                     <p> Looks like you haven't taken any practice exams yet-but that's a great place to start! </p>
                 </div>
           </div>
-
          </div>
-
          </div>
-
          ) 
         
 

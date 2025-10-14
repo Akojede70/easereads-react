@@ -17,8 +17,8 @@ const Answer = () => {
   const getLocalStorageDetails = localStorage.getItem('submitQuestion');
   const studentScore = getLocalStorageDetails ? JSON.parse(getLocalStorageDetails) : {};
 
-  const questionsString = localStorage.getItem('questions');
-  const parsedData = questionsString ? JSON.parse(questionsString) : {};
+  // const questionsString = localStorage.getItem('questions');
+  // const parsedData = questionsString ? JSON.parse(questionsString) : {};
 
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState<ExamAnswer[]>([]);
@@ -65,12 +65,12 @@ const Answer = () => {
   return (
     <div className="bg-creamWhite w-full h-screen">
       {/* Header */}
-      <div className="w-full bg-primaryWhite h-[90px] md:h-[100px] pt-[15px] md:pt-[30px] pl-[7%] md:pl-[3%] border-t border-b border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]">
-        <div className="flex gap-[68%] w-[48%] mx-auto">
+      <div className="w-full bg-primaryWhite h-[90px] md:h-[100px] pt-[15px] md:pt-[30px] border-t border-b border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]">
+        <div className="flex justify-between w-[88%] md:w-[79%] lg:w-[43%] mx-auto">
           <div onClick={handleGoBack}>
             <BackButton />
           </div>
-          <div>
+          <div className='pt-[2%] md:pt-0'>
             <Button onClick={ () => navigate('/jupeb/overview')}>
               Dashboard
               </Button>
@@ -83,10 +83,10 @@ const Answer = () => {
         {loading ? (
           <Spinner />
         ) : (
-          <div className="w-[90%] mt-[4%] md:w-[80%] lg:w-[45%] mx-auto px-[3%] bg-primaryWhite rounded-[10px] shadow-md font-bold">
+          <div className="w-[90%] mt-[10%] md:mt-[7%] lg:mt-[4%] md:w-[80%] lg:w-[45%] mx-auto px-[3%] bg-primaryWhite rounded-[10px] shadow-md font-bold">
             {/* Title */}
             <div className="text-[15px] md:text-[16px] flex justify-between items-center mb-[3%] pt-[5%]">
-              <h2 className="text-[22px] font-bold">Exam Report</h2>
+              <h2 className="text-[18px] md:text-[22px] font-bold">Exam Report</h2>
               <div>
                 Total Percentage:{' '}
                 {examId
@@ -97,17 +97,17 @@ const Answer = () => {
 
             {/* Question Section */}
             {currentQuestion ? (
-              <div className="flex flex-col gap-[20px] mb-4 text-[13px] md:text-[16px]">
-                <div className="flex gap-[25px] md:gap-[5%]">
+              <div className="mb-4 flex flex-col gap-[15px] text-[13px] md:text-[16px]">
+                <div className="flex pt-[30px] ">
                   <p className="text-primaryBlue w-[110px] md:w-[120px]">
                     Question {currentIndex + 1} -
                   </p>
-                  <p>{currentQuestion?.question || currentQuestion?.questionContent}</p>
+                  <p className='ml-[10%]'>{currentQuestion?.question || currentQuestion?.questionContent}</p>
                 </div>
 
-                <div className="flex gap-[30px] md:gap-[7%] pt-[2%]">
-                  <p className="text-primaryBlue font-bold">Under Topic -</p>
-                  <p>{currentQuestion?.topic || currentQuestion?.topics}</p>
+                <div className="flex pt-[2%]">
+                  <p className="text-primaryBlue font-bold w-[155px]">Under Topic -</p>
+                  <p className='ml-[10px]'>{currentQuestion?.topic || currentQuestion?.topics}</p>
                 </div>
 
                 <div className="flex gap-[30px] md:gap-[7%] pt-[2%]">
@@ -133,7 +133,7 @@ const Answer = () => {
             )}
 
             {/* Navigation Buttons */}
-            <div className="flex mt-[5%]">
+            <div className="flex justify-between my-[7%]">
               <div className="w-[25%] lg:w-[170px]">
                 { currentIndex > 0 &&
                    <button
@@ -158,7 +158,7 @@ const Answer = () => {
 
             {/* Footer Summary */}
             <div className="md:flex justify-between mt-[3%] pt-[1%] border-t border-[#dbdbdb]">
-              <div className="mb-[5%] flex flex-col gap-[15px] font-bold text-[14px] pt-[10px]">
+              <div className="mb-[9%] md:mb-[3%] flex flex-col gap-[15px] font-bold text-[14px] pt-[10px]">
                 <p>
                   Correct Answers:{' '}
                   {examId
@@ -167,9 +167,9 @@ const Answer = () => {
                   out of{' '}
                   {examId
                     ? questions.length
-                    : parsedData?.questionDetails?.length}
+                    : studentScore?.results?.length}
                 </p>
-                <p>
+                <p className='mb-[25px]'>
                   Wrong Answers:{' '}
                   {examId
                     ? questions.filter(q => !q.isCorrect).length
@@ -177,7 +177,7 @@ const Answer = () => {
                   out of{' '}
                   {examId
                     ? questions.length
-                    : parsedData?.questionDetails?.length}
+                    : studentScore?.results?.length}
                 </p>
               </div>
 
