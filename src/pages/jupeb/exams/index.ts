@@ -6,6 +6,7 @@ import Question from './exams-question'
 import Answer from './exams-answer'
 import ExamsSolutionsAnswer from './exams-solution-answer'
 import ExamComplete from './exam-complete'
+import { ExamPreparingModal, PaymentModal } from './modal'
 
 const jupeb = {
    // ExamPractice,
@@ -15,7 +16,9 @@ const jupeb = {
    Question,
    Answer,
    ExamsSolutionsAnswer,
-   ExamComplete
+   ExamComplete,
+   ExamPreparingModal,
+   PaymentModal
 }
 
 export default jupeb;

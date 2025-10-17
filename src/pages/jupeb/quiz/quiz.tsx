@@ -87,7 +87,7 @@ const Quiz = () => {
            <h2 className='text-[18px] md:text-[30px] font-bold'> Quiz Hub </h2>
            <p className='w-[68%] lg:w-full'> Change yourself with interactive Quizzes</p>
             </div>
-            <div className='w-[18%] md:w-[30%] lg:w-[16%] flex flex-col gap-[8px] md:flex md:flex-row md:gap-[20px] md:pt-[25px] '>
+            <div className='w-[18%] md:w-[30%] lg:w-[20%] flex flex-col gap-[8px] md:flex md:flex-row md:gap-[20px] md:pt-[25px] '>
               <div className='pt-0 md:pt-[2px] lg:pt-0 ml-[10px] md:ml-0'>
                 <RedStreakIcon />
               </div>

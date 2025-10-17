@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../../../components/layout/layout'
-import {  Stop, HoldOn, Mark, Dropdown } from '../../../assets/icon';
+import {  Stop, HoldOn, Dropdown } from '../../../assets/icon';
 import "react-circular-progressbar/dist/styles.css";
-import { BackButton, Button, Modal } from '../../../components/shared';
+import { BackButton, Button } from '../../../components/shared';
 import { useNavigate } from 'react-router-dom';
 import { Services } from '../../../service';
 import { useSelector } from 'react-redux';
 import type { ReduxStore } from '../../../redux/store';
 import { Helper } from '../../../components';
+import { PaymentModal } from './modal';
+// @ts-expect-error no types for paystack
+import  PaystackPop from '@paystack/inline-js';
+import { PAYSTACK_PUBLIC_KEY } from '../../../config/config';
 
 const { ComponentLoader, Alert } = Helper;
 
@@ -16,12 +20,19 @@ const { ComponentLoader, Alert } = Helper;
 const ExamForm = () => { 
       const userId = useSelector((state: ReduxStore) => state.auth.userId);
       const program = useSelector((state: ReduxStore) => state.auth.program);
+      const userName = useSelector((state: ReduxStore) => state.auth.program);
+      const email = useSelector((state: ReduxStore) => state.auth.email);
+      
 
       const [open, setOpen] = useState(false);
       const [showAlert, setShowAlert] = useState(false)
       const [alertMessage, setAlertMessage] = useState('')
       const [alertStatus, setAlertStatus] = useState('')
       const navigate = useNavigate()
+      const [selectedAmount, setSelectedAmount] = useState<number | null | string>(null);
+      const [studentSubject, setStudentSubject] = useState([])
+
+
 
 
       const [formList, setFormList] = useState({
@@ -176,6 +187,50 @@ const ExamForm = () => {
     
     };
 
+     useEffect(() => {
+          const subjectSelected = async ( userId: number | string ) => {
+            try {
+              const response = await Services.exams.subjectRegistered(userId);
+              setStudentSubject(response?.data);             
+            } catch (error) { 
+              void error;
+            } 
+          };
+          if (userId) {
+            subjectSelected(userId);
+          }
+          }, []);
+
+// const handlePayment = () => {
+    const handlePayStackPayment = async (amount: number, ) => {
+    setSelectedAmount(amount);
+    setOpen(false);
+    const paystack = new PaystackPop();
+    paystack.newTransaction({
+      key: PAYSTACK_PUBLIC_KEY,
+      email: email,
+      amount: amount * 100,
+      metadata: {
+        subject: studentSubject,
+        userId: userId,
+        type: "textBooks",
+        provider: "paystack",
+      },
+      onSuccess(reference) {
+        // setLoading(false);
+        // setOpenModal(false);
+        // showToast("Payment Processing...", "success");
+      },
+      onCancel() {
+        // setLoading(false);
+        // showToast("You have canceled the transaction");
+      },
+    });
+  };
+// }
+
+
+
 
 
   return (
@@ -203,29 +258,12 @@ const ExamForm = () => {
            
         <div >
           <div className='mb-[20px] md:mb-0 w-[150px] md:w-[100px] lg:w-full text-[12px] lg:text-[16px] md:pt-[15px] lg:pt-0'>
-        <Button onClick={() => setOpen(true)}> Get Access to Exam </Button>
+           <Button onClick={() => setOpen(true)}> Get Access to Exam </Button>
+           <PaymentModal 
+           open={open} setOpen={setOpen} 
+           handlePayStackPayment={handlePayStackPayment}
+           />
           </div>
-         <Modal open={open} onClose={() => setOpen(false)} className="w-[95%] md:w-[90%] lg:w-[45%]">
-       <div className="flex items-center justify-center p-6">
-      <div className=" p-8">
-        <h2 className="text-3xl font-bold text-center mb-6">Preparing Exams Question</h2>
-        <div className="space-y-4 mx-auto flex flex-col items-center justify-center">
-          <div className="flex gap-[10px]">
-            <Mark />
-            <span>Submitting Exams details</span>
-          </div>
-          <div className="flex gap-[10px] items-center ml-[21px]">
-            <Mark />
-            <span>Arranging Exams Questions</span>
-          </div>
-          <div className="flex gap-[10px] items-center">
-            <Mark/>
-            <span>Getting Exams Question</span>
-          </div>
-        </div>
-      </div>
-    </div>
-      </Modal>
         </div>
         </div>
        

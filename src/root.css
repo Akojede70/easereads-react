@@ -45,29 +45,29 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-/* for circle checkboxes */
 .custom-checkbox {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   border: 2px solid #ccc;
-  border-radius: 50%; /* Makes the checkbox circular */
-  appearance: none; /* Removes default styling */
-  -webkit-appearance: none; /* For Safari */
-  -moz-appearance: none; /* For Firefox */
+  border-radius: 50%;
+  appearance: none;
   cursor: pointer;
   position: relative;
-  background-color: white; /* Ensure background is visible */
+  background-color: white;
+  transition: all 0.2s ease;
 }
 
 .custom-checkbox:checked {
-  background-color: #00296B;
-  border-color: #00296B;
+  background-color: #106ebe;
+  border-color: #106ebe;
 }
 
 .custom-checkbox:checked::after {
-  content: "✔";
-  color: white;
-  font-size: 10px;
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-radius: 50%;
   position: absolute;
   top: 50%;
   left: 50%;

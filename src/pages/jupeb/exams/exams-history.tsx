@@ -84,21 +84,29 @@ const ExamPractice = () => {
          
           <>  
         <div className='w-[87%] ml-[7%] md:w-[92%] md:ml-[4.3%]'>
-          <div className='w-full  h-[120px] mt-[30px] lg:mt-0  pl-[13px] md:pl-[40px] lg:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
-                     <div className='w-[98%] lg:flex items-center justify-between'>
-                       <div className='pt-[12px] lg:pt-0'>
-                          <p className='font-bold text-[18px] lg:text-[30px]'> Exam Practice </p>
-                        </div>
-                          <div className='flex gap-[10px] lg:gap-0 w-[98%] md:w-[100%] lg:w-[30%] mt-[15px] lg:mt-0'>
-                            <div className='w-[58%] md:w-[70%] lg:w-[90%]'>
-                            <button className='text-[#fff]  px-1 md:px-5 text-[13px] md:text-[15px] lg:text-[18px] rounded-[15px] h-[38px] md:h-[40px] lg:h-[50px] bg-[#4cb851]'> WhatsApp Community</button>
-                            </div>
-                            <div className='w-[60%] md:w-[30%] lg:w-[68%] pt-[1%]'>
-                            <Button className='rounded-[15px] text-[13px] md:text-[15px] lg:text-[18px]' onClick={() => navigate('/jupeb/exam-instruction')}> Practice Exam </Button>
-                            </div>
-                         </div>
-                     </div>
-                   </div> 
+          <div className='w-full  h-[120px] mt-[30px] lg:mt-[40px]  pl-[13px] md:pl-[40px]  lg:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
+           <div className='w-[98%] lg:flex items-center justify-between'>
+             <div className='pt-[12px] lg:pt-[0]' >
+                <p className='font-bold text-[18px] lg:text-[30px]'> Exam Practice </p>
+              </div>
+                <div className='flex gap-[10px] lg:gap-[20px] w-[98%] md:w-full lg:w-[30%] mt-[15px] lg:mt-0'>
+                  <div className='w-[58%] md:w-[70%] lg:w-[90%]'>  
+                   <a
+                    href="https://chat.whatsapp.com/ETfgpKavqLNDlPFl06EtXa"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <button className="cursor-pointer text-[#fff] px-[10px] md:px-5 text-[13px] md:text-[15px] lg:text-[18px] rounded-[15px] p-[8px] md:p-auto md:h-auto bg-[#4cb851]">
+                      WhatsApp Community
+                    </button>
+                  </a>
+                  </div>
+                  <div className='w-[60%] md:w-[70%] lg:w-[68%]'>
+                  <Button className='rounded-[15px] text-[13px] md:text-[15px] lg:text-[18px] cursor-pointer mt-0 md:mt-[5px] lg:mt-0' onClick={() => navigate('/Jupeb/exam-instruction')}> Practice Exam </Button>
+                  </div>
+               </div>
+           </div>
+         </div>
                   <div className='mt-[9%] lg:mt-[2%] md:flex gap-[10px] md:gap-[7%] lg:gap-[10%]'>
          <StatCard title="Total Subjects" value={ loading ? <ComponentLoader color={'#106EBE'} /> : history?.totalSubjects} />
            <StatCard title="Total Exam Practice" value={ loading ? <ComponentLoader color={'#106EBE'} /> : history?.totalQuestions} />
@@ -158,19 +166,19 @@ const ExamPractice = () => {
       ( 
 
            <div className='w-[88%] ml-[6%]'>
-       <div className='w-full  h-[120px] mt-[30px] lg:mt-0  pl-[13px] md:pl-[40px]  lg:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
+       <div className='w-full  h-[120px] mt-[30px] lg:mt-[40px]  pl-[13px] md:pl-[40px]  lg:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
            <div className='w-[98%] lg:flex items-center justify-between'>
-             <div className='pt-[12px] lg:pt-0' >
+             <div className='pt-[12px] lg:pt-[0]' >
                 <p className='font-bold text-[18px] lg:text-[30px]'> Exam Practice </p>
               </div>
-                <div className='flex gap-[10px] lg:gap-0 w-[98%] md:w-full lg:w-[30%] mt-[15px] lg:mt-0'>
+                <div className='flex gap-[10px] lg:gap-[20px] w-[98%] md:w-full lg:w-[30%] mt-[15px] lg:mt-0'>
                   <div className='w-[58%] md:w-[70%] lg:w-[90%]'>  
                    <a
                     href="https://chat.whatsapp.com/ETfgpKavqLNDlPFl06EtXa"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <button className="cursor-pointer text-[#fff] px-[10px] md:px-5 text-[13px] md:text-[15px] lg:text-[18px] rounded-[15px] p-[8px] md:p-auto md:h-[50px] bg-[#4cb851]">
+                    <button className="cursor-pointer text-[#fff] px-[10px] md:px-5 text-[13px] md:text-[15px] lg:text-[18px] rounded-[15px] p-[8px] md:p-auto md:h-auto bg-[#4cb851]">
                       WhatsApp Community
                     </button>
                   </a>

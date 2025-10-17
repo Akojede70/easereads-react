@@ -1,11 +1,13 @@
 import Subscription from './subscription'
 import History from './history'
+import PaymentSubscriptionModal from './modal';
 
 
 
 const jupeb = {
    Subscription,
-   History
+   History,
+   PaymentModal: PaymentSubscriptionModal
 }
 
 export default jupeb;

@@ -36,3 +36,8 @@ export const examDetails = async (id: number | string) => {
     const response = await axiosInstance.get(`/student/exam/details/${id}`);
     return response.data; 
 };
+
+export const subjectRegistered = async (id: number | string) => {
+    const response = await axiosInstance.get(`/student/book-name/${id}/Jupeb`);
+    return response.data; 
+};

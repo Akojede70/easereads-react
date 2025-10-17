@@ -1,15 +1,16 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button, Modal } from '../../../components/shared'
 import Layout from '../../../components/layout/layout'
 import { Congratulations, Dot, Signal, Check, IconForReferral, FlutterWaveIcon, PaystackIcon, AlatPayIcon, BigEmailIcon, Email } from '../../../assets/icon'
 import { HistoryCard, SelectableSubject } from '../../../components/card'
 import { DurationCard } from '../../../components/card/card'
-// import { usePaystackPayment, PaystackProps } from 'react-paystack';
-// @ts-expect-error no types for paystack
-import  PaystackPop from '@paystack/inline-js';
-import { Services } from '../../../service'
 import { useSelector } from 'react-redux'
 import type { ReduxStore } from '../../../redux/store'
+import PaymentSubscriptionModal from './modal'
+// import { usePaystackPayment, PaystackProps } from 'react-paystack';
+// import { Services } from '../../../service'
+// import { useSelector } from 'react-redux'
+// import type { ReduxStore } from '../../../redux/store'
 
 
 const Subscription = () => {
@@ -18,11 +19,14 @@ const Subscription = () => {
     const [congratulations, setCongratulations] = useState(false);
     const [wait, setWait] = useState(false);
     const [summary, setSummary] = useState(false);
+    const userId = useSelector((state: ReduxStore) => state.auth.userId);
+
     // const [email, setEmail] = useState(false);
     const [toContinue, setToContinue] = useState(false);
     const [payment, setPayment] = useState(false);
     const [tab, setTab] = useState<"subscription" | "history">("subscription");
-
+    const [studentSubject, setStudentSubject] = useState([])
+    
   
     const [inputValues, setInputValues] = useState(['', '', '', '', '', '']);
      const inputRefs = useRef<(HTMLInputElement | null)[]>([]);  
@@ -60,126 +64,38 @@ const Subscription = () => {
           }
         };
 
+          useEffect(() => {
+                    const subjectSelected = async ( userId: number | string ) => {
+                      try {
+                        const response = await Services.exams.subjectRegistered(userId);
+                        setStudentSubject(response?.data);             
+                      } catch (error) { 
+                        void error;
+                      } 
+                    };
+                    if (userId) {
+                      subjectSelected(userId);
+                    }
+                    }, []);
 
       const [activeIndex, setActiveIndex] = useState<number | null>(null);
         const durations = [
     { duration: "1 week", oldPrice: 700, newPrice: 500, discount: 3 },
     { duration: "1 month", oldPrice: 2500, newPrice: 2000, discount: 5 },
     { duration: "3 months", oldPrice: 7000, newPrice: 6000, discount: 10 },
-  ]; 
+  ];  
 
-    const userId = useSelector((state: ReduxStore) => state.auth.userId);
-  const program = useSelector((state: ReduxStore) => state.auth.program);
-  const userName = useSelector((state: ReduxStore) => state.auth.program);
-  const email = useSelector((state: ReduxStore) => state.auth.email);
+        const subjects = ["Physics", "Mathematics", "Chemistry"];
+  const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
 
-  // const r = {
-  //   async handlePayStackPayment () {
-  //      const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
-  //     try  {
-  //       const paymentPayload = {
-  //         metadata: {
-  //           type: 'multipurpose',
-  //           userId: userId,
-  //           userName: userName,
-  //           subjects: ['Physics', 'Chemistry', 'Biology'],
-  //           program: program,
-  //           itemId: '6882556f18941e1f02ffa01f',
-  //           valuePrice: 500,
-  //           period: 'yearly',
-  //           method: 'payment',
-  //         },
-          
-  //       }
-  //       const response = await Services.subscription.subscription(paymentPayload)
-  //       console.log(response)
-  //       const config = {
-  //         reference: `REF-${Date.now()}`,
-  //         email: email,
-  //         amount: 200 * 100, // kobo
-  //         publicKey,
-  //         metadata: paymentPayload.metadata,
-  //       };
-
-  //        const initializePayment = usePaystackPayment(config);
-  //        initializePayment(
-  //       (ref) => {
-  //         console.log('✅ Payment successful:', ref);
-  //         // You can verify on backend here if needed
-  //       },
-  //     );
-
-
-  //     } catch (error) {
-  //        void error;
-  //     }
-  //     }
-  //   }
-
-   const publicKey = 'pk_test_ea71901295b0fd08ed4d67cd00f3d8fd9a3c5f23'
-   console.log(publicKey)
-
-  const handlePayStackPayment = async (event?: React.MouseEvent<HTMLButtonElement>) => {
-    event?.preventDefault();
-  try {
-   const publicKey = 'pk_test_ea71901295b0fd08ed4d67cd00f3d8fd9a3c5f23'
-   console.log("12345",publicKey)
-
-   const paymentPayload = {
-  event: "charge.success",
-  data: {
-    reference: "REF-book-5026",
-    amount: 6000, // or 500 if that's intended
-    status: "success",
-    channel: "card",
-    customer: { 
-      id: userId, 
-      email: email 
-    },
-    metadata: {
-      type: 'multipurpose',
-      userId,
-      userName,
-      subjects: ['Physics', 'Chemistry', 'Biology'],
-      program,
-      itemId: 'physics',
-      valuePrice: 500, // or 6000 if you want to match the original
-      period: 'yearly',
-      method: 'payment',
-    }
-  }
-};
-
-
-    // (Optional) Send to your backend before starting payment
-    const response = await Services.subscription.subscription(paymentPayload);
-    console.log('Backend response:', response);
-    console.log('publicKey:', publicKey);
-
-    // --- Paystack configuration ---
-    const paystack = new PaystackPop();
-    paystack.newTransaction({
-      key: publicKey,
-      email: email, // user email
-      amount: paymentPayload.data.metadata.valuePrice * 100, // convert Naira → Kobo
-      reference: `REF-${Date.now()}`, // unique payment reference
-      metadata: paymentPayload.data.metadata,
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      onSuccess: (transaction: any) => {
-        console.log('✅ Payment successful:', transaction);
-        // 🔹 Optionally send `transaction.reference` to your backend for verification
-      },
-
-      onCancel: () => {
-        console.log('❌ Payment cancelled by user');
-      },
-    });
-  } catch (error) {
-    console.error('❌ Payment error:', error);
-  }
-};
-
+  const handleChange = (subject: string) => {
+    setSelectedSubjects((prev) =>
+      prev.includes(subject)
+        ? prev.filter((s) => s !== subject) // uncheck if already selected
+        : [...prev, subject] // add if not selected
+    );
+  };
+  
   return (
     <Layout>
     <div>
@@ -597,21 +513,14 @@ const Subscription = () => {
                 </div>
                 
                   <div className='lg:flex gap-[50px]'>
-                  <SelectableSubject
-                  label="Mathematics"
-                  checked={selected}
-                  onChange={(e) => setSelected(e.target.checked)}
-                  />
-                  <SelectableSubject
-                  label="Mathematics"
-                  checked={selected}
-                  onChange={(e) => setSelected(e.target.checked)}
-                  />
-                  <SelectableSubject
-                  label="Mathematics"
-                  checked={selected}
-                  onChange={(e) => setSelected(e.target.checked)}
-                  />
+                      {subjects.map((subject) => (
+                      <SelectableSubject
+                        key={subject}
+                        label={subject}
+                        checked={selectedSubjects.includes(subject)}
+                        onChange={() => handleChange(subject)}
+                      />
+                    ))}
                     </div>
                 </div>
 
@@ -633,7 +542,16 @@ const Subscription = () => {
             </div>
                 </div>
                 <div className='mb-[35%] md:mb-[20%] lg:mb-[8%] lg:mt-[2%] w-[83%] md:w-[84%] lg:w-[92%] ml-[6%] lg:mx-auto'>
-                <Button onClick={handlePayStackPayment}> Subscribe</Button>
+                <Button onClick={() => setSummary(true)} > Subscribe</Button>
+                  <PaymentSubscriptionModal
+                  open={summary}
+                  onClose={() => setSummary(false)}
+                  summaryData={{
+                    subjects: ["Mathematics", "Physics"],
+                    price: "N5,000",
+                    balance: "N3,000",
+                  }}
+                />
               </div>
 
               </>

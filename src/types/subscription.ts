@@ -5,7 +5,7 @@ export interface PayStackWebhookInterface {
   event: string; 
   data: {
     reference: string ;
-    amount: number ;
+    amount: number | null | string;
     status: 'success' | 'failed' | 'abandoned' | string ;
     channel: 'card' | 'bank' | 'ussd' | string;
     customer: {
@@ -19,8 +19,8 @@ export interface PayStackWebhookInterface {
       subjects: string[];
       program: string | null | undefined;
       itemId: string;
-      valuePrice: number;
-      period: 'monthly' | 'yearly' | string;
+      valuePrice: number | null | undefined | string
+      period: 'monthly' | 'yearly' | string | number;
       method: 'payment' | string;
     };
   };

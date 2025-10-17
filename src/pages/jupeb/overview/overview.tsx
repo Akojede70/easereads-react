@@ -36,7 +36,8 @@ const Overview = () => {
           const [loading, setLoading] = useState({
             overview: false,
             progress: false,
-            leaderboard: false  
+            leaderboard: false,
+            referrals: false
           })
 
  
@@ -112,6 +113,36 @@ const Overview = () => {
           };
             leaderBoardDisplay();
           }, []);
+
+           const [referralsInformation, setReferralsInformation] = useState({
+          refPoints: 0,
+          referral: 0,
+          monthlyPoints: 0,
+           })
+           useEffect(() => {
+          const referralsDetails = async ( userId: number | string) => {
+            try {
+              setLoading((prev ) => ({ ...prev, referrals: true }))
+              const response = await Services.overview.referrals(userId);
+              const { refPoints, referral, monthlyPoints } = response.data.data;
+
+              if (response.data) {
+                setReferralsInformation({
+                  refPoints,
+                  referral,
+                  monthlyPoints
+                })
+              }              
+            } catch (error) { 
+              void error;
+            } finally {
+              setLoading(( prev) => ({ ...prev, referrals: false }))
+           }
+          };
+          if (userId) {
+            referralsDetails(userId );
+          }
+          }, []);
       
        
   useEffect(() => {
@@ -126,16 +157,16 @@ const Overview = () => {
 
   return (
     <Layout >
-       <div className='w-[88.5%] md:w-[93%] lg:w-full mt-[20px] lg:mt-0 ml-[6%] md:ml-[3%]  lg:ml-0 pl-[13px] md:pl-[40px] border lg:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
+       <div className='w-[88.5%] md:w-[93%] lg:w-full mt-[20px] lg:mt-0 ml-[6%] md:ml-[3%] lg:ml-0 pl-[13px] md:pl-[40px] lg:flex justify-between border-[#d5d5d5] shadow-[0_4px_10px_#e0e0e0]'>
                   <div>
                       <p className='text-[20px] md:text-4xl flex flex-col font-bold pt-[30px]'> Overview</p>
                       <p className='w-[70%] md:w-[78%] lg:w-full text-[12px] md:text-[18px] lg:text-[16px] pt-[10px] pb-[15px] pl-[5px]'> Hi {firstName + " " + lastName}, here's your progress today!</p>
                   </div>
-                  <div className='w-[95%] lg:w-[20%] flex h-[60px] lg:pt-[40px]'>
+                  <div className='w-[95%] lg:w-[20%] flex h-[60px] lg:pt-[40px] '>
                       <div>
                          <Leaderboard/>
                       </div>
-                  <div className="w-full p-4">
+                  <div className="w-full p-4 ">
                    <div className="w-[100px] md:w-[180px] lg:w-full h-5 bg-blue-200 rounded-full overflow-hidden">
                      <div
                        className="h-full bg-primaryBlue rounded-full"
@@ -150,15 +181,15 @@ const Overview = () => {
       <div className="relative w-[88%] md:w-[96%] lg:w-[98%] ml-[29px] md:ml-0 h-[250px] md:h-[225px] bg-[#087cdf] text-white p-4 rounded-[5px] lg:rounded-lg overflow-hidden flex gap-[290px] ">
       {/* Banner content */}
       <div className="pl-[1%] md:pl-[7%] lg:pl-[50px]">
-        <div className='w-[280px] md:w-[390px] lg:w-[80%]'>
-        <h2 className="text-[15px] md:text-[18px] lg:text-3xl font-bold pt-[20px]">Upgrade to Premium & Save 40%</h2>
+        <div className='w-[280px] md:w-[390px] lg:w-full'>
+        <h2 className="text-[15px] md:text-[18px] lg:text-3xl font-bold pt-[20px] lg:pt-0">Upgrade to Premium & Save 40%</h2>
         <p className="w-[80%] md:w-[97%] mt-[20px] text-[15px] md:text-[16.5px] lg:text-[16px]">
           Get unlimited access to all textbooks, live classes, and AI tutoring Limited  time offer ending soon!
         </p>
          </div>
 
           <div className='my-[15px] text-[14px] md:text-[16px]'>
-          <button className="w-[50%] lg:w-[30%] bg-primaryYellow text-white px-4 py-2 rounded-[8px] hover:bg-blue-700 transition duration-200 cursor-pointer">
+          <button className="w-[50%] lg:w-[40%] bg-primaryYellow text-white px-4 py-2 rounded-[8px] hover:bg-blue-700 transition duration-200 cursor-pointer">
         Claim Offer
       </button>
       </div>
@@ -235,16 +266,16 @@ const Overview = () => {
       <div className='ml-[6%] md:ml-0  h-[230px] md:h-[325px] w-[87%] md:w-[96%] lg:w-[35%]  bg-primaryWhite  mb-[20px] rounded-[15px]'>
         <p className='pl-[20px] pt-[20px] text-[16px] md:text-[20px] font-bold'> Referral Points </p>
         <div className='text-center'>
-            <p className='text-[16px] md:text-[20px] pt-[20px] md:pt-[60px] font-bold'> 2,400 <span className='text-[13px]'> Total points</span></p>
+            <p className='text-[16px] md:text-[20px] pt-[20px] md:pt-[60px] font-bold'> {referralsInformation.refPoints} <span className='text-[13px]'> Total points</span></p>
         <div className='flex flex-col'>
           <div className='flex gap-[30px] justify-evenly pt-[20px] md:pt-[70px] text-[14px] md:text-[17px]'>
             <p> This Month</p>
-            <p> +180 pts</p>
+            <p> {referralsInformation.monthlyPoints} pts</p>
           </div>
            
           <div className='flex gap-[40px] justify-evenly pt-[30px] text-[14px] md:text-[17px]'>
              <p> Referral </p>
-            <p> 3 Active </p>
+            <p> {referralsInformation.referral} </p>
           </div>
         </div>
         </div>

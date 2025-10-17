@@ -98,8 +98,8 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <div className="w-full  sm:w-[60%] bg-[#f5f5f5] flex items-center justify-center">
-        <div className="w-[94%] lg:w-[80%] bg-primaryWhite h-[92%] sm:h-[85%]  mx-auto rounded-[10px] px-[18px] lg:px-[41px] py-[25px] sm:py-[30px] shadow-lg">
+      <div className="w-full  sm:w-[60%] bg-[#f5f5f5] flex items-center justify-center overflow-y-auto h-screen ">
+        <div className="w-[94%] lg:w-[80%] bg-primaryWhite  mx-auto rounded-[10px] px-[18px] lg:px-[41px] py-[25px] sm:py-[30px] shadow-lg">
           <h2 className="text-primaryBlue text-2xl font-bold mb-[10px]">Log In</h2>
           <p className="text-primaryGrey mb-4 text-sm sm:text-[18px]">Log in to continue your learning journey and explore a world of endless possibilities with Easereads.</p>
           <div className='my-[30px]'>

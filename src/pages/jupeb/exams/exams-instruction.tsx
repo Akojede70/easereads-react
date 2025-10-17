@@ -28,7 +28,7 @@ const ExamInstruction = () => {
            </div>
          </div>
          
- <div className="h-[80%] mb-[150px] md:mb-[35%] lg:mb-[14%] bg-[#f5f5f5] mt-[8%] md:mt-[15%] lg:mt-[5%] flex items-center justify-center">
+ <div className="h-[80%] mb-[150px] md:mb-[35%] lg:mb-[7%] bg-[#f5f5f5] mt-[8%] md:mt-[15%] lg:mt-[1%] flex items-center justify-center">
       <div className="md:mt-[5%] bg-primaryWhite w-full  p-8 rounded-[20px] shadow-lg md:w-[95.3%] flex flex-col items-center justify-center">
         <h2 className="text-2xl font-bold text-center mb-6 ">Instruction</h2>
         <p className="text-center mb-6">Please read all instruction bellow and select appropriate subject, section and topics</p>
@@ -84,7 +84,7 @@ const ExamInstruction = () => {
         </div>
        <div className='w-[45%] mt-[12%] lg:mt-[3%]'>
        <Button onClick={() => navigate('/jupeb/exam-form')} > Proceed </Button>
-       <Button variant='outline' className='mt-[40px] md:mt-0 my-[4%]' textColor='#106EBE' onClick={handleGoBack}> Back </Button>
+       <Button variant='outline' className='mt-[40px] md:mt-[20px] my-[4%]' textColor='#106EBE' onClick={handleGoBack}> Back </Button>
        </div>
       </div>
     </div>
