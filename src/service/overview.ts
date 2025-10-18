@@ -20,3 +20,8 @@ export const referrals = async (userId: number | string,) => {
     const response = await axiosInstance.get(`/student/refPoint/${userId}/Jupeb`);
     return response.data; 
 };
+
+export const overAllPerformance = async (userId: number | string, duration: string) => {
+    const response = await axiosInstance.get(`/student/overview-performance/${userId}/Jupeb/${duration}`);
+    return response.data; 
+};

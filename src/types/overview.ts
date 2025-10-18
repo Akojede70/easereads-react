@@ -2,7 +2,7 @@
   textBooksRead: number;
   examsTaken: number;
   studyTime: number;
-  textbooksRead: number;
+  dayStreak: number;
 }
 
 interface progressType {
@@ -25,3 +25,17 @@ export type  ProgressData = {
             imageUrl: string | null;
           };
  }
+
+ interface TextbookProgress {
+  bookName: string;
+  progressPercentage: number;
+}
+
+export interface PerformanceOverview {
+  totalQuestions: number;
+  totalCorrect: number;
+  averageScore: number;
+  textbooks: TextbookProgress[];
+  period: "all-time" | "weekly" | "monthly" | "yearly";
+}
+

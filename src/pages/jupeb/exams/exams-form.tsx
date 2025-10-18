@@ -24,7 +24,7 @@ const ExamForm = () => {
       const email = useSelector((state: ReduxStore) => state.auth.email);
       
 
-      const [open, setOpen] = useState(false);
+      // const [open, setOpen] = useState(false);
       const [showAlert, setShowAlert] = useState(false)
       const [alertMessage, setAlertMessage] = useState('')
       const [alertStatus, setAlertStatus] = useState('')
@@ -204,7 +204,6 @@ const ExamForm = () => {
 // const handlePayment = () => {
     const handlePayStackPayment = async (amount: number, ) => {
     setSelectedAmount(amount);
-    setOpen(false);
     const paystack = new PaystackPop();
     paystack.newTransaction({
       key: PAYSTACK_PUBLIC_KEY,

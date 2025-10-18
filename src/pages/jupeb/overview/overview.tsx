@@ -12,7 +12,7 @@ import { ClassContent, QuizContent, UserRankCard } from '../../../components/ove
 import { Services } from '../../../service';
 import { Helper } from '../../../components';
 import  { useLocation, useNavigate } from 'react-router-dom';
-import type { Overview, ProgressData, LeaderboardUser } from '../../../types/overview';
+import type { Overview, ProgressData, LeaderboardUser, PerformanceOverview } from '../../../types/overview';
 import Alert from '../../../components/helpers/alert';
 
 const { Spinner, ComponentLoader  } = Helper;
@@ -37,7 +37,8 @@ const Overview = () => {
             overview: false,
             progress: false,
             leaderboard: false,
-            referrals: false
+            referrals: false,
+            performance: false
           })
 
  
@@ -119,13 +120,13 @@ const Overview = () => {
           referral: 0,
           monthlyPoints: 0,
            })
+
            useEffect(() => {
           const referralsDetails = async ( userId: number | string) => {
             try {
               setLoading((prev ) => ({ ...prev, referrals: true }))
               const response = await Services.overview.referrals(userId);
-              const { refPoints, referral, monthlyPoints } = response.data.data;
-
+              const { refPoints, referral, monthlyPoints } = response.data;
               if (response.data) {
                 setReferralsInformation({
                   refPoints,
@@ -143,6 +144,32 @@ const Overview = () => {
             referralsDetails(userId );
           }
           }, []);
+
+          const [performanceOverview, setPerformanceOverview] = useState<PerformanceOverview>({
+            totalQuestions: 0,
+            totalCorrect: 0,
+            averageScore: 0,
+            textbooks: [],
+            period: "weekly",
+          });
+
+           const [duration, setDuration] = useState('weekly')
+           useEffect(() => {
+          const overAllPerformance = async ( userId: number | string, duration: string) => {
+            try {
+              setLoading((prev ) => ({ ...prev, performance: true }))
+              const response = await Services.overview.overAllPerformance(userId, duration);
+              setPerformanceOverview(response.data)
+            } catch (error) { 
+              void error;
+            } finally {
+              setLoading(( prev) => ({ ...prev, performance: false }))
+           }
+          };
+          if (userId) {
+            overAllPerformance(userId,duration);
+          }
+          }, [userId, duration]);
       
        
   useEffect(() => {
@@ -219,7 +246,7 @@ const Overview = () => {
         <MiniCard 
       icon={DayStreak} 
       title="Day Streak" 
-      value={loading.overview ? <ComponentLoader color={'#106EBE'} /> : (overviewData?.textbooksRead || 0)}
+      value={loading.overview ? <ComponentLoader color={'#106EBE'} /> : (overviewData?.dayStreak || 0)}
       />
      </div>
     
@@ -231,17 +258,28 @@ const Overview = () => {
             <div>
                <h3 className="text-[14px] md:text-[16px] font-bold pt-[6px]">Overall performance</h3>
             </div>
-            <div className='bg-primaryBlue p-[3px] rounded-[12px] text-primaryWhite'>
-              <p> weekly</p>
+           
+            <div className='cursor-pointer '>
+             <select
+              className="bg-primaryBlue p-[6px] rounded-[12px] text-primaryWhite outline-none cursor-pointer"
+              value={duration}
+              onChange={(e) => {setDuration(e.target.value)}}
+            >
+              <option value="weekly" className="bg-primaryWhite cursor-pointer text-black">Weekly</option>
+              <option value="monthly" className="bg-primaryWhite cursor-pointer text-black">Monthly</option>
+              <option value="yearly" className="bg-primaryWhite cursor-pointer text-black">Yearly</option>
+              <option value="all-time" className="bg-primaryWhite cursor-pointer text-black">All Time</option>
+             
+            </select>
             </div>
           </div>
           
-          <div className='flex px-1 md:px-4 my-[22px] gap-[20px]'>
+          <div className='flex px-1 md:px-4 my-[22px] lg:my-[8px] gap-[20px]'>
              
               <div className='w-[60%] h-[60%] md:h-[40%] rounded-[10px] bg-[#e8f1f9]'>
 
             <div className='flex flex-col justify-center items-center gap-[10px]  mt-[20px] mb-[10px]'>
-              <p className='text-[20px] font-bold pt-[10px] text-[#106ebe]'> 70% </p>
+              <p className='text-[20px] font-bold pt-[10px] text-[#106ebe]'> {loading.performance ? <ComponentLoader/> : Math.round(performanceOverview?.averageScore)} </p>
               <p className='text-[12px] md:text-[16px] font-semibold'> Average Score </p>
             </div>
           </div>
@@ -249,16 +287,26 @@ const Overview = () => {
           <div className='w-[60%] h-[40%] rounded-[10px] bg-[#fff6e9]'>
 
             <div className='flex flex-col justify-center items-center gap-[10px]  mt-[20px] mb-[10px]'>
-              <p className='text-[20px] font-bold pt-[10px] text-[#ff9f23]'> 12/15 </p>
+              <p className='text-[20px] font-bold pt-[10px] text-[#ff9f23]'>{loading.performance ? ( <ComponentLoader />) : ( <>{performanceOverview?.totalCorrect}/{performanceOverview?.totalQuestions}</>)}</p>
               <p className='text-[12px] md:text-[16px]font-semibold'> Quizzes Passed </p>
             </div>
 
           </div>
           </div>
-            <div className='pr-4 md:px-4 flex flex-col gap-[20px]'>
-            <PeterProgressBar label="Physics" progress={80} currentLevel={80} />
-            <PeterProgressBar label="Chemistry" progress={40} currentLevel={40}  color="bg-[#ffa024]" />
-            <PeterProgressBar label="English" progress={60} currentLevel={60} />
+            <div className="pr-4 md:px-4 flex flex-col gap-[20px] lg:gap-[10px]">
+              {loading.performance ? <ComponentLoader /> : performanceOverview.textbooks.map((book, index) => (
+                <PeterProgressBar
+                  key={index}
+                  label={book.bookName}
+                  progress={book.progressPercentage}
+                  currentLevel={book.progressPercentage}
+                  color={
+                    book.progressPercentage >= 50
+                      ? "bg-primaryBlue" 
+                      : "bg-[#ffa024]"  
+                  }
+                />
+              ))}
             </div>
         </div>   
       </div>
