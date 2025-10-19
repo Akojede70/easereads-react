@@ -314,16 +314,16 @@ const Overview = () => {
       <div className='ml-[6%] md:ml-0  h-[230px] md:h-[325px] w-[87%] md:w-[96%] lg:w-[35%]  bg-primaryWhite  mb-[20px] rounded-[15px]'>
         <p className='pl-[20px] pt-[20px] text-[16px] md:text-[20px] font-bold'> Referral Points </p>
         <div className='text-center'>
-            <p className='text-[16px] md:text-[20px] pt-[20px] md:pt-[60px] font-bold'> {referralsInformation.refPoints} <span className='text-[13px]'> Total points</span></p>
+            <p className='text-[16px] md:text-[20px] pt-[20px] md:pt-[60px] font-bold'> {loading.referrals ? <ComponentLoader /> : referralsInformation.refPoints} <span className='text-[13px]'> Total points</span></p>
         <div className='flex flex-col'>
           <div className='flex gap-[30px] justify-evenly pt-[20px] md:pt-[70px] text-[14px] md:text-[17px]'>
             <p> This Month</p>
-            <p> {referralsInformation.monthlyPoints} pts</p>
+            <p> { loading.referrals ? <ComponentLoader /> : `${ referralsInformation.monthlyPoints}pts`} </p>
           </div>
            
           <div className='flex gap-[40px] justify-evenly pt-[30px] text-[14px] md:text-[17px]'>
              <p> Referral </p>
-            <p> {referralsInformation.referral} </p>
+            <p> {loading.referrals ? <ComponentLoader /> : referralsInformation.referral} </p>
           </div>
         </div>
         </div>

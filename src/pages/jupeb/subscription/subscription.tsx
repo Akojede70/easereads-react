@@ -7,6 +7,7 @@ import { DurationCard } from '../../../components/card/card'
 import { useSelector } from 'react-redux'
 import type { ReduxStore } from '../../../redux/store'
 import PaymentSubscriptionModal from './modal'
+import { Services } from '../../../service'
 // import { usePaystackPayment, PaystackProps } from 'react-paystack';
 // import { Services } from '../../../service'
 // import { useSelector } from 'react-redux'
@@ -14,7 +15,7 @@ import PaymentSubscriptionModal from './modal'
 
 
 const Subscription = () => {
-    const [selected, setSelected] = useState(false)
+    // const [selected, setSelected] = useState(false)
     const [open, setOpen] = useState(false);
     const [congratulations, setCongratulations] = useState(false);
     const [wait, setWait] = useState(false);
@@ -26,6 +27,8 @@ const Subscription = () => {
     const [payment, setPayment] = useState(false);
     const [tab, setTab] = useState<"subscription" | "history">("subscription");
     const [studentSubject, setStudentSubject] = useState([])
+    console.log("studentSubject",studentSubject)
+
     
   
     const [inputValues, setInputValues] = useState(['', '', '', '', '', '']);
@@ -85,7 +88,7 @@ const Subscription = () => {
     { duration: "3 months", oldPrice: 7000, newPrice: 6000, discount: 10 },
   ];  
 
-        const subjects = ["Physics", "Mathematics", "Chemistry"];
+        // const subjects = ["Physics", "Mathematics", "Chemistry"];
   const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
 
   const handleChange = (subject: string) => {
@@ -513,7 +516,7 @@ const Subscription = () => {
                 </div>
                 
                   <div className='lg:flex gap-[50px]'>
-                      {subjects.map((subject) => (
+                      {studentSubject.map((subject) => (
                       <SelectableSubject
                         key={subject}
                         label={subject}

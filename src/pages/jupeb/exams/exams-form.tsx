@@ -20,16 +20,16 @@ const { ComponentLoader, Alert } = Helper;
 const ExamForm = () => { 
       const userId = useSelector((state: ReduxStore) => state.auth.userId);
       const program = useSelector((state: ReduxStore) => state.auth.program);
-      const userName = useSelector((state: ReduxStore) => state.auth.program);
+      // const userName = useSelector((state: ReduxStore) => state.auth.program);
       const email = useSelector((state: ReduxStore) => state.auth.email);
       
 
-      // const [open, setOpen] = useState(false);
+      const [open, setOpen] = useState(false);
       const [showAlert, setShowAlert] = useState(false)
       const [alertMessage, setAlertMessage] = useState('')
       const [alertStatus, setAlertStatus] = useState('')
       const navigate = useNavigate()
-      const [selectedAmount, setSelectedAmount] = useState<number | null | string>(null);
+      // const [selectedAmount, setSelectedAmount] = useState<number | null | string>(null);
       const [studentSubject, setStudentSubject] = useState([])
 
 
@@ -203,7 +203,7 @@ const ExamForm = () => {
 
 // const handlePayment = () => {
     const handlePayStackPayment = async (amount: number, ) => {
-    setSelectedAmount(amount);
+    // setSelectedAmount(amount);
     const paystack = new PaystackPop();
     paystack.newTransaction({
       key: PAYSTACK_PUBLIC_KEY,
@@ -215,7 +215,7 @@ const ExamForm = () => {
         type: "textBooks",
         provider: "paystack",
       },
-      onSuccess(reference) {
+      onSuccess() {
         // setLoading(false);
         // setOpenModal(false);
         // showToast("Payment Processing...", "success");
@@ -257,7 +257,9 @@ const ExamForm = () => {
            
         <div >
           <div className='mb-[20px] md:mb-0 w-[150px] md:w-[100px] lg:w-full text-[12px] lg:text-[16px] md:pt-[15px] lg:pt-0'>
-           <Button onClick={() => setOpen(true)}> Get Access to Exam </Button>
+           <Button 
+           onClick={() => setOpen(true)}
+           > Get Access to Exam </Button>
            <PaymentModal 
            open={open} setOpen={setOpen} 
            handlePayStackPayment={handlePayStackPayment}
