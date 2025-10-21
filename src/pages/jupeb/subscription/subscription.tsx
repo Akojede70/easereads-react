@@ -265,12 +265,12 @@ const Subscription = () => {
           </div>
         </div>
         <div className='border border-[#e8e8e8] w-full my-[5%] md:my-[2%]'></div>
-        <div className='flex justify-end gap-[125px] md:gap-[195px] font-bold text-[15px] md:text-[20px]'>
+        <div className='flex justify-end gap-[125px] md:gap-[195px] lg:gap-[180px]  font-bold text-[15px] md:text-[20px]'>
           <p className=''> Balance to pay</p>
-          <p> N 3,000</p>
+          {/* <p> N 3,000</p> */}
         </div>
 
-        <div className='text-[14px] md:text-[17px] mt-[15px] lg:mt-0'>
+        <div className='text-[14px] md:text-[17px] mt-[15px] lg:mt-0 '>
           <p className='font-bold'> Select Payment Method</p>
           <div className=' border-[2px] border-[#e8e8e8] w-full rounded-[10px] h-[190px] lg:h-[210px] pt-[3%] pl-[5%] mt-[2%]'>
              <div className='flex gap-[4px] md:gap-[20px]'>
@@ -282,7 +282,7 @@ const Subscription = () => {
                 />
                 <IconForReferral/>
               <p className='font-bold'> Referral Points</p>
-              <div className='bg-primaryYellow w-[35%] md:w-[40%] lg:w-[30%] p-[5px] pl-[5%] md:pl-[2%] rounded-[20px]'>
+              <div className='bg-primaryYellow w-[35%] md:w-[40%] lg:w-[60%] p-[5px] pl-[5%] md:pl-[2%] rounded-[20px]'>
               <p className='font-bold text-[12px] md:text-[18px]'> Insufficient (15 Points) </p>
             </div>
              </div>
@@ -493,7 +493,7 @@ const Subscription = () => {
                     <p className='mt-[7px] w-[85%] lg:w-[50%]'> choose the plan that works best for your learning goals </p>
                 </div>
 
-                <div className='bg-primaryWhite mt-[30px] lg:mx-auto w-[85%] lg:w-[92%] h-[400px] lg:h-[180px] rounded-[20px] pt-[20px] ml-[5%]  pl-[25px] lg:pl-[50px]'>
+                <div className='bg-primaryWhite mt-[30px] lg:mx-auto w-[85%] lg:w-[92%]  rounded-[20px] pt-[20px] ml-[5%]  pl-[25px] lg:pl-[50px] pb-[20px]'>
                 <p className='text-[19px] md:text-[23px] font-bold text-primaryBlue '> Benefit of Subscription </p>
                 <div className='pt-[15px] w-[95%] md:w-[50%] flex flex-wrap gap-[20px]'> 
               <div className='flex gap-[10px]'> <Dot className='mt-[7px]' color='#333333'/><p> Access to Textbook</p></div>
@@ -508,7 +508,7 @@ const Subscription = () => {
 
                 <div className='bg-primaryWhite mt-[30px] lg:mx-auto w-[85%] lg:w-[92%] h-[400px] lg:h-[210px] rounded-[20px] ml-[5%] pt-[20px] pl-[30px] lg:pl-[50px]'>
                 <p className='text-[18px] md:text-[23px] font-bold text-primaryBlue '> Subjects</p>
-                <div className='w-[90%] lg:w-[32%] mt-[15px] bg-[#fff4e5] pl-[10px] lg:pl-[20px] flex gap-[10px] p-2 rounded-[30px]'>
+                <div className='w-[90%] lg:w-[42%] mt-[15px] bg-[#fff4e5] pl-[10px] lg:pl-[20px] flex gap-[10px] p-2 rounded-[30px]'>
                     <div className='pt-[4px]'>
                     <Signal />
                     </div>
@@ -531,7 +531,7 @@ const Subscription = () => {
                 <p className='text-[19px] lg:text-[23px] mb-[10px] font-bold text-primaryBlue '> Duration</p>
                 <p className='w-[90%] lg:w-[90%]'> Select preferred duration based on discount</p>
 
-              <div className="md:flex flex-wrap gap-8">
+              <div className="md:flex flex-wrap gap-8 lg:gap-14">
               {durations.map((item, index) => (
                 <DurationCard
                   key={index}

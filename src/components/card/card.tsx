@@ -338,7 +338,7 @@ export const DurationCard: React.FC<DurationCardProps> = ({
 }) => {
   const [hover, setHover] = useState(false);
   return (
-    <div className="cursor-pointer py-[20px] bg-[#e8f1f9] border border-[#e8e8e8] flex flex-col gap-[10px] items-center justify-center rounded-[18px] w-[85%] md:w-[45%] lg:w-[12%] mt-[20px] transition-all duration-300 ease-in-out"
+    <div className="cursor-pointer py-[20px] bg-[#e8f1f9] border border-[#e8e8e8] flex flex-col gap-[10px] items-center justify-center rounded-[18px] w-[85%] md:w-[45%] lg:w-[16%] mt-[20px] transition-all duration-300 ease-in-out"
      style={{
         backgroundColor: isActive
           ? "#e0f2fe" // 🔹 light blue for active

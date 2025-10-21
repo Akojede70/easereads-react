@@ -44,7 +44,7 @@ export const HistoryCard: React.FC<HistoryCardProps> = ({
   totalPaid,
 }) => {
   return (
-    <div className="bg-primaryWhite mt-[30px] mx-auto w-[92%] h-[430px] md:h-[600px] lg:h-[350px] rounded-[20px] pt-[20px] pl-[20px] lg:pl-[50px]">
+    <div className="bg-primaryWhite mt-[30px] mx-auto w-[92%] h-[530px] md:h-[675px] lg:h-[350px] rounded-[20px] pt-[20px] pl-[20px] lg:pl-[50px]">
       <div className="border border-borderColor rounded-[10px] w-[95%] px-[20px] lg:px-[50px] mt-[2%]">
         {/* Header */}
         <p className="text-[23px] font-bold text-primaryBlue pt-[10%] lg:pt-[1%]">Subjects</p>
@@ -58,7 +58,7 @@ export const HistoryCard: React.FC<HistoryCardProps> = ({
           </div>
 
           {/* Status */}
-          <div className={`${statusColor} w-[197px] md:w-[230px] lg:w-[16%] mt-[7%] lg:mt-0 pl-[5%] lg:pl-[1%] rounded-[20px]`}>
+          <div className={`${statusColor} w-[220px] md:w-[230px] lg:w-[16%] xl:w-[28%] mt-[7%] lg:mt-0 pl-[5%] lg:pl-[1%] rounded-[20px] py-[5px]`}>
             <p className="font-bold">{statusText}</p>
           </div>
         </div>
@@ -69,7 +69,7 @@ export const HistoryCard: React.FC<HistoryCardProps> = ({
         <div className="mb-[9%] lg:mb-[0%]">
           <p className="text-[18px] font-bold pt-[5%] lg:pt-[2%]">Duration</p>
           <div className=" space-y-[3%] lg:space-y-[0%] lg:flex justify-between gap-[30px] py-[2%]">
-            <p className="bg-primaryBlue w-[53%] md:w-[25%] lg:w-[8%] mt-[8%] md:mt-[3%] lg:mt-0 p-[10px] rounded-[10px] text-primaryWhite">
+            <p className="bg-primaryBlue w-[33%] md:w-[18%] lg:w-[15%] mt-[8%] md:mt-[3%] lg:mt-0 p-[10px] rounded-[10px] text-primaryWhite">
               {duration}
             </p>
             <p className="text-[18px] font-bold">Expires: {expiryDate}</p>

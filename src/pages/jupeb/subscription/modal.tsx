@@ -40,7 +40,7 @@ const PaymentSubscriptionModal: React.FC<SummaryModalProps> = ({ open, onClose, 
           </div>
 
           {/* Additional Services */}
-          <p className="text-[16px] pt-[20px] font-bold text-[14px] md:text-[18px]">Additional Services</p>
+          <p className="pt-[20px] font-bold text-[14px] md:text-[18px]">Additional Services</p>
           <div className="border-2 p-[12px] border-[#e8e8e8] flex justify-between rounded-[8px] mt-[10px]">
             <div className="flex gap-[20px] pl-[20px] pt-[5px] font-bold text-[12px] md:text-[17px]">
               <input
@@ -89,7 +89,7 @@ const PaymentSubscriptionModal: React.FC<SummaryModalProps> = ({ open, onClose, 
               <span className="font-bold pl-[19%] md:pl-0">{summaryData?.additionalService || "N1,000"}</span>{" "}
               (Video Tutorial)
             </p>
-            <p className="font-bold pl-[120px] pt-[7%] md:pt-0">{summaryData?.totalPrice || "N5,000"}</p>
+            <p className="font-bold pl-[120px] lg:pl-[67%] pt-[7%] md:pt-0">{summaryData?.totalPrice || "N5,000"}</p>
           </div>
         </div>
 
@@ -101,7 +101,7 @@ const PaymentSubscriptionModal: React.FC<SummaryModalProps> = ({ open, onClose, 
         </div>
 
         {/* Payment Methods */}
-        <div className="text-[14px] md:text-[16px] mt-[15px] lg:mt-0">
+        <div className="text-[14px] md:text-[16px] mt-[15px] lg:mt-[12%]">
           <p className="font-bold">Select Payment Method</p>
           <div className="border-[2px] border-[#e8e8e8] w-full rounded-[10px] h-[190px] lg:h-[210px] pt-[3%] pl-[5%] mt-[2%]">
             <div className="flex gap-[4px] md:gap-[20px]">
@@ -111,7 +111,7 @@ const PaymentSubscriptionModal: React.FC<SummaryModalProps> = ({ open, onClose, 
               className="custom-checkbox w-5 h-5 rounded-full cursor-pointer  focus:ring-opacity-50" />
               <IconForReferral />
               <p className="font-bold">Referral Points</p>
-              <div className="bg-primaryYellow w-[35%] md:w-[40%] lg:w-[30%] p-[5px] pl-[5%] md:pl-[2%] rounded-[20px]">
+              <div className="bg-primaryYellow w-[35%] md:w-[40%] lg:w-[50%] p-[5px] pl-[5%] md:pl-[2%] rounded-[20px]">
                 <p className="font-bold text-[12px] md:text-[18px] lg:text-[16px]">Insufficient (15 Points)</p>
               </div>
             </div>

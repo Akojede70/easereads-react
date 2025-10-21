@@ -28,7 +28,7 @@ function Navbar({ onMenuToggle }: NavbarProps) {
         <div className="md:hidden" />
 
         {/* User section - always aligned to the right */}
-        <div className="flex items-center gap-4 md:gap-6 md:ml-auto lg:ml-[84.5%]">
+      <div className="flex items-center gap-4 md:gap-6 md:ml-auto lg:mr-[2%]  ">
           <Notification />
           <Link
             to="/jupeb/user-profile"

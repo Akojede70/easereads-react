@@ -189,11 +189,11 @@ const Overview = () => {
                       <p className='text-[20px] md:text-4xl flex flex-col font-bold pt-[30px]'> Overview</p>
                       <p className='w-[70%] md:w-[78%] lg:w-full text-[12px] md:text-[18px] lg:text-[16px] pt-[10px] pb-[15px] pl-[5px]'> Hi {firstName + " " + lastName}, here's your progress today!</p>
                   </div>
-                  <div className='w-[95%] lg:w-[20%] flex h-[60px] lg:pt-[40px] '>
+                  <div className='w-[95%] lg:w-[30%] xl:w-[27%] flex h-[60px] lg:pt-[40px]'>
                       <div>
                          <Leaderboard/>
                       </div>
-                  <div className="w-full p-4 ">
+                  <div className="w-full p-4">
                    <div className="w-[100px] md:w-[180px] lg:w-full h-5 bg-blue-200 rounded-full overflow-hidden">
                      <div
                        className="h-full bg-primaryBlue rounded-full"
@@ -205,29 +205,29 @@ const Overview = () => {
                   </div>
                   </div>
                   <div className='md:pl-[2.9%] mt-[4%] md:mt-[2%]'>
-      <div className="relative w-[88%] md:w-[96%] lg:w-[98%] ml-[29px] md:ml-0 h-[250px] md:h-[225px] bg-[#087cdf] text-white p-4 rounded-[5px] lg:rounded-lg overflow-hidden flex gap-[290px] ">
-      {/* Banner content */}
-      <div className="pl-[1%] md:pl-[7%] lg:pl-[50px]">
-        <div className='w-[280px] md:w-[390px] lg:w-full'>
-        <h2 className="text-[15px] md:text-[18px] lg:text-3xl font-bold pt-[20px] lg:pt-0">Upgrade to Premium & Save 40%</h2>
-        <p className="w-[80%] md:w-[97%] mt-[20px] text-[15px] md:text-[16.5px] lg:text-[16px]">
-          Get unlimited access to all textbooks, live classes, and AI tutoring Limited  time offer ending soon!
-        </p>
-         </div>
+                  <div className="relative w-[88%] md:w-[96%] lg:w-[98%] ml-[29px] md:ml-0 h-[250px] md:h-[225px] bg-[#087cdf] text-white p-4 rounded-[5px] lg:rounded-lg overflow-hidden flex gap-[290px] lg:gap-[100px] ">
+                  {/* Banner content */}
+                  <div className="pl-[1%] md:pl-[7%] lg:pl-[50px] ">
+                    <div className='w-[280px] md:w-[390px] lg:w-full' >
+                    <h2 className="text-[15px] md:text-[18px] lg:text-3xl font-bold pt-[20px] lg:pt-0">Upgrade to Premium & Save 40%</h2>
+                    <p className="w-[80%] md:w-[97%] mt-[20px] text-[15px] md:text-[16.5px] lg:text-[16px]">
+                      Get unlimited access to all textbooks, live classes, and AI tutoring Limited  time offer ending soon!
+                    </p>
+                    </div>
 
-          <div className='my-[15px] text-[14px] md:text-[16px]'>
-          <button className="w-[50%] lg:w-[40%] bg-primaryYellow text-white px-4 py-2 rounded-[8px] hover:bg-blue-700 transition duration-200 cursor-pointer">
-        Claim Offer
-      </button>
-      </div>
+                      <div className='my-[15px] text-[14px] md:text-[16px]'>
+                      <button className="w-[50%] lg:w-[40%] bg-primaryYellow text-white px-4 py-2 rounded-[8px] hover:bg-blue-700 transition duration-200 cursor-pointer">
+                    Claim Offer
+                  </button>
+                  </div>
 
-      </div>
-      <div className='none lg:block'>
-      <Gift />
-      </div>
-     </div>
+                  </div>
+                  <div className='none lg:block'>
+                  <Gift />
+                  </div>
+                </div>
 
-     <div className='ml-[6%] md:ml-0 md:flex flex-wrap gap-[20px] mt-[20px]'>
+     <div className='ml-[6%] md:ml-0 md:flex flex-wrap gap-[20px] lg:gap-[5% mt-[20px]'>
       <MiniCard 
       icon={SmallVideo} 
       title="Textbooks Read" 
