@@ -217,7 +217,7 @@ const Overview = () => {
 
                       <div className='my-[15px] text-[14px] md:text-[16px]'>
                       <button className="w-[50%] lg:w-[40%] bg-primaryYellow text-white px-4 py-2 rounded-[8px] hover:bg-blue-700 transition duration-200 cursor-pointer">
-                    Claim Offer
+                    Claim Offer 
                   </button>
                   </div>
 
