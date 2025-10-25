@@ -32,7 +32,7 @@ const Quiz = () => {
       history: false,
       leaderBoard: false
     })
-
+ 
             const fetchAvailableQuizData = async () => {
           if (!userId) return;
           try {

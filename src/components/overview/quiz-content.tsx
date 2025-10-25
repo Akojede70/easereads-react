@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "../shared";
 import { Dot } from "../../assets/icon";
+import { useNavigate } from "react-router-dom";
 
 type QuizCardProps = {
   image?: string;
@@ -14,6 +15,7 @@ type QuizCardProps = {
   className?: string; // 👈 added className for extra styling
 };
 
+
 export const QuizContent: React.FC<QuizCardProps> = ({
   image,
   title,
@@ -22,9 +24,10 @@ export const QuizContent: React.FC<QuizCardProps> = ({
   questions,
   date,
   time,
-  onJoin,
+  // onJoin,
   className = "",
 }) => {
+  const navigate = useNavigate()
   return (
     <div
       className={`md:flex gap-[10%] mt-[30px] items-center p-4 rounded-xl shadow-md bg-white ${className}`}
@@ -71,7 +74,7 @@ export const QuizContent: React.FC<QuizCardProps> = ({
       <div className="ml-auto mt-[20px] md:mt-0">
         <Button
           className="rounded-[17px] h-[40px] w-[120px] text-sm"
-          onClick={onJoin}
+          onClick={() => navigate('/jupeb/quiz')}
         >
           Join Quiz
         </Button>

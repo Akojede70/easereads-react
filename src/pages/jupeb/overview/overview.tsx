@@ -14,46 +14,58 @@ import { Helper } from '../../../components';
 import  { useLocation, useNavigate } from 'react-router-dom';
 import type { Overview, ProgressData, LeaderboardUser, PerformanceOverview } from '../../../types/overview';
 import Alert from '../../../components/helpers/alert';
+import type { QuizData } from '../../../types/quiz';
 
 const { Spinner, ComponentLoader  } = Helper;
 
 
 
 const Overview = () => { 
+          const streak = useSelector((state: ReduxStore) => state.auth.streak);
           const location = useLocation()
           const message = location.state?.message;
           const status = location.state?.status;
           const [showAlert, setShowAlert] = useState(false)
           const [alertMessage, setAlertMessage] = useState('')
           const [alertStatus, setAlertStatus] = useState('')
-
+          const [duration, setDuration] = useState('weekly')
           const firstName = useSelector((state: ReduxStore) => state.auth.firstName);
           const lastName = useSelector((state: ReduxStore) => state.auth.lastName);
           const userId = useSelector((state: ReduxStore) => state.auth.userId);
           const [activeTab, setActiveTab] = useState<"textbook" | "video" | "exam">('textbook');
           const currentLevel = 3;
           const navigate = useNavigate()
-          const [loading, setLoading] = useState({
-            overview: false,
-            progress: false,
-            leaderboard: false,
-            referrals: false,
-            performance: false
-          })
-
- 
           const progress = ((currentLevel - 1) / 4) * 100;
           const [overviewData, setOverviewData] = useState<Overview | null>(null);
-          
-         
           const [leaderBoardInformation, setLeaderBoardInformation] = useState<LeaderboardUser[]>([]);
-
+          const [availableQuizData, setAvailableQuizData] = useState<QuizData[]>([])
+                  
           const [ progressPercentage, setProgressPercentage ] = useState<ProgressData>({
           textbooks: [],
           videos: [],
           exams: []
           });
+                    const [performanceOverview, setPerformanceOverview] = useState<PerformanceOverview>({
+            totalQuestions: 0,
+            totalCorrect: 0,
+            averageScore: 0,
+            textbooks: [],
+            period: "weekly",
+          });
+          const [loading, setLoading] = useState({
+            overview: false,
+            progress: false,
+            leaderboard: false,
+            referrals: false,
+            performance: false,
+            upComingQuiz: false
+          })
 
+          const [referralsInformation, setReferralsInformation] = useState({
+          refPoints: 0,
+          referral: 0,
+          monthlyPoints: 0,
+           })
 
   
         // overView Card Display
@@ -100,6 +112,7 @@ const Overview = () => {
           }
           }, []);
 
+          // leaderboard
           useEffect(() => {
           const leaderBoardDisplay = async ( ) => {
             try {
@@ -115,12 +128,9 @@ const Overview = () => {
             leaderBoardDisplay();
           }, []);
 
-           const [referralsInformation, setReferralsInformation] = useState({
-          refPoints: 0,
-          referral: 0,
-          monthlyPoints: 0,
-           })
+           
 
+            // referrals
            useEffect(() => {
           const referralsDetails = async ( userId: number | string) => {
             try {
@@ -145,15 +155,8 @@ const Overview = () => {
           }
           }, []);
 
-          const [performanceOverview, setPerformanceOverview] = useState<PerformanceOverview>({
-            totalQuestions: 0,
-            totalCorrect: 0,
-            averageScore: 0,
-            textbooks: [],
-            period: "weekly",
-          });
 
-           const [duration, setDuration] = useState('weekly')
+          //  performance
            useEffect(() => {
           const overAllPerformance = async ( userId: number | string, duration: string) => {
             try {
@@ -171,16 +174,33 @@ const Overview = () => {
           }
           }, [userId, duration]);
       
-       
-  useEffect(() => {
-    if (message) {
-      setAlertMessage(message);
-      setAlertStatus(status);
-      setShowAlert(true);
-      const timer = setTimeout(() => setShowAlert(false), 4000 )
-      return () => clearTimeout(timer) 
-    }
-  }, [message, status]);
+             useEffect(() => {
+          const overAllPerformance = async ( userId: number ) => {
+            try {
+              setLoading((prev ) => ({ ...prev, upComingQuiz: true }))
+              const response = await Services.quiz.fetchAvailableQuiz(userId);
+               setAvailableQuizData(response?.data || []);
+            } catch (error) { 
+              void error;
+            } finally {
+              setLoading(( prev) => ({ ...prev, upComingQuiz: false }))
+           }
+          };
+          if (userId) {
+            overAllPerformance(userId);
+          }
+          }, [userId,]);
+         
+
+        useEffect(() => {
+          if (message) {
+            setAlertMessage(message);
+            setAlertStatus(status);
+            setShowAlert(true);
+            const timer = setTimeout(() => setShowAlert(false), 4000 )
+            return () => clearTimeout(timer) 
+          }
+        }, [message, status]);
 
   return (
     <Layout >
@@ -246,7 +266,7 @@ const Overview = () => {
         <MiniCard 
       icon={DayStreak} 
       title="Day Streak" 
-      value={loading.overview ? <ComponentLoader color={'#106EBE'} /> : (overviewData?.dayStreak || 0)}
+      value={loading.overview ? <ComponentLoader color={'#106EBE'} /> : (streak?.longestStreak || 0)}
       />
      </div>
     
@@ -334,11 +354,36 @@ const Overview = () => {
       <div className="w-full lg:flex gap-[30px] mt-[6%] sm:mt-0">
         <div className="ml-[6%] md:ml-0 mb-[7%] lg:mb-0 w-[87%] md:w-[96%] lg:w-[60%] bg-primaryWhite p-[20px] rounded-[20px] shadow">
           <div className='flex justify-between px-1 lg:px-4 font-bold text-[14px] md:text-[17px]'>
-              <p> Upcoming Quiz</p>
-          <p className='text-primaryBlue underline cursor-pointer'> See All</p> 
+              <p > Upcoming Quiz</p>
+          <p className='text-primaryBlue underline cursor-pointer' onClick={ () => navigate('/jupeb/quiz')}> See All</p> 
           </div>
 
+          { loading.upComingQuiz ? <ComponentLoader /> :  availableQuizData.length > 0 ? (
+        availableQuizData.slice(0,2).map((quiz) => (
           <QuizContent
+            key={quiz._id}
+            image={quiz.title.toLowerCase().includes("chem") ? Harmonic : Equation}
+            title={`${quiz.title} Quiz`}
+            subject={quiz.title}
+            duration={`${quiz.timePeriod} Mins`}
+            questions={quiz.totalQuestion}
+            date={new Date(quiz.createdAt).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })}
+            time={new Date(quiz.createdAt).toLocaleTimeString("en-GB", {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
+            onJoin={() => alert(`Joining ${quiz.title} Quiz`)}
+          />
+        ))
+      ) : (
+        <p>No available quizzes yet.</p>
+      )}
+
+          {/* <QuizContent
         image={Harmonic}
         title="Simple Harmonic Motion Quiz"
         subject="Physics"
@@ -359,7 +404,7 @@ const Overview = () => {
         time="12:00pm"
         onJoin={() => alert("Joining Harmonic Quiz")}
         // className="bg-blue-50 hover:shadow-lg" // 👈 custom styling
-      />
+      /> */}
         </div>
 
         {/* Leaderboard */}

@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
+interface Streak {
+  currentStreak: number;
+  longestStreak: number;
+}
+
 interface AuthState {
   email: string | null;
   firstName: string | null;
@@ -8,6 +13,8 @@ interface AuthState {
   accessToken: string | null;
   program?: string | null;
   userId: number | null;
+   refPoint: number | null;
+  streak: Streak | null;
   // isLoggedIn: boolean;       // true if user is fully logged in
 }
 
@@ -18,6 +25,8 @@ const initialState: AuthState = {
   accessToken: null,
   program: null,
   userId: null,
+  refPoint: null,
+  streak: null,
   // isLoggedIn: false,
 };
 
@@ -35,6 +44,8 @@ const authSlice = createSlice({
         accessToken?: string;
         program?: string;
         userId?: number ;
+        refPoint?: number;
+        streak?: { currentStreak: number; longestStreak: number };
       }>
     ) => {
       state.email = action.payload.email;
@@ -43,6 +54,8 @@ const authSlice = createSlice({
       state.accessToken = action.payload.accessToken || null;
       state.program = action.payload.program || null;
       state.userId = action.payload.userId || null;
+      state.refPoint = action.payload.refPoint ?? null;
+      state.streak = action.payload.streak || null;
       // state.isLoggedIn = !!action.payload.firstName; // true only if user has firstName (i.e., logged in)
     },
 
@@ -54,6 +67,8 @@ const authSlice = createSlice({
       state.accessToken = null;
       state.program = null;
       state.userId = null;
+      state.refPoint = null;
+      state.streak = null;
       // state.isLoggedIn = false;
     },
   },

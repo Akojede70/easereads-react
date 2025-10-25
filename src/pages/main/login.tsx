@@ -53,6 +53,8 @@ const Login = () => {
                   accessToken: response.data.accessToken,
                   userId: response.data.userId,
                   program: response.data.program,
+                  refPoint: response.data.refPoint,
+                  streak: response.data.streak, 
                 }))
                 console.log('response', response)
                   const step = response?.data?.step;
