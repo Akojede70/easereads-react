@@ -38,15 +38,16 @@ export const ExamPreparingModal: React.FC<ExamPreparingModalProps> = ({ open, se
 interface PaymentModalProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  handlePayStackPayment: (amount: number, price: string) => void; 
+  handlePayStackPayment: (amount: number, price: string) => void;
+  studentSubject?: string [] 
 }
 
-export const PaymentModal: React.FC<PaymentModalProps> = ({ open, setOpen, handlePayStackPayment  }) => {
+export const PaymentModal: React.FC<PaymentModalProps> = ({ open, setOpen, studentSubject, handlePayStackPayment  }) => {
   return (
-    <Modal open={open} onClose={() => setOpen(false)} className="w-[95%] md:w-[90%] lg:w-[30%]">
+    <Modal open={open} onClose={() => setOpen(false)} className="w-[95%] md:w-[90%] lg:w-[31%]">
       <div className="flex  flex-col items-center justify-center p-6">
         <div>
-            <p className="text-xl"> Selecting any of the Payment method below will give you access to practice your subject combination. </p>
+            <p className="text-xl"> Selecting any of the Payment method below will give you access to practice your subject combination ({studentSubject?.join(', ')})</p>
         </div>
 
         <h6 className="text-xl font-bold my-[30px]"> Choose Payment Method</h6>

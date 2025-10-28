@@ -8,26 +8,22 @@ import { useSelector } from 'react-redux'
 import type { ReduxStore } from '../../../redux/store'
 import PaymentSubscriptionModal from './modal'
 import { Services } from '../../../service'
-// import { usePaystackPayment, PaystackProps } from 'react-paystack';
-// import { Services } from '../../../service'
-// import { useSelector } from 'react-redux'
-// import type { ReduxStore } from '../../../redux/store'
+import type { SubscriptionHistory } from '../../../types/subscription'
+import ComponentLoader from '../../../components/helpers/componentLoader'
+
 
 
 const Subscription = () => {
-    // const [selected, setSelected] = useState(false)
     const [open, setOpen] = useState(false);
     const [congratulations, setCongratulations] = useState(false);
     const [wait, setWait] = useState(false);
     const [summary, setSummary] = useState(false);
     const userId = useSelector((state: ReduxStore) => state.auth.userId);
 
-    // const [email, setEmail] = useState(false);
     const [toContinue, setToContinue] = useState(false);
     const [payment, setPayment] = useState(false);
-    const [tab, setTab] = useState<"subscription" | "history">("subscription");
+    const [tab, setTab] = useState<"subscription" | "history">("history");
     const [studentSubject, setStudentSubject] = useState([])
-    console.log("studentSubject",studentSubject)
 
     
   
@@ -81,24 +77,51 @@ const Subscription = () => {
                     }
                     }, []);
 
-      const [activeIndex, setActiveIndex] = useState<number | null>(null);
-        const durations = [
-    { duration: "1 week", oldPrice: 700, newPrice: 500, discount: 3 },
-    { duration: "1 month", oldPrice: 2500, newPrice: 2000, discount: 5 },
-    { duration: "3 months", oldPrice: 7000, newPrice: 6000, discount: 10 },
-  ];  
+              const [getHistory, setGetHistory] = useState<SubscriptionHistory[]>([])
+              const [loading, setLoading] = useState(false)
 
-        // const subjects = ["Physics", "Mathematics", "Chemistry"];
-  const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
+              useEffect(() => {
+                        const getHistoryData = async ( userId: number ) => {
+                          try {
+                            setLoading(true)
+                            const response = await Services.subscription.history(userId);
+                              setGetHistory(response.data);           
+                          } catch (error) { 
+                            void error;
+                          } finally {
+                            setLoading(false)
+                        }
+                        };
+                        if (userId && tab === "history") {
+                          getHistoryData(userId);
+                        }
+                        }, [userId]);
 
-  const handleChange = (subject: string) => {
-    setSelectedSubjects((prev) =>
-      prev.includes(subject)
-        ? prev.filter((s) => s !== subject) // uncheck if already selected
-        : [...prev, subject] // add if not selected
-    );
-  };
-  
+                const [activeIndex, setActiveIndex] = useState<number | null>(null);
+                const [selectedDuration, setSelectedDuration] = useState<{
+                  duration: string;
+                  oldPrice: number;
+                  newPrice: number | string;
+                  discount: number;
+                } | null>(null);
+                  const durations = [
+              { duration: "1 week", oldPrice: 700, newPrice: 500, discount: 3 },
+              { duration: "1 month", oldPrice: 700, newPrice: 500, discount: 10 },
+              { duration: "3 months", oldPrice: 700, newPrice: 500, discount: 18 },
+              { duration: "5 months", oldPrice: 700, newPrice: 500, discount: 25 },
+              { duration: "9 months", oldPrice: 700, newPrice: 500, discount: 30 },
+            ];  
+
+            const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
+
+            const handleChange = (subject: string) => {
+              setSelectedSubjects((prev) =>
+                prev.includes(subject)
+                  ? prev.filter((s) => s !== subject) // uncheck if already selected
+                  : [...prev, subject] // add if not selected
+              );
+            };
+            
   return (
     <Layout>
     <div>
@@ -539,19 +562,23 @@ const Subscription = () => {
                   bgColor="#fff"
                   borderColor="#e8e8e8"
                   isActive={activeIndex === index}
-                  onClick={() => setActiveIndex(index)}
+                  onClick={() => {
+                    setActiveIndex(index)
+                    setSelectedDuration(item)
+                  }}
+
                 />
               ))}
             </div>
                 </div>
                 <div className='mb-[35%] md:mb-[20%] lg:mb-[8%] lg:mt-[2%] w-[83%] md:w-[84%] lg:w-[92%] ml-[6%] lg:mx-auto'>
-                <Button onClick={() => setSummary(true)} > Subscribe</Button>
+                <Button disabled={!selectedSubjects?.length   || !selectedDuration?.newPrice} onClick={() => setSummary(true)} > Subscribe</Button>
                   <PaymentSubscriptionModal
                   open={summary}
                   onClose={() => setSummary(false)}
                   summaryData={{
-                    subjects: ["Mathematics", "Physics"],
-                    price: "N5,000",
+                    subjects: selectedSubjects,
+                    price: selectedDuration ? selectedDuration.newPrice : 0, 
                     balance: "N3,000",
                   }}
                 />
@@ -569,24 +596,21 @@ const Subscription = () => {
                       </div>
                      
                      <div className='mb-[40%] md:mb-[22%] lg:mb-[10%]'>
-              
-                      <HistoryCard
-                       subjects={["Mathematics", "Physics"]}
-                       statusText="Insufficient (15 Points)"
-                       duration="3 months"
-                       expiryDate="2025-02-20"
-                       daysLeft={17}
-                       totalPaid="N2,000"
-                     />
-              
-                      <HistoryCard
-                       subjects={["Mathematics", "Physics"]}
-                       statusText="Insufficient (15 Points)"
-                       duration="3 months"
-                       expiryDate="2025-02-20"
-                       daysLeft={17}
-                       totalPaid="N2,000"
-                     />
+                           { loading ? <ComponentLoader color={'#106EBE'} /> : getHistory?.length > 0 ? (
+                          getHistory.map((item, index) => (
+                            <HistoryCard
+                              key={index}
+                              subjects={item.subjects}
+                              statusText={item.status === "successful" ? "Successful" : "Failed"}
+                              duration={item.duration}
+                              expiryDate={new Date(item.expiresAt).toLocaleDateString()}
+                              daysLeft={item.daysLeft}
+                              totalPaid={`N${item.totalPaid.toLocaleString()}`}
+                            />
+                          ))
+                        ) : (
+                          <p className="text-center text-gray-500">No subscription history found.</p>
+                        )}
                             </div>
               
                     

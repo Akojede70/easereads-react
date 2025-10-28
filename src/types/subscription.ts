@@ -25,3 +25,17 @@ export interface PayStackWebhookInterface {
     };
   };
 }
+
+
+export interface SubscriptionHistory {
+  subjects: string[];
+  duration: string;
+  expiresAt: string;
+  daysLeft: number;
+  totalPaid: number;
+  program: string;
+  discount?: number | null;
+  transactionDate: string;
+  method: string;
+  status: string;
+}

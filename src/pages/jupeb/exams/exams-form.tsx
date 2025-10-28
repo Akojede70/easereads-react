@@ -239,7 +239,7 @@ const ExamForm = () => {
             </div>
 
             <div className="bg-[#f5f5f5] flex items-center justify-center p-6">
-      <div className="bg-primaryWhite mb-[30%] md:mb-0 p-2  md:p-6 lg:p-8 rounded-[20px] shadow-lg w-full md:w-[96%] ">
+      <div className="bg-primaryWhite mb-[30%] md:mb-0 lg:mb-[7%] p-2  md:p-6 lg:p-8 rounded-[20px] shadow-lg w-full md:w-[96%] ">
         <div className='w-[80%] mx-auto'>
         <h2 className="text-[16px] md:text-2xl font-bold mb-6 text-center pt-[10px] md:pt-0">Please fill all the fields below</h2>
         <div className="bg-[#e8f1f9] text-[12px] md:text-[16px] pl-[3%] pt-[20px] pb-[20px] rounded-[10px] mb-4 flex gap-[10px]">
@@ -259,10 +259,12 @@ const ExamForm = () => {
           <div className='mb-[20px] md:mb-0 w-[150px] md:w-[100px] lg:w-full text-[12px] lg:text-[16px] md:pt-[15px] lg:pt-0'>
            <Button 
            onClick={() => setOpen(true)}
+           className='lg:pb-3'
            > Get Access to Exam </Button>
            <PaymentModal 
            open={open} setOpen={setOpen} 
            handlePayStackPayment={handlePayStackPayment}
+           studentSubject={studentSubject}
            />
           </div>
         </div>

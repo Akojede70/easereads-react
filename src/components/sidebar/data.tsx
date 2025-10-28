@@ -1,18 +1,26 @@
 import type { ReactNode } from "react";
 import { Overview, Analytics, Exam, Live, Logout, Others, Past, Subscription, Textbook, Video } from '../../assets/icon';
+// import { clearCredentials } from "../../redux/auth-slice";
+// import { store } from "../../redux/store";
 interface Path {
     id: number;
     icon: React.ReactNode;
     name: ReactNode;
-    path: string;
+    path?: string;
     hasSubmenu?: boolean;
+    // onClick?: () => void;
     submenu?: {
         id: number;
         name: string;
         path: string;
     }[];
 }
-
+//  const handleLogOut = () => {
+//     store.dispatch(clearCredentials()); 
+//     localStorage.clear()
+//     console.log("clear")
+//     window.location.href = '/'
+//  }
 
 const paths: Path[] = [
     {
@@ -48,7 +56,7 @@ const paths: Path[] = [
         path: '/jupeb/exam-history',
     },
      {
-        id: 4,
+        id: 5,
         icon: (
             <Exam/>
         ),
@@ -56,7 +64,7 @@ const paths: Path[] = [
         path: '/jupeb/quiz',
     },
     {
-        id: 5,
+        id: 6,
         icon: (
             <Live />
         ),
@@ -64,7 +72,7 @@ const paths: Path[] = [
         path: '/jupeb/live-class',
     },
     {
-        id: 6,
+        id: 7,
         icon: (
             <Past />
         ),
@@ -72,7 +80,7 @@ const paths: Path[] = [
         path: '/jupeb/past-Question',
     },
     {
-        id: 7,
+        id: 8,
         icon: (
             <Subscription />
         ),
@@ -80,7 +88,7 @@ const paths: Path[] = [
         path: '/jupeb/subscriptions',
     },
     {
-        id: 8,
+        id: 9,
         icon: (
             <Analytics />
         ),
@@ -88,7 +96,7 @@ const paths: Path[] = [
         path: '/jupeb/analytics',
     },
     {
-        id: 9,
+        id: 10,
         icon: <Others />,
         name: "Others",
         path: '/jupeb/others',
@@ -107,12 +115,13 @@ const paths: Path[] = [
         ],
     },
      {
-        id: 10,
+        id: 1,
         icon: (
             <Logout />
         ),
         name: "logout",
-        path: '../../auth/login',
+        // path: '/',
+        // onClick: handleLogOut
     },
 ];
 

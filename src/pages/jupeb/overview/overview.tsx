@@ -15,7 +15,6 @@ import  { useLocation, useNavigate } from 'react-router-dom';
 import type { Overview, ProgressData, LeaderboardUser, PerformanceOverview } from '../../../types/overview';
 import Alert from '../../../components/helpers/alert';
 import type { QuizData } from '../../../types/quiz';
-
 const { Spinner, ComponentLoader  } = Helper;
 
 

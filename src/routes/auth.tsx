@@ -8,7 +8,7 @@ const AuthRoutes = () => {
   return (
     <>
       <Routes>
-        <Route path='login' element={<MainPages.Login  />} />
+        {/* <Route path='login' element={<MainPages.Login  />} /> */}
       <Route path='sign-up' element={<MainPages.Signup  />} />
       <Route path='student' element={<MainPages.Student  />} />
       <Route path='verification' element={<MainPages.Verification  />} />

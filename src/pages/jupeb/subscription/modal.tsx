@@ -11,11 +11,12 @@ interface SummaryModalProps {
     subjects?: string[];
     discount?: string;
     duration?: string;
-    price?: string;
+    price?: number | string;
     totalDiscount?: string;
     additionalService?: string;
     totalPrice?: string;
     balance?: string;
+
   };
 }
 

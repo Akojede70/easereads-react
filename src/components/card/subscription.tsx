@@ -58,7 +58,7 @@ export const HistoryCard: React.FC<HistoryCardProps> = ({
           </div>
 
           {/* Status */}
-          <div className={`${statusColor} w-[220px] md:w-[230px] lg:w-[16%] xl:w-[28%] mt-[7%] lg:mt-0 pl-[5%] lg:pl-[1%] rounded-[20px] py-[5px]`}>
+          <div className={`${statusColor} w-[220px] md:w-[230px] lg:w-[13%] mt-[7%] lg:mt-0 pl-[5%] lg:pl-[1%] rounded-[20px] py-[5px]`}>
             <p className="font-bold">{statusText}</p>
           </div>
         </div>
@@ -69,7 +69,7 @@ export const HistoryCard: React.FC<HistoryCardProps> = ({
         <div className="mb-[9%] lg:mb-[0%]">
           <p className="text-[18px] font-bold pt-[5%] lg:pt-[2%]">Duration</p>
           <div className=" space-y-[3%] lg:space-y-[0%] lg:flex justify-between gap-[30px] py-[2%]">
-            <p className="bg-primaryBlue w-[33%] md:w-[18%] lg:w-[15%] mt-[8%] md:mt-[3%] lg:mt-0 p-[10px] rounded-[10px] text-primaryWhite">
+            <p className="bg-primaryBlue w-[33%] md:w-[18%] lg:w-[10%] mt-[8%] md:mt-[3%] lg:mt-0 p-[10px] rounded-[10px] text-primaryWhite">
               {duration}
             </p>
             <p className="text-[18px] font-bold">Expires: {expiryDate}</p>
