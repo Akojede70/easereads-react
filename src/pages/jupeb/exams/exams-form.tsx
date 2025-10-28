@@ -247,7 +247,7 @@ const ExamForm = () => {
             <p className='w-[70%] lg:w-[55%] '>
           Please Note that you can only practice exam on subject you have subscribed to for either textbook or tutorial
             </p>
-        </div>
+        </div> 
         <div className='w-full lg:w-[80%] md:flex gap-[10px]'>
             <div className="mb-3 md:mb-6 text-primaryBlue pt-[10px] text-[14px] md:text-[16px]">
               <p >
